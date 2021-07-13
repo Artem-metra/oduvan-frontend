@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог</title>
+    {% include 'pc_headers.html' %}
+</head>
+<body id="body">
+<!-- Каталог -->
+<div class="catalog" style="background: #e9eaec">
+    <div class="container">
+        <div class="catalog_flex_catalog">
+            <!-- Сортировка в каталоге -->
+            <div class="catalog_sorted">
+                <div class="place_breadcoast">
+                    <a href="">Главная</a> / <a href="">Каталог</a> / <a href="">Букеты</a>
+                </div>
+
+                <h1 class="catalog_zag">
+                    Букеты
+                </h1>
+                <div class="sorted_text">
+                    <div class="sorted_select_items">
+                        <div class="catalog_flex" style="padding: 0;border-bottom: 2px solid #b0bbbe;">
+                            <div class="sorted_select_item" style="color: #293048;border-bottom: 0">
+                                Сортировка:
+                            </div>
+                            <div class="sorted_text_select">Название <span class="fa fa-chevron-down"></span></div>
+                        </div>
+
+                        <div class="sorted_select_item">
+                            Самые популярные
+                        </div>
+                        <div class="sorted_select_item">
+                            По возрастанию цены
+                        </div>
+                        <div class="sorted_select_item">
+                            По убыванию цены
+                        </div>
+                        <div class="sorted_select_item">
+                            По размеру скидки
+                        </div>
+                    </div>
+                </div>
+                <div class="registr_indicator" style="height:4px;background:#293048"></div>
+
+
+                <div class="sorted_zag">
+                    Цена
+                </div>
+                <div class="catalog_flex_catalog" style="width:80%;">
+                    <div class="price_place">
+                        <span>От</span>
+                        <div id="price_ot" class="price_price">
+                            <input type="number" value="100"> ₽
+                        </div>
+                    </div>
+                    <div class="price_place">
+                        <span>До</span>
+                        <div id="price_do" class="price_price">
+                            <input type="number" value="2000"> ₽
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sorted_zag">
+                    Цветы
+                </div>
+                <div class="choose_flower">
+                    <input type="checkbox" class="checkbox_for_choose_flower">
+                    <span>Роза кустовая</span>
+                </div>
+                <div class="choose_flower">
+                    <input type="checkbox" class="checkbox_for_choose_flower">
+                    <span>Гортензия</span>
+                </div>
+                <div class="choose_flower">
+                    <input type="checkbox" class="checkbox_for_choose_flower">
+                    <span>Пион</span>
+                </div>
+                <div class="choose_flower">
+                    <input type="checkbox" class="checkbox_for_choose_flower">
+                    <span>Суккулент</span>
+                </div>
+                <div class="choose_flower">
+                    <input type="checkbox" class="checkbox_for_choose_flower">
+                    <span>Роза капучинно</span>
+                </div>
+                <div class="choose_flower">
+                    <input type="checkbox" class="checkbox_for_choose_flower">
+                    <span>Нарцисс</span>
+                </div>
+                <div class="choose_flower">
+                    <input type="checkbox" class="checkbox_for_choose_flower">
+                    <span>Брунния</span>
+                </div>
+
+                <div class="sorted_zag">
+                    Упаковка
+                </div>
+                <div class="choose_flower">
+                    <input type="checkbox" class="checkbox_for_choose_flower">
+                    <span>Плёнка</span>
+                </div>
+                <div class="choose_flower">
+                    <input type="checkbox" class="checkbox_for_choose_flower">
+                    <span>Крафт.плёнка</span>
+                </div>
+                <div class="choose_flower">
+                    <input type="checkbox" class="checkbox_for_choose_flower">
+                    <span>Ленты</span>
+                </div>
+            </div>
+            <!-- Основная часть каталога -->
+            <div class="catalog_card_place">
+                <!-- Категории -->
+                <div id="catalog_category_place">
+                    <div class="catalog_category" id="catalog_category_card" style="display: none">
+                        <div class="catalog_category_item">
+                            Монобукеты
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Карточки товаров -->
+                <div id="item_card_place" style="display: block;padding-top: 35px;">
+                    <div class="slider_item_card" id="card_product" style="display: block;">
+                        <div class="right_nav_place">
+                            <div class="right_nav_item">
+
+                            </div>
+                        </div>
+                        <div class="discount_place">
+                            <div class="percent_place">
+                                <span class="fa fa-percent"></span>
+                            </div>
+                            <div class="discount_text">
+                                20% скидка
+                            </div>
+                        </div>
+                        <div class="slider_item_card_img_place">
+                            <img src="" class="slider_img">
+                        </div>
+                        <div class="name_and_price">
+                            <span class="slider_name_bucket">Букет "Индиго"</span>
+                            <div class="price">
+                                5 400 ₽
+                            </div>
+                            <div class="price_hover">
+                                <div>
+                                    В корзину
+                                </div>
+                                <div class="price_hover_price">
+                                    5 400 ₽
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include 'pc_utilites.html' %}
+<script>
+    let category_id = 0;
+    let sorted_type = 0;
+    let cost_min = 0;
+    let cost_max = 0;
+    let flowers = [];
+    let packaging = [];
+
+    getCategories();
+
+    function getCategories() {
+        $.ajax({
+            url: '/api/categories/get',
+            type: 'GET',
+            success: function (msg) {
+                console.log(msg['message']);
+                drawCategories(msg['message']);
+            }
+        });
+    }
+
+    function drawCategories(msg) {
+        console.log(msg.length);
+        for (let i = 0; i < msg.length; i++) {
+            let category = catalog_category_card.cloneNode(true);
+            category.id = '';
+            let cat_name = category.getElementsByClassName('catalog_category_item')[0];
+            cat_name.innerText = msg[i]['name'];
+            category.style.display = 'inline-block';
+            category.onclick = function () {
+                document.getElementsByClassName('_active')[0].classList.remove('_active');
+                cat_name.classList.add('_active');
+                category_id = msg[i]['id'];
+            }
+            catalog_category_place.append(category);
+        }
+    }
+
+    loadProducts();
+
+    function loadProducts() {
+        $.ajax({
+            url: '/api/products/get',
+            type: 'GET',
+            success: function (msg) {
+                drawProducts(msg['message']);
+            }
+        })
+    }
+
+    /* Правильная подгрузка продуктов */
+    {#function loadProducts() {#}
+    {#    let data = {#}
+    {#        'category_id': category_id,#}
+    {#        'sorted_type': sorted_type,#}
+    {#        'discount_type': discount_type,#}
+    {#        'cost_min': cost_min,#}
+    {#        'cost_max': cost_max,#}
+    {#        'flowers': flowers,#}
+    {#        'packaging': packaging,#}
+    {#    }#}
+    {#    $.ajax({#}
+    {#        url: '/api/products/get',#}
+    {#        type: 'POST',#}
+    {#        dataType: "json",#}
+    {#        contentType: "application/json; charset=utf-8",#}
+    {#        data: JSON.stringify(data),#}
+    {#        success: function (msg) {#}
+    {#            drawProducts(msg['message']);#}
+    {#        }#}
+    {#    })#}
+    {##}
+
+
+    function drawProducts(msg) {
+        console.log(msg);
+        for (let i = 0; i < msg.length; i++) {
+            let product = card_product.cloneNode(true);
+            product.id = '';
+            let img = product.getElementsByClassName('slider_img')[0];
+            let name = product.getElementsByClassName('slider_name_bucket')[0];
+            let price = product.getElementsByClassName('price')[0];
+            let hover_price = product.getElementsByClassName('price_hover_price')[0];
+            let place_for_favor = product.getElementsByClassName('right_nav_item')[0];
+
+            {#img.src = msg['photos'][0];#}
+            name.innerText = msg[i]['name'];
+            price.innerText = msg[i]['cost'] + ' ₽';
+            hover_price.innerText = msg[i]['cost'] + ' ₽';
+            product.style.display = 'inline-block';
+            place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
+
+            product.onclick = function () {
+                location.href = 'product?id=' + msg[i]['id'];
+            }
+
+
+            place_for_favor.onclick = function () {
+                AddLikeds(msg[i]['id'], user['id']);
+                place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
+            }
+
+            item_card_place.append(product);
+        }
+
+        {#for (let i = 0; i < msg.length; i++) {#}
+        {#    let box = createProduct(msg[i]);#}
+        {#    item_card_place.append(box);#}
+        {##}
+
+    }
+
+
+</script>
+
+
+</body>
+</html>

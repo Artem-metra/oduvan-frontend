@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Оформление заказа</title>
+    {% include 'headers.html' %}
+</head>
+<body id="body">
+
+<!-- Первый блок на главной -->
+<div class="main_background">
+    <img src="../static/img/main_mobile_bg.png" class="main_background_img">
+    <div class="main_background_text">
+        <h1 class="main_zag">
+            ДОСТАВКА <br> БУКЕТОВ <br> в Воронеже
+        </h1>
+        <strong class="main_sub_zag">Закажи свой идеальный букет</strong>
+        <span class="fa fa-chevron-down"></span>
+    </div>
+</div>
+
+<!-- Наш каталог -->
+<div class="catalog">
+    <div class="container">
+        <h2 class="catalog_zag">Наш каталог</h2>
+        <!-- Наш каталог - карточки -->
+        <div class="card_on_main">
+            <div class="card_main_item" style="width:49%;margin-right:1.7%">
+                <span class="buckets">Букеты</span>
+                <strong class="name_buckets">
+                    Монобукеты
+                </strong>
+                <img src="../static/img/big_img_main.png">
+                <a href="" class="to_choose_href">Выбрать <span class="fa fa-chevron-right"></span></a>
+            </div>
+        </div>
+
+        <a class="all_catalog_href" href="/catalog">
+            Весь каталог
+        </a>
+    </div>
+</div>
+
+<!-- Популярное -->
+<div class="catalog" style="background: rgba(41, 48, 72, 0.1);">
+    <div class="container">
+        <h2 class="catalog_zag">Популярное</h2>
+        <div class="slider_item_card">
+            <div class="right_nav_place">
+                <div class="right_nav_item">
+                    <span class="fas fa-heart _active"></span>
+                </div>
+            </div>
+            <div class="slider_item_card_img_place">
+                <img src="../static/img/slider_img.png">
+            </div>
+            <div class="name_and_price">
+                <span class="slider_name_bucket">Букет "Индиго"</span>
+                <div class="price">
+                    5 400 ₽
+                </div>
+                <div class="price_hover">
+                    <div>
+                        В корзину
+                    </div>
+                    <div class="price_hover_price">
+                        5 400 ₽
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="all_catalog_href" href="/catalog">
+            Весь каталог
+        </a>
+    </div>
+</div>
+
+
+<!-- Индивидуальный заказ букета -->
+<div class="individual_order">
+    <div class="individual_order_info">
+        <div class="individual_order_info_text_img">
+            <img src="../static/img/individual_mobile_img.png">
+        </div>
+        <div class="individual_order_info_text">
+            <div class="individual_order_info_text_info">
+                <span class="bucket_na_zakaz">Букет на заказ</span>
+                <h3 class="individual_zakaz">Индивидуальный <br> заказ букета</h3>
+                <div class="individual_info">
+                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
+                    и
+                    упаковке
+                </div>
+                <div style="display: flex;margin: 0 auto;justify-content: center">
+                    <a class="all_catalog_href" style="float: none;">
+                        Сделать заказ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Скидки -->
+<div class="catalog" style="background: rgba(41, 48, 72, 0.1);">
+    <div class="container">
+        <h2 class="catalog_zag">Скидки</h2>
+        <div class="slider_item_card">
+            <div class="right_nav_place">
+                <div class="right_nav_item">
+                    <span class="fas fa-heart _active"></span>
+                </div>
+            </div>
+            <div class="slider_item_card_img_place">
+                <img src="../static/img/slider_img.png">
+            </div>
+            <div class="name_and_price">
+                <span class="slider_name_bucket">Букет "Индиго"</span>
+                <div class="price">
+                    5 400 ₽
+                </div>
+                <div class="price_hover">
+                    <div>
+                        В корзину
+                    </div>
+                    <div class="price_hover_price">
+                        5 400 ₽
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a class="all_catalog_href" href="/catalog">
+            Все скидки
+        </a>
+    </div>
+</div>
+
+
+<!-- Блог -->
+<div class="catalog">
+    <div class="container">
+        <h2 class="catalog_zag">Блог</h2>
+        <div class="slider_item_card">
+            <div class="right_nav_place">
+                <div class="right_nav_item">
+                    <span class="fas fa-heart _active"></span>
+                </div>
+            </div>
+            <div class="slider_item_card_img_place">
+                <img src="../static/img/slider_img.png">
+            </div>
+            <div class="name_and_price">
+                <span class="slider_name_bucket">Букет "Индиго"</span>
+                <div class="price">
+                    5 400 ₽
+                </div>
+                <div class="price_hover">
+                    <div>
+                        В корзину
+                    </div>
+                    <div class="price_hover_price">
+                        5 400 ₽
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a class="all_catalog_href" href="/blog">
+            Больше статей
+        </a>
+    </div>
+</div>
+
+<!-- Почему мы -->
+<div class="catalog" style="background:rgba(41, 48, 72, 0.1);">
+    <div class="container" style="text-align: center">
+        <h3 class="catalog_zag" style="padding-bottom: 25px;">Почему мы</h3>
+        <div class="why_me_flex">
+            <div class="why_me_flex_item">
+                <div class="item_num">
+                    <div class="question_place">
+                        <span class="fa fa-question"></span>
+                    </div>
+                    1
+                </div>
+                <div class="item_zag">
+                    Заказ
+                </div>
+                <div class="sub_zag">
+                    Выберите букет из каталога и оформите заказ
+                </div>
+            </div>
+            <div class="why_me_flex_item">
+                <div class="item_num">
+                    <div class="question_place">
+                        <span class="fa fa-question"></span>
+                    </div>
+                    2
+                </div>
+                <div class="item_zag">
+                    Детали
+                </div>
+                <div class="sub_zag">
+                    Мы перезвоним в течение 15 минут и уточним детали
+                </div>
+            </div>
+            <div class="why_me_flex_item">
+                <div class="item_num">
+                    <div class="question_place">
+                        <span class="fa fa-question"></span>
+                    </div>
+                    3
+                </div>
+                <div class="item_zag">
+                    Оплата
+                </div>
+                <div class="sub_zag">
+                    Оплатите заказ онлайн или при получении
+                </div>
+            </div>
+            <div class="why_me_flex_item">
+                <div class="item_num">
+                    <div class="question_place">
+                        <span class="fa fa-question"></span>
+                    </div>
+                    4
+                </div>
+                <div class="item_zag">
+                    Сборка
+                </div>
+                <div class="sub_zag">
+                    Учтем пожелания и соберем идельный букет
+                </div>
+            </div>
+            <div class="why_me_flex_item">
+                <div class="item_num">
+                    <div class="question_place">
+                        <span class="fa fa-question"></span>
+                    </div>
+                    5
+                </div>
+                <div class="item_zag">
+                    Доставка
+                </div>
+                <div class="sub_zag">
+                    Курьер позвонит за 1 час и привезет вовремя
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Краткая инфа перед футером -->
+<div class="catalog" id="about_pered_footer">
+    <div class="pink_item_center"></div>
+    <div class="pink_item_left"></div>
+    <div class="pink_item_right"></div>
+    <div class="container">
+        <div class="catalog_flex_catalog">
+            <div class="info_pered_footer_img">
+                <img src="../static/img/img_pered_footer_mobile.png">
+            </div>
+            <div class="info_pered_footer_text">
+                <div class="blog_item_text_zag">
+                    Свадебные букеты
+                </div>
+                <div class="description_explanations">
+                    Главная история о любви всегда ваша. Особенной в ней должна быть каждая деталь, и букет - не
+                    исключение
+                </div>
+            </div>
+        </div>
+        <div class="catalog_flex_catalog">
+            <div class="info_pered_footer_img">
+                <img src="../static/img/img_pered_footer_mobile.png">
+            </div>
+            <div class="info_pered_footer_text">
+                <div class="blog_item_text_zag">
+                    Свадебные букеты
+                </div>
+                <div class="description_explanations">
+                    Главная история о любви всегда ваша. Особенной в ней должна быть каждая деталь, и букет - не
+                    исключение
+                </div>
+            </div>
+        </div>
+        <div class="catalog_flex_catalog">
+            <div class="info_pered_footer_img">
+                <img src="../static/img/img_pered_footer_mobile.png">
+            </div>
+            <div class="info_pered_footer_text">
+                <div class="blog_item_text_zag">
+                    Свадебные букеты
+                </div>
+                <div class="description_explanations">
+                    Главная история о любви всегда ваша. Особенной в ней должна быть каждая деталь, и букет - не
+                    исключение
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include 'utilites.html' %}
+
+</body>
+</html>

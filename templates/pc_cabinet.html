@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+    {% include 'pc_headers.html' %}
+</head>
+<body id="body">
+<!-- Личный кабинет -->
+<div class="catalog" style="background: #e9eaec">
+    <div class="container">
+        <div class="place_breadcoast">
+            <a href="">Главная</a> / <a href="">Личный кабинет</a>
+        </div>
+        <h1 class="catalog_zag" style="text-align: center">Личный кабинет</h1>
+        <div class="price_hover_price" style="text-align: center">
+            Добрый день, <span id="name_user"></span>. В личном кабинете вы можете проверить
+            ход выполнения ваших заказов, просмотреть
+            или изменить личную информацию.
+        </div>
+    </div>
+</div>
+
+
+<div class="catalog" style="text-align: center">
+    <div class="container">
+        <div class="catalog_category " style="width: auto;">
+            <div class="catalog_category_item _active" style="padding:0 15px;" id="personal_info_map">
+                Личная информация
+            </div>
+        </div>
+        <div class="catalog_category">
+            <div class="catalog_category_item" id="personal_address_map">
+                Адреса
+            </div>
+        </div>
+        <div class="catalog_category">
+            <div class="catalog_category_item" id="personal_history_map">
+                История заказов
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Личная информация -->
+<div class="catalog" style="padding-top:0;">
+    <div class="container">
+        <div class="catalog_flex createorder" style="padding:0;" id="personal_info">
+            <!-- Личные данные -->
+            <div class="requisites_place">
+                <div class="name_buckets">
+                    Личные данные
+                </div>
+                <input class="popup_input" placeholder="Ваше имя">
+                <input class="popup_input" placeholder="Ваша фамилия">
+                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__">
+                <input class="popup_input" type="email" placeholder="Электронная почта">
+                <div class="all_catalog_href" style="float: none;width:100%;height:50px;">
+                    Сохранить изменения
+                </div>
+            </div>
+            <!-- Пароль и ава -->
+            <div class="your_order_place ">
+                <div class="ava_place">
+                    <div class="catalog_flex" style="justify-content: normal">
+                        <img src="" class="avatar">
+                        <div class="all_catalog_href" style="width: 100%">Загрузить фото</div>
+                    </div>
+                </div>
+
+                <div class="name_buckets">
+                    Пароль
+                </div>
+                <input class="popup_input" placeholder="Новый пароль" type="password">
+                <input class="popup_input" placeholder="Повторите новый пароль" type="password">
+                <div class="all_catalog_href" style="float: none;width:100%;height:50px;">
+                    Сохранить изменения
+                </div>
+            </div>
+        </div>
+
+        <div class="catalog_flex createorder" style="padding:0;display: none" id="personal_address">
+            <!-- Адреса -->
+            <div class="address_place">
+                <div class="address_item address_info">
+                    <div class="catalog_flex">
+                        <div class="address_info_zag">
+                            Название:
+                        </div>
+                        <div class="address_info_zag" style="color:#FFFFFF">
+                            Офис
+                        </div>
+                    </div>
+                    <div class="catalog_flex">
+                        <div class="address_info_zag">
+                            Телефон:
+                        </div>
+                        <div class="address_info_zag" style="color:#FFFFFF">
+                            8 (800) 555-35-35
+                        </div>
+                    </div>
+
+                    <div class="catalog_flex">
+                        <div class="address_info_zag">
+                            Адрес:
+                        </div>
+                        <div class="address_info_zag" style="color:#FFFFFF">
+                            Урывского, 2В
+                        </div>
+                    </div>
+
+                    <div class="catalog_flex" style="border-bottom: 0;margin-top:10px;">
+                        <div class="all_catalog_href"
+                             style="background: #FFFFFF; color:#293048;height:70px;margin-right:10px;">
+                            Изменить
+                        </div>
+                        <div class="all_catalog_href" style="height:70px;border: 4px solid #FFFFFF;">
+                            Удалить
+                        </div>
+                    </div>
+                </div>
+
+                <div class="address_item add_adress">
+                    <div class="catalog_flex">
+                        <div class="right_nav_place">
+                            <div class="right_nav_item">
+                                <span class="fas fa-map-marker-alt"></span>
+                            </div>
+                        </div>
+                        <div class="blog_item_text_read" style="margin-top: 15px;">
+                            Добавить адреса
+                        </div>
+                    </div>
+                </div>
+                <div class="address_item add_adress">
+                    <div class="catalog_flex">
+                        <div class="right_nav_place">
+                            <div class="right_nav_item">
+                                <span class="fas fa-map-marker-alt"></span>
+                            </div>
+                        </div>
+                        <div class="blog_item_text_read" style="margin-top: 15px;">
+                            Добавить адреса
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="catalog_flex createorder" style="padding:0;display: none" id="personal_history">
+            <!-- История заказов -->
+            <div class="one_order_place">
+                <div class="catalog_flex" style="justify-content: normal;margin-bottom:15px;">
+                    <div style="width:48%;border-bottom: 2px solid #293048;margin-right:15px;">
+                        <div class="catalog_flex">
+                            <div class="address_info_zag">
+                                Адрес:
+                            </div>
+                            <div class="address_info_zag" style="color:#293048">
+                                УЛ. УРЫВСКОГО 2В
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width:35%;border-bottom: 2px solid #293048;margin-right:15px;">
+                        <div class="catalog_flex">
+                            <div class="address_info_zag">
+                                Стоимость заказа:
+                            </div>
+                            <div class="address_info_zag" style="color:#293048">
+                                17 200 Р
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width:25%;border-bottom: 2px solid #293048;">
+                        <div class="catalog_flex">
+                            <div class="address_info_zag">
+                                Дата:
+                            </div>
+                            <div class="address_info_zag" style="color:#293048">
+                                06.07.2021
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="catalog_flex" style="justify-content: normal;">
+                    <div class="history_order_item">
+                        <div class="catalog_flex" style="align-items: normal;justify-content: normal">
+                            <div class="small_product_card" style="margin-right:15px;">
+                                <div class="small_product_place">
+                                    <img src="../static/img/slider_img.png" class="small_product_img">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="bucket_na_zakaz">
+                                    Букет индиго
+                                </div>
+                                <div class="price">
+                                    5400 Р
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="history_order_item">
+                        <div class="catalog_flex" style="align-items: normal;justify-content: normal">
+                            <div class="small_product_card" style="margin-right:15px;">
+                                <div class="small_product_place">
+                                    <img src="../static/img/slider_img.png" class="small_product_img">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="bucket_na_zakaz">
+                                    Букет индиго
+                                </div>
+                                <div class="price">
+                                    5400 Р
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="history_order_item">
+                        <div class="catalog_flex" style="align-items: normal;justify-content: normal">
+                            <div class="small_product_card" style="margin-right:15px;">
+                                <div class="small_product_place">
+                                    <img src="../static/img/slider_img.png" class="small_product_img">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="bucket_na_zakaz">
+                                    Букет индиго
+                                </div>
+                                <div class="price">
+                                    5400 Р
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="history_order_item">
+                        <div class="catalog_flex" style="align-items: normal;justify-content: normal">
+                            <div class="small_product_card" style="margin-right:15px;">
+                                <div class="small_product_place">
+                                    <img src="../static/img/slider_img.png" class="small_product_img">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="bucket_na_zakaz">
+                                    Букет индиго
+                                </div>
+                                <div class="price">
+                                    5400 Р
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include 'pc_utilites.html' %}
+<script>
+    console.log(user);
+
+
+    personal_info_map.onclick = function () {
+        personal_info_map.classList.add('_active');
+        personal_info.style.display = 'block';
+        personal_address.style.display = 'none';
+        personal_history.style.display = 'none';
+        let maping = document.getElementsByClassName('catalog_category_item');
+        for (let i = 0; i < maping.length; i++) {
+            if (maping[i].classList.contains('_active') && !personal_info_map.classList.contains('_active')) {
+                maping[i].classList.remove('_active');
+            }
+        }
+    }
+    personal_address_map.onclick = function () {
+        personal_address_map.classList.add('_active');
+        personal_address.style.display = 'block';
+        personal_info.style.display = 'none';
+        personal_history.style.display = 'none';
+        let maping = document.getElementsByClassName('catalog_category_item');
+        for (let i = 0; i < maping.length; i++) {
+            if (maping[i].classList.contains('_active') && !personal_address_map.classList.contains('_active')) {
+                maping[i].classList.remove('_active');
+            }
+        }
+    }
+    personal_history_map.onclick = function () {
+        personal_history_map.classList.add('_active');
+        personal_history.style.display = 'block';
+        personal_info.style.display = 'none';
+        personal_address.style.display = 'none';
+        let maping = document.getElementsByClassName('catalog_category_item');
+        for (let i = 0; i < maping.length; i++) {
+            if (maping[i].classList.contains('_active') && !personal_history_map.classList.contains('_active')) {
+                maping[i].classList.remove('_active');
+            }
+        }
+    }
+
+
+    {#name_user.innerText = user['name'];#}
+</script>
+</body>
+</html>

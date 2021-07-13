@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Одуван</title>
+{% include 'pc_headers.html' %}
+</head>
+<body id="body">
+
+
+<div class="catalog">
+    <div class="container">
+        <div class="place_breadcoast">
+            <a href="">Главная</a> / <a href="">Избранное</a>
+        </div>
+
+        <div class="catalog_flex_catalog" style="margin-top:50px;">
+            <!-- Картинки слева. Все картинки букета -->
+            <div class="all_pictures_product_place">
+                <div class="small_product_card _active">
+                    <div class="small_product_place">
+                        <img src="../static/img/slider_img.png" class="small_product_img">
+                    </div>
+                </div>
+                <div class="small_product_card">
+                    <div class="small_product_place">
+                        <img src="../static/img/slider_img.png" class="small_product_img">
+                    </div>
+                </div>
+            </div>
+            <!-- Главная картинка -->
+            <div class="main_pictures_product_place">
+                <div class="big_product_card">
+                    <div class="small_product_place">
+                        <img src="../static/img/slider_img.png" class="small_product_img">
+                    </div>
+                </div>
+
+                <div class="flex_for_explanations_product">
+                    <div class="explanations_product">Инструкция свежести</div>
+                    <span class="fa fa-chevron-down"></span>
+                </div>
+                <div class="razdelitel_indicator"></div>
+
+                <div class="flex_for_explanations_product">
+                    <div class="explanations_product">Подробнее о доставке</div>
+                    <span class="fa fa-chevron-down"></span>
+                </div>
+                <div class="razdelitel_indicator"></div>
+            </div>
+            <!-- Описание товара -->
+            <div class="description_product_place">
+                <strong class="bucket_na_zakaz" id="name_bucket">Монобукет</strong>
+                <div class="name_buckets" id="name_cat_bucket" style="padding-top:8px">"Индиго"</div>
+                <div class="price" id="price_bucket" style="padding:20px 0 15px 0;display: block">5 400 ₽</div>
+
+                <div class="add_to_basket_place">
+                    <div class="fa fa-minus" id="minus_counter" onclick="changeCounter(2)"></div>
+                    <div class="counter_place">
+                        <input type="number" class="product_counter_inp" id="counter_product" value="1">
+                        <span style="font-weight: 600;">ШТ</span>
+                    </div>
+                    <div class="fa fa-plus" onclick="changeCounter(1)" id="plus_counter"></div>
+                </div>
+                <a href="#" class="all_catalog_href"
+                   style="float:none;max-width:350px;width:350px;margin-top:10px;height:50px;">Добавить
+                    в корзину</a>
+                <div class="description_zag">
+                    Описание
+                </div>
+                <div class="description_explanations" id="description_product">
+                    Монобукет из 23 английских роз Дэвида Остина сорта Миранда с ветками эвкaлиптa. Роза отличается
+                    классической формой английской розы и удивительной окраской, нежно-розовой со светло-зеленым отливом
+                    по краю наружных лепестков, обладает легким ароматом. Розы бережно упакованы в матовую пленку серого
+                    цвета и перевязаны декоративной лентой.
+                </div>
+                <div class="description_zag">
+                    Детали
+                </div>
+                <div class="description_explanations">
+                    <span id="description_explanations_item">
+                        Цветы: Роза одноголовая
+                    </span>
+                    <span>
+                        Упаковка: Ленты, Пленка
+                    </span>
+                    <span>
+                         Высота: около 40 см
+                    </span>
+                    <span>
+                        Диаметр: около 35 см
+                    </span>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Похожее -->
+<div class="catalog" style="background: #f5f5f6;">
+    <div class="container">
+        <div class="catalog_flex">
+            <h2 class="catalog_zag">Похожее</h2>
+            <a class="all_catalog_href" href="/catalog">
+                Весь каталог
+            </a>
+        </div>
+        <div class="slider_item_card">
+            <div class="right_nav_place">
+                <div class="right_nav_item">
+                    <span class="fas fa-heart _active"></span>
+                </div>
+            </div>
+            <div class="slider_item_card_img_place">
+                <img src="../static/img/slider_img.png">
+            </div>
+            <div class="name_and_price">
+                <span class="slider_name_bucket">Букет "Индиго"</span>
+                <div class="price">
+                    5 400 ₽
+                </div>
+                <div class="price_hover">
+                    <div>
+                        В корзину
+                    </div>
+                    <div class="price_hover_price">
+                        5 400 ₽
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider_item_card">
+            <div class="right_nav_place">
+                <div class="right_nav_item">
+                    <span class="fas fa-heart _active"></span>
+                </div>
+            </div>
+            <div class="slider_item_card_img_place">
+                <img src="../static/img/slider_img.png">
+            </div>
+            <div class="name_and_price">
+                <span class="slider_name_bucket">Букет "Индиго"</span>
+                <div class="price">
+                    5 400 ₽
+                </div>
+                <div class="price_hover">
+                    <div>
+                        В корзину
+                    </div>
+                    <div class="price_hover_price">
+                        5 400 ₽
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider_item_card">
+            <div class="right_nav_place">
+                <div class="right_nav_item">
+                    <span class="fas fa-heart _active"></span>
+                </div>
+            </div>
+            <div class="slider_item_card_img_place">
+                <img src="../static/img/slider_img.png">
+            </div>
+            <div class="name_and_price">
+                <span class="slider_name_bucket">Букет "Индиго"</span>
+                <div class="price">
+                    5 400 ₽
+                </div>
+                <div class="price_hover">
+                    <div>
+                        В корзину
+                    </div>
+                    <div class="price_hover_price">
+                        5 400 ₽
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider_item_card">
+            <div class="right_nav_place">
+                <div class="right_nav_item">
+                    <span class="fas fa-heart _active"></span>
+                </div>
+            </div>
+            <div class="slider_item_card_img_place">
+                <img src="../static/img/slider_img.png">
+            </div>
+            <div class="name_and_price">
+                <span class="slider_name_bucket">Букет "Индиго"</span>
+                <div class="price">
+                    5 400 ₽
+                </div>
+                <div class="price_hover">
+                    <div>
+                        В корзину
+                    </div>
+                    <div class="price_hover_price">
+                        5 400 ₽
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Индивидуальный заказ букета -->
+<div class="individual_order">
+    <div class="individual_order_info">
+        <div class="individual_order_info_text">
+            <div class="individual_order_info_text_info">
+                <span class="bucket_na_zakaz">Букет на заказ</span>
+                <h3 class="individual_zakaz">Индивидуальный заказ букета</h3>
+                <div class="individual_info">
+                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
+                    и
+                    упаковке
+                </div>
+                <a class="all_catalog_href" style="float: none">
+                    Сделать заказ
+                </a>
+            </div>
+            <div class="individual_order_info_text_img">
+                <img src="../static/img/individual_img.png">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'pc_utilites.html' %}
+<script>
+    let id = {{ id }};
+    let category_id = 0;
+
+
+
+    function changeCounter(action) {
+        console.log(Number(counter_product.value));
+        if (action === 1) {
+            counter_product.value += 1;
+        } else {
+            if (counter_product.value === 1) {
+                minus_counter.classList.add('none_active');
+                return;
+            } else {
+                counter_product.value -= 1;
+            }
+        }
+    }
+
+
+    getProduct();
+    /* Получить продукт */
+    function getProduct(){
+        let data = {
+            'id': id
+        }
+        $.ajax({
+            url: 'api/product/get',
+            type: 'GET',
+            data: data,
+            success:function (msg){
+                console.log(msg);
+                category_id = msg['product']['category_id'];
+                getCategory(category_id);
+                drawProduct(msg['product']);
+            }
+        })
+    }
+
+    /* Отрисовать продукт */
+    function drawProduct(msg){
+        console.log(msg);
+        description_product.innerText = msg['description'];
+        name_bucket.innerText = msg['name'];
+        price_bucket.innerText = msg['cost'] + ' ₽';
+    }
+
+    /* Получить категорию */
+    function getCategory(category_id){
+        let data = {
+            'id': category_id,
+        }
+        $.ajax({
+            url: 'api/category/get',
+            type: 'GET',
+            data: data,
+            success:function(msg){
+                console.log(msg);
+                name_cat_bucket.innerText = msg['category']['name'];
+            }
+        })
+    }
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

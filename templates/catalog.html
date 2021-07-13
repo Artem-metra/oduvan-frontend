@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Оформление заказа</title>
+    {% include 'headers.html' %}
+</head>
+<body id="body">
+
+<div class="catalog" style="background: #e9eaec">
+    <div class="container">
+        <div class="place_breadcoast">
+            <a href="">Главная</a> / <a href="">Оформление заказа</a>
+        </div>
+        <h1 class="catalog_zag">
+            Букеты
+        </h1>
+
+        <div id="catalog_category_place">
+            <div class="catalog_category" id="catalog_category_card" style="display: block">
+                <div class="catalog_category_item">
+                    Монобукеты
+                </div>
+            </div>
+        </div>
+
+        <div class="catalog_flex_catalog sorted_and_filters">
+            <div class="filters_place">
+                Фильтры <span class="fa fa-chevron-down"></span>
+            </div>
+            <div class="sorted_place">
+                Сортировка: <span class="active_sort">Название</span><span class="fa fa-chevron-down"></span>
+            </div>
+        </div>
+
+        <!-- Место для вывода карточек -->
+        <div id="item_card_place" style="padding:35px 0">
+            <!-- Одна карточка -->
+            <div class="card_item">
+                <div class="add_to_favorites">
+                    <div class="right_nav_place">
+                        <div class="right_nav_item">
+                            <span class="far fa-heart"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="discount_place">
+                    <div class="percent_place">
+                        <span class="fa fa-percent"></span>
+                    </div>
+                    <div class="discount_text">
+                        20% скидка
+                    </div>
+                </div>
+                <div class="card_img_place">
+                    <img src="../static/img/mobile_catalog.png">
+                </div>
+                <div class="card_text">
+                    <div class="catalog_flex_catalog" style="align-items: center;justify-content: space-between">
+                        <div>
+                            <div class="name_bucket">Букет "Индиго"</div>
+                            <div class="price_bucket have_disc">
+                                5400 Р
+                            </div>
+                            <div class="disc_price_bucket">
+                                2 600 Р
+                            </div>
+                        </div>
+                        <div class="add_to_basket_card">
+                            <span class="fas fa-shopping-bag"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="in_basket">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'utilites.html' %}
+
+</body>
+</html>
