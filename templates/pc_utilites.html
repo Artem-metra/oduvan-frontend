@@ -104,9 +104,7 @@
                     16200 ₽
                 </div>
             </div>
-
         </div>
-
         <div class="closepopupplace">
             <div class="close_place" id="close_basket" onclick="ClosePopup(basket_popup)">
                 <span class="fa fa-times"></span> <span>Закрыть</span>
@@ -124,25 +122,13 @@
                     <div class="address_info_zag">
                         Воронеж
                     </div>
-                    <span class="fa fa-chevron-down"></span>
+<!--<span class="fa fa-chevron-down"></span>-->
                 </div>
-                <div class="catalog_flex">
+                <div class="catalog_flex ">
                     <div class="address_info_zag">
-                        Доставка в точное время
+                        Выберите способ доставки
                     </div>
-                    <span class="fa fa-chevron-down"></span>
-                </div>
-                <div class="catalog_flex">
-                    <div class="address_info_zag">
-                        06.07.2021
-                    </div>
-                    <span style="color:#F877AD;text-transform: uppercase;cursor: pointer">Выбрать дату</span>
-                </div>
-                <div class="catalog_flex">
-                    <div class="address_info_zag">
-                        21:00
-                    </div>
-                    <span style="color:#F877AD;text-transform: uppercase;cursor: pointer">Выбрать время</span>
+                    <span class="fa fa-chevron-down" id="choose_delivery"></span>
                 </div>
             </div>
         </div>
@@ -388,35 +374,6 @@
     }
 
 
-    {#/* ПопАп регистрации и авторизации */#}
-    {#function OpenRegistrationPopUp() {#}
-    {#    blurpopup.style.display = 'block';#}
-    {#    registrationpopup.classList.add('_active');#}
-    {#    body.style.overflow = 'hidden';#}
-    {#    register_user.onclick = function () {#}
-    {#        RegistrationUser();#}
-    {#    }#}
-    {#    authorize_user.onclick = function () {#}
-    {#        AuthorizationUser();#}
-    {#    }#}
-    {##}
-    {##}
-    {#function CloseRegistrationPopUp() {#}
-    {#    blurpopup.style.display = 'none';#}
-    {#    registrationpopup.classList.remove('_active');#}
-    {#    body.style.overflow = 'inherit';#}
-    {##}
-    {##}
-    {##}
-    {#user_item.onclick = function () {#}
-    {#    if (user === null) {#}
-    {#        OpenRegistrationPopUp();#}
-    {#    } else {#}
-    {#        location.href = '/cabinet';#}
-    {#    }#}
-    {##}
-
-
     /* Регистрация пользователя */
     function RegistrationUser() {
         if (name_user_reg.value === '') {
@@ -531,12 +488,6 @@
     }
 
 
-    {#go_to_basket.onclick = function () {#}
-    {#    blurpopup.style.display = 'block';#}
-    {#    basket_popup.classList.add('_active');#}
-    {##}
-
-
     function AddLikeds(product_id, user_id) {
         console.log('Дашло');
         let data = {
@@ -553,36 +504,36 @@
         })
     }
 
-    /* Отрисовка товара */
-    function createProduct(product) {
-        let box = card_product.cloneNode(true);
-        product.id = '';
-        let img = box.getElementsByClassName('slider_img')[0];
-        let name = box.getElementsByClassName('slider_name_bucket')[0];
-        let price = box.getElementsByClassName('price')[0];
-        let hover_price = box.getElementsByClassName('price_hover_price')[0];
-        let place_for_favor = box.getElementsByClassName('right_nav_item')[0];
-
-        {#img.src = msg['photos'][0];#}
-        name.innerText = product['name'];
-        price.innerText = product['cost'] + ' ₽';
-        hover_price.innerText = product['cost'] + ' ₽';
-        product.style.display = 'inline-block';
-        {#if (product['in_basket'] === true) {#}
-        {#    place_for_favor.innerHTML = '<span class="fas fa-heart active"></span>';#}
-        {# else {#}
-        {#    place_for_favor.innerHTML = '<span class="far fa-heart"></span>';#}
-        {##}
-        place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
-
-        product.onclick = function () {
-            location.href = 'product?id=' + product['id'];
-        }
-        place_for_favor.onclick = function () {
-            AddLikeds(product['id'], user['id']);
-            place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
-        }
-        {#item_card_place.append(product);#}
-        return box;
-    }
+    // /* Отрисовка товара */
+    // function createProduct(product) {
+    //     let box = card_product.cloneNode(true);
+    //     product.id = '';
+    //     let img = box.getElementsByClassName('slider_img')[0];
+    //     let name = box.getElementsByClassName('slider_name_bucket')[0];
+    //     let price = box.getElementsByClassName('price')[0];
+    //     let hover_price = box.getElementsByClassName('price_hover_price')[0];
+    //     let place_for_favor = box.getElementsByClassName('right_nav_item')[0];
+    //     img.src = msg['photos'][0];
+    //     name.innerText = product['name'];
+    //     price.innerText = product['cost'] + ' ₽';
+    //     hover_price.innerText = product['cost'] + ' ₽';
+    //     product.style.display = 'inline-block';
+    //     if (product['in_basket'] === true) {
+    //         place_for_favor.innerHTML = '<span class="fas fa-heart active"></span>';
+    //     } else {
+    //         place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
+    //     }
+    //
+    //     place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
+    //
+    //     product.onclick = function () {
+    //         location.href = 'product?id=' + product['id'];
+    //     }
+    //     place_for_favor.onclick = function () {
+    //         AddLikeds(product['id'], user['id']);
+    //         place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
+    //     }
+    //     item_card_place.append(product);
+    //     return box;
+    // }
 </script>

@@ -22,7 +22,7 @@
                     </a>
                 </div>
                 <div class="right_nav_place">
-                    <a class="right_nav_item" id="user_item" onclick="OpenPopup(registrationpopup, 1)">
+                    <a class="right_nav_item" onclick="OpenPopup(registrationpopup, 1)">
                         <span class="fas fa-user"></span>
                     </a>
                 </div>
@@ -59,7 +59,7 @@
                         </a>
                     </div>
                     <div class="right_nav_place">
-                        <a class="right_nav_item" id="user_item" onclick="OpenPopup(registrationpopup, 1)">
+                        <a class="right_nav_item" onclick="OpenPopup(registrationpopup, 1)">
                             <span class="fas fa-user"></span>
                         </a>
                     </div>
@@ -75,7 +75,7 @@
 <!-- Поп ап регистрации / авторизации -->
 <div class="registrationpopup" id="registrationpopup">
     <div class="closepopupplace">
-        <div class="close_place" id="closepopup" onclick="ClosePopup(registrationpopup)">
+        <div class="close_place" onclick="ClosePopup(registrationpopup)">
             <span class="fa fa-times"></span> <span>Закрыть</span>
         </div>
     </div>
@@ -161,25 +161,13 @@
                     <div class="address_info_zag">
                         Воронеж
                     </div>
-                    <span class="fa fa-chevron-down"></span>
+                    <!--<span class="fa fa-chevron-down"></span>-->
                 </div>
-                <div class="catalog_flex">
+                <div class="catalog_flex ">
                     <div class="address_info_zag">
-                        Доставка в точное время
+                        Выберите способ доставки
                     </div>
-                    <span class="fa fa-chevron-down"></span>
-                </div>
-                <div class="catalog_flex">
-                    <div class="address_info_zag">
-                        06.07.2021
-                    </div>
-                    <span style="color:#F877AD;text-transform: uppercase;cursor: pointer;font-size: 30px;">Выбрать дату</span>
-                </div>
-                <div class="catalog_flex">
-                    <div class="address_info_zag">
-                        21:00
-                    </div>
-                    <span style="color:#F877AD;text-transform: uppercase;cursor: pointer;font-size: 30px;">Выбрать время</span>
+                    <span class="fa fa-chevron-down" id="choose_delivery"></span>
                 </div>
             </div>
         </div>
@@ -381,35 +369,6 @@
         popup.classList.remove('_active');
 
     }
-
-
-    {#/* ПопАп регистрации и авторизации */#}
-    {#function OpenRegistrationPopUp() {#}
-    {#    blurpopup.style.display = 'block';#}
-    {#    registrationpopup.classList.add('_active');#}
-    {#    body.style.overflow = 'hidden';#}
-    {#    register_user.onclick = function () {#}
-    {#        RegistrationUser();#}
-    {#    }#}
-    {#    authorize_user.onclick = function () {#}
-    {#        AuthorizationUser();#}
-    {#    }#}
-    {##}
-    {##}
-    {#function CloseRegistrationPopUp() {#}
-    {#    blurpopup.style.display = 'none';#}
-    {#    registrationpopup.classList.remove('_active');#}
-    {#    body.style.overflow = 'inherit';#}
-    {##}
-    {##}
-    {##}
-    {#user_item.onclick = function () {#}
-    {#    if (user === null) {#}
-    {#        OpenRegistrationPopUp();#}
-    {#    } else {#}
-    {#        location.href = '/cabinet';#}
-    {#    }#}
-    {##}
 
 
     /* Регистрация пользователя */

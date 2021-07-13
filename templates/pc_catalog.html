@@ -15,7 +15,6 @@
                 <div class="place_breadcoast">
                     <a href="">Главная</a> / <a href="">Каталог</a> / <a href="">Букеты</a>
                 </div>
-
                 <h1 class="catalog_zag">
                     Букеты
                 </h1>
@@ -43,8 +42,6 @@
                     </div>
                 </div>
                 <div class="registr_indicator" style="height:4px;background:#293048"></div>
-
-
                 <div class="sorted_zag">
                     Цена
                 </div>
@@ -110,6 +107,15 @@
                     <input type="checkbox" class="checkbox_for_choose_flower">
                     <span>Ленты</span>
                 </div>
+
+                <div class="all_catalog_href" style="float: none;margin: 20px 0 15px;height: 50px;width: 100%">
+                    Применить
+                </div>
+                <div style="text-align: center">
+                    <div class="bucket_na_zakaz" style="text-align: center;cursor: pointer;display: contents">
+                        Сбросить
+                    </div>
+                </div>
             </div>
             <!-- Основная часть каталога -->
             <div class="catalog_card_place">
@@ -125,7 +131,7 @@
 
                 <!-- Карточки товаров -->
                 <div id="item_card_place" style="display: block;padding-top: 35px;">
-                    <div class="slider_item_card" id="card_product" style="display: block;">
+                    <div class="slider_item_card" id="card_product" style="display: inline-block;">
                         <div class="right_nav_place">
                             <div class="right_nav_item">
 
@@ -140,12 +146,23 @@
                             </div>
                         </div>
                         <div class="slider_item_card_img_place">
-                            <img src="" class="slider_img">
+                            <img src="../static/img/catalog_img.png" class="slider_img">
                         </div>
                         <div class="name_and_price">
-                            <span class="slider_name_bucket">Букет "Индиго"</span>
-                            <div class="price">
-                                5 400 ₽
+                            <div class="slider_name_bucket">Букет "Индиго"</div>
+                            <div class="catalog_flex_catalog"
+                                 style="align-items: center;justify-content: space-between;padding: 0 15px;">
+                                <div>
+                                    <div class="price have_disc">
+                                        5400 Р
+                                    </div>
+                                    <div class="disc_price_bucket">
+                                        2 600 Р
+                                    </div>
+                                </div>
+                                <div class="add_to_basket_card">
+                                    <span class="fas fa-shopping-bag"></span>
+                                </div>
                             </div>
                             <div class="price_hover">
                                 <div>
@@ -155,11 +172,20 @@
                                     5 400 ₽
                                 </div>
                             </div>
+                            <div class="added_product" style="display: none">
+                                <div>
+                                    <span class="fa fa-minus"></span>
+                                </div>
+                                <div>
+                                    В корзине: 1
+                                </div>
+                                <div>
+                                    <span class="fa fa-plus"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -217,28 +243,28 @@
         })
     }
 
-    /* Правильная подгрузка продуктов */
-    {#function loadProducts() {#}
-    {#    let data = {#}
-    {#        'category_id': category_id,#}
-    {#        'sorted_type': sorted_type,#}
-    {#        'discount_type': discount_type,#}
-    {#        'cost_min': cost_min,#}
-    {#        'cost_max': cost_max,#}
-    {#        'flowers': flowers,#}
-    {#        'packaging': packaging,#}
-    {#    }#}
-    {#    $.ajax({#}
-    {#        url: '/api/products/get',#}
-    {#        type: 'POST',#}
-    {#        dataType: "json",#}
-    {#        contentType: "application/json; charset=utf-8",#}
-    {#        data: JSON.stringify(data),#}
-    {#        success: function (msg) {#}
-    {#            drawProducts(msg['message']);#}
-    {#        }#}
-    {#    })#}
-    {##}
+    // /* Правильная подгрузка продуктов */
+    // function loadProducts() {
+    //     let data = {
+    //         'category_id': category_id,
+    //         'sorted_type': sorted_type,
+    //         'discount_type': discount_type,
+    //         'cost_min': cost_min,
+    //         'cost_max': cost_max,
+    //         'flowers': flowers,
+    //         'packaging': packaging,
+    //     }
+    //     $.ajax({
+    //         url: '/api/products/get',
+    //         type: 'POST',
+    //         dataType: "json",
+    //         contentType: "application/json; charset=utf-8",
+    //         data: JSON.stringify(data),
+    //         success: function (msg) {
+    //             drawProducts(msg['message']);
+    //         }
+    //     })
+    // }
 
 
     function drawProducts(msg) {
@@ -252,7 +278,7 @@
             let hover_price = product.getElementsByClassName('price_hover_price')[0];
             let place_for_favor = product.getElementsByClassName('right_nav_item')[0];
 
-            {#img.src = msg['photos'][0];#}
+
             name.innerText = msg[i]['name'];
             price.innerText = msg[i]['cost'] + ' ₽';
             hover_price.innerText = msg[i]['cost'] + ' ₽';
@@ -272,10 +298,10 @@
             item_card_place.append(product);
         }
 
-        {#for (let i = 0; i < msg.length; i++) {#}
-        {#    let box = createProduct(msg[i]);#}
-        {#    item_card_place.append(box);#}
-        {##}
+        for (let i = 0; i < msg.length; i++) {
+            let box = createProduct(msg[i]);
+            item_card_place.append(box);
+        }
 
     }
 

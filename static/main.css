@@ -1027,7 +1027,8 @@ input[type="checkbox"] {
     margin-left: 5px;
     color: #F877AD;
 }
-
+/* Карточка товара */
+/* Основныке стили */
 .card_item {
     width: 50%;
     display: inline-block;
@@ -1138,7 +1139,7 @@ input[type="checkbox"] {
 }
 
 .price_bucket.have_disc {
-    color:#c2c5cb;
+    color: #c2c5cb;
     text-decoration: line-through;
     text-decoration-color: #F877AD;
     font-size: 34px;
@@ -1165,6 +1166,26 @@ input[type="checkbox"] {
 .add_to_basket_card .fa-shopping-bag {
     font-size: 36px;
     color: #FFFFFF;
+}
+
+.added_product {
+    z-index: 2;
+    transition: opacity .4s;
+    width: 100%;
+    background: #293048;
+    height: 70px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+}
+
+.added_product .fa-plus, .added_product .fa-minus {
+    font-size: 24px;
 }
 
 .add_to_basket_place {

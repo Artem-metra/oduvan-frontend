@@ -386,10 +386,10 @@ input[type="checkbox"] {
 /* Популярное на главной */
 
 .slider_item_card {
-    width: 24%;
+    width: 32%;
     margin: 0 9px 10px 0;
     box-shadow: 0 4px 16px rgba(41, 48, 72, 0.15);
-    height: 350px;
+    height: 400px;
     transition: transform .6s;
     display: inline-block;
     overflow: hidden;
@@ -413,10 +413,10 @@ input[type="checkbox"] {
     transform: scale(1.02);
     transition: transform .6s;
     cursor: pointer;
+    box-shadow: 0 4px 16px rgba(41, 48, 72, 0.25);
 }
 
-.slider_item_card:hover .price {
-    display: none;
+.slider_item_card:hover .catalog_flex_catalog {
     opacity: 0;
     transition: opacity .4s;
 }
@@ -425,6 +425,11 @@ input[type="checkbox"] {
     display: flex;
     opacity: 1;
     transition: opacity .4s;
+}
+
+.slider_item_card:hover .slider_name_bucket {
+    text-align: center;
+    transition: all .4s;
 }
 
 .slider_item_card:first-child {
@@ -448,6 +453,7 @@ input[type="checkbox"] {
     max-width: 80%;
     max-height: 80%;
 }
+
 .discount_place {
     position: absolute;
     top: 8px;
@@ -483,8 +489,8 @@ input[type="checkbox"] {
     color: #FFFFFF;
     padding: 0 8px;
 }
+
 .name_and_price {
-    text-align: center;
     text-transform: uppercase;
     font-size: 16px;
     line-height: 150%;
@@ -492,8 +498,8 @@ input[type="checkbox"] {
 }
 
 .slider_name_bucket {
-    padding: 15px 0;
     font-weight: 600;
+    padding-left: 15px;
 }
 
 .price {
@@ -521,6 +527,55 @@ input[type="checkbox"] {
 }
 
 .price_hover_price {
+    font-size: 24px;
+}
+
+.price.have_disc {
+    color: #c2c5cb;
+    text-decoration: line-through;
+    text-decoration-color: #F877AD;
+    font-size: 32px;
+    padding-bottom: 5px;
+}
+
+.disc_price_bucket {
+    color: #F877AD;
+    font-size: 38px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.add_to_basket_card {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background: #293048;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_to_basket_card .fa-shopping-bag {
+    font-size: 36px;
+    color: #FFFFFF;
+}
+
+.added_product {
+    z-index: 2;
+    transition: opacity .4s;
+    width: 100%;
+    background: #293048;
+    height: 70px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+}
+.added_product .fa-plus, .added_product .fa-minus{
     font-size: 24px;
 }
 
@@ -926,6 +981,7 @@ input[type="checkbox"] {
     top: 0;
     z-index: 9999;
     display: block;
+    overflow: auto;
 }
 
 .registrationpopup._active {
@@ -1063,7 +1119,7 @@ input[type="checkbox"] {
 .oformit_zakaz .all_catalog_href {
     width: 100%;
     justify-content: space-between;
-    padding:0 10px;
+    padding: 0 10px;
 }
 
 .pereiti_k_oform {
@@ -1329,8 +1385,8 @@ input[type="checkbox"] {
 
 .small_product_card {
     background: #e9eaec99;
-    width: 100px;
-    height: 100px;
+    width: 125px;
+    height: 125px;
     display: block;
     margin-bottom: 10px;
     border: 4px solid #29304899;
