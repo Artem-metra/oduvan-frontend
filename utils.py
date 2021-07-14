@@ -16,4 +16,11 @@ def complete_request(req, path):
     print(data)
     url = address + path
     resp = requests.get(url, data)
-    return resp.text
+    return json.loads(resp.text)
+
+
+def complete_request_post(req, path):
+    url = address + path
+    print(req.data)
+    resp = requests.post(url, {'info': req.data})
+    return json.loads(resp.text)

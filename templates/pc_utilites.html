@@ -20,17 +20,17 @@
                 <div class="right_header_part_item">
                     <a href="tel:88005553535" style="margin-right: 40px">8 800 555 35 35</a>
                     <div class="right_nav_place">
-                        <a class="right_nav_item" href="/favorites">
+                        <a class="right_nav_item" id="favorites">
                             <span class="fas fa-heart"></span>
                         </a>
                     </div>
                     <div class="right_nav_place">
-                        <a class="right_nav_item" onclick="OpenPopup(basket_popup, 2)">
+                        <a class="right_nav_item" id="go_to_basket">
                             <span class="fas fa-shopping-bag"></span>
                         </a>
                     </div>
                     <div class="right_nav_place">
-                        <a class="right_nav_item" id="user_item" onclick="OpenPopup(registrationpopup, 1)">
+                        <a class="right_nav_item" id="user_item">
                             <span class="fas fa-user"></span>
                         </a>
                     </div>
@@ -84,7 +84,9 @@
         </div>
         <input class="popup_input" type="tel" placeholder="+7 (__) __-__-_" id="phone_user_auth">
         <input class="popup_input" type="password" placeholder="Пароль" id="password_user_auth">
-        <span class="forgot_pas">Забыли пароль?</span>
+        <div style="text-align: center">
+            <span class="forgot_pas">Забыли пароль?</span>
+        </div>
         <a href="#" class="all_catalog_href" style="float:none;width:100%;margin-top:15px;height:50px;"
            id="authorize_user">Войти в аккаунт</a>
     </div>
@@ -121,7 +123,7 @@
                     <div class="address_info_zag">
                         Воронеж
                     </div>
-<!--<span class="fa fa-chevron-down"></span>-->
+                    <!--<span class="fa fa-chevron-down"></span>-->
                 </div>
                 <div class="catalog_flex ">
                     <div class="address_info_zag">
@@ -196,31 +198,62 @@
     </div>
 </div>
 <!-- Карточка товара -->
-<div class="slider_item_card" id="card_product" style="display: none;">
-    <div class="right_nav_place">
-        <div class="right_nav_item">
+<div id="item_card_place" style="display: block;padding-top: 35px;display: none">
+    <div class="slider_item_card" id="card_product" style="display: none">
+        <div class="right_nav_place">
+            <div class="right_nav_item">
 
-        </div>
-    </div>
-    <div class="slider_item_card_img_place">
-        <img src="" class="slider_img">
-    </div>
-    <div class="name_and_price">
-        <span class="slider_name_bucket">Букет "Индиго"</span>
-        <div class="price">
-            5 400 ₽
-        </div>
-        <div class="price_hover">
-            <div>
-                В корзину
             </div>
-            <div class="price_hover_price">
-                5 400 ₽
+        </div>
+        <div class="discount_place">
+            <div class="percent_place">
+                <span class="fa fa-percent"></span>
+            </div>
+            <div class="discount_text">
+                20% скидка
+            </div>
+        </div>
+        <a class="slider_item_card_img_place" href="">
+            <img src="../static/img/catalog_img.png" class="slider_img">
+        </a>
+        <div class="name_and_price">
+            <div class="slider_name_bucket">Букет "Индиго"</div>
+            <div class="catalog_flex_catalog"
+                 style="align-items: center;justify-content: space-between;padding: 0 15px;">
+                <div>
+                    <div class="price">
+                        5400 Р
+                    </div>
+                    <div class="disc_price_bucket">
+                        2 600 Р
+                    </div>
+                </div>
+                <div class="add_to_basket_card">
+                    <span class="fas fa-shopping-bag"></span>
+                </div>
+            </div>
+            <div class="price_hover">
+                <div>
+                    В корзину
+                </div>
+                <div class="price_hover_price">
+                    5 400 ₽
+                </div>
+            </div>
+            <div class="added_product" style="display: none">
+                <div>
+                    <span class="fa fa-minus"></span>
+                </div>
+                <div>
+                    В корзине: 1
+                </div>
+                <div>
+                    <span class="fa fa-plus"></span>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Footer -->
 <footer class="footer">
     <div class="first_level">
@@ -320,8 +353,7 @@
 <script>
     let user = null;
 
-    let backend_url = 'http://45.12.19.118:80';
-
+    /* Открытие попапа */
     function OpenPopup(popup, status) {
         // status: 1 - регистрация с авторизацией, 2 - корзина, 3 - скидка
         blurpopup.style.display = 'block';
@@ -361,11 +393,34 @@
         } else {
             popup.classList.add('_active');
         }
-
-
     }
 
+    if (user === null) {
+        favorites.onclick = function () {
+            OpenPopup(registrationpopup, 1);
+        }
+        go_to_basket.onclick = function () {
+            OpenPopup(registrationpopup, 1);
+        }
+        user_item.onclick = function () {
+            OpenPopup(registrationpopup, 1);
+        }
+    } else {
+        favorites.href = '/favorites';
+        go_to_basket.href = OpenPopup(basket_popup, 2);
+        user_item.href = '/cabinet';
+    }
 
+    /* Проверка авторизации */
+    function showAuth() {
+        if (user === null) {
+            OpenPopup(registrationpopup, 1);
+        } else {
+            return;
+        }
+    }
+
+    /* Закрытие попапа */
     function ClosePopup(popup) {
         blurpopup.style.display = 'none';
         popup.classList.remove('_active');
@@ -388,11 +443,6 @@
         if (phone_user_reg.value === '') {
             phone_user_reg.classList.add('error');
             alert('Введите номер телефона');
-            return;
-        }
-        if (email_user_reg.value === '') {
-            email_user_reg.classList.add('error');
-            alert('Введите Email');
             return;
         }
         if (password_user_reg.value === '') {
@@ -420,11 +470,10 @@
             'name': name_user_reg.value,
             'surname': surname_user_reg.value,
             'phone': phone_user_reg.value,
-            'email': email_user_reg.value,
             'password': password_user_reg.value,
         }
         $.ajax({
-            url: backend_url + '/api/user/registration',
+            url: '/api/user/registration',
             type: 'GET',
             data: data,
             success: function (msg) {
@@ -433,7 +482,7 @@
         });
     }
 
-
+    /* Срабатывает на oninput, приводит номер телефона в нужный регистр */
     function maskPhone(element) {
         IMask(
             element, {
@@ -462,7 +511,7 @@
             'phone': phone_user_auth.value,
         }
         $.ajax({
-            url: backend_url + '/api/user/auth',
+            url: '/api/user/auth',
             type: 'GET',
             data: data,
             success: function (msg) {
@@ -476,8 +525,11 @@
     GetUser();
 
     function GetUser() {
+        let data = {
+            'id': user_id
+        }
         $.ajax({
-            url: backend_url + '/api/user/get',
+            url: '/api/user/get',
             type: 'GET',
             success: function (msg) {
                 user = msg['user'];
@@ -486,7 +538,7 @@
         });
     }
 
-
+    /* Добавление в избранное */
     function AddLikeds(product_id, user_id) {
         console.log('Дашло');
         let data = {
@@ -494,7 +546,7 @@
             'user_id': user_id
         }
         $.ajax({
-            url: backend_url + 'api/user/liked',
+            url: 'api/user/liked',
             type: "GET",
             data: data,
             success: function (msg) {
@@ -503,36 +555,73 @@
         })
     }
 
-    // /* Отрисовка товара */
-    // function createProduct(product) {
-    //     let box = card_product.cloneNode(true);
-    //     product.id = '';
-    //     let img = box.getElementsByClassName('slider_img')[0];
-    //     let name = box.getElementsByClassName('slider_name_bucket')[0];
-    //     let price = box.getElementsByClassName('price')[0];
-    //     let hover_price = box.getElementsByClassName('price_hover_price')[0];
-    //     let place_for_favor = box.getElementsByClassName('right_nav_item')[0];
-    //     img.src = msg['photos'][0];
-    //     name.innerText = product['name'];
-    //     price.innerText = product['cost'] + ' ₽';
-    //     hover_price.innerText = product['cost'] + ' ₽';
-    //     product.style.display = 'inline-block';
-    //     if (product['in_basket'] === true) {
-    //         place_for_favor.innerHTML = '<span class="fas fa-heart active"></span>';
-    //     } else {
-    //         place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
-    //     }
-    //
-    //     place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
-    //
-    //     product.onclick = function () {
-    //         location.href = 'product?id=' + product['id'];
-    //     }
-    //     place_for_favor.onclick = function () {
-    //         AddLikeds(product['id'], user['id']);
-    //         place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
-    //     }
-    //     item_card_place.append(product);
-    //     return box;
-    // }
+
+    /* Отрисовка товара */
+    function createProduct(product) {
+        let box = document.getElementById('card_product').cloneNode(true);
+        box.id = '';
+        box.className = 'slider_item_card';
+        let img = box.getElementsByClassName('slider_img')[0];
+        let name = box.getElementsByClassName('slider_name_bucket')[0];
+        let price = box.getElementsByClassName('price')[0];
+        let hover_price = box.getElementsByClassName('price_hover_price')[0];
+        let price_hover = box.getElementsByClassName('price_hover')[0];
+        let place_for_favor = box.getElementsByClassName('right_nav_item')[0];
+        let href = box.getElementsByClassName('slider_item_card_img_place')[0];
+        let discount_text = box.getElementsByClassName('discount_text')[0];
+        let discount_place = box.getElementsByClassName('discount_place')[0];
+        let discount_price = box.getElementsByClassName('disc_price_bucket')[0];
+        img.src = product['photos'][0];
+        name.innerText = product['name'];
+        if (product['discount_type'] > 0) {
+            price.classList.add('have_disc');
+            discount_text.innerText = product['discount_type'] + ' % ' + 'скидка';
+            discount_price.innerText = product['discount_cost'] + ' ₽';
+        } else {
+            discount_place.style.display = 'none';
+            discount_price.style.display = 'none';
+        }
+        hover_price.innerText = product['discount_cost'] + ' ₽';
+        price.innerText = product['cost'] + ' ₽';
+        href.href = 'product?id=' + product['id'];
+
+        if (product['in_basket'] === true) {
+            place_for_favor.innerHTML = '<span class="fas fa-heart active"></span>';
+        } else {
+            place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
+        }
+
+        place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
+
+        place_for_favor.onclick = function () {
+            showAuth();
+            AddLikeds(product['id'], user['id']);
+            place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
+        }
+        price_hover.onclick = function () {
+            showAuth();
+            alert('Сделать добавление в корзину')
+        }
+        return box;
+    }
+
+
+    /* Хлебные крошки */
+    BreadCoast();
+
+    function BreadCoast() {
+        let data = {
+            'id': 8
+        }
+        $.ajax({
+            url: '/api/get_nesting_by_id',
+            data: data,
+            type: 'GET',
+            success: function (msg) {
+                console.log(msg);
+            }
+        })
+    }
+
+
 </script>
