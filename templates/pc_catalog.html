@@ -18,15 +18,18 @@
                 <h1 class="catalog_zag">
                     Букеты
                 </h1>
-                <div class="sorted_text">
-                    <div class="sorted_select_items">
-                        <div class="catalog_flex" style="padding: 0;border-bottom: 2px solid #b0bbbe;">
-                            <div class="sorted_select_item" style="color: #293048;border-bottom: 0">
-                                Сортировка:
-                            </div>
-                            <div class="sorted_text_select">Название <span class="fa fa-chevron-down"></span></div>
-                        </div>
 
+                <div class="sorted_text" style="display: block" id="sorted_text">
+
+                    <div class="sorted_select_items">
+                        <div id="sorted_place" style="background: transparent">
+                            <div class="catalog_flex" style="padding: 0;">
+                                <div class="sorted_select_item" style="color: #293048;border-bottom: 0">
+                                    Сортировка:
+                                </div>
+                                <div class="sorted_text_select">Название <span class="fa fa-chevron-down"></span></div>
+                            </div>
+                        </div>
                         <div class="sorted_select_item">
                             Самые популярные
                         </div>
@@ -145,9 +148,9 @@
                                 20% скидка
                             </div>
                         </div>
-                        <div class="slider_item_card_img_place">
+                        <a class="slider_item_card_img_place" href="/product">
                             <img src="../static/img/catalog_img.png" class="slider_img">
-                        </div>
+                        </a>
                         <div class="name_and_price">
                             <div class="slider_name_bucket">Букет "Индиго"</div>
                             <div class="catalog_flex_catalog"
@@ -265,6 +268,14 @@
     //         }
     //     })
     // }
+
+
+    let sorted_place = document.getElementById('sorted_place').cloneNode(true);
+    let sorted_btn = sorted_place.getElementsByClassName('fa-chevron-down')[0];
+    console.log(sorted_btn);
+    sorted_btn.onclick = function () {
+        sorted_text.style.display = 'block';
+    }
 
 
     function drawProducts(msg) {
