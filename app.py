@@ -16,6 +16,7 @@ from maps.MapStaff import staff_app
 from maps.MapUser import user_app
 
 app = Flask(__name__)
+app.secret_key = 'super super secret key, her vzlomaesh'
 
 app.register_blueprint(promo_code_app)
 app.register_blueprint(category_app)
@@ -107,8 +108,7 @@ def article():
 
 # @app.before_request
 # def redirect_on_api():
-#     #    return utils.complete_request(request, request.path)
-#     pass
+    # print(request)
 
 
 if __name__ == '__main__':
