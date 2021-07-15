@@ -17,7 +17,6 @@ from maps.MapUser import user_app
 
 app = Flask(__name__)
 
-
 app.register_blueprint(promo_code_app)
 app.register_blueprint(category_app)
 app.register_blueprint(product_app)
@@ -105,6 +104,12 @@ def article():
     else:
         return render_template('pc_article.html')
 
-      
+
+# @app.before_request
+# def redirect_on_api():
+#     #    return utils.complete_request(request, request.path)
+#     pass
+
+
 if __name__ == '__main__':
     app.run(debug=True)

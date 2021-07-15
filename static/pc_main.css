@@ -384,7 +384,7 @@ input[type="checkbox"] {
 }
 
 /* Популярное на главной */
-
+/* Карточка товара */
 .slider_item_card {
     width: 32%;
     margin: 0 9px 10px 0;
@@ -416,18 +416,17 @@ input[type="checkbox"] {
     box-shadow: 0 4px 16px rgba(41, 48, 72, 0.25);
 }
 
-.slider_item_card:hover .catalog_flex_catalog {
-    opacity: 0;
-    transition: opacity .4s;
+.name_and_price:hover .catalog_flex_catalog {
+    display: none;
 }
 
-.slider_item_card:hover .price_hover {
+.name_and_price:hover .price_hover {
     display: flex;
     opacity: 1;
     transition: opacity .4s;
 }
 
-.slider_item_card:hover .slider_name_bucket {
+.name_and_price:hover .slider_name_bucket {
     text-align: center;
     transition: all .4s;
 }
@@ -495,6 +494,7 @@ input[type="checkbox"] {
     font-size: 16px;
     line-height: 150%;
     letter-spacing: 0.04em;
+    height: 30%;
 }
 
 .slider_name_bucket {
@@ -575,8 +575,40 @@ input[type="checkbox"] {
     position: absolute;
     bottom: 0;
 }
-.added_product .fa-plus, .added_product .fa-minus{
+
+.added_product .fa-plus, .added_product .fa-minus {
     font-size: 24px;
+}
+
+.pagination_place {
+    width: 100%;
+    text-align: center;
+}
+
+.pagination_item {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin: 25px 15px 0 0;
+    background: #29304833;
+    display: inline-block;
+    overflow: hidden;
+    font-size: 18px;
+}
+
+.pagination_num {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+.pagination_num:hover{
+    cursor: pointer;
+}
+.pagination_num._active{
+    background: #293048;
+    color: #FFFFFF;
 }
 
 /* Индивидуальный заказ букета */
@@ -1079,7 +1111,7 @@ input[type="checkbox"] {
     color: #F877AD;
     text-align: center;
     margin: 0 auto;
-    display: block;
+    display: contents;
     text-transform: uppercase;
     line-height: 150%;
     text-decoration: underline;
@@ -1243,6 +1275,7 @@ input[type="checkbox"] {
     display: flex;
     width: 100%;
     position: relative;
+    height: 225px;
 }
 
 
@@ -1360,6 +1393,15 @@ input[type="checkbox"] {
 /*====== Страница товара =======*/
 .all_pictures_product_place {
     width: 10%;
+}
+
+.all_pictures_product_place .small_product_card {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin-bottom: 10px;
+    border: 4px solid #29304899;
+    background: #e9eaec99;
 }
 
 .main_pictures_product_place {
@@ -1521,6 +1563,19 @@ input[type="checkbox"] {
     padding-right: 25px;
 }
 
+#recipient {
+    /*transition: transform .5s;*/
+    /*transform: scale(0);*/
+    display: none;
+    z-index: 250;
+}
+
+#recipient._active {
+    /*transition: transform .5s;*/
+    /*transform: scale(1);*/
+    display: block;
+}
+
 .your_order_place {
     width: 50%;
 }
@@ -1529,6 +1584,10 @@ input[type="checkbox"] {
     background: #f5f5f6;
     padding: 40px 50px;
     margin-bottom: 15px;
+}
+
+.your_order .address_info_zag {
+    color: #293048;
 }
 
 .system_item {

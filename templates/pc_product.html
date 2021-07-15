@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Одуван</title>
-{% include 'pc_headers.html' %}
+    {% include 'pc_headers.html' %}
 </head>
 <body id="body">
 
@@ -52,7 +52,9 @@
             <div class="description_product_place">
                 <strong class="bucket_na_zakaz" id="name_bucket">Монобукет</strong>
                 <div class="name_buckets" id="name_cat_bucket" style="padding-top:8px">"Индиго"</div>
-                <div class="price" id="price_bucket" style="padding:20px 0 15px 0;display: block">5 400 ₽</div>
+                <div class="price" id="disc_price_bucket" style="padding:20px 0 15px 0;display: inline-block">5 400 ₽
+                </div>
+                <div class="price" id="price" style="padding:20px 0 15px 0;display: inline-block">5 400 ₽</div>
 
                 <div class="add_to_basket_place">
                     <div class="fa fa-minus" id="minus_counter" onclick="changeCounter(2)"></div>
@@ -62,7 +64,7 @@
                     </div>
                     <div class="fa fa-plus" onclick="changeCounter(1)" id="plus_counter"></div>
                 </div>
-                <a href="#" class="all_catalog_href"
+                <a href="#" class="all_catalog_href" id="add_to_basket"
                    style="float:none;max-width:350px;width:350px;margin-top:10px;height:50px;">Добавить
                     в корзину</a>
                 <div class="description_zag">
@@ -233,9 +235,7 @@
 
 {% include 'pc_utilites.html' %}
 <script>
-    let id = {{ id }};
-    let category_id = 0;
-
+    let id = {{id}};
 
 
     function changeCounter(action) {
@@ -254,8 +254,9 @@
 
 
     getProduct();
+
     /* Получить продукт */
-    function getProduct(){
+    function getProduct() {
         let data = {
             'id': id
         }
@@ -263,7 +264,7 @@
             url: 'api/product/get',
             type: 'GET',
             data: data,
-            success:function (msg){
+            success: function (msg) {
                 console.log(msg);
                 category_id = msg['product']['category_id'];
                 getCategory(category_id);
@@ -273,36 +274,40 @@
     }
 
     /* Отрисовать продукт */
-    function drawProduct(msg){
+    function drawProduct(msg) {
         console.log(msg);
         description_product.innerText = msg['description'];
         name_bucket.innerText = msg['name'];
-        price_bucket.innerText = msg['cost'] + ' ₽';
+        price.innerText = msg['cost'] + ' ₽';
+        if (msg['discount_type'] > 0) {
+            disc_price_bucket.innerText = msg['discount_cost'] + ' ₽';
+            price.classList.add('have_disc')
+        } else {
+            disc_price_bucket.style.display = 'none';
+        }
+        add_to_basket.onclick = function(){
+            showAuth();
+            alert('Сделать корзину');
+        }
+
     }
 
     /* Получить категорию */
-    function getCategory(category_id){
+    function getCategory(category_id) {
+        console.log(category_id)
         let data = {
-            'id': category_id,
+            'category_id': category_id,
         }
         $.ajax({
             url: 'api/category/get',
             type: 'GET',
             data: data,
-            success:function(msg){
+            success: function (msg) {
                 console.log(msg);
                 name_cat_bucket.innerText = msg['category']['name'];
             }
         })
     }
-
-
-
-
-
-
-
-
 
 
 </script>
