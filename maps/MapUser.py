@@ -19,7 +19,6 @@ def api_user_get():
     pass
 
 
-
 @user_app.route('/api/user/edit')
 def api_user_edit():
     pass
