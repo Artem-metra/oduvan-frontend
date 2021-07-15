@@ -10,11 +10,235 @@
 <div class="catalog">
     <div class="container">
         <div class="place_breadcoast">
-            <a href="">Главная</a> / <a href="">Оформление заказа</a>
+            <a href="">Одуван</a> / <a href="">Оформление заказа</a>
         </div>
+
+        <div class="createorder">
+            <div class="requisites_place">
+                <div class="name_buckets">
+                    Отправитель
+                </div>
+                <input class="popup_input" placeholder="Ваше имя">
+                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__">
+                <input class="popup_input" type="email" placeholder="Электронная почта">
+
+                <div class="checkbox">
+                    <input type="checkbox" id="get_other_people" name="get_other_people" class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                    <label for="get_other_people" class="lab_desc"> Отправить другому человеку</label>
+                </div>
+
+                <div id="recipient">
+                    <div class="name_buckets">
+                        Получатель
+                    </div>
+                    <input class="popup_input" placeholder="Имя получателя">
+                    <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__">
+                    <input class="popup_input" type="email" placeholder="Адрес получателя">
+                </div>
+                <div class="name_buckets dop_name_buck">
+                    Дополнительно
+                </div>
+                <input class="popup_input" placeholder="Комментарии к заказу">
+                <input class="popup_input" placeholder="Текст для открытки">
+
+                <div class="flex_catalog" style="margin-top: 20px">
+                    <div class="checkbox">
+                        <input type="checkbox" class="scal_chek custom-checkbox" id="color-2" name="color-2">
+                        <label for="color-2" class="lab_desc">Добавить переноску</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox"  class="scal_chek mar_left custom-checkbox" id="color-1" name="color-1">
+                        <label for="color-1" class="lab_desc">Добавить аквапак</label>
+                    </div>
+                </div>
+
+
+                <div class="name_buckets dop_name_buck">
+                    Способ оплаты
+                </div>
+                <div class="flex_catalog">
+                    <div class="checkbox">
+                        <input type="checkbox" class="scal_chek custom-checkbox" id="color-4" name="color-4">
+                        <label for="color-4" class="lab_desc">Наличные</label>
+                    </div>
+                    <div class="checkbox">
+                         <input type="checkbox" class="scal_chek mar_left custom-checkbox" id="color-5" name="color-5">
+                        <label for="color-5" class="lab_desc">Картой</label>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="your_order_place">
+                <div class="your_order">
+                    <div class="name_buckets">
+                        Ваш заказ
+                    </div>
+                    <div class="description_explanations">
+                        <div class="catalog_flex">
+                            <div class="address_info_zag">
+                                Доставка в точное время
+                            </div>
+                            <span class="fa fa-chevron-down"></span>
+                        </div>
+                        <div class="catalog_flex">
+                            <div class="address_info_zag">
+                                06.07.2021
+                            </div>
+                            <span style="color:#F877AD;text-transform: uppercase;cursor: pointer">Выбрать дату</span>
+                        </div>
+                        <div class="catalog_flex">
+                            <div class="address_info_zag">
+                                21:00
+                            </div>
+                            <span style="color:#F877AD;text-transform: uppercase;cursor: pointer">Выбрать время</span>
+                        </div>
+                    </div>
+                    <div class="catalog_flex" style="justify-content: space-between;padding:0">
+                        <div class="price_price" style="color:#293048;opacity:0.6; font-size: 34px">
+                            Сумма заказа
+                        </div>
+                        <div class="price_price" style="float: right; font-size: 34px">
+                            16200 Р
+                        </div>
+                    </div>
+                    <div class="registr_indicator" style="background: #293048; margin:10px 0;"></div>
+                    <div class="catalog_flex" style="justify-content: space-between">
+                        <div class="price_price" style="color:#293048;opacity:0.6; font-size: 34px">
+                            + Доставка вовремя
+                        </div>
+                        <div class="price_price" style="float: right; font-size: 34px">
+                            1000 Р
+                        </div>
+                    </div>
+
+                    <div class="catalog_flex" style="align-items: normal;justify-content: normal">
+                        <div class="small_product_card" style="margin-right:15px;">
+                            <div class="small_product_place">
+                                <img src="../static/img/slider_img.png" class="small_product_img">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="bucket_na_zakaz">
+                                Букет индиго
+                            </div>
+                            <div class="price">
+                                5400 Р
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="catalog_flex" style="justify-content: space-between;margin-bottom: 0px;">
+                        <div class="price_price" style="color:#293048;opacity:0.6; font-size: 34px;">
+                            Итого:
+                        </div>
+                        <div class="price_price" style="float: right; font-size: 34px;">
+                            17200 Р
+                        </div>
+                    </div>
+                    <div class="registr_indicator" style="background: #293048;margin:25px 0;"></div>
+                    <input class="popup_input" placeholder="Введите промокод">
+                    <div class="all_catalog_href" style="float: none;width:100%;height:90px;">
+                        Применить промокод
+                    </div>
+                    <div class="blog_item_text_zag" style="text-align: center;margin:45px 0;">Платёжные системы</div>
+                    <div style="width:100%; display: flex; align-items: center; justify-content: space-between;">
+                        <div class="system_item">
+                            <div class="small_product_place">
+                                <img src="../static/img/mastercard.png" class="small_product_img" style="padding-top: 12px;">
+                            </div>
+                        </div>
+                        <div class="system_item">
+                            <div class="small_product_place">
+                                <img src="../static/img/visa.png" class="small_product_img">
+                            </div>
+                        </div>
+                        <div class="system_item">
+                            <div class="small_product_place">
+                                <img src="../static/img/mir.png" class="small_product_img">
+                            </div>
+                        </div>
+                        <div class="system_item">
+                            <div class="small_product_place">
+                                <img src="../static/img/applepay.png" class="small_product_img">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="all_catalog_href"
+                            style="float: none;width:100%;height:90px;justify-content: space-between;padding:0 10px; margin-top: 40px">
+                            <div>Подтвердить заказ</div>
+                            <div style="float: right" class="end_price">17200 Р</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
+
+
 {% include 'utilites.html' %}
 
+
+
 </body>
+
+
+<script>
+    console.log('test');
+
+
+    let checkOn_one = document.getElementById('color-1');
+    checkOn_one.onchange = function (){
+         if(checkOn_one.checked){
+            alert('Выбран');
+         }else {
+            alert('Не выбран')
+        }
+    }
+
+    let checkOn_two = document.getElementById('color-2');
+    checkOn_two.onchange = function (){
+         if(checkOn_two.checked){
+            alert('Выбран');
+         }else {
+            alert('Не выбран')
+        }
+    }
+
+
+    let checkOn_three = document.getElementById('get_other_people');
+    checkOn_three.onchange = function (){
+         if(checkOn_three.checked){
+            alert('Выбран');
+         }else {
+            alert('Не выбран')
+        }
+    }
+
+    let checkOn_four = document.getElementById('color-4');
+    checkOn_four.onchange = function (){
+         if(checkOn_four.checked){
+            alert('Выбран');
+         }else {
+            alert('Не выбран')
+        }
+    }
+
+    let checkOn_five = document.getElementById('color-5');
+    checkOn_five.onchange = function (){
+         if(checkOn_five.checked){
+            alert('Выбран');
+         }else {
+            alert('Не выбран')
+        }
+    }
+
+
+
+
+
+</script>
 </html>
