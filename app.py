@@ -82,7 +82,7 @@ def createorder():
 @app.route('/cabinet')
 def cabinet():
     if utils.is_mobile(request.user_agent):
-        return render_template('createorder.html')
+        return render_template('cabinet.html')
     else:
         return render_template('pc_cabinet.html')
 

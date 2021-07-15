@@ -18,7 +18,7 @@
 
         <div id="catalog_category_place">
             <div class="catalog_category" id="catalog_category_card" style="display: block">
-                <div class="catalog_category_item">
+                <div class="catalog_category_item" style="display: none;">
                     Монобукеты
                 </div>
             </div>
@@ -34,14 +34,98 @@
         </div>
 
         <!-- Место для вывода карточек -->
-        <div id="item_card_place" style="padding:35px 0">
-            <!-- Одна карточка -->
-            <div class="card_item">
-                <div class="add_to_favorites">
-                    <div class="right_nav_place">
-                        <div class="right_nav_item">
-                            <span class="far fa-heart"></span>
-                        </div>
+        <div id="item_card_place" style="padding:35px 0; display: none;">
+            <!--            &lt;!&ndash; Одна карточка &ndash;&gt;-->
+            <!--            <div class="card_item">-->
+            <!--                <div class="add_to_favorites">-->
+            <!--                    <div class="right_nav_place">-->
+            <!--                        <div class="right_nav_item">-->
+            <!--                            <span class="far fa-heart"></span>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="discount_place">-->
+            <!--                    <div class="percent_place">-->
+            <!--                        <span class="fa fa-percent"></span>-->
+            <!--                    </div>-->
+            <!--                    <div class="discount_text">-->
+            <!--                        20% скидка-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="card_img_place">-->
+            <!--                    <img src="../static/img/mobile_catalog.png">-->
+            <!--                </div>-->
+            <!--                <div class="card_text">-->
+            <!--                    <div class="catalog_flex_catalog" style="align-items: center;justify-content: space-between">-->
+            <!--                        <div>-->
+            <!--                            <div class="name_bucket">Букет "Индиго"</div>-->
+            <!--                            <div class="price_bucket have_disc">-->
+            <!--                                5400 Р-->
+            <!--                            </div>-->
+            <!--                            <div class="disc_price_bucket">-->
+            <!--                                2 600 Р-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                        <div class="add_to_basket_card">-->
+            <!--                            <span class="fas fa-shopping-bag"></span>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="added_product" style="display: none">-->
+            <!--                    <div>-->
+            <!--                        <span class="fa fa-minus"></span>-->
+            <!--                    </div>-->
+            <!--                    <div>-->
+            <!--                        В корзине: 1-->
+            <!--                    </div>-->
+            <!--                    <div>-->
+            <!--                        <span class="fa fa-plus"></span>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="in_basket">-->
+
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <div id="flowers_place">
+                <div class="choose_flower" id="choose_flower" style="display: none">
+                    <input type="checkbox" class="checkbox_for_choose_flower">
+                    <span class="name_flower">Роза кустовая</span>
+                </div>
+            </div>
+
+            <div class="sorted_zag">
+                Упаковка
+            </div>
+            <div class="choose_flower">
+                <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="1">
+                <span>Плёнка</span>
+            </div>
+            <div class="choose_flower">
+                <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="2">
+                <span>Крафт.плёнка</span>
+            </div>
+            <div class="choose_flower">
+                <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="3">
+                <span>Ленты</span>
+            </div>
+
+            <div class="all_catalog_href" style="float: none;margin: 20px 0 15px;height: 50px;width: 100%"
+                 id="startsorting">
+                Применить
+            </div>
+            <div style="text-align: center">
+                <div class="bucket_na_zakaz" style="text-align: center;cursor: pointer;display: contents">
+                    Сбросить
+                </div>
+            </div>
+
+
+            <!-- Карточка товара -->
+            <div class="slider_item_card" id="card_product">
+                <div class="right_nav_place">
+                    <div class="right_nav_item">
+
                     </div>
                 </div>
                 <div class="discount_place">
@@ -52,14 +136,15 @@
                         20% скидка
                     </div>
                 </div>
-                <div class="card_img_place">
-                    <img src="../static/img/mobile_catalog.png">
-                </div>
-                <div class="card_text">
-                    <div class="catalog_flex_catalog" style="align-items: center;justify-content: space-between">
+                <a class="slider_item_card_img_place" href="">
+                    <img src="../static/img/catalog_img.png" class="slider_img">
+                </a>
+                <div class="name_and_price">
+                    <div class="slider_name_bucket">Букет "Индиго"</div>
+                    <div class="catalog_flex_catalog"
+                         style="align-items: center;justify-content: space-between;padding: 0 15px;">
                         <div>
-                            <div class="name_bucket">Букет "Индиго"</div>
-                            <div class="price_bucket have_disc">
+                            <div class="price">
                                 5400 Р
                             </div>
                             <div class="disc_price_bucket">
@@ -70,26 +155,32 @@
                             <span class="fas fa-shopping-bag"></span>
                         </div>
                     </div>
-                </div>
-                <div class="added_product" style="display: none">
-                    <div>
-                        <span class="fa fa-minus"></span>
+                    <div class="price_hover">
+                        <div>
+                            В корзину
+                        </div>
+                        <div class="price_hover_price">
+                            5 400 ₽
+                        </div>
                     </div>
-                    <div>
-                        В корзине: 1
+                    <div class="added_product" style="display: none">
+                        <div>
+                            <span class="fa fa-minus"></span>
+                        </div>
+                        <div>
+                            В корзине: 1
+                        </div>
+                        <div>
+                            <span class="fa fa-plus"></span>
+                        </div>
                     </div>
-                    <div>
-                        <span class="fa fa-plus"></span>
-                    </div>
-                </div>
-                <div class="in_basket">
-
                 </div>
             </div>
         </div>
     </div>
 </div>
 {% include 'utilites.html' %}
-
+<!-- Функции к каталогу -->
+<script src="../static/js/catalog.js"></script>
 </body>
 </html>

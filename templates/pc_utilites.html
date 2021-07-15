@@ -198,7 +198,7 @@
     </div>
 </div>
 <!-- Карточка товара -->
-<div id="item_card_place" style="display: block;padding-top: 35px;display: none">
+<div id="item_card_place" style="padding-top: 35px;display: none">
     <div class="slider_item_card" id="card_product" style="display: none">
         <div class="right_nav_place">
             <div class="right_nav_item">
@@ -363,6 +363,15 @@
             register_user.onclick = function () {
                 RegistrationUser();
             }
+            let inputs = document.getElementsByClassName('popup_input');
+
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].oninput = function () {
+                    if (inputs[i].value.length > 0) {
+                        inputs[i].classList.remove('error');
+                    }
+                }
+            }
             /* В попапе регистрации и авторизации менять блоки при нажатии на "Регистрация"/"Вход в аккаунт" */
             authorize_user.onclick = function () {
                 AuthorizationUser();
@@ -430,56 +439,50 @@
 
     /* Регистрация пользователя */
     function RegistrationUser() {
-        if (name_user_reg.value === '') {
-            name_user_reg.classList.add('error');
-            alert('Введите имя');
-            return;
-        }
-        if (surname_user_reg.value === '') {
-            surname_user_reg.classList.add('error');
-            alert('Введите фамилию');
-            return;
-        }
-        if (phone_user_reg.value === '') {
-            phone_user_reg.classList.add('error');
-            alert('Введите номер телефона');
-            return;
-        }
-        if (password_user_reg.value === '') {
-            password_user_reg.classList.add('error');
-            alert('Введите пароль');
-            return;
-        }
-        if (password_user_reg.value === '') {
-            password_user_reg.classList.add('error');
-            alert('Введите пароль');
-            return;
-        }
-        if (repeatpas_user_reg.value === '') {
-            repeatpas_user_reg.classList.add('error');
-            alert('Введите пароль повторно');
-            return;
-        }
-        if (password_user_reg.value !== repeatpas_user_reg.value) {
-            alert('Пароли не совпадают');
-            return;
-        }
-        let phone_number = maskPhone(phone_user_reg);
-        console.log(phone_user_reg.value.toString());
-        let data = {
-            'name': name_user_reg.value,
-            'surname': surname_user_reg.value,
-            'phone': phone_user_reg.value,
-            'password': password_user_reg.value,
-        }
-        $.ajax({
-            url: '/api/user/registration',
-            type: 'GET',
-            data: data,
-            success: function (msg) {
-                console.log(msg);
+        let box = registration_block.cloneNode(true);
+        let inputs = box.getElementsByClassName('popup_input');
+        console.log(inputs);
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value.length === 0) {
+                console.log(inputs[i].value.length === 0);
+                inputs[i].classList.add('error');
             }
-        });
+        }
+        if (name_user_reg.value === '') {
+            return;
+        } else if (surname_user_reg.value === '') {
+            return;
+        } else if (phone_user_reg.value === '') {
+            return;
+        } else if (password_user_reg.value === '') {
+            return;
+        } else if (password_user_reg.value === '') {
+            return;
+        } else if (repeatpas_user_reg.value === '') {
+            return;
+        } else if (password_user_reg.value !== repeatpas_user_reg.value) {
+            alert('Повторный пароль введён неверно');
+            return;
+        } else {
+            let phone_number = maskPhone(phone_user_reg);
+            console.log(phone_user_reg.value.toString());
+            let data = {
+                'name': name_user_reg.value,
+                'surname': surname_user_reg.value,
+                'phone': phone_user_reg.value,
+                'password': password_user_reg.value,
+            }
+            $.ajax({
+                url: '/api/user/registration',
+                type: 'GET',
+                data: data,
+                success: function (msg) {
+                    console.log(msg);
+                }
+            });
+        }
+
+
     }
 
     /* Срабатывает на oninput, приводит номер телефона в нужный регистр */
@@ -496,28 +499,33 @@
 
     /* Авторизация пользователя */
     function AuthorizationUser() {
+        let box = authorization_block.cloneNode(true);
+        let inputs = box.getElementsByClassName('popup_input');
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value.length === 0) {
+                inputs[i].classList.add('error');
+            }
+        }
         if (phone_user_auth.value === '') {
-            phone_user_auth.classList.add('error');
             alert('Введите телефон');
             return;
-        }
-        if (password_user_auth.value === '') {
-            password_user_auth.classList.add('error');
+        } else if (password_user_auth.value === '') {
             alert('Введите пароль');
             return;
-        }
-        let data = {
-            'password': password_user_auth.value,
-            'phone': phone_user_auth.value,
-        }
-        $.ajax({
-            url: '/api/user/auth',
-            type: 'GET',
-            data: data,
-            success: function (msg) {
-                console.log(msg);
+        } else {
+            let data = {
+                'password': password_user_auth.value,
+                'phone': phone_user_auth.value,
             }
-        })
+            $.ajax({
+                url: '/api/user/auth',
+                type: 'GET',
+                data: data,
+                success: function (msg) {
+                    console.log(msg);
+                }
+            })
+        }
     }
 
 
@@ -525,9 +533,6 @@
     GetUser();
 
     function GetUser() {
-        let data = {
-            'id': user_id
-        }
         $.ajax({
             url: '/api/user/get',
             type: 'GET',

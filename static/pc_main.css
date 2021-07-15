@@ -1101,6 +1101,7 @@ input[type="checkbox"] {
 
 .popup_input.error {
     border: 1px solid #F54343;
+    background:#FFFFFF;
 }
 
 .popup_input.error::placeholder {
