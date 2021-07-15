@@ -102,15 +102,30 @@ input[type="checkbox"] {
 
 /* Уведомления об ошибке или успешности действия */
 .notification {
-    position: absolute;
-    width: 100px;
-    height: 50px;
+    position: fixed;
+    width: 200px;
+    height: 75px;
     border-radius: 8px;
     bottom: 20px;
     right: 20px;
-    transform: translate(0, -120%);
+    transform: translate(120%, 0);
     transition: transform .4s;
+    background: #3e3e3e;
+    color: #FFFFFF;
+    z-index: 9999;
+}
 
+.notification_zag {
+    padding: 4px 0;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+.notification_message {
+    font-size: 14px;
+    padding: 5px 10px;
 }
 
 .notification._active {
@@ -125,7 +140,7 @@ input[type="checkbox"] {
     height: 90px;
     background: #ffffff;
     box-shadow: 0 4px 16px rgba(41, 48, 72, 0.5);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 500;
@@ -375,7 +390,7 @@ input[type="checkbox"] {
     margin-top: 25%;
     font-size: 28px;
     display: block;
-    z-index: 9999;
+    z-index: 9000;
 }
 
 .to_choose_href .fa-chevron-right {
@@ -603,10 +618,12 @@ input[type="checkbox"] {
     height: 100%;
     width: 100%;
 }
-.pagination_num:hover{
+
+.pagination_num:hover {
     cursor: pointer;
 }
-.pagination_num._active{
+
+.pagination_num._active {
     background: #293048;
     color: #FFFFFF;
 }
@@ -1011,7 +1028,7 @@ input[type="checkbox"] {
     width: 30%;
     right: 0;
     top: 0;
-    z-index: 9999;
+    z-index: 9000;
     display: block;
     overflow: auto;
 }
@@ -1090,6 +1107,15 @@ input[type="checkbox"] {
     background: #29304833;
     font-size: 16px;
     font-weight: 450;
+    position: relative;
+}
+
+.popup_input .necessarily_star {
+    font-size: 14px;
+    color: #293048;
+    position: absolute;
+    top: 4px;
+    right: 6px;
 }
 
 .popup_input::placeholder {
@@ -1101,7 +1127,7 @@ input[type="checkbox"] {
 
 .popup_input.error {
     border: 1px solid #F54343;
-    background:#FFFFFF;
+    background: #FFFFFF;
 }
 
 .popup_input.error::placeholder {
@@ -1129,6 +1155,7 @@ input[type="checkbox"] {
 .basket_info .catalog_flex {
     padding: 15px 0;
     border-bottom: 4px solid #293048;
+    z-index: 10;
 }
 
 .basket_info .address_info_zag {
@@ -1139,6 +1166,40 @@ input[type="checkbox"] {
 .basket_info .fa-chevron-down {
     font-size: 18px;
     cursor: pointer;
+    transition: transform .2s;
+}
+
+.basket_info .fa-chevron-down._active {
+    transform: rotate(180deg);
+    transition: transform .2s;
+}
+
+#choose_delivery_list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translate(0, -14px);
+    opacity: 0;
+    transition: all .4s;
+    z-index: -10;
+}
+
+#choose_delivery_list._active {
+    transform: translate(0, 62px);
+    opacity: 1;
+    transition: all .4s;
+    z-index: 10;
+}
+
+#choose_delivery_list .catalog_flex {
+    border-bottom: 0;
+    padding: 0;
+}
+
+#choose_delivery_list .catalog_flex:first-child {
+    border-bottom: 4px solid #293048;
+    padding: 8px 0;
 }
 
 .oformit_zakaz {
@@ -1171,6 +1232,15 @@ input[type="checkbox"] {
 
 .basket_info_for_order {
     max-width: 68%;
+}
+
+#basket_item_place {
+    transition: padding-top .1s;
+}
+
+#basket_item_place.move_up {
+    padding-top: 50px;
+    transition: padding-top .3s;
 }
 
 .basket_item {
@@ -1276,9 +1346,30 @@ input[type="checkbox"] {
     display: flex;
     width: 100%;
     position: relative;
-    height: 225px;
+}
+.sorted_text .fa-chevron-down{
+    margin-left:5px;
+    color:#F877AD;
+    cursor: pointer;
+    transition: transform .4s;
+}
+.sorted_text .fa-chevron-down._active{
+    transition: transform .4s;
+    transform: rotate(180deg);
+}
+#sorted_select_items_list {
+    position: absolute;
+    transform: translate(0, -50px);
+    transition: transform 0.4s;
+    width:100%;
+    z-index: -5;
 }
 
+#sorted_select_items_list._active {
+    transform: translate(0, 0);
+    transition: transform 0.4s;
+    z-index:10;
+}
 
 .sorted_text_select {
     color: #F877AD;
@@ -1289,7 +1380,7 @@ input[type="checkbox"] {
 
 .sorted_select_items {
     position: absolute;
-    padding: 15px 10px;
+    padding: 15px 0;
     background: #ffffff;
     width: 100%;
     height: auto;
@@ -1297,11 +1388,18 @@ input[type="checkbox"] {
 }
 
 .sorted_select_item {
-    padding: 8px 0;
+    padding: 8px 10px;
     color: #b0bbbe;
     border-bottom: 2px solid #b0bbbe;
     text-transform: uppercase;
     font-size: 16px;
+    transition: all .3s;
+}
+.sorted_select_item:hover{
+    cursor:pointer;
+    background:#F877AD;
+    transition: all .3s;
+    color:#FFFFFF;
 }
 
 .sorted_zag {
@@ -1605,6 +1703,15 @@ input[type="checkbox"] {
     margin-right: 0;
 }
 
+.birthday_item {
+    width: 32.5%;
+    margin-right: 10px;
+}
+
+.birthday_item:last-child {
+    margin-right: 0;
+}
+
 /* ===== Личный кабинет ===== */
 /* Личные данные */
 .ava_place {
@@ -1711,7 +1818,62 @@ input[type="checkbox"] {
     padding-left: 35px;
 }
 
+/* Кастомный чекбокс*/
+.custom-checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
 
+/* для элемента label, связанного с .custom-checkbox */
+.custom-checkbox + label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+}
+
+/* создание в label псевдоэлемента before со следующими стилями */
+.custom-checkbox + label::before {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid #EAEAED;
+    border-radius: 100%;
+    margin-right: 0.5em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
+    background-color: #EAEAED;
+    transform: scale(1.5);
+}
+
+/* стили при наведении курсора на checkbox */
+.custom-checkbox:not(:disabled):not(:checked) + label:hover::before {
+    border-color: #F877AD;
+}
+
+/* стили для активного чекбокса (при нажатии на него) */
+.custom-checkbox:not(:disabled):active + label::before {
+    background-color: #F877AD;
+    border-color: #F877AD;
+}
+
+
+/* стили для чекбокса, находящегося в состоянии checked */
+.custom-checkbox:checked + label::before {
+    border-color: #F877AD;
+    background-color: #F877AD;
+    /*background-image: url("../static/img/check_mark.svg");*/
+}
+
+/* стили для чекбокса, находящегося в состоянии disabled */
+.custom-checkbox:disabled + label::before {
+    background-color: #EAEAED;
+}
 
 
 

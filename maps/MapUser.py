@@ -69,3 +69,8 @@ def api_user_disliked():
 @user_app.route('/api/user/add_address')
 def api_user_add_address():
     return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/user/check_password')
+def api_user_check_password():
+    return utils.complete_request(request, request.path)

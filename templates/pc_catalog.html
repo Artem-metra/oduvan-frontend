@@ -20,27 +20,33 @@
                 </h1>
 
                 <div class="sorted_text" style="display: block" id="sorted_text">
-
-                    <div class="sorted_select_items">
-                        <div id="sorted_place" style="background: transparent">
-                            <div class="catalog_flex" style="padding: 0;">
-                                <div class="sorted_select_item" style="color: #293048;border-bottom: 0">
-                                    Сортировка:
+                    <div id="sorted_place">
+                        <div class="catalog_flex" style="padding: 0;">
+                            <div class="sorted_select_item" style="color: #293048;border-bottom: 0">
+                                Сортировка:
+                            </div>
+                            <div class="catalog_flex" style="padding:0">
+                                <div class="sorted_text_select">
+                                    По названию
                                 </div>
-                                <div class="sorted_text_select">Название <span class="fa fa-chevron-down"></span></div>
+                                <div id="chevron_for_list"><span class="fa fa-chevron-down" id="chevron_list"></span></div>
                             </div>
                         </div>
-                        <div class="sorted_select_item">
-                            Самые популярные
-                        </div>
-                        <div class="sorted_select_item">
-                            По возрастанию цены
-                        </div>
-                        <div class="sorted_select_item">
-                            По убыванию цены
-                        </div>
-                        <div class="sorted_select_item">
-                            По размеру скидки
+                    </div>
+                    <div id="sorted_select_items_list">
+                        <div class="sorted_select_items">
+                            <div class="sorted_select_item">
+                                Самые популярные
+                            </div>
+                            <div class="sorted_select_item">
+                                По возрастанию цены
+                            </div>
+                            <div class="sorted_select_item">
+                                По убыванию цены
+                            </div>
+                            <div class="sorted_select_item">
+                                По размеру скидки
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -52,16 +58,17 @@
                     <div class="price_place">
                         <span>От</span>
                         <div id="price_ot" class="price_price">
-                            <input type="number" value="100" id="price_min"> ₽
+                            <input type="number" value="0" id="price_min"> ₽
                         </div>
                     </div>
                     <div class="price_place">
                         <span>До</span>
                         <div id="price_do" class="price_price">
-                            <input type="number" value="2000" id="price_max"> ₽
+                            <input type="number" value="100000" id="price_max"> ₽
                         </div>
                     </div>
                 </div>
+                <input type="range" id="price_controller" min="0" max="100000">
 
                 <div class="sorted_zag">
                     Цветы
@@ -94,7 +101,7 @@
                     Применить
                 </div>
                 <div style="text-align: center">
-                    <div class="bucket_na_zakaz" style="text-align: center;cursor: pointer;display: contents">
+                    <div class="bucket_na_zakaz" style="text-align: center;cursor: pointer;display: contents" id="throw_off">
                         Сбросить
                     </div>
                 </div>

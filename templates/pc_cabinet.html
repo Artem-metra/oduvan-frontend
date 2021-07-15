@@ -50,11 +50,22 @@
                 <div class="name_buckets">
                     Личные данные
                 </div>
-                <input class="popup_input" placeholder="Ваше имя">
-                <input class="popup_input" placeholder="Ваша фамилия">
-                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__">
-                <input class="popup_input" type="email" placeholder="Электронная почта">
-                <div class="all_catalog_href" style="float: none;width:100%;height:50px;">
+                <input class="popup_input" placeholder="Ваше имя" id="your_name">
+                <input class="popup_input" placeholder="Ваша фамилия" id="your_surname">
+                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__" id="your_mobile">
+                <input class="popup_input" type="email" placeholder="Электронная почта" id="your_email_address">
+                <div class="catalog_flex_catalog">
+                    <div class="birthday_item">
+                        <input class="popup_input" type="number" placeholder="День" id="birthday_day">
+                    </div>
+                    <div class="birthday_item">
+                        <input class="popup_input" type="number" placeholder="Месяц" id="birthday_month">
+                    </div>
+                    <div class="birthday_item">
+                        <input class="popup_input" type="number" placeholder="Год" id="birthday_year">
+                    </div>
+                </div>
+                <div class="all_catalog_href" style="float: none;width:100%;height:50px;" id="save_changes">
                     Сохранить изменения
                 </div>
             </div>
@@ -63,18 +74,27 @@
                 <div class="ava_place">
                     <div class="catalog_flex" style="justify-content: normal">
                         <img src="" class="avatar">
-                        <div class="all_catalog_href" style="width: 100%">Загрузить фото</div>
+                        <input class="all_catalog_href" style="width: 100%" value="Загрузить фото" type="file"
+                               id="avatar">
                     </div>
                 </div>
 
                 <div class="name_buckets">
                     Пароль
                 </div>
-                <input class="popup_input" placeholder="Старый пароль" type="password">
-                <input class="popup_input" placeholder="Новый пароль" type="password">
-                <input class="popup_input" placeholder="Повторите новый пароль" type="password">
-                <div class="all_catalog_href" style="float: none;width:100%;height:50px;">
-                    Сохранить изменения
+                <div id="place_for_old_pas">
+                    <input class="popup_input" placeholder="Старый пароль" type="password" id="old_password">
+                    <div class="all_catalog_href" style="float: none;width:100%;height:50px;" id="send_old_pas">
+                        Проверить
+                    </div>
+                </div>
+                <div id="enter_new_pas" style="display: none;">
+                    <input class="popup_input" placeholder="Новый пароль" type="password" id="new_pass">
+                    <input class="popup_input" placeholder="Повторите новый пароль" type="password"
+                           id="new_pass_repeat">
+                    <div class="all_catalog_href" style="float: none;width:100%;height:50px;" id="save_new_pas">
+                        Сохранить изменения
+                    </div>
                 </div>
             </div>
         </div>
@@ -263,8 +283,6 @@
 
 {% include 'pc_utilites.html' %}
 <script>
-    console.log(user);
-
 
     personal_info_map.onclick = function () {
         personal_info_map.classList.add('_active');
@@ -301,6 +319,154 @@
                 maping[i].classList.remove('_active');
             }
         }
+    }
+    send_old_pas.onclick = function () {
+        checkingOldPassword();
+    }
+    save_changes.onclick = function () {
+        EditUser(1);
+    }
+    /* Получение пользователя */
+    GetUser();
+
+    function GetUser() {
+        $.ajax({
+            url: '/api/user/get',
+            type: 'GET',
+            success: function (msg) {
+                user = msg['user'];
+                DrawInfoUser(user);
+            }
+        });
+    }
+
+    function DrawInfoUser() {
+        console.log(user);
+        name_user.innerText = user['name'];
+        your_name.value = user['name'];
+        your_surname.value = user['surname'];
+        your_mobile.value = '+7' + user['phone'];
+        your_email_address.value = user['email'];
+    }
+
+
+    /* Проверка старого пароля на правильность */
+    function checkingOldPassword() {
+        if (old_password.value === '') {
+            alert('Вы ничего не ввели');
+            return;
+        } else {
+            let data = {
+                'user_id': user['id'],
+                'password': old_password.value,
+            }
+            $.ajax({
+                url: '/api/user/check_password',
+                data: data,
+                type: 'GET',
+                success: function (msg) {
+                    console.log(msg);
+                    place_for_old_pas.style.display = 'none';
+                    enter_new_pas.style.display = 'block';
+                    save_new_pas.onclick = function () {
+                        EditUser(2);
+                    }
+                }
+            })
+        }
+    }
+
+
+    /* Загрузка аватара */
+
+    // avatar.onchange = e => {
+    //     let file = e.target.files[0];
+    //     comment_getBase64(file);
+    // }
+    //
+    //
+    // function comment_getBase64(file) {
+    //     let filename = file.name;
+    //     var reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = function () {
+    //         let data = {
+    //             'file': reader.result,
+    //             'filename': filename
+    //         }
+    //         $.ajax({
+    //             url: '/site/loadPhoto',
+    //             type: 'POST',
+    //             data: data,
+    //             success: function (msg) {
+    //                 let uuid = msg['uuid'];
+    //             }
+    //         });
+    //     };
+    //     reader.onerror = function (error) {
+    //     };
+    // }
+
+
+    function EditUser(status) {
+        // status = 1 - изменение основных данных, 2 - пароля
+        if (status === 1) {
+            if (your_name.value === '') {
+                alert('Вы не ввели имя');
+                return;
+            } else if (your_mobile.value === '') {
+                alert('Вы не ввели мобильный телефон');
+                return;
+            } else if (your_name.value === user['name'] && your_mobile.value === '+7' + user['phone'] && your_surname.value === user['surname']) {
+                notification('Информация не поменялась', 1);
+                return;
+            } else {
+                let birthday = birthday_year + '.' + birthday_month + '.' + birthday_day;
+                let data = {
+                    'id': user['id'],
+                    'name': your_name.value,
+                    'surname': your_surname.value,
+                    'phone': your_mobile.value,
+                    'birthday': birthday,
+                }
+                $.ajax({
+                    url: '/api/user/edit',
+                    data: data,
+                    type: "GET",
+                    success: function (msg) {
+                        console.log(msg);
+                        alert('Ваши данные успешно изменены');
+                    }
+                })
+            }
+        } else {
+            if (new_pass.value === '') {
+                new_pass.classList.add('error');
+                return;
+            } else if (new_pass.value.length < 7) {
+                new_pass.classList.add('error');
+                notification('Пароль должен содержать более 6 символов', 1);
+                return;
+            } else if (new_pass.value !== new_pass_repeat.value) {
+                notification('Пароли не совпадают', 1);
+                return;
+            } else {
+                let data = {
+                    'id': user['id'],
+                    'password': new_pass.value,
+                }
+                $.ajax({
+                    url: '/api/user/edit',
+                    data: data,
+                    type: "GET",
+                    success: function (msg) {
+                        notification('Ваш пароль успешно изменён', 2);
+                    }
+                })
+            }
+        }
+
+
     }
 
 
