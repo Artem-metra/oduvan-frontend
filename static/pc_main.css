@@ -1347,28 +1347,31 @@ input[type="checkbox"] {
     width: 100%;
     position: relative;
 }
-.sorted_text .fa-chevron-down{
-    margin-left:5px;
-    color:#F877AD;
+
+.sorted_text .fa-chevron-down {
+    margin-left: 5px;
+    color: #F877AD;
     cursor: pointer;
     transition: transform .4s;
 }
-.sorted_text .fa-chevron-down._active{
+
+.sorted_text .fa-chevron-down._active {
     transition: transform .4s;
     transform: rotate(180deg);
 }
+
 #sorted_select_items_list {
     position: absolute;
     transform: translate(0, -50px);
     transition: transform 0.4s;
-    width:100%;
+    width: 100%;
     z-index: -5;
 }
 
 #sorted_select_items_list._active {
     transform: translate(0, 0);
     transition: transform 0.4s;
-    z-index:10;
+    z-index: 10;
 }
 
 .sorted_text_select {
@@ -1395,11 +1398,12 @@ input[type="checkbox"] {
     font-size: 16px;
     transition: all .3s;
 }
-.sorted_select_item:hover{
-    cursor:pointer;
-    background:#F877AD;
+
+.sorted_select_item:hover {
+    cursor: pointer;
+    background: #F877AD;
     transition: all .3s;
-    color:#FFFFFF;
+    color: #FFFFFF;
 }
 
 .sorted_zag {
@@ -1710,6 +1714,18 @@ input[type="checkbox"] {
 
 .birthday_item:last-child {
     margin-right: 0;
+}
+
+#choose_data {
+    color: #F877AD;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+#choose_time {
+    color: #F877AD;
+    text-transform: uppercase;
+    cursor: pointer;
 }
 
 /* ===== Личный кабинет ===== */
