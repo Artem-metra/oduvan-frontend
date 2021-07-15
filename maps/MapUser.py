@@ -1,6 +1,3 @@
-import datetime
-import json
-
 from flask import Blueprint, request, session, abort
 
 import utils
@@ -10,64 +7,65 @@ user_app = Blueprint('user_app', __name__)
 
 @user_app.route('/api/user/create')
 def api_user_create():
-    pass
     return utils.complete_request(request, request.path)
+
 
 @user_app.route('/api/users/get')
 def api_users_get():
-    pass
     return utils.complete_request(request, request.path)
+
 
 @user_app.route('/api/user/get')
 def api_user_get():
-    pass
-    return utils.complete_request(request, request.path)
-
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    if 'user_id' not in params.keys():
+        if 'user_id' in session:
+            params = {'id': session['user_id']}
+        else:
+            return 'Пользователь неавторизован.'
+    return utils.complete_request_with_parameters(params, request.path)
 
 
 @user_app.route('/api/user/edit')
 def api_user_edit():
-    pass
     return utils.complete_request(request, request.path)
 
 
 @user_app.route('/api/user/remove')
 def api_user_remove():
-    pass
     return utils.complete_request(request, request.path)
 
 
 @user_app.route('/api/user/check')
 def api_user_check():
-    pass
     return utils.complete_request(request, request.path)
 
 
 @user_app.route('/api/user/registration')
 def api_user_registration():
-    pass
     return utils.complete_request(request, request.path)
 
 
 @user_app.route('/api/user/auth')
 def api_user_auth():
-    pass
-    return utils.complete_request(request, request.path)
+    resp = utils.complete_request(request, request.path)
+    if 'user_id' not in session:
+        session['user_id'] = resp['user']
+    return resp
 
 
 @user_app.route('/api/user/liked')
 def api_user_liked():
-    pass
     return utils.complete_request(request, request.path)
 
 
 @user_app.route('/api/user/disliked')
 def api_user_disliked():
-    pass
     return utils.complete_request(request, request.path)
 
 
 @user_app.route('/api/user/add_address')
 def api_user_add_address():
-    pass
     return utils.complete_request(request, request.path)
