@@ -2,9 +2,303 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>Личный кабинет</title>
 
-</body>
+       {% include 'headers.html' %}
+</head>
+<body id="body">
+
+    <section class="head">
+		<div class="container">
+			<div class="head_block__title">
+				<p class="head_block__title--1">Одуван</p>
+				<span class="head_block__title--2">/</span>
+				<p class="head_block__title--3">Личный кабинет</p>
+			</div>
+			<h1 class="head_title">Личный кабинет</h1>
+			<p class="head_desc">Добрый день, Иван. В личном кабинете вы можете проверить ход выполнения ваших заказов, просмотреть или изменить личную информацию.</p>
+		</div>
+	</section>
+
+    <section class="main_choice">
+        <div class="container">
+            <ul class="main__list">
+				<li class="main__item active_color" id="personal">Личная информация</li>
+				<li class="main__item" id="address">Адреса</li>
+				<li class="main__item" id="histor">История</li>
+			</ul>
+        </div>
+    </section>
+
+    <!-- ЛК история -->
+	<section class="main" id="main_history">
+		<div class="container">
+			<div class="main_info__two">
+				<div class="main_info__desc">
+					<div class="info_desc__item">
+						<ul class="desc_item__list">
+							<li class="desc_item__list--1">Адрес</li>
+							<li class="desc_item__list--2">Воронеж, Ул. Урывского 2В</li>
+						</ul>
+					</div>
+
+					<div class="info_desc__item">
+						<ul class="desc_item__list">
+							<li class="desc_item__list--1">Стоимость</li>
+							<li class="desc_item__list--2">17 200 ₽</li>
+						</ul>
+					</div>
+
+					<div class="info_desc__item">
+						<ul class="desc_item__list">
+							<li class="desc_item__list--1">Дата</li>
+							<li class="desc_item__list--2">06.07.2021</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="main_category">
+					<ul class="category_list">
+						<li class="category_item">
+							<img src="../static/img/mobile_catalog.png" alt="">
+							<div class="category_item__desc">
+								<p class="flow_name">Букет «Индиго»</p>
+								<p class="flow_price">5 400 ₽</p>
+							</div>
+						</li>
+
+                        <li class="category_item">
+							<img src="../static/img/mobile_catalog.png" alt="">
+							<div class="category_item__desc">
+								<p class="flow_name">Букет «Индиго»</p>
+								<p class="flow_price">5 400 ₽</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<!-- ЛК адрес -->
+   <section class="main" id="main_adres">
+		<div class="container">
+			<div class="main_info__adr">
+				<div class="main_info__desc__adr">
+					<div class="info_desc__item__adr">
+						<ul class="desc_item__list__adr">
+							<li class="desc_item__list--1__adr">Название</li>
+							<li class="desc_item__list--2__adr">Офис</li>
+						</ul>
+					</div>
+
+					<div class="info_desc__item__adr">
+						<ul class="desc_item__list__adr">
+							<li class="desc_item__list--1__adr">Адрес</li>
+							<li class="desc_item__list--2__adr">Воронеж, Ул. Урывского 2В</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="main_group__btn__adr">
+					<button class="btn--reset btn_left" type="button">Изменить</button>
+					<button class="btn--reset btn_right" type="button">Удалить</button>
+				</div>
+			</div>
+
+			<div class="adres_block" id="adres_block_one">
+				<span class="fas fa-map-marker-alt my_marker"></span>
+				<p class="adres_desc" id="adres_desc_map_1">Добавить адрес</p>
+			</div>
+
+			<div class="adres_block" id="adres_block_two">
+				<span class="fas fa-map-marker-alt my_marker"></span>
+				<p class="adres_desc" id="adres_desc_map_2">Добавить адрес</p>
+			</div>
+		</div>
+	</section>
+
+    <section class="main" id="main_personal">
+        <div class="container">
+            <div class="requisites_place">
+                <h2 class="name_buckets">
+                    Личные данные
+                </h2>
+                <input class="popup_input" placeholder="Ваше имя">
+                <input class="popup_input" placeholder="Ваша фамилия">
+                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__">
+                <input class="popup_input" type="email" placeholder="Электронная почта">
+                <div class="date_of_birth">
+                    <input class="popup_input mar_rig" placeholder="День">
+                    <input class="popup_input mar_rig" placeholder="Месяц">
+                    <input class="popup_input" placeholder="Год">
+                </div>
+                <div class="all_catalog_href" style="float: none;width:100%; height: 80px">
+                    Сохранить изменения
+                </div>
+            </div>
+            <!-- Аватарка пользователся и пароль -->
+            <div class="your_order_place ">
+                <div class="ava_place">
+                    <div class="catalog_flex" style="justify-content: normal; margin-bottom: 30px; display: flex; flex-direction: column">
+                        <img src="" class="avatar">
+                        <div class="all_catalog_href" style="width: 90%;">Загрузить фото</div>
+                    </div>
+                </div>
+
+                <div class="name_buckets">
+                    Пароль
+                </div>
+                <input class="popup_input" placeholder="Старый пароль" type="password">
+                <input class="popup_input" placeholder="Новый пароль" type="password">
+                <input class="popup_input" placeholder="Повторите новый пароль" type="password">
+                <div class="all_catalog_href" style="float: none;width:100%;height:80px;">
+                    Сохранить изменения
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="activ_adres" id="activ_adres_map_one">
+        <div class="container">
+            <div class="main_info__adr">
+				<div class="main_info__desc__adr">
+					<div class="info_desc__item__adr">
+						<ul class="desc_item__list__adr">
+							<li class="desc_item__list--1__adr">Название</li>
+							<li class="desc_item__list--2__adr">Офис</li>
+						</ul>
+					</div>
+
+					<div class="info_desc__item__adr">
+						<ul class="desc_item__list__adr">
+							<li class="desc_item__list--1__adr">Адрес</li>
+							<li class="desc_item__list--2__adr">Воронеж, Ул. Урывского 2В</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="main_group__btn__adr">
+					<button class="btn--reset btn_save" type="button">Сохранить</button>
+				</div>
+			</div>
+        </div>
+    </section>
+
+    <section class="activ_adres" id="activ_adres_map_two">
+        <div class="container">
+            <div class="main_info__adr">
+				<div class="main_info__desc__adr">
+					<div class="info_desc__item__adr">
+						<ul class="desc_item__list__adr">
+							<li class="desc_item__list--1__adr">Название</li>
+							<li class="desc_item__list--2__adr">Офис</li>
+						</ul>
+					</div>
+
+					<div class="info_desc__item__adr">
+						<ul class="desc_item__list__adr">
+							<li class="desc_item__list--1__adr">Адрес</li>
+							<li class="desc_item__list--2__adr">Воронеж, Ул. Урывского 2В</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="main_group__btn__adr">
+					<button class="btn--reset btn_save" type="button">Сохранить</button>
+				</div>
+			</div>
+        </div>
+    </section>
+
+    {% include 'utilities.html' %}
+
+    </body>
+
+<script>
+    console.log("test");
+
+    // Проверить работу при нажатии на добавить адрес, так как нет доступа на сервер
+
+    activ_adres_map_one.style.display = 'none';
+    activ_adres_map_two.style.display = 'none';
+
+    adres_desc_map_1.onclick = function (){
+        adres_block_one.style.display = 'none';
+        active_adres_map_one.style.display = 'block';
+        active_adres_map_one.classList.add('container_on_block');
+        main_adres.style.paddingBottom = '0';
+
+    }
+
+
+    adres_desc_map_2.onclick = function (){
+        adres_block_two.style.display = 'none';
+        active_adres_map_two.style.display = 'block';
+        active_adres_map_two.classList.add('container_on_block');
+        active_adres_map_two.style.marginBottom = '20px';
+
+    }
+
+
+
+
+
+
+    main_history.style.display = 'none';
+    main_personal.style.display = 'block'
+    main_adres.style.display = 'none';
+
+
+     personal.onclick = function () {
+       main_personal.style.display = 'block';
+       main_history.style.display = 'none';
+       main_adres.style.display = 'none';
+       personal.classList.add('active_color');
+       address.classList.remove('active_color');
+       histor.classList.remove('active_color');
+       let maping = document.getElementsByClassName('main__item');
+       for (let i = 0; i < maping.length; i++) {
+           if (maping[i].classList.contains('active_color') && !personal.classList.contains('active_color')) {
+               maping[i].classList.remove('active_color');
+           }
+       }
+     }
+
+
+     address.onclick = function () {
+       histor.classList.remove('active_color');
+       personal.classList.remove('active_color');
+       address.classList.add('active_color');
+       main_history.style.display = 'none';
+       main_adres.style.display = 'block';
+       main_personal.style.display = 'none';
+       let maping = document.getElementsByClassName('main__item');
+       for (let i = 0; i < maping.length; i++) {
+           if (maping[i].classList.contains('active_color') && !address.classList.contains('active_color')) {
+               maping[i].classList.remove('active_color');
+           }
+       }
+    }
+
+
+
+    histor.onclick = function () {
+       histor.classList.add('active_color');
+       address.classList.remove('active_color');
+       personal.classList.remove('active_color');
+       main_history.style.display = 'block';
+       main_adres.style.display = 'none';
+       main_personal.style.display = 'none';
+       let maping = document.getElementsByClassName('main__item');
+       for (let i = 0; i < maping.length; i++) {
+           if (maping[i].classList.contains('active_color') && !histor.classList.contains('active_color')) {
+               maping[i].classList.remove('active_color');
+           }
+       }
+   }
+
+
+
+</script>
 </html>
