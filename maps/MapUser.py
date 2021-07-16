@@ -24,7 +24,7 @@ def api_user_get():
         if 'user_id' in session:
             params = {'id': session['user_id']}
         else:
-            return 'Пользователь неавторизован.'
+            return 'error'
     return utils.complete_request_with_parameters(params, request.path)
 
 
