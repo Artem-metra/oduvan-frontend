@@ -18,102 +18,58 @@
 
 <div class="catalog">
     <div class="container">
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="favorites_place">
+            <div id="card_product" style="display: none;">
+                <div class="right_nav_place">
+                    <div class="right_nav_item">
 
-
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
+                <div class="discount_place">
+                    <div class="percent_place">
+                        <span class="fa fa-percent"></span>
                     </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
+                    <div class="discount_text">
+                        20% скидка
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
+                <a class="slider_item_card_img_place" href="">
+                    <img src="../static/img/catalog_img.png" class="slider_img">
+                </a>
+                <div class="name_and_price">
+                    <div class="slider_name_bucket">Букет "Индиго"</div>
+                    <div class="catalog_flex_catalog"
+                         style="align-items: center;justify-content: space-between;padding: 0 15px;">
+                        <div>
+                            <div class="price">
+                                5400 Р
+                            </div>
+                            <div class="disc_price_bucket">
+                                2 600 Р
+                            </div>
+                        </div>
+                        <div class="add_to_basket_card">
+                            <span class="fas fa-shopping-bag"></span>
+                        </div>
                     </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
+                    <div class="price_hover">
+                        <div>
+                            В корзину
+                        </div>
+                        <div class="price_hover_price">
+                            5 400 ₽
+                        </div>
+                    </div>
+                    <div class="added_product" style="display: none">
+                        <div>
+                            <span class="fa fa-minus"></span>
+                        </div>
+                        <div>
+                            В корзине: 1
+                        </div>
+                        <div>
+                            <span class="fa fa-plus"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -122,5 +78,35 @@
 </div>
 
 {% include 'pc_utilites.html' %}
+<script>
+    console.log(user['id']);
+    loadFavorites();
+
+    function loadFavorites() {
+        let data = {
+            'user_id': user['id']
+        }
+        $.ajax({
+            url: '',
+            type: "GET",
+            data: data,
+            success: function (msg) {
+                console.log(msg);
+                drawProducts(msg['message']['products']);
+                paginations = msg['message']['pages'];
+            }
+        })
+    }
+
+
+    function drawProducts(msg) {
+        for (let i = 0; i < msg.length; i++) {
+            let box = createProduct(msg[i]);
+            box.style.display = 'inline-block';
+            document.getElementById('favorites_place').append(box);
+
+        }
+    }
+</script>
 </body>
 </html>

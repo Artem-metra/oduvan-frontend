@@ -68,6 +68,7 @@
         <input class="popup_input" placeholder="Ваше Имя" id="name_user_reg">
         <input class="popup_input" placeholder="Ваша фамилия" id="surname_user_reg">
         <input class="popup_input" type="tel" placeholder="+7 (__) __-__-_" id="phone_user_reg">
+        <input class="popup_input" type="email" placeholder="Введите Email" id="email_user_reg">
         <input class="popup_input" type="password" placeholder="Придумайте пароль" id="password_user_reg">
         <input class="popup_input" type="password" placeholder="Повторите пароль" id="repeatpas_user_reg">
         <a href="#" class="all_catalog_href" style="float:none;width:100%;margin-top:15px;height:50px;"
@@ -97,7 +98,7 @@
 <div class="registrationpopup" id="basket_popup">
     <div class="basket_place">
         <div class="oformit_zakaz">
-            <div class="all_catalog_href">
+            <div class="all_catalog_href" id="go_to_createorder">
                 <div class="pereiti_k_oform">
                     Перейти к оформлению
                 </div>
@@ -125,40 +126,61 @@
                     </div>
                     <!--<span class="fa fa-chevron-down"></span>-->
                 </div>
-                <div class="catalog_flex ">
-                    <div class="address_info_zag">
-                        Выберите способ доставки
+
+                <div style="position: relative">
+                    <div class="catalog_flex">
+                        <div class="address_info_zag">
+                            Выберите способ доставки
+                        </div>
+                        <div id="choose_delivery"><span class="fa fa-chevron-down" id="chevron_for_delivery"></span>
+                        </div>
                     </div>
-                    <span class="fa fa-chevron-down" id="choose_delivery"></span>
+                    <div id="choose_delivery_list">
+                        <div class="catalog_flex">
+                            <div class="checkbox" style="margin-left:5px;">
+                                <input type="checkbox" id="pickup"
+                                       class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                                <label for="pickup" class="lab_desc address_info_zag">Самовывоз</label>
+                            </div>
+                            <div class="catalog_flex">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="courier"
+                                           class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                                    <label for="courier" class="lab_desc address_info_zag">Курьером</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="basket_item">
-            <div class="catalog_flex" style="justify-content: normal">
-                <div class="small_product_card" style="margin-right:15px;">
-                    <div class="small_product_place">
-                        <img src="../static/img/small_img_main.png" class="small_product_img">
-                    </div>
-                </div>
-                <div class="basket_info_for_order">
-                    <div class="bucket_na_zakaz">
-                        Букет "Индиго"
-                    </div>
-                    <div class="price">
-                        5400 Р
-                    </div>
-                    <div class="add_to_basket_place" style="max-width:100%;">
-                        <div class="fa fa-minus" id="minus_counter" onclick="changeCounter(2)"></div>
-                        <div class="counter_place">
-                            <input type="number" class="product_counter_inp" id="counter_product" value="1">
-                            <span style="font-weight: 600;">ШТ</span>
+        <div id="basket_item_place">
+            <div class="basket_item">
+                <div class="catalog_flex" style="justify-content: normal">
+                    <div class="small_product_card" style="margin-right:15px;">
+                        <div class="small_product_place">
+                            <img src="../static/img/small_img_main.png" class="small_product_img">
                         </div>
-                        <span class="fa fa-plus"></span>
                     </div>
-                    <div class="fa fa-times"></div>
+                    <div class="basket_info_for_order">
+                        <div class="bucket_na_zakaz">
+                            Букет "Индиго"
+                        </div>
+                        <div class="price">
+                            5400 Р
+                        </div>
+                        <div class="add_to_basket_place" style="max-width:100%;">
+                            <div class="fa fa-minus" id="minus_counter" onclick="changeCounter(2)"></div>
+                            <div class="counter_place">
+                                <input type="number" class="product_counter_inp" id="counter_product" value="1">
+                                <span style="font-weight: 600;">ШТ</span>
+                            </div>
+                            <span class="fa fa-plus"></span>
+                        </div>
+                        <div class="fa fa-times"></div>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -198,7 +220,7 @@
     </div>
 </div>
 <!-- Карточка товара -->
-<div id="item_card_place" style="display: block;padding-top: 35px;display: none">
+<div id="item_card_place" style="padding-top: 35px;display: none">
     <div class="slider_item_card" id="card_product" style="display: none">
         <div class="right_nav_place">
             <div class="right_nav_item">
@@ -254,6 +276,19 @@
         </div>
     </div>
 </div>
+
+
+<!-- Уведомление об ошибке или успешном действии -->
+<div class="notification" id="notification_popup">
+    <div class="notification_zag" id="notification_zag">
+
+    </div>
+    <div class="notification_message" id="notification_message">
+
+    </div>
+</div>
+
+
 <!-- Footer -->
 <footer class="footer">
     <div class="first_level">
@@ -363,6 +398,16 @@
             register_user.onclick = function () {
                 RegistrationUser();
             }
+            let inputs = document.getElementsByClassName('popup_input');
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].oninput = function () {
+                    if (inputs[i].value.length > 0) {
+                        inputs[i].classList.remove('error');
+                    }
+                }
+            }
+            maskPhone(phone_user_auth);
+            maskPhone(phone_user_reg);
             /* В попапе регистрации и авторизации менять блоки при нажатии на "Регистрация"/"Вход в аккаунт" */
             authorize_user.onclick = function () {
                 AuthorizationUser();
@@ -392,31 +437,41 @@
             }
         } else {
             popup.classList.add('_active');
+            pickup.onchange = function () {
+                if (courier.checked) {
+                    courier.checked = false;
+                } else {
+                    pickup.checked = true;
+                }
+            }
+            courier.onchange = function () {
+                if (pickup.checked) {
+                    pickup.checked = false;
+                } else {
+                    courier.checked = true;
+                }
+            }
+            go_to_createorder.onclick = function () {
+                if (pickup.checked || courier.checked) {
+                    location.href = '/createorder';
+                } else {
+                    choose_delivery_list.className = '_active';
+                    chevron_for_delivery.classList.add('_active');
+                    basket_item_place.className = 'move_up';
+                    notification('Выберите способ доставки', 1);
+                }
+            }
+
         }
     }
 
-    if (user === null) {
-        favorites.onclick = function () {
-            OpenPopup(registrationpopup, 1);
-        }
-        go_to_basket.onclick = function () {
-            OpenPopup(registrationpopup, 1);
-        }
-        user_item.onclick = function () {
-            OpenPopup(registrationpopup, 1);
-        }
-    } else {
-        favorites.href = '/favorites';
-        go_to_basket.href = OpenPopup(basket_popup, 2);
-        user_item.href = '/cabinet';
-    }
 
     /* Проверка авторизации */
     function showAuth() {
         if (user === null) {
             OpenPopup(registrationpopup, 1);
         } else {
-            return;
+            return true;
         }
     }
 
@@ -430,94 +485,89 @@
 
     /* Регистрация пользователя */
     function RegistrationUser() {
-        if (name_user_reg.value === '') {
-            name_user_reg.classList.add('error');
-            alert('Введите имя');
-            return;
-        }
-        if (surname_user_reg.value === '') {
-            surname_user_reg.classList.add('error');
-            alert('Введите фамилию');
-            return;
-        }
-        if (phone_user_reg.value === '') {
-            phone_user_reg.classList.add('error');
-            alert('Введите номер телефона');
-            return;
-        }
-        if (password_user_reg.value === '') {
-            password_user_reg.classList.add('error');
-            alert('Введите пароль');
-            return;
-        }
-        if (password_user_reg.value === '') {
-            password_user_reg.classList.add('error');
-            alert('Введите пароль');
-            return;
-        }
-        if (repeatpas_user_reg.value === '') {
-            repeatpas_user_reg.classList.add('error');
-            alert('Введите пароль повторно');
-            return;
-        }
-        if (password_user_reg.value !== repeatpas_user_reg.value) {
-            alert('Пароли не совпадают');
-            return;
-        }
-        let phone_number = maskPhone(phone_user_reg);
-        console.log(phone_user_reg.value.toString());
-        let data = {
-            'name': name_user_reg.value,
-            'surname': surname_user_reg.value,
-            'phone': phone_user_reg.value,
-            'password': password_user_reg.value,
-        }
-        $.ajax({
-            url: '/api/user/registration',
-            type: 'GET',
-            data: data,
-            success: function (msg) {
-                console.log(msg);
+        let box = registration_block.cloneNode(true);
+        let inputs = box.getElementsByClassName('popup_input');
+        console.log(inputs);
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value.length === 0) {
+                console.log(inputs[i].value.length === 0);
+                inputs[i].classList.add('error');
             }
-        });
+        }
+        if (name_user_reg.value === '') {
+            notification('Вы не указали имя!', 1);
+            return;
+        } else if (phone_user_reg.value === '') {
+            notification('Вы не указали номер телефона!', 1);
+            return;
+        } else if (password_user_email.value === '') {
+            notification('Вы не указали email!', 1);
+            return;
+        } else if (password_user_reg.value === '') {
+            notification('Вы не указали пароль!', 1);
+            return;
+        } else if (repeatpas_user_reg.value === '') {
+            notification('Вы не указали повторный пароль!', 1);
+            return;
+        } else if (password_user_reg.value !== repeatpas_user_reg.value) {
+            notification('Повторный пароль введён неверно', 1);
+            return;
+        } else {
+            let phone_number = maskPhone(phone_user_reg);
+            console.log(phone_user_reg.value.toString());
+            let data = {
+                'name': name_user_reg.value,
+                'surname': surname_user_reg.value,
+                'phone': phone_user_reg.value,
+                'password': password_user_reg.value,
+            }
+            $.ajax({
+                url: '/api/user/registration',
+                type: 'GET',
+                data: data,
+                success: function (msg) {
+                    console.log(msg);
+                    /* Добавить проверку, что такой Email или Телефон уже зареган */
+                }
+            });
+        }
+
+
     }
 
-    /* Срабатывает на oninput, приводит номер телефона в нужный регистр */
-    function maskPhone(element) {
-        IMask(
-            element, {
-                mask: '+{7} (000) 000 00 00',
-                prepare: function (str) {
-                    return str.toUpperCase();
-                },
-            });
-    }
+
+
 
 
     /* Авторизация пользователя */
     function AuthorizationUser() {
+        let box = authorization_block.cloneNode(true);
+        let inputs = box.getElementsByClassName('popup_input');
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value.length === 0) {
+                inputs[i].classList.add('error');
+            }
+        }
         if (phone_user_auth.value === '') {
-            phone_user_auth.classList.add('error');
             alert('Введите телефон');
             return;
-        }
-        if (password_user_auth.value === '') {
-            password_user_auth.classList.add('error');
+        } else if (password_user_auth.value === '') {
             alert('Введите пароль');
             return;
-        }
-        let data = {
-            'password': password_user_auth.value,
-            'phone': phone_user_auth.value,
-        }
-        $.ajax({
-            url: '/api/user/auth',
-            type: 'GET',
-            data: data,
-            success: function (msg) {
-                console.log(msg);
+        } else {
+            let data = {
+                'password': password_user_auth.value,
+                'phone': phone_user_auth.value,
             }
-        })
+            $.ajax({
+                url: '/api/user/auth',
+                type: 'GET',
+                data: data,
+                success: function (msg) {
+                    location.href = '/cabinet';
+                }
+            })
+        }
     }
 
 
@@ -525,18 +575,52 @@
     GetUser();
 
     function GetUser() {
-        let data = {
-            // 'id': user_id
-        }
         $.ajax({
             url: '/api/user/get',
             type: 'GET',
             success: function (msg) {
-                user = msg['user'];
-                console.log(msg);
+
+                if (msg['status'] === 'error') {
+                    favorites.onclick = function () {
+                        OpenPopup(registrationpopup, 1);
+                    }
+                    go_to_basket.onclick = function () {
+                        OpenPopup(registrationpopup, 1);
+                    }
+                    user_item.onclick = function () {
+                        OpenPopup(registrationpopup, 1);
+                    }
+                } else {
+                    user = msg['user'];
+                    console.log(user);
+                    favorites.href = '/favorites';
+                    go_to_basket.onclick = function () {
+                        OpenPopup(basket_popup, 2);
+                    }
+                    user_item.href = '/cabinet';
+                }
             }
         });
     }
+
+    // console.log('user', user);
+    // if (user === null) {
+    //     favorites.onclick = function () {
+    //         OpenPopup(registrationpopup, 1);
+    //     }
+    //     go_to_basket.onclick = function () {
+    //         OpenPopup(registrationpopup, 1);
+    //     }
+    //     user_item.onclick = function () {
+    //         OpenPopup(registrationpopup, 1);
+    //     }
+    // } else {
+    //     favorites.href = '/favorites';
+    //     go_to_basket.onclick = function () {
+    //         OpenPopup(basket_popup, 2);
+    //     }
+    //     user_item.href = '/cabinet';
+    // }
 
     /* Добавление в избранное */
     function AddLikeds(product_id, user_id) {
@@ -594,13 +678,14 @@
         place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
 
         place_for_favor.onclick = function () {
-            showAuth();
-            AddLikeds(product['id'], user['id']);
-            place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
+            if (showAuth() === true) {
+                AddLikeds(product['id'], user['id']);
+                place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
+            }
         }
         price_hover.onclick = function () {
             showAuth();
-            alert('Сделать добавление в корзину')
+            alert('Сделать добавление в корзину');
         }
         return box;
     }
@@ -621,6 +706,56 @@
                 console.log(msg);
             }
         })
+    }
+
+    function notification(message, status) {
+        // 1 - ошибка, 2 - правильное
+        notification_popup.classList.add('_active');
+        setTimeout(function () {
+            notification_popup.classList.remove('_active');
+        }, 2500)
+        if (status === 1) {
+            notification_popup.style.background = '#F54343';
+            notification_zag.innerText = 'Ошибка!';
+            notification_message.innerText = message;
+        } else {
+            notification_popup.style.background = '#71cbb0';
+            notification_zag.innerText = 'Успешно!';
+            notification_message.innerText = message;
+        }
+    }
+
+
+    choose_delivery.onclick = function () {
+        outdoingList();
+    }
+
+    /* Срабатывает на oninput, приводит номер телефона в нужный регистр */
+    function maskPhone(element) {
+        IMask(
+            element, {
+                mask: '+{7} (000) 000 00 00',
+                prepare: function (str) {
+                    return str.toUpperCase();
+                },
+            });
+    }
+
+    phone_user_auth.oninput = function (e) {
+        if (e.target.value.length > 18) e.target.value = e.target.value.substring(0, 18);
+    }
+
+
+    function outdoingList() {
+        if (chevron_for_delivery.classList.contains('_active')) {
+            choose_delivery_list.className = '';
+            chevron_for_delivery.classList.remove('_active');
+            basket_item_place.className = '';
+        } else {
+            choose_delivery_list.className = '_active';
+            chevron_for_delivery.classList.add('_active');
+            basket_item_place.className = 'move_up';
+        }
     }
 
 

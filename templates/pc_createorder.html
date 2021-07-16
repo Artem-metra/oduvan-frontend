@@ -21,7 +21,14 @@
                 <input class="popup_input" placeholder="Ваше имя">
                 <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__">
                 <input class="popup_input" type="email" placeholder="Электронная почта">
-                <input type="checkbox" id="get_other_people"> Отправить другому человеку
+                <select id="addresses_user" class="popup_input" style="display: none">
+
+                </select>
+                <div class="checkbox" style="margin-left:5px;">
+                    <input type="checkbox" id="get_other_people"
+                           class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                    <label for="get_other_people" class="lab_desc sub_zag">Отправить другому человеку</label>
+                </div>
                 <div id="recipient">
                     <div class="name_buckets">
                         Получатель
@@ -36,24 +43,40 @@
                 <input class="popup_input" placeholder="Комментарии к заказу">
                 <input class="popup_input" placeholder="Текст для открытки">
 
-                <div class="flex_catalog">
-                    <input type="checkbox"> Добавить переноску
-                    <input type="checkbox"> Добавить аквапак
+                <div class="catalog_flex">
+                    <div class="checkbox" style="margin-left:5px;">
+                        <input type="checkbox" id="add_carrying"
+                               class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                        <label for="add_carrying" class="lab_desc sub_zag">Добавить переноску</label>
+                    </div>
+                    <div class="checkbox" style="margin-left:5px;">
+                        <input type="checkbox" id="add_aquapack"
+                               class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                        <label for="add_aquapack" class="lab_desc sub_zag">Добавить аквапак</label>
+                    </div>
                 </div>
 
 
                 <div class="name_buckets">
                     Способ оплаты
                 </div>
-                <div class="flex_catalog">
-                    <input type="checkbox"> Наличные
-                    <input type="checkbox"> Картой
+                <div class="catalog_flex">
+                    <div class="checkbox" style="margin-left:5px;">
+                        <input type="checkbox" id="money_payment"
+                               class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                        <label for="money_payment" class="lab_desc sub_zag">Наличные</label>
+                    </div>
+                    <div class="checkbox" style="margin-left:5px;">
+                        <input type="checkbox" id="card_payment"
+                               class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                        <label for="card_payment" class="lab_desc sub_zag">Картой</label>
+                    </div>
                 </div>
 
                 <div class="all_catalog_href"
-                     style="float: none;width:100%;height:50px;justify-content: space-between;padding:0 10px">
-                    <div>Подтвердить заказ</div>
-                    <div style="float: right" class="end_price">17200 Р</div>
+                     style="float: none;width:100%;height:60px;justify-content: space-between;padding:0 10px">
+                    <div class="pereiti_k_oform">Подтвердить заказ</div>
+                    <div style="float: right" class="price">17200 Р</div>
                 </div>
 
             </div>
@@ -73,14 +96,16 @@
                             <div class="address_info_zag">
                                 06.07.2021
                             </div>
-                            <span style="color:#F877AD;text-transform: uppercase;cursor: pointer">Выбрать дату</span>
+                            <span id="choose_data">Выбрать дату</span>
                         </div>
+                        <input type="date" class="popup_input">
                         <div class="catalog_flex">
                             <div class="address_info_zag">
                                 21:00
                             </div>
-                            <span style="color:#F877AD;text-transform: uppercase;cursor: pointer">Выбрать время</span>
+                            <span id="choose_time">Выбрать время</span>
                         </div>
+                        <input type="time" class="popup_input">
                     </div>
                     <div class="catalog_flex" style="justify-content: space-between;padding:0">
                         <div class="price_price" style="color:#293048;opacity:0.6">
@@ -162,6 +187,8 @@
 
 {% include 'pc_utilites.html' %}
 <script>
+    let user = null;
+
     function changeCounter(action) {
         console.log(Number(counter_product.value));
         if (action === 1) {
@@ -176,12 +203,77 @@
         }
     }
 
+    /* Если чекбокс "Отправить другому человеку поставлен, то открываем блок "Получатель"" */
     get_other_people.onchange = function () {
         if (get_other_people.checked) {
             recipient.className = '_active';
         } else {
             recipient.classList.remove('_active');
         }
+    }
+
+
+    choose_data.onclick = function () {
+
+    }
+
+
+    money_payment.onchange = function () {
+        if (card_payment.checked) {
+            card_payment.checked = false;
+        } else {
+            money_payment.checked = true;
+        }
+    }
+    card_payment.onchange = function () {
+        if (money_payment.checked) {
+            money_payment.checked = false;
+        } else {
+            card_payment.checked = true;
+        }
+    }
+
+
+    /* Получение пользователя */
+    GetUser();
+
+    function GetUser() {
+        $.ajax({
+            url: '/api/user/get',
+            type: 'GET',
+            success: function (msg) {
+                if (msg['status'] === 'error') {
+                    favorites.onclick = function () {
+                        OpenPopup(registrationpopup, 1);
+                    }
+                    go_to_basket.onclick = function () {
+                        OpenPopup(registrationpopup, 1);
+                    }
+                    user_item.onclick = function () {
+                        OpenPopup(registrationpopup, 1);
+                    }
+                } else {
+                    user = msg['user'];
+                    console.log(user);
+                    favorites.href = '/favorites';
+                    go_to_basket.onclick = function () {
+                        OpenPopup(basket_popup, 2);
+                    }
+                    user_item.href = '/cabinet';
+
+                    if (user['addresses'].length > 0) {
+                        for (let i = 0; i < user['addresses'].length; i++) {
+                            let option = document.createElement('option');
+                            option.value = user['addresses'][i];
+                            option.innerText = user['addresses'][i];
+                            addresses_user.append(option);
+                        }
+                        addresses_user.style.display = 'block';
+                    }
+
+                }
+            }
+        });
     }
 
 
