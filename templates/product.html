@@ -7,14 +7,199 @@
 </head>
 <body id="body">
 
-<div class="catalog">
+<div class="catalog" style="padding: 100px 0">
     <div class="container">
-        <div class="place_breadcoast">
-            <a href="">Главная</a> / <a href="">Оформление заказа</a>
+        <div class="place_breadcoast product_font" style="font-size: 40px">
+            <a style="font-size: 40px" href="">Главная</a> / <a style="font-size: 40px" href="">Оформление заказа</a>
+        </div>
+
+        <div class="big_product_card">
+            <div class="small_product_place">
+                <img src="../static/img/catalog_img.png" class="big_product_img">
+            </div>
+        </div>
+
+        <div class="all_pictures_product_place">
+                <div class="small_product_card">
+                    <div class="small_product_place">
+                        <img src="../static/img/catalog_img.png" class="small_product_img">
+                    </div>
+                </div>
+
+              <div class="small_product_card non_active">
+                    <div class="small_product_place">
+                        <img src="../static/img/catalog_img.png" class="small_product_img">
+                    </div>
+                </div>
+
+              <div class="small_product_card non_active">
+                    <div class="small_product_place">
+                        <img src="../static/img/catalog_img.png" class="small_product_img">
+                    </div>
+                </div>
+
+              <div class="small_product_card non_active">
+                    <div class="small_product_place">
+                        <img src="../static/img/catalog_img.png" class="small_product_img">
+                    </div>
+                </div>
+        </div>
+
+        <div class="flex_for_explanations_product">
+            <div class="explanations_product">Инструкция свежести</div>
+            <span class="fa fa-chevron-down" style="font-size: 35px"></span>
+        </div>
+        <div class="razdelitel_indicator"></div>
+
+        <div class="flex_for_explanations_product">
+            <div class="explanations_product">Подробнее о доставке</div>
+            <span class="fa fa-chevron-down" style="font-size: 35px"></span>
+        </div>
+        <div class="razdelitel_indicator"></div>
+
+        <div class="description_product_place">
+                <div class="bucket_na_zakaz" id="name_bucket" style="text-align: center; font-size: 18px; margin-bottom: 15px;">Монобукет</div>
+                <div class="name_buckets" id="name_cat_bucket" style="padding-top:8px; font-size: 80px">"Индиго"</div>
+                <div class="price" id="disc_price_bucket" style="padding:20px 0 40px 0; text-align: center; font-size: 38px">5 400 ₽
+                </div>
+
+                <!-- Счетчик товара -->
+                <div class="add_to_basket_place">
+                    <div id="minus_counter" style="text-align: center">
+                        <div class="fa fa-minus" id="minus_counter_btn" style="font-size: 35px"></div>
+                    </div>
+                    <div class="counter_place">
+                        <input type="number" class="product_counter_inp" id="counter_product" value="1">
+                        <span style="font-weight: 600; font-size: 35px; padding-left: 10px">ШТ</span>
+                    </div>
+                    <div id="plus_counter" style="text-align: center">
+                        <div class="fa fa-plus" style="font-size: 35px"></div>
+                    </div>
+                </div>
+
+                <a href="#" class="all_catalog_href" id="add_to_basket"
+                   style="float:none;width:100%;margin-top:30px;height:110px; font-size: 40px; margin-bottom: 50px">Добавить
+                    в корзину</a>
+                <div class="description_zag">
+                    Описание
+                </div>
+                <div class="description_explanations" id="description_product">
+                    Монобукет из 23 английских роз Дэвида Остина сорта Миранда с ветками эвкaлиптa. Роза отличается
+                    классической формой английской розы и удивительной окраской, нежно-розовой со светло-зеленым отливом
+                    по краю наружных лепестков, обладает легким ароматом. Розы бережно упакованы в матовую пленку серого
+                    цвета и перевязаны декоративной лентой.
+                </div>
+                <div class="description_zag">
+                    Детали
+                </div>
+                <div class="description_explanations">
+                    <span id="description_explanations_item">
+                        Цветы: Роза одноголовая
+                    </span>
+                    <span>
+                        Упаковка: Ленты, Пленка
+                    </span>
+                    <span>
+                         Высота: около 40 см
+                    </span>
+                    <span>
+                        Диаметр: около 35 см
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Похожее -->
+<div class="catalog" style="background: #f5f5f6;">
+    <div class="container">
+        <div class="catalog_flex">
+            <h2 class="catalog_zag" style="font-size: 80px">Похожее</h2>
+        </div>
+        <!-- Карточка товара -->
+<!--        <div class="slider_item_card">-->
+<!--            <div class="right_nav_place">-->
+<!--                <div class="right_nav_item">-->
+<!--                    <span class="fas fa-heart _active"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="slider_item_card_img_place">-->
+<!--                <img src="../static/img/slider_img.png">-->
+<!--            </div>-->
+<!--            <div class="name_and_price">-->
+<!--                <span class="slider_name_bucket">Букет "Индиго"</span>-->
+<!--                <div class="price">-->
+<!--                    5 400 ₽-->
+<!--                </div>-->
+<!--                <div class="price_hover">-->
+<!--                    <div>-->
+<!--                        В корзину-->
+<!--                    </div>-->
+<!--                    <div class="price_hover_price">-->
+<!--                        5 400 ₽-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+         <a class="all_catalog_href" href="/catalog" style="width: 50%; font-size: 46px; height: 110px">
+                Весь каталог
+         </a>
+    </div>
+</div>
+
+<!-- Индивидуальный заказ букетов -->
+<div class="individual_order">
+    <div class="individual_order_info" style="height: 100%;">
+        <div class="individual_order_info_text_img">
+                <img src="../static/img/individual_img.png" style="height: 700px;">
+        </div>
+        <div class="individual_order_info_text" style="display: block" >
+            <div class="individual_order_info_text_info">
+                <span class="bucket_na_zakaz" style="font-size: 28px">Букет на заказ</span>
+                <h3 class="individual_zakaz" style="font-size: 50px; width: 80%; margin: 0 auto; padding-top: 30px; padding-bottom: 40px">Индивидуальный заказ букета</h3>
+                <div class="individual_info" style="font-size: 48px; ">
+                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
+                    и
+                    упаковке
+                </div>
+                <a class="all_catalog_href" style="float: none; width: 50%; margin: 0 auto; height: 110px; margin-top: 40px; margin-bottom: 40px">
+                    Сделать заказ
+                </a>
+            </div>
         </div>
     </div>
 </div>
 {% include 'utilites.html' %}
 
 </body>
+
+<script>
+
+    let count = document.getElementById('counter_product')
+    let minus = document.getElementById('minus_counter');
+
+
+
+    minus.onclick = function (){
+         if(count.value > 1){
+            count.value--;
+        }
+
+    }
+
+
+    plus_counter.onclick = function (){
+        if(count.value >= 1){
+            count.value++;
+            console.log('test');
+        }
+
+    }
+
+
+
+
+</script>
+
+
 </html>

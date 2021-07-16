@@ -1590,7 +1590,6 @@ input[type="checkbox"] {
     border-radius: 2px;
     width: 100%;
     margin-top: 10px;
-
 }
 
 .add_to_basket_place {
@@ -1883,7 +1882,7 @@ input[type="checkbox"] {
 .custom-checkbox:checked + label::before {
     border-color: #F877AD;
     background-color: #F877AD;
-    /*background-image: url("../static/img/check_mark.svg");*/
+    background-image: url("../static/img/check_mark.svg");
 }
 
 /* стили для чекбокса, находящегося в состоянии disabled */
