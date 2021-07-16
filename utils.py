@@ -2,8 +2,8 @@ import json
 
 import requests
 
-
 address = 'http://45.12.19.118:80'
+
 
 def is_mobile(user_agent):
     return 'mobile' in str(user_agent).lower()
