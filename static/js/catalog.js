@@ -79,70 +79,70 @@ function loadProducts() {
         }
     });
     /* Рендж для регулировки цен */
-    price_controller.onchange = function () {
-        console.log(price_controller.value);
-        price_max.value = price_controller.value;
-    }
+    // price_controller.onchange = function () {
+    //     console.log(price_controller.value);
+    //     price_max.value = price_controller.value;
+    // }
     /* Проверки при изменении цены */
-    price_min.onchange = function () {
-        console.log(price_min.value);
-        if (price_min.value < 0) {
-            price_min.value = 0;
-        }
-        if (price_min.value > price_max.value) {
-            price_min.value = price_max.value - 1;
-        }
-    }
-    price_max.onchange = function () {
-        if (price_max.value < 0) {
-            price_max.value = price_min.value + 1;
-        }
-        if (price_max.value < price_min.value) {
-            price_max.value = price_min.value + 1;
-        }
-    }
+    // price_min.onchange = function () {
+    //     console.log(price_min.value);
+    //     if (price_min.value < 0) {
+    //         price_min.value = 0;
+    //     }
+    //     if (price_min.value > price_max.value) {
+    //         price_min.value = price_max.value - 1;
+    //     }
+    // }
+    // price_max.onchange = function () {
+    //     if (price_max.value < 0) {
+    //         price_max.value = price_min.value + 1;
+    //     }
+    //     if (price_max.value < price_min.value) {
+    //         price_max.value = price_min.value + 1;
+    //     }
+    // }
 
     /* Выпадающий список с сортировками по названиям, по цене и т.д */
-    chevron_for_list.onclick = function () {
-        if (chevron_list.classList.contains('_active')) {
-            sorted_select_items_list.className = '';
-            chevron_list.classList.remove('_active');
-        } else {
-            sorted_select_items_list.className = '_active';
-            chevron_list.classList.add('_active');
-            let sorted_list = sorted_select_items_list.cloneNode(true);
-            console.log(sorted_list);
-            let sorted_item = sorted_list.getElementsByClassName('sorted_select_item');
-            console.log(sorted_item);
-            for (let i = 0; i < sorted_item.length; i++) {
-                sorted_item[i].onclick = function () {
-                    console.log('O da', sorted_item[i]);
-                    alert(sorted_item[i].innerText);
-                }
-            }
-        }
-    }
+    // chevron_for_list.onclick = function () {
+    //     if (chevron_list.classList.contains('_active')) {
+    //         sorted_select_items_list.className = '';
+    //         chevron_list.classList.remove('_active');
+    //     } else {
+    //         sorted_select_items_list.className = '_active';
+    //         chevron_list.classList.add('_active');
+    //         let sorted_list = sorted_select_items_list.cloneNode(true);
+    //         console.log(sorted_list);
+    //         let sorted_item = sorted_list.getElementsByClassName('sorted_select_item');
+    //         console.log(sorted_item);
+    //         for (let i = 0; i < sorted_item.length; i++) {
+    //             sorted_item[i].onclick = function () {
+    //                 console.log('O da', sorted_item[i]);
+    //                 alert(sorted_item[i].innerText);
+    //             }
+    //         }
+    //     }
+    // }
 
-    throw_off.onclick = function () {
-        category_id = 0;
-        sorted_type = 0;
-        cost_end = 150000;
-        cost_start = 0;
-        flowers = [];
-        packaging = [];
-        discount_type = 0;
-        price_max.value = 100000;
-        price_min.value = 0;
-
-        // let checkboxes = document.getElementsByClassName('custom-checkbox');
-        let checkboxes = document.getElementsByClassName('checkbox_for_choose_flower');
-        for (let i = 0; i < checkboxes.length; i++){
-            if(checkboxes[i].checked){
-                checkboxes[i].checked = false;
-            }
-        }
-        loadProducts();
-    }
+    // throw_off.onclick = function () {
+    //     category_id = 0;
+    //     sorted_type = 0;
+    //     cost_end = 150000;
+    //     cost_start = 0;
+    //     flowers = [];
+    //     packaging = [];
+    //     discount_type = 0;
+    //     price_max.value = 100000;
+    //     price_min.value = 0;
+    //
+    //     // let checkboxes = document.getElementsByClassName('custom-checkbox');
+    //     let checkboxes = document.getElementsByClassName('checkbox_for_choose_flower');
+    //     for (let i = 0; i < checkboxes.length; i++){
+    //         if(checkboxes[i].checked){
+    //             checkboxes[i].checked = false;
+    //         }
+    //     }
+    //     loadProducts();
+    // }
 
 
 }
@@ -227,6 +227,7 @@ function drawProducts(msg) {
         box.style.display = 'inline-block';
         document.getElementById('item_card_place').append(box);
     }
+    document.getElementById('item_card_place').style.display = 'block';
     console.log(paginations);
     for (let i = 0; i < paginations; i++) {
         let pagination = pagination_item.cloneNode(true);
