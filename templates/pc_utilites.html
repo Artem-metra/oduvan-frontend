@@ -65,12 +65,14 @@
         <div class="info_popup">
             Заполните все поля, займёт не больше минуты
         </div>
-        <input class="popup_input" placeholder="Ваше Имя" id="name_user_reg">
+        <input class="popup_input registration_input" placeholder="Ваше Имя" id="name_user_reg">
         <input class="popup_input" placeholder="Ваша фамилия" id="surname_user_reg">
-        <input class="popup_input" type="tel" placeholder="+7 (__) __-__-_" id="phone_user_reg">
-        <input class="popup_input" type="email" placeholder="Введите Email" id="email_user_reg">
-        <input class="popup_input" type="password" placeholder="Придумайте пароль" id="password_user_reg">
-        <input class="popup_input" type="password" placeholder="Повторите пароль" id="repeatpas_user_reg">
+        <input class="popup_input registration_input" type="tel" placeholder="+7 (__) __-__-_" id="phone_user_reg">
+        <input class="popup_input registration_input" type="email" placeholder="Введите Email" id="email_user_reg">
+        <input class="popup_input registration_input" type="password" placeholder="Придумайте пароль"
+               id="password_user_reg">
+        <input class="popup_input registration_input" type="password" placeholder="Повторите пароль"
+               id="repeatpas_user_reg">
         <a href="#" class="all_catalog_href" style="float:none;width:100%;margin-top:15px;height:50px;"
            id="register_user">Подтвердить
             регистрацию</a>
@@ -83,8 +85,8 @@
         <div class="info_popup">
             Свежие букеты уже ждут вас
         </div>
-        <input class="popup_input" type="tel" placeholder="+7 (__) __-__-_" id="phone_user_auth">
-        <input class="popup_input" type="password" placeholder="Пароль" id="password_user_auth">
+        <input class="popup_input authorization_input" type="tel" placeholder="+7 (__) __-__-_" id="phone_user_auth">
+        <input class="popup_input authorization_input" type="password" placeholder="Пароль" id="password_user_auth">
         <div style="text-align: center">
             <span class="forgot_pas">Забыли пароль?</span>
         </div>
@@ -154,9 +156,9 @@
                 </div>
             </div>
         </div>
-
+        <!-- Карточка товара в корзине -->
         <div id="basket_item_place">
-            <div class="basket_item">
+            <div class="basket_item" id="basket_item">
                 <div class="catalog_flex" style="justify-content: normal">
                     <div class="small_product_card" style="margin-right:15px;">
                         <div class="small_product_place">
@@ -387,6 +389,7 @@
 
 <script>
     let user = null;
+    let basket_id = 0;
 
     /* Открытие попапа */
     function OpenPopup(popup, status) {
@@ -398,11 +401,19 @@
             register_user.onclick = function () {
                 RegistrationUser();
             }
-            let inputs = document.getElementsByClassName('popup_input');
+            let inputs = document.getElementsByClassName('registration_input');
             for (let i = 0; i < inputs.length; i++) {
                 inputs[i].oninput = function () {
                     if (inputs[i].value.length > 0) {
                         inputs[i].classList.remove('error');
+                    }
+                }
+            }
+            let inputs_auth = document.getElementsByClassName('authorization_input');
+            for (let i = 0; i < inputs_auth.length; i++) {
+                inputs_auth[i].oninput = function () {
+                    if (inputs_auth[i].value.length > 0) {
+                        inputs_auth[i].classList.remove('error');
                     }
                 }
             }
@@ -461,7 +472,6 @@
                     notification('Выберите способ доставки', 1);
                 }
             }
-
         }
     }
 
@@ -485,29 +495,15 @@
 
     /* Регистрация пользователя */
     function RegistrationUser() {
-        let box = registration_block.cloneNode(true);
-        let inputs = box.getElementsByClassName('popup_input');
-        console.log(inputs);
-        for (let i = 0; i < inputs.length; i++) {
-            if (inputs[i].value.length === 0) {
-                console.log(inputs[i].value.length === 0);
-                inputs[i].classList.add('error');
+        if (name_user_reg.value === '' || phone_user_reg.value === '' || email_user_reg.value === '' || password_user_reg.value === '' || password_user_reg.value === '' || repeatpas_user_reg.value === '') {
+            let inputs = document.getElementsByClassName('registration_input');
+            for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i].value.length === 0) {
+                    console.log(inputs[i].value.length === 0);
+                    inputs[i].classList.add('error');
+                }
             }
-        }
-        if (name_user_reg.value === '') {
-            notification('Вы не указали имя!', 1);
-            return;
-        } else if (phone_user_reg.value === '') {
-            notification('Вы не указали номер телефона!', 1);
-            return;
-        } else if (password_user_email.value === '') {
-            notification('Вы не указали email!', 1);
-            return;
-        } else if (password_user_reg.value === '') {
-            notification('Вы не указали пароль!', 1);
-            return;
-        } else if (repeatpas_user_reg.value === '') {
-            notification('Вы не указали повторный пароль!', 1);
+            notification('Заполните все поля!', 1);
             return;
         } else if (password_user_reg.value !== repeatpas_user_reg.value) {
             notification('Повторный пароль введён неверно', 1);
@@ -531,28 +527,19 @@
                 }
             });
         }
-
-
     }
-
-
-
 
 
     /* Авторизация пользователя */
     function AuthorizationUser() {
-        let box = authorization_block.cloneNode(true);
-        let inputs = box.getElementsByClassName('popup_input');
-        for (let i = 0; i < inputs.length; i++) {
-            if (inputs[i].value.length === 0) {
-                inputs[i].classList.add('error');
+        if (phone_user_auth.value === '' || password_user_auth.value === '') {
+            let inputs = document.getElementsByClassName('authorization_input');
+            for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i].value.length === 0) {
+                    inputs[i].classList.add('error');
+                }
             }
-        }
-        if (phone_user_auth.value === '') {
-            alert('Введите телефон');
-            return;
-        } else if (password_user_auth.value === '') {
-            alert('Введите пароль');
+            notification('Заполните все поля!', 1);
             return;
         } else {
             let data = {
@@ -579,8 +566,7 @@
             url: '/api/user/get',
             type: 'GET',
             success: function (msg) {
-
-                if (msg['status'] === 'error') {
+                if (msg === 'error') {
                     favorites.onclick = function () {
                         OpenPopup(registrationpopup, 1);
                     }
@@ -592,7 +578,7 @@
                     }
                 } else {
                     user = msg['user'];
-                    console.log(user);
+                    loadBasket();
                     favorites.href = '/favorites';
                     go_to_basket.onclick = function () {
                         OpenPopup(basket_popup, 2);
@@ -756,6 +742,70 @@
             chevron_for_delivery.classList.add('_active');
             basket_item_place.className = 'move_up';
         }
+    }
+
+
+    function loadBasket() {
+        let data = {
+            'user_id': user['id'],
+        }
+        $.ajax({
+            url: '/api/busket/get_by_user',
+            data: data,
+            type: 'GET',
+            success: function (msg) {
+                $('.delete_basket').remove();
+                console.log(msg);
+                basket_id = msg['message']['busket']['id'];
+                drawBasket(msg['message']['busket']);
+            }
+        })
+    }
+
+
+    function drawBasket(products) {
+        console.log(products, basket_id);
+        for (let i = 0; i < products.length; i++) {
+            createProductBasket();
+        }
+    }
+
+
+    function createProductBasket(product) {
+        let box = document.getElementById('basket_item').cloneNode(true);
+        box.id = '';
+        box.classList.add('delete_basket');
+        let img = document.getElementsByClassName('small_product_img')[0];
+        let name = document.getElementsByClassName('bucket_na_zakaz')[0];
+        let price = document.getElementsByClassName('price')[0];
+        let delete_product = document.getElementsByClassName('fa-times')[0];
+
+        img.src = '';
+        name.innerText = '';
+        price.innerText = '';
+
+        delete_product.onclick = function () {
+            DeleteProductBasket();
+        }
+        basket_item_place.append('box');
+        basket_item_place.style.display = 'block';
+    }
+
+
+    function DeleteProductBasket(product_id) {
+        let data = {
+            'busket_id': basket_id,
+            'product_id': product_id,
+        }
+        $.ajax({
+            url: '/api/basket/remove_product_key',
+            data: data,
+            type: "GET",
+            success: function (msg) {
+                console.log(msg);
+                loadBasket();
+            }
+        })
     }
 
 
