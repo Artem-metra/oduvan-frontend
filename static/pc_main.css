@@ -255,6 +255,24 @@ input[type="checkbox"] {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+
+.num_likeds {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #F877AD;
+    z-index: 9999;
+    color: #FFFFFF;
 }
 
 .right_nav_item span {
@@ -283,8 +301,13 @@ input[type="checkbox"] {
 
 .main_background_text .fa-chevron-down {
     cursor: pointer;
-    position: absolute;
+
     font-size: 24px;
+
+}
+
+.main_background_text #down_to_catalog {
+    position: absolute;
     bottom: 80px;
 }
 
@@ -1334,9 +1357,11 @@ input[type="checkbox"] {
     text-transform: uppercase;
     font-weight: 600;
 }
-.place_breadcoast a.active_page{
-    color:#F877AD;
+
+.place_breadcoast a.active_page {
+    color: #F877AD;
 }
+
 .catalog_zag {
     text-transform: uppercase;
     font-size: 56px;
@@ -1867,6 +1892,9 @@ input[type="checkbox"] {
     background-color: #EAEAED;
     transform: scale(1.5);
 }
+#flowers_place .custom-checkbox + label::before{
+   background: #c2c5cb;
+}
 
 /* стили при наведении курсора на checkbox */
 .custom-checkbox:not(:disabled):not(:checked) + label:hover::before {
@@ -1889,7 +1917,8 @@ input[type="checkbox"] {
 
 /* стили для чекбокса, находящегося в состоянии disabled */
 .custom-checkbox:disabled + label::before {
-    background-color: #EAEAED;
+
+    background-color: #F877AD;
 }
 
 

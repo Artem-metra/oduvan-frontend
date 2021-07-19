@@ -10,7 +10,7 @@
 <div class="catalog" style="background: #e9eaec">
     <div class="container">
         <div class="place_breadcoast">
-            <a href="">Главная</a> / <a href="">Избранное</a>
+            <a href="/">Главная</a> / <a href="/favorites" class="active_page">Избранное</a>
         </div>
         <h1 class="catalog_zag" style="text-align: center">Избранное</h1>
     </div>
@@ -106,6 +106,7 @@
             type: "GET",
             data: data,
             success: function (msg) {
+                 $('.delete_card').remove();
                 console.log(msg);
                 drawProducts(msg['message']['products']);
                 paginations = msg['message']['pages'];
@@ -118,6 +119,7 @@
         for (let i = 0; i < msg.length; i++) {
             let box = createProduct(msg[i]);
             box.style.display = 'inline-block';
+            box.style.width = '24%';
             document.getElementById('favorites_place').append(box);
         }
     }

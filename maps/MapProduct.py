@@ -64,3 +64,9 @@ def api_product_remove():
 @product_app.route('/site/products/smart', methods=['POST'])
 def site_products_smart():
     return utils.complete_request_post(request, request.path)
+
+
+@product_app.route('/site/likeds/products')
+def site_likeds_products():
+    pass
+    return utils.complete_request(request, request.path)
