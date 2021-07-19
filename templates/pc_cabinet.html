@@ -10,7 +10,7 @@
 <div class="catalog" style="background: #e9eaec">
     <div class="container">
         <div class="place_breadcoast">
-            <a href="">Главная</a> / <a href="">Личный кабинет</a>
+            <a href="">Главная</a> / <a href="/cabinet" class="active_page">Личный кабинет</a>
         </div>
         <h1 class="catalog_zag" style="text-align: center">Личный кабинет</h1>
         <div class="price_hover_price" style="text-align: center">
@@ -56,13 +56,13 @@
                 <input class="popup_input" type="email" placeholder="Электронная почта" id="your_email_address">
                 <div class="catalog_flex_catalog">
                     <div class="birthday_item">
-                        <input class="popup_input" type="number" placeholder="День" id="birthday_day">
+                        <input class="popup_input" type="number" placeholder="День" id="birthday_day" maxlength="2">
                     </div>
                     <div class="birthday_item">
-                        <input class="popup_input" type="number" placeholder="Месяц" id="birthday_month">
+                        <input class="popup_input" type="number" placeholder="Месяц" id="birthday_month" maxlength="2">
                     </div>
                     <div class="birthday_item">
-                        <input class="popup_input" type="number" placeholder="Год" id="birthday_year">
+                        <input class="popup_input" type="number" placeholder="Год" id="birthday_year" maxlength="4">
                     </div>
                 </div>
                 <div class="all_catalog_href" style="float: none;width:100%;height:50px;" id="save_changes">
@@ -111,15 +111,6 @@
                             Офис
                         </div>
                     </div>
-                    <div class="catalog_flex">
-                        <div class="address_info_zag">
-                            Телефон:
-                        </div>
-                        <div class="address_info_zag" style="color:#FFFFFF">
-                            8 (800) 555-35-35
-                        </div>
-                    </div>
-
                     <div class="catalog_flex">
                         <div class="address_info_zag">
                             Адрес:
@@ -326,6 +317,27 @@
     save_changes.onclick = function () {
         EditUser(1);
     }
+
+    birthday_day.oninput = function(){
+        if(birthday_day.value.length > 2){
+
+        }
+    }
+    birthday_month.oninput = function(){
+
+    }
+    birthday_year.oninput = function(){
+
+    }
+
+
+
+
+
+
+
+
+
     /* Получение пользователя */
     GetUser();
 
@@ -335,7 +347,7 @@
             type: 'GET',
             success: function (msg) {
                 user = msg['user'];
-                DrawInfoUser(user);
+                DrawInfoUser();
             }
         });
     }
