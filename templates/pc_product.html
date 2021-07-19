@@ -56,14 +56,20 @@
                 </div>
                 <div class="price" id="price" style="padding:20px 0 15px 0;display: inline-block">5 400 ₽</div>
 
+                <!-- Счетчик товаров -->
                 <div class="add_to_basket_place">
-                    <div class="fa fa-minus" id="minus_counter" onclick="changeCounter(2)"></div>
+                    <div id="minus_counter" style="text-align: center">
+                        <div class="fa fa-minus" id="minus_counter_btn"></div>
+                    </div>
                     <div class="counter_place">
                         <input type="number" class="product_counter_inp" id="counter_product" value="1">
                         <span style="font-weight: 600;">ШТ</span>
                     </div>
-                    <div class="fa fa-plus" onclick="changeCounter(1)" id="plus_counter"></div>
+                    <div id="plus_counter" style="text-align: center">
+                        <div class="fa fa-plus"></div>
+                    </div>
                 </div>
+
                 <a href="#" class="all_catalog_href" id="add_to_basket"
                    style="float:none;max-width:350px;width:350px;margin-top:10px;height:50px;">Добавить
                     в корзину</a>
@@ -93,8 +99,6 @@
                         Диаметр: около 35 см
                     </span>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -309,6 +313,27 @@
         })
     }
 
+
+    let count = document.getElementById('counter_product')
+    let minus = document.getElementById('minus_counter');
+
+
+    // Счетчик товаров
+    minus.onclick = function (){
+         if(count.value > 1){
+            count.value--;
+        }
+
+    }
+
+
+    plus_counter.onclick = function (){
+        if(count.value >= 1){
+            count.value++;
+            console.log('test');
+        }
+
+    }
 
 </script>
 </body>
