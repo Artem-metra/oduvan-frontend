@@ -240,7 +240,7 @@
 </div>
 
 <!-- Карточка товара -->
-    <div class="slider_item_card" id="card_product" style="display: none">
+    <div class="slider_item_card" id="card_product_mob" style="display: none">
         <div class="right_nav_place">
             <div class="right_nav_item">
 
@@ -628,7 +628,7 @@
 
     /* Отрисовка товара */
     function createProduct(product) {
-        let box = document.getElementById('card_product').cloneNode(true);
+        let box = document.getElementById('card_product_mob').cloneNode(true);
         box.id = '';
         box.className = 'slider_item_card';
         let img = box.getElementsByClassName('slider_img')[0];
