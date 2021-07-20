@@ -1854,7 +1854,7 @@ input[type="checkbox"] {
 
 
 .slider_item_card {
-    width: 50%;
+    width: 48%;
     display: inline-block;
     overflow: hidden;
     height: 480px;
@@ -1865,8 +1865,7 @@ input[type="checkbox"] {
 }
 
 .slider_item_card:nth-child(2n+1) {
-    width: 48.5%;
-    margin-right: 10px;
+    margin-right: 24px;
 }
 
 .slider_item_card .right_nav_place {
@@ -1944,6 +1943,7 @@ input[type="checkbox"] {
 }
 
 .slider_name_bucket {
+    padding-left: 18px;
     font-weight: 600;
     font-size: 28px;
     text-transform: uppercase;
@@ -2033,3 +2033,10 @@ input[type="checkbox"] {
 }
 
 
+.price.have_disc {
+    color: #c2c5cb;
+    text-decoration: line-through;
+    text-decoration-color: #F877AD;
+    font-size: 32px;
+    padding-bottom: 5px;
+}

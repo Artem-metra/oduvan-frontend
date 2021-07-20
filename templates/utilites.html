@@ -647,7 +647,6 @@
     /* Отрисовка товара */
     function createProduct(product) {
         let box = card_product.cloneNode(true);
-
         box.id = '';
         box.className = 'slider_item_card';
         let img = box.getElementsByClassName('slider_img')[0];
@@ -675,10 +674,10 @@
 
         let addBasket = box.getElementsByClassName('add_to_basket_card');
         addBasket.onclick = function () {
+            alert('true')
             if(showAuth() === true){
                 alert('Добавленно в корзину');
             }
-
         }
         return box;
     }
