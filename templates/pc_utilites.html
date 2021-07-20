@@ -471,6 +471,12 @@
             }
             go_to_createorder.onclick = function () {
                 if (pickup.checked || courier.checked) {
+                    if(pickup.checked) {
+                        sendBasketInfo(1);
+                    }
+                    else {
+                        sendBasketInfo(2);
+                    }
                     location.href = '/createorder';
                 } else {
                     choose_delivery_list.className = '_active';
@@ -480,6 +486,23 @@
                 }
             }
         }
+    }
+
+
+    // Отправляем тип доставки (курьером или самовывоз)
+    function sendBasketInfo(type) {
+        let data = {
+            'user_id': user['id'],
+            'purchase_type': type,
+        }
+        $.ajax({
+            url: '/api/busket/get_by_user',
+            data: data,
+            type: 'GET',
+            success: function (msg) {
+                console.log(msg);
+            }
+        })
     }
 
 
@@ -767,6 +790,7 @@
         console.log(products, basket_id);
         for (let i = 0; i < products.length; i++) {
             let box = createProductBasket(products[i]);
+            box.classList.add('delete_basket');
             console.log(box);
             box.style.display = 'block';
             basket_item_place.append(box);
@@ -778,7 +802,6 @@
     function createProductBasket(product) {
         let box = document.getElementById('basket_item').cloneNode(true);
         box.id = '';
-        box.classList.add('delete_basket');
         let href = box.getElementsByClassName('small_product_place')[0];
         let img = box.getElementsByClassName('small_product_img')[0];
         let name = box.getElementsByClassName('bucket_na_zakaz')[0];

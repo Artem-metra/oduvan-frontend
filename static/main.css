@@ -464,23 +464,27 @@ input[type="checkbox"] {
     display: none;
 }
 
+
 .registrationpopup {
     transform: translate(120%, 0);
     transition: transform .5s;
     position: fixed;
     min-height: 100vh;
-    background: #FFFFFF;
-    padding: 25px 10px;
     width: 100%;
+    background: #FFFFFF;
+    z-index: 999;
     right: 0;
     top: 0;
-    z-index: 9999;
-    display: block;
+}
+
+.registrationpopup .catalog_flex_catalog {
+    margin-top: 35px;
 }
 
 .registrationpopup._active {
-    transform: translate(0%, 0%);
+    transform: translate(0, 0);
     transition: transform .5s;
+    z-index: 999;
 }
 
 .closepopupplace {
@@ -498,7 +502,6 @@ input[type="checkbox"] {
     cursor: pointer;
     display: block;
     margin: 0 auto;
-
 }
 
 .closepopupplace span {
@@ -513,7 +516,7 @@ input[type="checkbox"] {
     width: 50%;
     text-align: center;
     font-weight: 450;
-    font-size: 24px;
+    font-size: 36px;
     cursor: pointer;
 }
 
@@ -532,32 +535,33 @@ input[type="checkbox"] {
 
 .name_popup {
     text-align: center;
-    font-size: 36px;
+    font-size: 56px;
     font-weight: 450;
     line-height: 110%;
+    text-transform: uppercase;
 }
 
 .info_popup {
-    padding: 20px 0;
-    font-size: 18px;
+    padding: 20px 25%;
+    font-size: 36px;
     text-align: center;
 }
 
 .popup_input {
     width: 100%;
     text-align: center;
-    height: 50px;
-    margin-bottom: 10px;
+    height: 80px;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
     background: #29304833;
-    font-size: 16px;
+    font-size: 32px;
     font-weight: 450;
 }
 
 .popup_input::placeholder {
     color: #293048;
-    font-size: 18px;
+    font-size: 32px;
     font-weight: 450;
     text-transform: uppercase;
 }
@@ -573,14 +577,12 @@ input[type="checkbox"] {
 .forgot_pas {
     color: #F877AD;
     text-align: center;
-    margin: 0 auto;
-    display: block;
     text-transform: uppercase;
     line-height: 150%;
     text-decoration: underline;
     letter-spacing: 0.04em;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 25px;
 }
 
 /*==== Попап корзины =====*/
@@ -596,6 +598,7 @@ input[type="checkbox"] {
 .basket_info .address_info_zag {
     text-transform: none;
     color: #293048;
+    font-size: 36px;
 }
 
 .basket_info .fa-chevron-down {
@@ -613,6 +616,16 @@ input[type="checkbox"] {
 
 .oformit_zakaz .all_catalog_href {
     width: 100%;
+    justify-content: space-between;
+    padding: 0 25px;
+    height: 100px;
+    align-items: center;
+}
+
+.pereiti_k_oform {
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
 .basket_place {
@@ -621,10 +634,6 @@ input[type="checkbox"] {
     top: 0;
     left: 0;
     position: relative;
-}
-
-.basket_item {
-    margin: 10px 0;
 }
 
 .basket_info_for_order {
@@ -638,11 +647,8 @@ input[type="checkbox"] {
 }
 
 .basket_item .fa-times {
-    position: absolute;
     color: #293048;
-    top: 4px;
-    right: 4px;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .basket_item .fa-times:hover {

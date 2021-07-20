@@ -42,7 +42,7 @@
     </div>
 </div>
 <!-- Личная информация -->
-<div class="catalog" style="padding-top:0;">
+<div class="catalog" style="padding-top:0;min-height: 500px;">
     <div class="container">
         <div class="catalog_flex createorder" style="padding:0;" id="personal_info">
             <!-- Личные данные -->
@@ -277,66 +277,31 @@
 {% include 'pc_utilites.html' %}
 <script>
 
-    let maping = document.getElementsByClassName('catalog_category_item');
+    mapingItem();
 
-    // Доделать!!!!!!
-
-
-    for (let i = 0; i < maping.length; i++) {
-        maping[i].onclick = function () {
-            changeBtnActive(maping[i]);
-        }
-
-
-        function changeBtnActive(btn) {
-            if (btn.classList.contains('_active')) {
-                return;
-            }
-            else {
-                btn.classList.add('_active');
+    function mapingItem() {
+        let maping = document.getElementsByClassName('catalog_category_item');
+        for (let i = 0; i < maping.length; i++) {
+            maping[i].onclick = function () {
+                document.getElementsByClassName('_active')[0].classList.remove('_active');
+                maping[i].classList.add('_active');
+                if (maping[i].id === 'personal_info_map') {
+                    personal_info.style.display = 'flex';
+                    personal_address.style.display = 'none';
+                    personal_history.style.display = 'none';
+                } else if (maping[i].id === 'personal_address_map') {
+                    personal_address.style.display = 'block';
+                    personal_info.style.display = 'none';
+                    personal_history.style.display = 'none';
+                } else {
+                    personal_history.style.display = 'block';
+                    personal_info.style.display = 'none';
+                    personal_address.style.display = 'none';
+                }
             }
         }
     }
 
-
-
-
-    // personal_info_map.onclick = function () {
-    //     personal_info_map.classList.add('_active');
-    //     personal_info.style.display = 'block';
-    //     personal_address.style.display = 'none';
-    //     personal_history.style.display = 'none';
-    //     let maping = document.getElementsByClassName('catalog_category_item');
-    //     for (let i = 0; i < maping.length; i++) {
-    //         if (maping[i].classList.contains('_active') && !personal_info_map.classList.contains('_active')) {
-    //             maping[i].classList.remove('_active');
-    //         }
-    //     }
-    // }
-    // personal_address_map.onclick = function () {
-    //     personal_address_map.classList.add('_active');
-    //     personal_address.style.display = 'block';
-    //     personal_info.style.display = 'none';
-    //     personal_history.style.display = 'none';
-    //     let maping = document.getElementsByClassName('catalog_category_item');
-    //     for (let i = 0; i < maping.length; i++) {
-    //         if (maping[i].classList.contains('_active') && !personal_address_map.classList.contains('_active')) {
-    //             maping[i].classList.remove('_active');
-    //         }
-    //     }
-    // }
-    // personal_history_map.onclick = function () {
-    //     personal_history_map.classList.add('_active');
-    //     personal_history.style.display = 'block';
-    //     personal_info.style.display = 'none';
-    //     personal_address.style.display = 'none';
-    //     let maping = document.getElementsByClassName('catalog_category_item');
-    //     for (let i = 0; i < maping.length; i++) {
-    //         if (maping[i].classList.contains('_active') && !personal_history_map.classList.contains('_active')) {
-    //             maping[i].classList.remove('_active');
-    //         }
-    //     }
-    // }
     send_old_pas.onclick = function () {
         checkingOldPassword();
     }

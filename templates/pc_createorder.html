@@ -86,18 +86,19 @@
                         Ваш заказ
                     </div>
                     <div class="description_explanations">
-                        <div class="catalog_flex">
-                            <div class="address_info_zag">
-                                Доставка в точное время
-                            </div>
-                            <span class="fa fa-chevron-down"></span>
-                        </div>
+<!--                        <div class="catalog_flex">-->
+<!--                            <div class="address_info_zag">-->
+<!--                                Доставка в точное время-->
+<!--                            </div>-->
+<!--                            <span class="fa fa-chevron-down"></span>-->
+<!--                        </div>-->
                         <div class="catalog_flex" style="position: relative; ">
                             <div class="date_input" id="date_input_one">
-                                <input type="date" class="popup_input" id="inp_choose_data" data-date-format="DD MMMM YYYY">
+                                <input type="date" class="popup_input" id="inp_choose_data"
+                                       data-date-format="DD MMMM YYYY">
                             </div>
                             <div class="address_info_zag" id="addres_info_date">
-                            <!--06.07.2021-->
+                                <!--06.07.2021-->
                             </div>
                             <span id="choose_data">Выбрать дату</span>
                         </div>
@@ -116,19 +117,19 @@
                         <div class="price_price" style="color:#293048;opacity:0.6">
                             Сумма заказа
                         </div>
-                        <div class="price_price" style="float: right">
+                        <div class="price_price final_price" style="float: right">
                             16200 Р
                         </div>
                     </div>
                     <div class="registr_indicator" style="background: #293048; margin:10px 0;"></div>
-                    <div class="catalog_flex" style="justify-content: space-between">
-                        <div class="price_price" style="color:#293048;opacity:0.6">
-                            + Доставка вовремя
-                        </div>
-                        <div class="price_price" style="float: right">
-                            1000 Р
-                        </div>
-                    </div>
+<!--                    <div class="catalog_flex" style="justify-content: space-between">-->
+<!--                        <div class="price_price" style="color:#293048;opacity:0.6">-->
+<!--                            + Доставка вовремя-->
+<!--                        </div>-->
+<!--                        <div class="price_price" style="float: right">-->
+<!--                            1000 Р-->
+<!--                        </div>-->
+<!--                    </div>-->
 
 
                     <div class="basket_item_place" style="display: none">
@@ -198,8 +199,8 @@
                         </div>
                     </div>
                     <div class="registr_indicator" style="background: #293048;margin:10px 0;"></div>
-                    <input class="popup_input" placeholder="Введите промокод">
-                    <div class="all_catalog_href" style="float: none;width:100%;height:50px;">
+                    <input class="popup_input" placeholder="Введите промокод" id="promo_code_code">
+                    <div class="all_catalog_href" style="float: none;width:100%;height:50px;" id="promo_code">
                         Применить промокод
                     </div>
                     <div class="blog_item_text_zag" style="text-align: center;margin:20px 0;">Платёжные системы</div>
@@ -265,7 +266,7 @@
     addres_info_date.innerText = day_now;
 
 
-    var todayy = new Date;
+    let todayy = new Date;
     let my_hours = todayy.getHours();
     let my_min = todayy.getMinutes();
     let my_full_time = my_hours + ':' + my_min;
@@ -285,13 +286,12 @@
     document.getElementById("inp_choose_data").setAttribute("min", on_block)
 
 
-
     let inp_data = document.getElementById('date_input_one');
     choose_data.onclick = function () {
         inp_data.classList.add('_active');
     }
 
-    inp_choose_data.onchange = function (){
+    inp_choose_data.onchange = function () {
 
         let data_value = inp_choose_data.value;
         inp_data.classList.remove('_active');
@@ -299,18 +299,16 @@
     }
 
 
-
     let inp_time = document.getElementById('date_input_two');
-    choose_time.onclick = function (){
-       inp_time.classList.add('_active');
+    choose_time.onclick = function () {
+        inp_time.classList.add('_active');
     }
 
-    inp_choose_time.onchange = function (){
+    inp_choose_time.onchange = function () {
         let time_value = inp_choose_time.value;
         inp_time.classList.remove('_active');
         addres_info_time.innerText = time_value;
     }
-
 
 
     money_payment.onchange = function () {
@@ -343,7 +341,7 @@
         });
     }
 
-
+    // Подгрузка товаров для оформления заказа
     function loadBasket() {
         let data = {
             'user_id': user['id'],
@@ -353,26 +351,61 @@
             data: data,
             type: 'GET',
             success: function (msg) {
+                console.log(msg);
                 $('.delete_card').remove();
                 let final_price = document.getElementsByClassName('final_price');
-                for(let i = 0; i < final_price.length; i++){
-                   final_price[i].innerText = msg['message']['busket']['discount_cost'] + ' ₽';
+                for (let i = 0; i < final_price.length; i++) {
+                    final_price[i].innerText = msg['message']['busket']['discount_cost'] + ' ₽';
                 }
                 drawBasket(msg['message']['products']);
             }
         })
     }
 
-
+    // Отрисовка товаров
     function drawBasket(products) {
         console.log(products, basket_id);
         for (let i = 0; i < products.length; i++) {
             let box = createProductBasket(products[i]);
             box.style.display = 'block';
+            box.classList.add('delete_card');
             document.getElementById('basket_item_place').append(box);
         }
         document.getElementById('basket_item_place').style.display = 'block';
+
+
+        // Проверка промокода
+
+        promo_code.onclick = function(){
+            checkPromoCode();
+        }
     }
+
+    function checkPromoCode(){
+        let data = {
+            'promo_code': promo_code_code.value,
+        }
+        $.ajax({
+            url: '/api/promo_code/get_promo_code',
+            type:"GET",
+            data: data,
+            success:function(msg){
+                if(msg['status'] === 'error'){
+                    notification('Такого промокода не существует', 1);
+                }
+                else{
+                    notification('Промокод успешно использован', 2);
+                }
+                console.log(msg)
+            }
+        })
+    }
+
+
+
+
+
+
 
 
 </script>
