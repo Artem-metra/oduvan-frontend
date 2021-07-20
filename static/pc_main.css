@@ -283,13 +283,13 @@ input[type="checkbox"] {
     height: 20px;
     font-size: 14px;
     font-weight: bold;
-    display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     background: #F877AD;
     z-index: 9999;
     color: #FFFFFF;
+    display: none;
 }
 
 .right_nav_item span {
@@ -1750,7 +1750,9 @@ input[type="checkbox"] {
     width: 50%;
     padding-right: 25px;
 }
-
+#addresses_place{
+    display: none;
+}
 #recipient {
     /*transition: transform .5s;*/
     /*transform: scale(0);*/

@@ -413,6 +413,7 @@
     let user = null;
     let basket_id = 0;
 
+
     /* Открытие попапа */
     function OpenPopup(popup, status) {
         // status: 1 - регистрация с авторизацией, 2 - корзина, 3 - скидка
@@ -724,7 +725,6 @@
 
 
     // Функция добавления товара в корзину
-
     function addProduct(id, count) {
         let data = {
             'product_id': id,
@@ -758,6 +758,8 @@
         })
     }
 
+
+    // Кастомный блок для ошибок и успешных действий
     function notification(message, status) {
         // 1 - ошибка, 2 - правильное
         notification_popup.classList.add('_active');
@@ -775,10 +777,6 @@
         }
     }
 
-
-    choose_delivery.onclick = function () {
-        outdoingList();
-    }
 
     /* Срабатывает на oninput, приводит номер телефона в нужный регистр */
     function maskPhone(element) {
@@ -845,10 +843,13 @@
             box.style.display = 'block';
             basket_item_place.append(box);
             basket_item_place.style.display = 'block';
+            choose_delivery.onclick = function () {
+                outdoingList();
+            }
         }
     }
 
-
+    // Функция создания блоков в корзине
     function createProductBasket(product) {
         let box = document.getElementById('basket_item').cloneNode(true);
         box.id = '';
@@ -875,6 +876,23 @@
         }
         href.href = '/product?id=' + product['id'];
         return box;
+    }
+
+    // Добавить или уменьшить количество товара в корзине
+    function changeCountProduct(){
+        let data = {
+            'product_id': 1,
+            'count': 1,
+        }
+        $.ajax({
+            url: '/api/busket/add_product',
+            data: data,
+            type: "GET",
+            success: function(msg){
+                console.log(msg);
+            }
+        })
+
     }
 
 
