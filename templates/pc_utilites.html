@@ -20,17 +20,19 @@
                 <div class="right_header_part_item">
                     <a href="tel:88005553535" style="margin-right: 40px">8 800 555 35 35</a>
                     <div class="right_nav_place">
-                        <a class="right_nav_item" id="favorites">
+                        <span class="num_likeds" id="num_likeds" style="display: none;"></span>
+                        <a class="right_nav_item favorites">
                             <span class="fas fa-heart"></span>
                         </a>
                     </div>
                     <div class="right_nav_place">
-                        <a class="right_nav_item" id="go_to_basket">
+
+                        <a class="right_nav_item basket">
                             <span class="fas fa-shopping-bag"></span>
                         </a>
                     </div>
                     <div class="right_nav_place">
-                        <a class="right_nav_item" id="user_item">
+                        <a class="right_nav_item user_item">
                             <span class="fas fa-user"></span>
                         </a>
                     </div>
@@ -104,7 +106,7 @@
                 <div class="pereiti_k_oform">
                     Перейти к оформлению
                 </div>
-                <div class="price">
+                <div class="price" id="final_price">
                     16200 ₽
                 </div>
             </div>
@@ -157,20 +159,25 @@
             </div>
         </div>
         <!-- Карточка товара в корзине -->
-        <div id="basket_item_place">
-            <div class="basket_item" id="basket_item">
+        <div id="basket_item_place" style="display: none;">
+            <div class="basket_item" id="basket_item" style="display: none;">
                 <div class="catalog_flex" style="justify-content: normal">
                     <div class="small_product_card" style="margin-right:15px;">
-                        <div class="small_product_place">
+                        <a class="small_product_place">
                             <img src="../static/img/small_img_main.png" class="small_product_img">
-                        </div>
+                        </a>
                     </div>
                     <div class="basket_info_for_order">
                         <div class="bucket_na_zakaz">
                             Букет "Индиго"
                         </div>
-                        <div class="price">
-                            5400 Р
+                        <div class="catalog_flex_catalog" style="align-items: center">
+                            <div class="disc_price_bucket" style="margin-right: 15px;">
+                                2 600 Р
+                            </div>
+                            <div class="price">
+                                5400 Р
+                            </div>
                         </div>
                         <div class="add_to_basket_place" style="max-width:100%;">
                             <div class="fa fa-minus" id="minus_counter" onclick="changeCounter(2)"></div>
@@ -314,17 +321,17 @@
                     <div class="right_header_part_item" style="margin-right:0">
                         <a href="tel:88005553535" style="margin-right: 40px;color:#FFFFFF">8 800 555 35 35</a>
                         <div class="right_nav_place">
-                            <a class="right_nav_item" href="/favorites">
+                            <a class="right_nav_item favorites">
                                 <span class="fas fa-heart" style="color:#FFFFFF"></span>
                             </a>
                         </div>
                         <div class="right_nav_place">
-                            <a class="right_nav_item">
+                            <a class="right_nav_item basket">
                                 <span class="fas fa-shopping-bag" style="color:#FFFFFF"></span>
                             </a>
                         </div>
                         <div class="right_nav_place">
-                            <a class="right_nav_item">
+                            <a class="right_nav_item user_item">
                                 <span class="fas fa-user" style="color:#FFFFFF"></span>
                             </a>
                         </div>
@@ -566,47 +573,38 @@
             url: '/api/user/get',
             type: 'GET',
             success: function (msg) {
-                if (msg === 'error') {
-                    favorites.onclick = function () {
-                        OpenPopup(registrationpopup, 1);
+                let user_btn = document.getElementsByClassName('user_item');
+                let favorites_btn = document.getElementsByClassName('favorites');
+                let basket_btn = document.getElementsByClassName('basket');
+                for (let i = 0; i < user_btn.length; i++) {
+                    if (msg === 'error') {
+                        user_btn[i].onclick = function () {
+                            OpenPopup(registrationpopup, 1);
+                        }
+                        favorites_btn[i].onclick = function () {
+                            OpenPopup(registrationpopup, 1);
+                        }
+                        basket_btn[i].onclick = function () {
+                            OpenPopup(registrationpopup, 1);
+                        }
+                    } else {
+                        user = msg['user'];
+                        console.log(user);
+                        if (user['liked'].length > 0) {
+                            num_likeds.innerText = user['liked'].length;
+                            num_likeds.style.display = 'flex';
+                        }
+                        favorites_btn[i].href = '/favorites';
+                        basket_btn[i].onclick = function () {
+                            OpenPopup(basket_popup, 2);
+                            loadBasket();
+                        }
+                        user_btn[i].href = '/cabinet';
                     }
-                    go_to_basket.onclick = function () {
-                        OpenPopup(registrationpopup, 1);
-                    }
-                    user_item.onclick = function () {
-                        OpenPopup(registrationpopup, 1);
-                    }
-                } else {
-                    user = msg['user'];
-                    loadBasket();
-                    favorites.href = '/favorites';
-                    go_to_basket.onclick = function () {
-                        OpenPopup(basket_popup, 2);
-                    }
-                    user_item.href = '/cabinet';
                 }
             }
-        });
+        })
     }
-
-    // console.log('user', user);
-    // if (user === null) {
-    //     favorites.onclick = function () {
-    //         OpenPopup(registrationpopup, 1);
-    //     }
-    //     go_to_basket.onclick = function () {
-    //         OpenPopup(registrationpopup, 1);
-    //     }
-    //     user_item.onclick = function () {
-    //         OpenPopup(registrationpopup, 1);
-    //     }
-    // } else {
-    //     favorites.href = '/favorites';
-    //     go_to_basket.onclick = function () {
-    //         OpenPopup(basket_popup, 2);
-    //     }
-    //     user_item.href = '/cabinet';
-    // }
 
     /* Добавление в избранное */
     function AddLikeds(product_id, user_id) {
@@ -621,6 +619,7 @@
             data: data,
             success: function (msg) {
                 console.log(msg);
+                GetUser();
             }
         })
     }
@@ -630,7 +629,7 @@
     function createProduct(product) {
         let box = document.getElementById('card_product').cloneNode(true);
         box.id = '';
-        box.className = 'slider_item_card';
+        box.className = 'slider_item_card delete_card';
         let img = box.getElementsByClassName('slider_img')[0];
         let name = box.getElementsByClassName('slider_name_bucket')[0];
         let price = box.getElementsByClassName('price')[0];
@@ -755,9 +754,10 @@
             type: 'GET',
             success: function (msg) {
                 $('.delete_basket').remove();
-                console.log(msg);
+                console.log('producti', msg);
+                final_price.innerText = msg['message']['busket']['discount_cost'] + ' ₽';
                 basket_id = msg['message']['busket']['id'];
-                drawBasket(msg['message']['busket']);
+                drawBasket(msg['message']['products']);
             }
         })
     }
@@ -766,7 +766,11 @@
     function drawBasket(products) {
         console.log(products, basket_id);
         for (let i = 0; i < products.length; i++) {
-            createProductBasket();
+            let box = createProductBasket(products[i]);
+            console.log(box);
+            box.style.display = 'block';
+            basket_item_place.append(box);
+            basket_item_place.style.display = 'block';
         }
     }
 
@@ -775,20 +779,27 @@
         let box = document.getElementById('basket_item').cloneNode(true);
         box.id = '';
         box.classList.add('delete_basket');
-        let img = document.getElementsByClassName('small_product_img')[0];
-        let name = document.getElementsByClassName('bucket_na_zakaz')[0];
-        let price = document.getElementsByClassName('price')[0];
-        let delete_product = document.getElementsByClassName('fa-times')[0];
-
-        img.src = '';
-        name.innerText = '';
-        price.innerText = '';
+        let href = box.getElementsByClassName('small_product_place')[0];
+        let img = box.getElementsByClassName('small_product_img')[0];
+        let name = box.getElementsByClassName('bucket_na_zakaz')[0];
+        let price = box.getElementsByClassName('price')[0];
+        let discount_price = box.getElementsByClassName('disc_price_bucket')[0];
+        let delete_product = box.getElementsByClassName('fa-times')[0];
+        // img.src = 'https://azbukaflower.ru/wp-content/uploads/2019/02/1999072.jpg?v=1601926983';
+        name.innerText = product['name'];
+        if (product['discount_type'] > 0) {
+            price.classList.add('have_disc');
+            discount_price.innerText = product['discount_cost'] + ' ₽';
+        } else {
+            discount_price.style.display = 'block';
+        }
+        price.innerText = product['cost'] + ' ₽';
 
         delete_product.onclick = function () {
-            DeleteProductBasket();
+            DeleteProductBasket(product['id']);
         }
-        basket_item_place.append('box');
-        basket_item_place.style.display = 'block';
+        href.href = '/product?id=' + product['id'];
+        return box;
     }
 
 

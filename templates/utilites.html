@@ -49,17 +49,17 @@
                 </div>
                 <div class="social_list">
                     <div class="right_nav_place">
-                        <a class="right_nav_item" href="/favorites">
+                        <a class="right_nav_item">
                             <span class="fas fa-heart"></span>
                         </a>
                     </div>
                     <div class="right_nav_place">
-                        <a class="right_nav_item" onclick="OpenPopup(basket_popup, 2)">
+                        <a class="right_nav_item">
                             <span class="fas fa-shopping-bag"></span>
                         </a>
                     </div>
                     <div class="right_nav_place">
-                        <a class="right_nav_item" onclick="OpenPopup(registrationpopup, 1)">
+                        <a class="right_nav_item">
                             <span class="fas fa-user"></span>
                         </a>
                     </div>
@@ -240,7 +240,10 @@
 </div>
 
 <!-- Карточка товара -->
-    <div class="slider_item_card" id="card_product_mob" style="display: none">
+
+<div id="item_card_place" style="padding-top: 35px;display: none">
+    <!-- Карточка товара -->
+    <div class="slider_item_card" id="card_product">
         <div class="right_nav_place">
             <div class="right_nav_item">
 
@@ -273,14 +276,6 @@
                     <span class="fas fa-shopping-bag"></span>
                 </div>
             </div>
-            <div class="price_hover">
-                <div>
-                    В корзину
-                </div>
-                <div class="price_hover_price">
-                    5 400 ₽
-                </div>
-            </div>
             <div class="added_product" style="display: none">
                 <div>
                     <span class="fa fa-minus"></span>
@@ -294,6 +289,7 @@
             </div>
         </div>
     </div>
+</div>
 
 <!-- Footer -->
 <footer class="footer">
@@ -322,7 +318,7 @@
                             </a>
                         </div>
                         <div class="right_nav_place">
-                            <a class="right_nav_item" >
+                            <a class="right_nav_item">
                                 <span class="fas fa-user"></span>
                             </a>
                         </div>
@@ -596,8 +592,30 @@
             url: '/api/user/get',
             type: 'GET',
             success: function (msg) {
-                user = msg['user'];
-                console.log(msg);
+                if (msg === 'error') {
+                    favorites.onclick = function () {
+                        OpenPopup(registrationpopup, 1);
+                    }
+                    go_to_basket.onclick = function () {
+                        OpenPopup(registrationpopup, 1);
+                    }
+                    user_item.onclick = function () {
+                        OpenPopup(registrationpopup, 1);
+                    }
+                } else {
+                    user = msg['user'];
+                    console.log(user);
+                    if (user['liked'].length > 0) {
+                        num_likeds.innerText = user['liked'].length;
+                        num_likeds.style.display = 'flex';
+                    }
+                    loadBasket();
+                    favorites.href = '/favorites';
+                    go_to_basket.onclick = function () {
+                        OpenPopup(basket_popup, 2);
+                    }
+                    user_item.href = '/cabinet';
+                }
             }
         });
     }
@@ -628,7 +646,8 @@
 
     /* Отрисовка товара */
     function createProduct(product) {
-        let box = document.getElementById('card_product_mob').cloneNode(true);
+        let box = card_product.cloneNode(true);
+
         box.id = '';
         box.className = 'slider_item_card';
         let img = box.getElementsByClassName('slider_img')[0];
@@ -652,22 +671,7 @@
             discount_price.style.display = 'none';
         }
         // hover_price.innerText = product['discount_cost'] + ' ₽';
-        price.innerText = product['cost'] + ' ₽';
-        href.href = 'product?id=' + product['id'];
 
-        if (product['in_basket'] === true) {
-            place_for_favor.innerHTML = '<span class="fas fa-heart active"></span>';
-        } else {
-            place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
-        }
-
-        place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
-
-        place_for_favor.onclick = function () {
-            showAuth();
-            AddLikeds(product['id'], user['id']);
-            place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
-        }
 
         let addBasket = box.getElementsByClassName('add_to_basket_card');
         addBasket.onclick = function () {
@@ -678,14 +682,6 @@
         }
         return box;
     }
-
-
-
-
-
-
-
-
 
 
 </script>

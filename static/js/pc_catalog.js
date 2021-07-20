@@ -55,7 +55,7 @@ loadProducts();
 /* Правильная подгрузка продуктов */
 function loadProducts() {
     console.log(category_id);
-    $('.slider_item_card').remove();
+    $('.delete_card').remove();
     let data = {
         'category_id': category_id,
         'sorted_type': sorted_type,
@@ -182,7 +182,6 @@ function drawFlowers(flower) {
         let name = fl.getElementsByClassName('name_flower')[0];
         let checkbox = fl.getElementsByClassName('checkbox_for_choose_flower')[0];
         checkbox.onchange = function () {
-
             if (checkbox.checked) {
                 flowers.push(checkbox.value);
             } else {
@@ -192,7 +191,7 @@ function drawFlowers(flower) {
         }
         name.innerText = flower[i]['name'];
         checkbox.value = flower[i]['name'];
-        fl.style.display = 'block';
+        fl.style.display = 'flex';
         flowers_place.append(fl);
     }
 }

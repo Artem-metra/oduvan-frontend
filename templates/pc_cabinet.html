@@ -10,7 +10,7 @@
 <div class="catalog" style="background: #e9eaec">
     <div class="container">
         <div class="place_breadcoast">
-            <a href="">Главная</a> / <a href="/cabinet" class="active_page">Личный кабинет</a>
+            <a href="/">Главная</a> / <a href="/cabinet" class="active_page">Личный кабинет</a>
         </div>
         <h1 class="catalog_zag" style="text-align: center">Личный кабинет</h1>
         <div class="price_hover_price" style="text-align: center">
@@ -74,8 +74,10 @@
                 <div class="ava_place">
                     <div class="catalog_flex" style="justify-content: normal">
                         <img src="" class="avatar">
-                        <input class="all_catalog_href" style="width: 100%" value="Загрузить фото" type="file"
-                               id="avatar">
+
+                        <input class="all_catalog_href" style="width: 100%" type="file"
+                               id="avatar" placeholder="" value="">
+                        <label for="avatar"></label>
                     </div>
                 </div>
 
@@ -275,42 +277,66 @@
 {% include 'pc_utilites.html' %}
 <script>
 
-    personal_info_map.onclick = function () {
-        personal_info_map.classList.add('_active');
-        personal_info.style.display = 'block';
-        personal_address.style.display = 'none';
-        personal_history.style.display = 'none';
-        let maping = document.getElementsByClassName('catalog_category_item');
-        for (let i = 0; i < maping.length; i++) {
-            if (maping[i].classList.contains('_active') && !personal_info_map.classList.contains('_active')) {
-                maping[i].classList.remove('_active');
+    let maping = document.getElementsByClassName('catalog_category_item');
+
+    // Доделать!!!!!!
+
+
+    for (let i = 0; i < maping.length; i++) {
+        maping[i].onclick = function () {
+            changeBtnActive(maping[i]);
+        }
+
+
+        function changeBtnActive(btn) {
+            if (btn.classList.contains('_active')) {
+                return;
+            }
+            else {
+                btn.classList.add('_active');
             }
         }
     }
-    personal_address_map.onclick = function () {
-        personal_address_map.classList.add('_active');
-        personal_address.style.display = 'block';
-        personal_info.style.display = 'none';
-        personal_history.style.display = 'none';
-        let maping = document.getElementsByClassName('catalog_category_item');
-        for (let i = 0; i < maping.length; i++) {
-            if (maping[i].classList.contains('_active') && !personal_address_map.classList.contains('_active')) {
-                maping[i].classList.remove('_active');
-            }
-        }
-    }
-    personal_history_map.onclick = function () {
-        personal_history_map.classList.add('_active');
-        personal_history.style.display = 'block';
-        personal_info.style.display = 'none';
-        personal_address.style.display = 'none';
-        let maping = document.getElementsByClassName('catalog_category_item');
-        for (let i = 0; i < maping.length; i++) {
-            if (maping[i].classList.contains('_active') && !personal_history_map.classList.contains('_active')) {
-                maping[i].classList.remove('_active');
-            }
-        }
-    }
+
+
+
+
+    // personal_info_map.onclick = function () {
+    //     personal_info_map.classList.add('_active');
+    //     personal_info.style.display = 'block';
+    //     personal_address.style.display = 'none';
+    //     personal_history.style.display = 'none';
+    //     let maping = document.getElementsByClassName('catalog_category_item');
+    //     for (let i = 0; i < maping.length; i++) {
+    //         if (maping[i].classList.contains('_active') && !personal_info_map.classList.contains('_active')) {
+    //             maping[i].classList.remove('_active');
+    //         }
+    //     }
+    // }
+    // personal_address_map.onclick = function () {
+    //     personal_address_map.classList.add('_active');
+    //     personal_address.style.display = 'block';
+    //     personal_info.style.display = 'none';
+    //     personal_history.style.display = 'none';
+    //     let maping = document.getElementsByClassName('catalog_category_item');
+    //     for (let i = 0; i < maping.length; i++) {
+    //         if (maping[i].classList.contains('_active') && !personal_address_map.classList.contains('_active')) {
+    //             maping[i].classList.remove('_active');
+    //         }
+    //     }
+    // }
+    // personal_history_map.onclick = function () {
+    //     personal_history_map.classList.add('_active');
+    //     personal_history.style.display = 'block';
+    //     personal_info.style.display = 'none';
+    //     personal_address.style.display = 'none';
+    //     let maping = document.getElementsByClassName('catalog_category_item');
+    //     for (let i = 0; i < maping.length; i++) {
+    //         if (maping[i].classList.contains('_active') && !personal_history_map.classList.contains('_active')) {
+    //             maping[i].classList.remove('_active');
+    //         }
+    //     }
+    // }
     send_old_pas.onclick = function () {
         checkingOldPassword();
     }
@@ -318,24 +344,17 @@
         EditUser(1);
     }
 
-    birthday_day.oninput = function(){
-        if(birthday_day.value.length > 2){
+    birthday_day.oninput = function () {
+        if (birthday_day.value.length > 2) {
 
         }
     }
-    birthday_month.oninput = function(){
+    birthday_month.oninput = function () {
 
     }
-    birthday_year.oninput = function(){
+    birthday_year.oninput = function () {
 
     }
-
-
-
-
-
-
-
 
 
     /* Получение пользователя */
@@ -390,34 +409,34 @@
 
 
     /* Загрузка аватара */
+    avatar.onchange = e => {
+        let file = e.target.files[0];
+        comment_getBase64(file);
+    }
 
-    // avatar.onchange = e => {
-    //     let file = e.target.files[0];
-    //     comment_getBase64(file);
-    // }
-    //
-    //
-    // function comment_getBase64(file) {
-    //     let filename = file.name;
-    //     var reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onload = function () {
-    //         let data = {
-    //             'file': reader.result,
-    //             'filename': filename
-    //         }
-    //         $.ajax({
-    //             url: '/site/loadPhoto',
-    //             type: 'POST',
-    //             data: data,
-    //             success: function (msg) {
-    //                 let uuid = msg['uuid'];
-    //             }
-    //         });
-    //     };
-    //     reader.onerror = function (error) {
-    //     };
-    // }
+
+    function comment_getBase64(file) {
+        let filename = file.name;
+        console.log(filename);
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            let data = {
+                'file': reader.result,
+                'filename': filename
+            }
+            $.ajax({
+                url: '/site/loadPhoto',
+                type: 'POST',
+                data: data,
+                success: function (msg) {
+                    let uuid = msg['uuid'];
+                }
+            });
+        };
+        reader.onerror = function (error) {
+        };
+    }
 
 
     function EditUser(status) {
@@ -477,8 +496,21 @@
                 })
             }
         }
+    }
 
-
+    function changeAddress() {
+        let data = {
+            'id': user['id'],
+            'address': '',
+        }
+        $.ajax({
+            url: 'api/user/add_address',
+            data: data,
+            type: "GET",
+            success: function (msg) {
+                console.log(msg);
+            }
+        })
     }
 
 

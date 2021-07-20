@@ -33,6 +33,7 @@
             </div>
         </div>
 
+
         <!-- Место для вывода карточек -->
         <div id="item_card_place" style="padding:35px 0; display: block;">
             <!--            &lt;!&ndash; Одна карточка &ndash;&gt;-->
@@ -87,28 +88,30 @@
             <!--                </div>-->
             <!--            </div>-->
 
-            <div id="flowers_place">
-                <div class="choose_flower" id="choose_flower" style="display: none">
-                    <input type="checkbox" class="checkbox_for_choose_flower">
-                    <span class="name_flower">Роза кустовая</span>
-                </div>
-            </div>
 
-            <div class="sorted_zag">
-                Упаковка
+        <div id="flowers_place">
+            <div class="choose_flower" id="choose_flower" style="display: none">
+                <input type="checkbox" class="checkbox_for_choose_flower">
+                <span class="name_flower">Роза кустовая</span>
             </div>
-            <div class="choose_flower">
-                <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="1">
-                <span>Плёнка</span>
-            </div>
-            <div class="choose_flower">
-                <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="2">
-                <span>Крафт.плёнка</span>
-            </div>
-            <div class="choose_flower">
-                <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="3">
-                <span>Ленты</span>
-            </div>
+        </div>
+
+        <div class="sorted_zag">
+            Упаковка
+        </div>
+        <div class="choose_flower">
+            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="1">
+            <span>Плёнка</span>
+        </div>
+        <div class="choose_flower">
+            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="2">
+            <span>Крафт.плёнка</span>
+        </div>
+        <div class="choose_flower">
+            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="3">
+            <span>Ленты</span>
+        </div>
+
 
             <div class="all_catalog_href" style="float: none;margin: 20px 0 15px;height: 110px;width: 100%"
                  id="startsorting">
@@ -118,10 +121,14 @@
                 <div class="bucket_na_zakaz" style="text-align: center;cursor: pointer;display: contents">
                     Сбросить
                 </div>
-            </div>
 
 
-             Карточка товара
+
+
+
+        <!-- Место для вывода карточек -->
+        <div id="item_card_place" style="padding:35px 0; display: block;">
+            <!-- Карточка товара -->
             <div class="slider_item_card" id="card_product_mob">
                 <div class="right_nav_place">
                     <div class="right_nav_item">
@@ -177,4 +184,5 @@
 <script src="../static/js/catalog.js"></script>
 {% include 'utilites.html' %}
 </body>
+
 </html>

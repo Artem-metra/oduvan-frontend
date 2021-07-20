@@ -29,7 +29,8 @@
                                 <div class="sorted_text_select">
                                     По названию
                                 </div>
-                                <div id="chevron_for_list"><span class="fa fa-chevron-down" id="chevron_list"></span></div>
+                                <div id="chevron_for_list"><span class="fa fa-chevron-down" id="chevron_list"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -75,7 +76,11 @@
                 </div>
                 <div id="flowers_place">
                     <div class="choose_flower" id="choose_flower" style="display: none">
-                        <input type="checkbox" class="checkbox_for_choose_flower">
+                        <div class="checkbox" style="margin-left:5px;">
+                            <input type="checkbox" id="flower_item"
+                                   class="scal_chek custom-checkbox">
+                            <label for="flower_item" class="lab_desc sub_zag checkbox_for_choose_flower"></label>
+                        </div>
                         <span class="name_flower">Роза кустовая</span>
                     </div>
                 </div>
@@ -101,7 +106,8 @@
                     Применить
                 </div>
                 <div style="text-align: center">
-                    <div class="bucket_na_zakaz" style="text-align: center;cursor: pointer;display: contents" id="throw_off">
+                    <div class="bucket_na_zakaz" style="text-align: center;cursor: pointer;display: contents"
+                         id="throw_off">
                         Сбросить
                     </div>
                 </div>
