@@ -50,10 +50,11 @@
                 <div class="name_buckets">
                     Личные данные
                 </div>
-                <input class="popup_input" placeholder="Ваше имя" id="your_name">
+                <input class="popup_input new_data" placeholder="Ваше имя" id="your_name">
                 <input class="popup_input" placeholder="Ваша фамилия" id="your_surname">
-                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__" id="your_mobile">
-                <input class="popup_input" type="email" placeholder="Электронная почта" id="your_email_address">
+                <input class="popup_input new_data" type="tel" placeholder="+7 (___) ___-__-__" id="your_mobile">
+                <input class="popup_input new_data" type="email" placeholder="Электронная почта"
+                       id="your_email_address">
                 <div class="catalog_flex_catalog">
                     <div class="birthday_item">
                         <input class="popup_input" type="number" placeholder="День" id="birthday_day" maxlength="2">
@@ -145,7 +146,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="address_item add_adress">
+                <div class="address_item add_address">
                     <div class="catalog_flex">
                         <div class="right_nav_place">
                             <div class="right_nav_item">
@@ -311,7 +312,7 @@
 
     birthday_day.oninput = function () {
         if (birthday_day.value.length > 2) {
-
+            return false;
         }
     }
     birthday_month.oninput = function () {
@@ -336,6 +337,7 @@
         });
     }
 
+
     function DrawInfoUser() {
         console.log(user);
         name_user.innerText = user['name'];
@@ -343,6 +345,15 @@
         your_surname.value = user['surname'];
         your_mobile.value = '+7' + user['phone'];
         your_email_address.value = user['email'];
+        let inputs = document.getElementsByClassName('new_data');
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].oninput = function () {
+                inputs[i].classList.remove('error');
+            }
+        }
+        if (user['addresses'].length > 0) {
+
+        }
     }
 
 
@@ -381,20 +392,27 @@
 
 
     function comment_getBase64(file) {
-        let filename = file.name;
-        console.log(filename);
-        var reader = new FileReader();
+        var filename = file.name.split('.')[0];
+        let type = file.type.replace('image/', '');
+        let reader = new FileReader();
         reader.readAsDataURL(file);
+
+        console.log(filename, type);
         reader.onload = function () {
             let data = {
-                'file': reader.result,
-                'filename': filename
+                'image': reader.result,
+                'filename': filename,
+                'id': user['id'],
+                'extension': type,
             }
             $.ajax({
-                url: '/site/loadPhoto',
+                url: '/api/user/add_avatar',
                 type: 'POST',
-                data: data,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
                 success: function (msg) {
+                    console.log(msg);
                     let uuid = msg['uuid'];
                 }
             });
@@ -404,37 +422,37 @@
     }
 
 
+    // Редкатировать пользователя
     function EditUser(status) {
         // status = 1 - изменение основных данных, 2 - пароля
         if (status === 1) {
-            if (your_name.value === '') {
-                alert('Вы не ввели имя');
-                return;
-            } else if (your_mobile.value === '') {
-                alert('Вы не ввели мобильный телефон');
-                return;
-            } else if (your_name.value === user['name'] && your_mobile.value === '+7' + user['phone'] && your_surname.value === user['surname']) {
-                notification('Информация не поменялась', 1);
-                return;
-            } else {
-                let birthday = birthday_year + '.' + birthday_month + '.' + birthday_day;
-                let data = {
-                    'id': user['id'],
-                    'name': your_name.value,
-                    'surname': your_surname.value,
-                    'phone': your_mobile.value,
-                    'birthday': birthday,
-                }
-                $.ajax({
-                    url: '/api/user/edit',
-                    data: data,
-                    type: "GET",
-                    success: function (msg) {
-                        console.log(msg);
-                        alert('Ваши данные успешно изменены');
+            if (your_name.value === '' || your_phone.value === '') {
+                let inputs = document.getElementsByClassName('new_data');
+                for (let i = 0; i < inputs.length; i++) {
+                    if (inputs[i].value === '') {
+                        inputs[i].classList.add('error');
                     }
-                })
+                }
+                notification('Заполните обязательные поля!', 1);
+                return;
             }
+            let birthday = birthday_year + '.' + birthday_month + '.' + birthday_day;
+            let data = {
+                'id': user['id'],
+                'name': your_name.value,
+                'surname': your_surname.value,
+                'phone': your_mobile.value,
+                'birthday': birthday,
+            }
+            $.ajax({
+                url: '/api/user/edit',
+                data: data,
+                type: "GET",
+                success: function (msg) {
+                    console.log(msg);
+                    alert('Ваши данные успешно изменены');
+                }
+            })
         } else {
             if (new_pass.value === '') {
                 new_pass.classList.add('error');

@@ -1,6 +1,6 @@
 # from backend_app import *
 from flask import Flask, request, abort, session, json, render_template
-import utils
+import utils, traceback
 from maps.MapArticle import article_app
 from maps.MapBusket import busket_app
 from maps.MapCategory import category_app
@@ -108,7 +108,7 @@ def article():
 
 # @app.before_request
 # def redirect_on_api():
-    # print(request)
+# print(request)
 
 
 if __name__ == '__main__':

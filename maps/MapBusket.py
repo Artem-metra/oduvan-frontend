@@ -1,6 +1,6 @@
 import json
 
-from flask import Blueprint, request
+from flask import Blueprint, request, session
 
 import utils
 
@@ -24,7 +24,11 @@ def api_busket_edit():
 
 @busket_app.route('/api/busket/add_product')
 def api_busket_add_product():
-    return utils.complete_request(request, request.path)
+    resp = utils.complete_request(request, request.path)
+    if 'busket_id' not in session:
+        session['busket_id'] = resp['busket']['id']
+        print(session['busket_id'])
+    return resp
 
 
 @busket_app.route('/api/busket/remove_product_key')

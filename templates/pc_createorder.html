@@ -21,9 +21,11 @@
                 <input class="popup_input" placeholder="Ваше имя" id="name_user" readonly>
                 <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__" id="phone_user" readonly>
                 <input class="popup_input" type="email" placeholder="Электронная почта" id="email_user" readonly>
-                <select id="addresses_user" class="popup_input" style="display: none">
+                <input class="popup_input" type="text" placeholder="Адрес" id="address_user">
 
-                </select>
+                <div id="addresses_place">
+
+                </div>
                 <div class="checkbox" style="margin-left:5px;">
                     <input type="checkbox" id="get_other_people"
                            class="scal_chek custom-checkbox" style="margin-top: 20px;">
@@ -88,7 +90,7 @@
                         Ваш заказ
                     </div>
                     <div class="description_explanations">
-                        <select class="popup_input" id="select_shops" style="display: none">
+                        <select class="popup_input" id="select_shops" style="display: none;padding: 0 10px;">
                             <option value="-1">Не выбрано</option>
                         </select>
                         <!--                        <div class="catalog_flex">-->
@@ -252,64 +254,9 @@
     // Переменные для запроса об отправке заявки
     let shop_id = 0;
     let payment_type = 0;
+    let address = '';
+    let additionally = [];
 
-
-    // Изменение количества товара
-    function changeCounter(action) {
-        console.log(Number(counter_product.value));
-        if (action === 1) {
-            counter_product.value += 1;
-        } else {
-            if (counter_product.value === 1) {
-                minus_counter.classList.add('none_active');
-                return;
-            } else {
-                counter_product.value -= 1;
-            }
-        }
-    }
-
-
-    addres_info_date.innerText = day_now;
-    addres_info_time.innerText = my_full_time;
-
-
-    const options = {
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-    }
-
-    const date = new Date()
-    date.setDate(date.getDate())
-
-    const on_block = date.toLocaleString("ru", options).split('.').reverse().join('-')
-    document.getElementById("inp_choose_data").setAttribute("min", on_block)
-
-
-    let inp_data = document.getElementById('date_input_one');
-    choose_data.onclick = function () {
-        inp_data.classList.add('_active');
-    }
-
-    inp_choose_data.onchange = function () {
-
-        let data_value = inp_choose_data.value;
-        inp_data.classList.remove('_active');
-        addres_info_date.innerText = data_value;
-    }
-
-
-    let inp_time = document.getElementById('date_input_two');
-    choose_time.onclick = function () {
-        inp_time.classList.add('_active');
-    }
-
-    inp_choose_time.onchange = function () {
-        let time_value = inp_choose_time.value;
-        inp_time.classList.remove('_active');
-        addres_info_time.innerText = time_value;
-    }
 
 
     /* Получение пользователя */
@@ -340,6 +287,7 @@
             type: 'GET',
             success: function (msg) {
                 if (msg['message']['busket']['purchase_type'] === 1) {
+                    shop_id = -1;
                     loadShops();
                 }
                 console.log(msg);
@@ -364,8 +312,24 @@
 
             }
         })
-
     }
+
+
+    // Изменение количества товара
+    function changeCounter(action) {
+        console.log(Number(counter_product.value));
+        if (action === 1) {
+            counter_product.value += 1;
+        } else {
+            if (counter_product.value === 1) {
+                minus_counter.classList.add('none_active');
+                return;
+            } else {
+                counter_product.value -= 1;
+            }
+        }
+    }
+
 
     // Отрисовка товаров
     function drawBasket(products) {
@@ -405,6 +369,46 @@
             }
         }
 
+        // Время и дата
+        addres_info_date.innerText = day_now;
+        addres_info_time.innerText = my_full_time;
+
+
+        const options = {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+        }
+
+        const date = new Date()
+        date.setDate(date.getDate())
+
+        const on_block = date.toLocaleString("ru", options).split('.').reverse().join('-')
+        document.getElementById("inp_choose_data").setAttribute("min", on_block)
+
+
+        let inp_data = document.getElementById('date_input_one');
+        choose_data.onclick = function () {
+            inp_data.classList.add('_active');
+        }
+
+        inp_choose_data.onchange = function () {
+            let data_value = inp_choose_data.value;
+            inp_data.classList.remove('_active');
+            addres_info_date.innerText = data_value;
+        }
+
+        let inp_time = document.getElementById('date_input_two');
+        choose_time.onclick = function () {
+            inp_time.classList.add('_active');
+        }
+
+        inp_choose_time.onchange = function () {
+            let time_value = inp_choose_time.value;
+            inp_time.classList.remove('_active');
+            addres_info_time.innerText = time_value;
+        }
+
         // Если на поля получателя были добавлены классы error (не были заполнены), то когда они будут заполняться, класс пропадёт
         let inputs = document.getElementsByClassName('input_sender');
         for (let i = 0; i < inputs.length; i++) {
@@ -415,6 +419,18 @@
                 }
             }
         }
+
+        // Если пользователь не выбрал магазин для доставки, то при ончейндж селекта, еррор пропадает
+        select_shops.onchange = function () {
+            select_shops.classList.remove('error');
+        }
+
+        // Если пользователь не указал или не выбрал адрес доставки, то снимаем инпуту error, как только начнёт вводить
+        address_user.oninput = function(){
+           address_user.classList.remove('error');
+        }
+
+
     }
 
 
@@ -443,7 +459,7 @@
         placeOrder();
     }
 
-    // Проверки
+    // Проверки перед заказом
     function placeOrder() {
         // Если чекбокс "Отправить другому человеку" checked, то проверяем все ли поля получателя заполнены
         if (get_other_people.checked) {
@@ -467,6 +483,12 @@
         }
         if (shop_id === -1) {
             notification('Выберите магазин, в котором получите товар', 1);
+            select_shops.classList.add('error');
+            return;
+        }
+        if (address_user.value === '') {
+            notification('Заполните адрес доставки', 1);
+            address_user.classList.add('error');
             return;
         }
         createDeal();
@@ -474,7 +496,9 @@
 
     // Функция оформления заказа отправляется в банк
     function createDeal() {
-        let data = {}
+        let data = {
+            'shop_id': shop_id,
+        }
         $.ajax({
             url: 'api/deal/create',
             type: "POST",
