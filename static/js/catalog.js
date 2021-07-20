@@ -246,3 +246,8 @@ function drawProducts(msg) {
         pag_place.append(pagination);
     }
 }
+
+appear_about_pressing.style.display = 'none'
+filters_place.onclick = function (){
+    appear_about_pressing.style.display = 'block'
+}
