@@ -9,7 +9,7 @@ let page = 0;
 let paginations = 0;
 
 getCategories();
-
+// Получим категории
 function getCategories() {
     $.ajax({
         url: '/api/categories/get',
@@ -21,6 +21,9 @@ function getCategories() {
     });
 }
 
+GetUser();
+
+// Отрисовка категорий
 function drawCategories(msg) {
     for (let i = 0; i < msg.length; i++) {
         let category = catalog_category_card.cloneNode(true);
