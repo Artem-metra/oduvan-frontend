@@ -18,9 +18,9 @@ def complete_request(req, path):
     return json.loads(resp.text)
 
 
-def complete_request_post(req, path):
+def complete_request_post(data, path):
     url = address + path
-    resp = requests.post(url, {'info': req.data})
+    resp = requests.post(url, data)
     return json.loads(resp.text)
 
 

@@ -83,4 +83,4 @@ def api_user_add_new_avatar():
 
 @user_app.route('/api/user/remove_avatar')
 def api_user_remove_avatar():
-    return utils.complete_request(request, request.path)
+    return utils.complete_request(request.data, request.path)
