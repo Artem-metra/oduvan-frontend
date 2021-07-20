@@ -240,6 +240,7 @@
 </div>
 
 <!-- Карточка товара -->
+
 <div id="item_card_place" style="padding-top: 35px;display: none">
     <!-- Карточка товара -->
     <div class="slider_item_card" id="card_product">
@@ -389,28 +390,88 @@
 <script>
     let user = null;
 
+    /* Открытие попапа */
     function OpenPopup(popup, status) {
-        // status: 1 - регистрация с авторизацией, 2 - корзина, 3 - скидка, 4 - мобильная навигация
+        // status: 1 - регистрация с авторизацией, 2 - корзина, 3 - скидка
+        blurpopup.style.display = 'block';
+        body.style.overflow = 'hidden';
         if (status === 1) {
             popup.classList.add('_active');
             register_user.onclick = function () {
                 RegistrationUser();
             }
+            let inputs = document.getElementsByClassName('registration_input');
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].oninput = function () {
+                    if (inputs[i].value.length > 0) {
+                        inputs[i].classList.remove('error');
+                    }
+                }
+            }
+            let inputs_auth = document.getElementsByClassName('authorization_input');
+            for (let i = 0; i < inputs_auth.length; i++){
+                inputs_auth[i].oninput = function () {
+                    if (inputs_auth[i].value.length > 0) {
+                        inputs_auth[i].classList.remove('error');
+                    }
+                }
+            }
+            maskPhone(phone_user_auth);
+            maskPhone(phone_user_reg);
+            /* В попапе регистрации и авторизации менять блоки при нажатии на "Регистрация"/"Вход в аккаунт" */
             authorize_user.onclick = function () {
                 AuthorizationUser();
+            }
+            registration_popup.onclick = function () {
+                registr_indic.classList.add('_active');
+                authorize_indic.classList.remove('_active');
+                registration_block.style.display = 'block';
+                authorization_block.style.display = 'none';
+            }
+
+            authorize_popup.onclick = function () {
+                registr_indic.classList.remove('_active');
+                authorize_indic.classList.add('_active');
+                authorization_block.style.display = 'block';
+                registration_block.style.display = 'none';
             }
         } else if (status === 3) {
             popup.classList.add('_active');
             ds_pop_place.classList.add('_active');
+            blurpopup.style.display = 'block';
+            body.style.overflow = 'hidden';
+
             closediskpopup.onclick = function () {
                 ds_pop_place.classList.remove('_active');
                 ClosePopup(popup);
             }
         } else {
             popup.classList.add('_active');
+            pickup.onchange = function () {
+                if (courier.checked) {
+                    courier.checked = false;
+                } else {
+                    pickup.checked = true;
+                }
+            }
+            courier.onchange = function () {
+                if (pickup.checked) {
+                    pickup.checked = false;
+                } else {
+                    courier.checked = true;
+                }
+            }
+            go_to_createorder.onclick = function () {
+                if (pickup.checked || courier.checked) {
+                    location.href = '/createorder';
+                } else {
+                    choose_delivery_list.className = '_active';
+                    chevron_for_delivery.classList.add('_active');
+                    basket_item_place.className = 'move_up';
+                    notification('Выберите способ доставки', 1);
+                }
+            }
         }
-
-
     }
 
 
@@ -420,66 +481,53 @@
 
     }
 
+    /* Проверка авторизации */
+    function showAuth() {
+        if (user === null) {
+            OpenPopup(registrationpopup, 1);
+        } else {
+            return true;
+        }
+    }
+
 
     /* Регистрация пользователя */
     function RegistrationUser() {
-        if (name_user_reg.value === '') {
-            name_user_reg.classList.add('error');
-            alert('Введите имя');
-            return;
-        }
-        if (surname_user_reg.value === '') {
-            surname_user_reg.classList.add('error');
-            alert('Введите фамилию');
-            return;
-        }
-        if (phone_user_reg.value === '') {
-            phone_user_reg.classList.add('error');
-            alert('Введите номер телефона');
-            return;
-        }
-        if (email_user_reg.value === '') {
-            email_user_reg.classList.add('error');
-            alert('Введите Email');
-            return;
-        }
-        if (password_user_reg.value === '') {
-            password_user_reg.classList.add('error');
-            alert('Введите пароль');
-            return;
-        }
-        if (password_user_reg.value === '') {
-            password_user_reg.classList.add('error');
-            alert('Введите пароль');
-            return;
-        }
-        if (repeatpas_user_reg.value === '') {
-            repeatpas_user_reg.classList.add('error');
-            alert('Введите пароль повторно');
-            return;
-        }
-        if (password_user_reg.value !== repeatpas_user_reg.value) {
-            alert('Пароли не совпадают');
-            return;
-        }
-        let phone_number = maskPhone(phone_user_reg);
-        console.log(phone_user_reg.value.toString());
-        let data = {
-            'name': name_user_reg.value,
-            'surname': surname_user_reg.value,
-            'phone': phone_user_reg.value,
-            'email': email_user_reg.value,
-            'password': password_user_reg.value,
-        }
-        $.ajax({
-            url: '/api/user/registration',
-            type: 'GET',
-            data: data,
-            success: function (msg) {
-                console.log(msg);
+        if (name_user_reg.value === '' || phone_user_reg.value === '' || email_user_reg.value === '' || password_user_reg.value === '' || password_user_reg.value === '' || repeatpas_user_reg.value === '') {
+            let inputs = document.getElementsByClassName('registration_input');
+            for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i].value.length === 0) {
+                    console.log(inputs[i].value.length === 0);
+                    inputs[i].classList.add('error');
+                }
             }
-        });
+            return;
+        }
+        else if (password_user_reg.value !== repeatpas_user_reg.value) {
+            notification('Повторный пароль введён неверно', 1);
+            return;
+        } else {
+            let phone_number = maskPhone(phone_user_reg);
+            console.log(phone_user_reg.value.toString());
+            let data = {
+                'name': name_user_reg.value,
+                'surname': surname_user_reg.value,
+                'phone': phone_user_reg.value,
+                'password': password_user_reg.value,
+            }
+            $.ajax({
+                url: '/api/user/registration',
+                type: 'GET',
+                data: data,
+                success: function (msg) {
+                    console.log(msg);
+                    /* Добавить проверку, что такой Email или Телефон уже зареган */
+                }
+            });
+        }
     }
+
+
 
 
     function maskPhone(element) {
@@ -510,28 +558,29 @@
 
     /* Авторизация пользователя */
     function AuthorizationUser() {
-        if (phone_user_auth.value === '') {
-            phone_user_auth.classList.add('error');
-            alert('Введите телефон');
-            return;
-        }
-        if (password_user_auth.value === '') {
-            password_user_auth.classList.add('error');
-            alert('Введите пароль');
-            return;
-        }
-        let data = {
-            'password': password_user_auth.value,
-            'phone': phone_user_auth.value,
-        }
-        $.ajax({
-            url: '/api/user/auth',
-            type: 'GET',
-            data: data,
-            success: function (msg) {
-                console.log(msg);
+        if (phone_user_auth.value === '' || password_user_auth.value === '') {
+            let inputs = document.getElementsByClassName('authorization_input');
+            for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i].value.length === 0) {
+                    inputs[i].classList.add('error');
+                }
             }
-        })
+            notification('Заполните все поля!', 1);
+            return;
+        } else {
+            let data = {
+                'password': password_user_auth.value,
+                'phone': phone_user_auth.value,
+            }
+            $.ajax({
+                url: '/api/user/auth',
+                type: 'GET',
+                data: data,
+                success: function (msg) {
+                    location.href = '/cabinet';
+                }
+            })
+        }
     }
 
 
@@ -598,11 +647,14 @@
     /* Отрисовка товара */
     function createProduct(product) {
         let box = card_product.cloneNode(true);
+
         box.id = '';
         box.className = 'slider_item_card';
         let img = box.getElementsByClassName('slider_img')[0];
         let name = box.getElementsByClassName('slider_name_bucket')[0];
         let price = box.getElementsByClassName('price')[0];
+        // let hover_price = box.getElementsByClassName('price_hover_price')[0];
+        // let price_hover = box.getElementsByClassName('price_hover')[0];
         let place_for_favor = box.getElementsByClassName('right_nav_item')[0];
         let href = box.getElementsByClassName('slider_item_card_img_place')[0];
         let discount_text = box.getElementsByClassName('discount_text')[0];
@@ -618,26 +670,16 @@
             discount_place.style.display = 'none';
             discount_price.style.display = 'none';
         }
-        price.innerText = product['cost'] + ' ₽';
-        href.href = 'product?id=' + product['id'];
+        // hover_price.innerText = product['discount_cost'] + ' ₽';
 
-        if (product['in_basket'] === true) {
-            place_for_favor.innerHTML = '<span class="fas fa-heart active"></span>';
-        } else {
-            place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
+
+        let addBasket = box.getElementsByClassName('add_to_basket_card');
+        addBasket.onclick = function () {
+            if(showAuth() === true){
+                alert('Добавленно в корзину');
+            }
+
         }
-
-        place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
-
-        place_for_favor.onclick = function () {
-            showAuth();
-            AddLikeds(product['id'], user['id']);
-            place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
-        }
-        // price_hover.onclick = function () {
-        //     showAuth();
-        //     alert('Сделать добавление в корзину')
-        // }
         return box;
     }
 

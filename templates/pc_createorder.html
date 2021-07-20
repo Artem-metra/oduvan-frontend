@@ -92,20 +92,25 @@
                             </div>
                             <span class="fa fa-chevron-down"></span>
                         </div>
-                        <div class="catalog_flex">
-                            <div class="address_info_zag">
-                                06.07.2021
+                        <div class="catalog_flex" style="position: relative; ">
+                            <div class="date_input" id="date_input_one">
+                                <input type="date" class="popup_input" id="inp_choose_data" data-date-format="DD MMMM YYYY">
+                            </div>
+                            <div class="address_info_zag" id="addres_info_date">
+                            <!--06.07.2021-->
                             </div>
                             <span id="choose_data">Выбрать дату</span>
                         </div>
-                        <input type="date" class="popup_input">
-                        <div class="catalog_flex">
-                            <div class="address_info_zag">
-                                21:00
+
+                        <div class="catalog_flex" style="position: relative;">
+                            <div class="date_input" id="date_input_two">
+                                <input type="time" class="popup_input" id="inp_choose_time">
+                            </div>
+                            <div class="address_info_zag" id="addres_info_time">
+                                <!--21:00-->
                             </div>
                             <span id="choose_time">Выбрать время</span>
                         </div>
-                        <input type="time" class="popup_input">
                     </div>
                     <div class="catalog_flex" style="justify-content: space-between;padding:0">
                         <div class="price_price" style="color:#293048;opacity:0.6">
@@ -254,10 +259,58 @@
         }
     }
 
+    let timeElapsed = Date.now();
+    let today = new Date(timeElapsed);
+    let day_now = today.toLocaleDateString();
+    addres_info_date.innerText = day_now;
 
-    choose_data.onclick = function () {
 
+    var todayy = new Date;
+    let my_hours = todayy.getHours();
+    let my_min = todayy.getMinutes();
+    let my_full_time = my_hours + ':' + my_min;
+    addres_info_time.innerText = my_full_time;
+
+
+    const options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
     }
+
+    const date = new Date()
+    date.setDate(date.getDate())
+
+    const on_block = date.toLocaleString("ru", options).split('.').reverse().join('-')
+    document.getElementById("inp_choose_data").setAttribute("min", on_block)
+
+
+
+    let inp_data = document.getElementById('date_input_one');
+    choose_data.onclick = function () {
+        inp_data.classList.add('_active');
+    }
+
+    inp_choose_data.onchange = function (){
+
+        let data_value = inp_choose_data.value;
+        inp_data.classList.remove('_active');
+        addres_info_date.innerText = data_value;
+    }
+
+
+
+    let inp_time = document.getElementById('date_input_two');
+    choose_time.onclick = function (){
+       inp_time.classList.add('_active');
+    }
+
+    inp_choose_time.onchange = function (){
+        let time_value = inp_choose_time.value;
+        inp_time.classList.remove('_active');
+        addres_info_time.innerText = time_value;
+    }
+
 
 
     money_payment.onchange = function () {

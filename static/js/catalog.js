@@ -78,12 +78,16 @@ function loadProducts() {
             paginations = msg['message']['pages'];
         }
     });
+
     // /* Рендж для регулировки цен */
+
     // price_controller.onchange = function () {
     //     console.log(price_controller.value);
     //     price_max.value = price_controller.value;
     // }
+
     // /* Проверки при изменении цены */
+
     // price_min.onchange = function () {
     //     console.log(price_min.value);
     //     if (price_min.value < 0) {
@@ -102,7 +106,11 @@ function loadProducts() {
     //     }
     // }
 
+
+    /* Выпадающий список с сортировками по названиям, по цене и т.д */
+
     // /* Выпадающий список с сортировками по названиям, по цене и т.д */
+
     // chevron_for_list.onclick = function () {
     //     if (chevron_list.classList.contains('_active')) {
     //         sorted_select_items_list.className = '';
@@ -122,7 +130,7 @@ function loadProducts() {
     //         }
     //     }
     // }
-    //
+
     // throw_off.onclick = function () {
     //     category_id = 0;
     //     sorted_type = 0;

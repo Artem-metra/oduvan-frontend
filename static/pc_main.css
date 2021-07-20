@@ -1127,7 +1127,7 @@ input[type="checkbox"] {
     margin-bottom: 10px;
     display: flex;
     align-items: center;
-    background: #29304833;
+    background: #cdc9d1;
     font-size: 16px;
     font-weight: 450;
     position: relative;
@@ -1919,6 +1919,25 @@ input[type="checkbox"] {
 .custom-checkbox:disabled + label::before {
 
     background-color: #F877AD;
+}
+
+.date_input{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    transform: translate(0, -120%);
+    transition: all .5s;
+    z-index: -1;
+    opacity: 0;
+
+}
+
+.date_input._active{
+    transform: translate(0, 0);
+    transition: all .5s;
+    opacity: 1;
+    z-index: 999;
 }
 
 
