@@ -57,13 +57,13 @@
                        id="your_email_address">
                 <div class="catalog_flex_catalog">
                     <div class="birthday_item">
-                        <input class="popup_input" type="number" placeholder="День" id="birthday_day" maxlength="2">
+                        <input class="popup_input" type="number" placeholder="День" id="birthday_day" onkeypress="this.value=this.value.substring(0,1);">
                     </div>
                     <div class="birthday_item">
-                        <input class="popup_input" type="number" placeholder="Месяц" id="birthday_month" maxlength="2">
+                        <input class="popup_input" type="number" placeholder="Месяц" id="birthday_month" onkeypress="this.value=this.value.substring(0,1);">
                     </div>
                     <div class="birthday_item">
-                        <input class="popup_input" type="number" placeholder="Год" id="birthday_year" maxlength="4">
+                        <input class="popup_input" type="number" placeholder="Год" id="birthday_year" onkeypress="this.value=this.value.substring(0,3);">
                     </div>
                 </div>
                 <div class="all_catalog_href" style="float: none;width:100%;height:50px;" id="save_changes">
@@ -105,7 +105,7 @@
         <div class="catalog_flex createorder" style="padding:0;display: none" id="personal_address">
             <!-- Адреса -->
             <div class="address_place">
-                <div class="address_item address_info">
+                <div class="address_item address_info" id="address_item">
                     <div class="catalog_flex">
                         <div class="address_info_zag">
                             Название:
@@ -130,6 +130,19 @@
                         </div>
                         <div class="all_catalog_href" style="height:70px;border: 4px solid #FFFFFF;">
                             Удалить
+                        </div>
+                    </div>
+
+                    <div class="address_item add_adress">
+                        <div class="catalog_flex">
+                            <div class="right_nav_place">
+                                <div class="right_nav_item">
+                                    <span class="fas fa-map-marker-alt"></span>
+                                </div>
+                            </div>
+                            <div class="blog_item_text_read" style="margin-top: 15px;">
+                                Добавить адреса
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -310,17 +323,6 @@
         EditUser(1);
     }
 
-    birthday_day.oninput = function () {
-        if (birthday_day.value.length > 2) {
-            return false;
-        }
-    }
-    birthday_month.oninput = function () {
-
-    }
-    birthday_year.oninput = function () {
-
-    }
 
 
     /* Получение пользователя */
@@ -352,7 +354,10 @@
             }
         }
         if (user['addresses'].length > 0) {
+            let box = address_item.cloneNode(true);
+            for(let i = 0; i < user['addresses'].length; i++){
 
+            }
         }
     }
 
