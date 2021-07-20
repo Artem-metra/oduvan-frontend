@@ -74,3 +74,13 @@ def api_user_add_address():
 @user_app.route('/api/user/check_password')
 def api_user_check_password():
     return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/user/add_avatar', methods=['POST'])
+def api_user_add_new_avatar():
+    return utils.complete_request_post(request, request.path)
+
+
+@user_app.route('/api/user/remove_avatar')
+def api_user_remove_avatar():
+    return utils.complete_request(request, request.path)
