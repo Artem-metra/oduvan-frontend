@@ -78,9 +78,9 @@ def api_user_check_password():
 
 @user_app.route('/api/user/add_avatar', methods=['POST'])
 def api_user_add_new_avatar():
-    return utils.complete_request_post(request, request.path)
+    return utils.complete_request_post(request.data, request.path)
 
 
 @user_app.route('/api/user/remove_avatar')
 def api_user_remove_avatar():
-    return utils.complete_request(request.data, request.path)
+    return utils.complete_request(request, request.path)
