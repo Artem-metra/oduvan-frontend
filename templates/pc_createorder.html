@@ -260,17 +260,28 @@
         }
     }
 
+
+    // Создание динамического времени и даты
     let timeElapsed = Date.now();
     let today = new Date(timeElapsed);
     let day_now = today.toLocaleDateString();
     addres_info_date.innerText = day_now;
 
-
+    let my_full_time
     let todayy = new Date;
     let my_hours = todayy.getHours();
     let my_min = todayy.getMinutes();
-    let my_full_time = my_hours + ':' + my_min;
+    let my_null = 0;
+    if (my_min < 10){
+        let gab = my_null + '' + my_min
+        my_full_time = my_hours + ':' + gab;
+    }else {
+        my_full_time = my_hours + ':' + my_min;
+    }
+    // let my_full_time = my_hours + ':' + my_min;
     addres_info_time.innerText = my_full_time;
+    console.log(my_full_time);
+
 
 
     const options = {
@@ -292,7 +303,6 @@
     }
 
     inp_choose_data.onchange = function () {
-
         let data_value = inp_choose_data.value;
         inp_data.classList.remove('_active');
         addres_info_date.innerText = data_value;
@@ -309,6 +319,8 @@
         inp_time.classList.remove('_active');
         addres_info_time.innerText = time_value;
     }
+
+
 
 
     money_payment.onchange = function () {

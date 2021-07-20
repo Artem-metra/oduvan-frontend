@@ -16,7 +16,7 @@
 				<p class="head_block__title--3">Личный кабинет</p>
 			</div>
 			<h1 class="head_title">Личный кабинет</h1>
-			<p class="head_desc">Добрый день, Иван. В личном кабинете вы можете проверить ход выполнения ваших заказов, просмотреть или изменить личную информацию.</p>
+			<p class="head_desc">Добрый день, <span id="name_user"></span>. В личном кабинете вы можете проверить ход выполнения ваших заказов, просмотреть или изменить личную информацию.</p>
 		</div>
 	</section>
 
@@ -124,36 +124,39 @@
                 <h2 class="name_buckets">
                     Личные данные
                 </h2>
-                <input class="popup_input" placeholder="Ваше имя">
-                <input class="popup_input" placeholder="Ваша фамилия">
-                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__">
-                <input class="popup_input" type="email" placeholder="Электронная почта">
+                <input class="popup_input" placeholder="Ваше имя" id="your_name">
+                <input class="popup_input" placeholder="Ваша фамилия" id="your_surname">
+                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__" id="your_mobile">
+                <input class="popup_input" type="email" placeholder="Электронная почта" id="your_email_address">
                 <div class="date_of_birth">
-                    <input class="popup_input mar_rig" placeholder="День">
-                    <input class="popup_input mar_rig" placeholder="Месяц">
-                    <input class="popup_input" placeholder="Год">
+                    <input class="popup_input mar_rig" placeholder="День" id="birthday_day" maxlength="2">
+                    <input class="popup_input mar_rig" placeholder="Месяц" id="birthday_month" maxlength="2">
+                    <input class="popup_input" placeholder="Год" id="birthday_year" maxlength="4">
                 </div>
-                <div class="all_catalog_href" style="float: none;width:100%; height: 80px">
+                <div class="all_catalog_href" style="float: none;width:100%; height: 80px" id="save_changes">
                     Сохранить изменения
                 </div>
             </div>
             <!-- Аватарка пользователся и пароль -->
             <div class="your_order_place ">
                 <div class="ava_place">
-                    <div class="catalog_flex" style="justify-content: normal; margin-bottom: 30px; display: flex; flex-direction: column">
+                    <div class="catalog_flex" style="justify-content: normal">
                         <img src="" class="avatar">
-                        <div class="all_catalog_href" style="width: 90%;">Загрузить фото</div>
+
+                        <input class="all_catalog_href" style="width: 100%" type="file"
+                               id="avatar" placeholder="" value="">
+                        <label for="avatar"></label>
                     </div>
                 </div>
 
                 <div class="name_buckets">
                     Пароль
                 </div>
-                <input class="popup_input" placeholder="Старый пароль" type="password">
+                <input class="popup_input" placeholder="Старый пароль" type="password" id="old_password">
                 <input class="popup_input" placeholder="Новый пароль" type="password">
                 <input class="popup_input" placeholder="Повторите новый пароль" type="password">
-                <div class="all_catalog_href" style="float: none;width:100%;height:80px;">
-                    Сохранить изменения
+                <div class="all_catalog_href" style="float: none;width:100%;height:80px;" id="send_old_pas">
+                    Проверить
                 </div>
             </div>
         </div>
@@ -211,7 +214,7 @@
         </div>
     </section>
 
-    {% include 'utilities.html' %}
+    {% include 'utilites.html' %}
 
     </body>
 
@@ -297,6 +300,208 @@
            }
        }
    }
+
+
+    mapingItem();
+	// при желании можно переделать под мапинги, так как я делал по своему
+    function mapingItem() {
+        let maping = document.getElementsByClassName('catalog_category_item');
+        for (let i = 0; i < maping.length; i++) {
+            maping[i].onclick = function () {
+                document.getElementsByClassName('_active')[0].classList.remove('_active');
+                maping[i].classList.add('_active');
+                if (maping[i].id === 'personal_info_map') {
+                    personal_info.style.display = 'flex';
+                    personal_address.style.display = 'none';
+                    personal_history.style.display = 'none';
+                } else if (maping[i].id === 'personal_address_map') {
+                    personal_address.style.display = 'block';
+                    personal_info.style.display = 'none';
+                    personal_history.style.display = 'none';
+                } else {
+                    personal_history.style.display = 'block';
+                    personal_info.style.display = 'none';
+                    personal_address.style.display = 'none';
+                }
+            }
+        }
+    }
+
+    send_old_pas.onclick = function () {
+        checkingOldPassword();
+    }
+    save_changes.onclick = function () {
+        EditUser(1);
+    }
+
+    birthday_day.oninput = function () {
+        if (birthday_day.value.length > 2) {
+
+        }
+    }
+    birthday_month.oninput = function () {
+
+    }
+    birthday_year.oninput = function () {
+
+    }
+
+
+    /* Получение пользователя */
+    GetUser();
+
+    function GetUser() {
+        $.ajax({
+            url: '/api/user/get',
+            type: 'GET',
+            success: function (msg) {
+                user = msg['user'];
+                DrawInfoUser();
+            }
+        });
+    }
+
+    function DrawInfoUser() {
+        console.log(user);
+        name_user.innerText = user['name'];
+        your_name.value = user['name'];
+        your_surname.value = user['surname'];
+        your_mobile.value = '+7' + user['phone'];
+        your_email_address.value = user['email'];
+    }
+
+
+    /* Проверка старого пароля на правильность */
+    function checkingOldPassword() {
+        if (old_password.value === '') {
+            alert('Вы ничего не ввели');
+            return;
+        } else {
+            let data = {
+                'user_id': user['id'],
+                'password': old_password.value,
+            }
+            $.ajax({
+                url: '/api/user/check_password',
+                data: data,
+                type: 'GET',
+                success: function (msg) {
+                    console.log(msg);
+                    place_for_old_pas.style.display = 'none';
+                    enter_new_pas.style.display = 'block';
+                    save_new_pas.onclick = function () {
+                        EditUser(2);
+                    }
+                }
+            })
+        }
+    }
+
+
+    /* Загрузка аватара */
+    avatar.onchange = e => {
+        let file = e.target.files[0];
+        comment_getBase64(file);
+    }
+
+
+    function comment_getBase64(file) {
+        let filename = file.name;
+        console.log(filename);
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            let data = {
+                'file': reader.result,
+                'filename': filename
+            }
+            $.ajax({
+                url: '/site/loadPhoto',
+                type: 'POST',
+                data: data,
+                success: function (msg) {
+                    let uuid = msg['uuid'];
+                }
+            });
+        };
+        reader.onerror = function (error) {
+        };
+    }
+
+
+    function EditUser(status) {
+        // status = 1 - изменение основных данных, 2 - пароля
+        if (status === 1) {
+            if (your_name.value === '') {
+                alert('Вы не ввели имя');
+                return;
+            } else if (your_mobile.value === '') {
+                alert('Вы не ввели мобильный телефон');
+                return;
+            } else if (your_name.value === user['name'] && your_mobile.value === '+7' + user['phone'] && your_surname.value === user['surname']) {
+                notification('Информация не поменялась', 1);
+                return;
+            } else {
+                let birthday = birthday_year + '.' + birthday_month + '.' + birthday_day;
+                let data = {
+                    'id': user['id'],
+                    'name': your_name.value,
+                    'surname': your_surname.value,
+                    'phone': your_mobile.value,
+                    'birthday': birthday,
+                }
+                $.ajax({
+                    url: '/api/user/edit',
+                    data: data,
+                    type: "GET",
+                    success: function (msg) {
+                        console.log(msg);
+                        alert('Ваши данные успешно изменены');
+                    }
+                })
+            }
+        } else {
+            if (new_pass.value === '') {
+                new_pass.classList.add('error');
+                return;
+            } else if (new_pass.value.length < 7) {
+                new_pass.classList.add('error');
+                notification('Пароль должен содержать более 6 символов', 1);
+                return;
+            } else if (new_pass.value !== new_pass_repeat.value) {
+                notification('Пароли не совпадают', 1);
+                return;
+            } else {
+                let data = {
+                    'id': user['id'],
+                    'password': new_pass.value,
+                }
+                $.ajax({
+                    url: '/api/user/edit',
+                    data: data,
+                    type: "GET",
+                    success: function (msg) {
+                        notification('Ваш пароль успешно изменён', 2);
+                    }
+                })
+            }
+        }
+    }
+
+    // function changeAddress() {
+    //     let data = {
+    //         'id': user['id'],
+    //         'address': '',
+    //     }
+    //     $.ajax({
+    //         url: 'api/user/add_address',
+    //         data: data,
+    //         type: "GET",
+    //         success: function (msg) {
+    //             console.log(msg);
+    //         }
+    //     })
+    // }
 
 
 
