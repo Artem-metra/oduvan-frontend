@@ -1677,7 +1677,7 @@ input[type="checkbox"] {
       background-repeat: no-repeat;
       background-position: center center;
       background-size: 50% 50%;
-      background-color: #EAEAED;
+      background-color: #cfcfd4;
     transform: scale(1.5);
 }
 
@@ -1696,6 +1696,7 @@ input[type="checkbox"] {
 
     /* стили для чекбокса, находящегося в состоянии checked */
 .custom-checkbox:checked+label::before {
+    z-index: 500;
       border-color: #F877AD;
       background-color: #F877AD;
       background-image: url("../static/img/check_mark.svg");
@@ -2039,4 +2040,81 @@ input[type="checkbox"] {
     text-decoration-color: #F877AD;
     font-size: 32px;
     padding-bottom: 5px;
+}
+
+
+.price_price {
+    font-weight: 450;
+    font-size: 24px;
+}
+
+.price_price input {
+    background: transparent;
+    border: 0;
+    width: 71%;
+    font-weight: 450;
+    font-size: 40px;
+}
+
+
+.price_place {
+    width: 50%;
+}
+
+.appear_about_pressing_left{
+    width: 50%;
+}
+
+.appear_about_pressing_right{
+    width: 50%;
+}
+
+
+#sorted_select_items_list {
+    position: absolute;
+    transform: translate(0, -50px);
+    transition: transform 0.4s;
+    width: 40%;
+    z-index: 100;
+}
+
+.sorted_select_items {
+    position: absolute;
+    padding: 15px 0;
+    background: #ffffff;
+    width: 47%;
+    height: auto;
+    z-index: 100;
+}
+
+
+#sorted_select_items_list {
+    position: absolute;
+    transform: translate(0, -50px);
+    transition: transform 0.4s;
+    width: 95%;
+    z-index: 10;
+}
+
+#sorted_select_items_list._active {
+    transform: translate(0, 0);
+    transition: transform 0.4s;
+    z-index: 10;
+}
+
+
+.sorted_select_item {
+    padding: 8px 10px;
+    color: #b0bbbe;
+    border-bottom: 2px solid #b0bbbe;
+    text-transform: uppercase;
+    font-size: 31px;
+    transition: all .3s;
+}
+
+.sorted_select_item:hover {
+    cursor: pointer;
+    background: #F877AD;
+    transition: all .3s;
+    color: #FFFFFF;
 }
