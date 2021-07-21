@@ -1842,11 +1842,17 @@ input[type="checkbox"] {
     margin-right: 15px;
     display: inline-block;
     overflow: hidden;
+    position:relative;
 }
 
 .address_item.address_info {
     background: #293048;
     color: #FFFFFF;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
 }
 
 .address_item.address_info .catalog_flex {
@@ -1868,6 +1874,7 @@ input[type="checkbox"] {
 .add_address {
     border: 4px solid #293048;
     height: 310px;
+    position: relative;
 }
 
 .add_address .catalog_flex {
