@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, request, session, abort
 
 import utils
@@ -79,7 +81,7 @@ def api_user_check_password():
 
 @user_app.route('/api/user/add_avatar', methods=['POST'])
 def api_user_add_new_avatar():
-    return utils.complete_request_post(request.data, request.path)
+    return utils.complete_request_post(json.loads(request.data), request.path)
 
 
 @user_app.route('/api/user/remove_avatar')

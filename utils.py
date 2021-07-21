@@ -21,9 +21,7 @@ def complete_request(req, path):
 # TODO: неправильная передача запроса
 def complete_request_post(data, path):
     url = address + path
-    print(data)
     resp = requests.post(url, data)
-    print(resp.text)
     return json.loads(resp.text)
 
 
