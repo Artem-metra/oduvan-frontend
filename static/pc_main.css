@@ -2003,7 +2003,7 @@ input[type="checkbox"] {
     transform: translate(0, 0);
     transition: all .5s;
     opacity: 1;
-    z-index: 999;
+    z-index: 500;
 }
 
 
