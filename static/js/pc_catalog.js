@@ -184,6 +184,12 @@ function drawFlowers(flower) {
         fl.id = '';
         let name = fl.getElementsByClassName('name_flower')[0];
         let checkbox = fl.getElementsByClassName('checkbox_for_choose_flower')[0];
+        // выбор на чекбоксы
+        checkbox.id = '';
+        checkbox.id = 'flowers-' + i;
+        let name_flower = fl.getElementsByClassName('name_flower')[0];
+        let newId =  'flowers-' + i;
+        name_flower.setAttribute('for', newId);
         checkbox.onchange = function () {
             if (checkbox.checked) {
                 flowers.push(checkbox.value);
