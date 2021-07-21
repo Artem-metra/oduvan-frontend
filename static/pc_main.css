@@ -1842,20 +1842,22 @@ input[type="checkbox"] {
     margin-right: 15px;
     display: inline-block;
     overflow: hidden;
+    position:relative;
 }
 
 .address_item.address_info {
     background: #293048;
     color: #FFFFFF;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
 }
 
 .address_item.address_info .catalog_flex {
     padding: 15px 0;
     border-bottom: 2px solid #FFFFFF;
-}
-
-.address_item:first-child {
-    padding: 20px;
 }
 
 .address_item:last-child {
@@ -1869,17 +1871,19 @@ input[type="checkbox"] {
     text-transform: uppercase;
 }
 
-.address_item.add_adress {
+.add_address {
     border: 4px solid #293048;
+    height: 310px;
+    position: relative;
 }
 
-.address_item.add_adress .catalog_flex {
+.add_address .catalog_flex {
     height: 100%;
     justify-content: center;
     flex-direction: column;
 }
 
-.address_item.add_adress .right_nav_place {
+.add_address .right_nav_place {
     margin-right: 0;
 }
 
