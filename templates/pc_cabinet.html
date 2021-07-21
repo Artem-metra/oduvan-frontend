@@ -77,7 +77,7 @@
             <div class="your_order_place ">
                 <div class="ava_place">
                     <div class="catalog_flex" style="justify-content: normal">
-                        <img src="" class="avatar">
+                        <img src="" class="avatar" id="avatar_img">
                         <input class="all_catalog_href" style="width: 100%" type="file"
                                id="avatar" placeholder="" value="">
                         <label for="avatar"></label>
@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <div class="completed_address  address_info" style="display: none">
-                            <div class="catalog_flex">
+                            <div class="catalog_flex info">
                                 <div class="address_info_zag">
                                     Название:
                                 </div>
@@ -128,7 +128,7 @@
                                     Офис
                                 </div>
                             </div>
-                            <div class="catalog_flex">
+                            <div class="catalog_flex info">
                                 <div class="address_info_zag">
                                     Адрес:
                                 </div>
@@ -137,7 +137,7 @@
                                 </div>
                             </div>
 
-                            <div class="catalog_flex" style="border-bottom: 0;margin-top:10px;">
+                            <div class="catalog_flex info" style="border-bottom: 0;margin-top:10px;">
                                 <div class="all_catalog_href"
                                      style="background: #FFFFFF; color:#293048;height:70px;margin-right:10px;">
                                     Изменить
@@ -349,6 +349,7 @@
         your_surname.value = user['surname'];
         your_mobile.value = '+7' + user['phone'];
         your_email_address.value = user['email'];
+        avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
         let inputs = document.getElementsByClassName('new_data');
         for (let i = 0; i < inputs.length; i++) {
             inputs[i].oninput = function () {
@@ -421,7 +422,9 @@
                 data: JSON.stringify(data),
                 success: function (msg) {
                     console.log(msg);
-                    let uuid = msg['uuid'];
+                    let uuid = msg['message']['avatar'];
+                    console.log(uuid);
+                    avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + uuid;
                 }
             });
         };

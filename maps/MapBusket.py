@@ -83,7 +83,19 @@ def api_busket_remove():
 
 @busket_app.route('/api/busket/get_by_busket_id')
 def api_busket_get_by_busket_id():
-    return utils.complete_request(request, request.path)
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    if 'busket_id' not in params.keys():
+        if 'busket_id' in session:
+            params = {'busket_id': session['busket_id']}
+        else:
+            return 'error'
+    resp = utils.complete_request(params, request.path)
+    if 'busket_id' not in session:
+        session['busket_id'] = resp['busket']['id']
+    print(session['busket_id'])
+    return resp
 
 
 
