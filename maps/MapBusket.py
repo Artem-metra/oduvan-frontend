@@ -28,15 +28,11 @@ def api_busket_edit():
 
 @busket_app.route('/api/busket/add_product')
 def api_busket_add_product():
-    params = {}
-    for item in request.args:
-        params[item] = request.args.get(item)
-    if 'busket_id' not in params.keys():
-        if 'busket_id' in session:
-            params = {'busket_id': session['busket_id']}
-        else:
-            return 'error'
+    params = dict(request.args)
+    params['busket_id'] = session['busket_id']
+    print(params)
     resp = utils.complete_request_with_parameters(params, request.path)
+    print(resp)
     return resp
 
 
