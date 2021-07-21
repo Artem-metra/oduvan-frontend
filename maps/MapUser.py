@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, request, session, abort
 
 import utils
@@ -52,7 +54,8 @@ def api_user_registration():
 def api_user_auth():
     resp = utils.complete_request(request, request.path)
     if 'user_id' not in session:
-        session['user_id'] = resp['user']
+        if 'user' in resp:
+            session['user_id'] = resp['user']
     return resp
 
 
@@ -73,4 +76,14 @@ def api_user_add_address():
 
 @user_app.route('/api/user/check_password')
 def api_user_check_password():
+    return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/user/add_avatar', methods=['POST'])
+def api_user_add_new_avatar():
+    return utils.complete_request_post(json.loads(request.data), request.path)
+
+
+@user_app.route('/api/user/remove_avatar')
+def api_user_remove_avatar():
     return utils.complete_request(request, request.path)

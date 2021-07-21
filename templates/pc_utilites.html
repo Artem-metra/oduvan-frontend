@@ -26,7 +26,7 @@
                         </a>
                     </div>
                     <div class="right_nav_place">
-
+                        <span class="num_basket"></span>
                         <a class="right_nav_item basket">
                             <span class="fas fa-shopping-bag"></span>
                         </a>
@@ -99,24 +99,36 @@
 
 
 <!-- Поп ап корзины -->
-<div class="registrationpopup" id="basket_popup">
+<div class="registrationpopup" id="basket_popup" style="padding: 0;">
     <div class="basket_place">
-        <div class="oformit_zakaz">
-            <div class="all_catalog_href" id="go_to_createorder">
-                <div class="pereiti_k_oform">
-                    Перейти к оформлению
-                </div>
-                <div class="price" id="final_price">
-                    16200 ₽
-                </div>
-            </div>
-        </div>
+        <!-- Закрыть корзину -->
         <div class="closepopupplace">
             <div class="close_place" id="close_basket" onclick="ClosePopup(basket_popup)">
                 <span class="fa fa-times"></span> <span>Закрыть</span>
             </div>
         </div>
-        <div>
+        <!-- В корзине пусто -->
+        <div class="empty_basket" id="empty_basket">
+            <div class="empty_basket_info">
+                <div class="name_buckets">
+                    В корзине пусто!
+                    <a class="all_catalog_href" href="/catalog">
+                        Перейти в каталог
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="content" style="">
+            <div class="oformit_zakaz">
+                <div class="all_catalog_href" id="go_to_createorder">
+                    <div class="pereiti_k_oform">
+                        Перейти к оформлению
+                    </div>
+                    <div class="price" id="final_price">
+                        16200 ₽
+                    </div>
+                </div>
+            </div>
             <div class="name_popup">
                 Ваша корзина
             </div>
@@ -157,37 +169,38 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Карточка товара в корзине -->
-        <div id="basket_item_place" style="display: none;">
-            <div class="basket_item" id="basket_item" style="display: none;">
-                <div class="catalog_flex" style="justify-content: normal">
-                    <div class="small_product_card" style="margin-right:15px;">
-                        <a class="small_product_place">
-                            <img src="../static/img/small_img_main.png" class="small_product_img">
-                        </a>
-                    </div>
-                    <div class="basket_info_for_order">
-                        <div class="bucket_na_zakaz">
-                            Букет "Индиго"
+
+            <!-- Карточка товара в корзине -->
+            <div id="basket_item_place" style="display: none;">
+                <div class="basket_item" id="basket_item" style="display: none;">
+                    <div class="catalog_flex" style="justify-content: normal">
+                        <div class="small_product_card" style="margin-right:15px;">
+                            <a class="small_product_place">
+                                <img src="../static/img/small_img_main.png" class="small_product_img">
+                            </a>
                         </div>
-                        <div class="catalog_flex_catalog" style="align-items: center">
-                            <div class="disc_price_bucket" style="margin-right: 15px;">
-                                2 600 Р
+                        <div class="basket_info_for_order">
+                            <div class="bucket_na_zakaz">
+                                Букет "Индиго"
                             </div>
-                            <div class="price">
-                                5400 Р
+                            <div class="catalog_flex_catalog" style="align-items: center">
+                                <div class="disc_price_bucket" style="margin-right: 15px;">
+                                    2 600 Р
+                                </div>
+                                <div class="price">
+                                    5400 Р
+                                </div>
                             </div>
+                            <div class="add_to_basket_place" style="max-width:100%;">
+                                <div class="fa fa-minus" id="minus_counter" onclick="changeCounter(2)"></div>
+                                <div class="counter_place">
+                                    <input type="number" class="product_counter_inp" id="counter_product" value="1">
+                                    <span style="font-weight: 600;">ШТ</span>
+                                </div>
+                                <span class="fa fa-plus"></span>
+                            </div>
+                            <div class="fa fa-times"></div>
                         </div>
-                        <div class="add_to_basket_place" style="max-width:100%;">
-                            <div class="fa fa-minus" id="minus_counter" onclick="changeCounter(2)"></div>
-                            <div class="counter_place">
-                                <input type="number" class="product_counter_inp" id="counter_product" value="1">
-                                <span style="font-weight: 600;">ШТ</span>
-                            </div>
-                            <span class="fa fa-plus"></span>
-                        </div>
-                        <div class="fa fa-times"></div>
                     </div>
                 </div>
             </div>
@@ -321,11 +334,13 @@
                     <div class="right_header_part_item" style="margin-right:0">
                         <a href="tel:88005553535" style="margin-right: 40px;color:#FFFFFF">8 800 555 35 35</a>
                         <div class="right_nav_place">
+                            <span class="num_likeds" style="display: none;"></span>
                             <a class="right_nav_item favorites">
                                 <span class="fas fa-heart" style="color:#FFFFFF"></span>
                             </a>
                         </div>
                         <div class="right_nav_place">
+                            <span class="num_basket"></span>
                             <a class="right_nav_item basket">
                                 <span class="fas fa-shopping-bag" style="color:#FFFFFF"></span>
                             </a>
@@ -397,6 +412,7 @@
 <script>
     let user = null;
     let basket_id = 0;
+
 
     /* Открытие попапа */
     function OpenPopup(popup, status) {
@@ -471,10 +487,9 @@
             }
             go_to_createorder.onclick = function () {
                 if (pickup.checked || courier.checked) {
-                    if(pickup.checked) {
+                    if (pickup.checked) {
                         sendBasketInfo(1);
-                    }
-                    else {
+                    } else {
                         sendBasketInfo(2);
                     }
                     location.href = '/createorder';
@@ -492,13 +507,13 @@
     // Отправляем тип доставки (курьером или самовывоз)
     function sendBasketInfo(type) {
         let data = {
-            'user_id': user['id'],
+            'busket_id': basket_id,
             'purchase_type': type,
         }
         $.ajax({
-            url: '/api/busket/get_by_user',
+            url: '/api/busket/choice_purchase_type',
             data: data,
-            type: 'GET',
+            type: "GET",
             success: function (msg) {
                 console.log(msg);
             }
@@ -613,9 +628,19 @@
                     } else {
                         user = msg['user'];
                         console.log(user);
-                        if (user['liked'].length > 0) {
-                            num_likeds.innerText = user['liked'].length;
-                            num_likeds.style.display = 'flex';
+                        // if (user['liked'].length > 0) {
+                        //     let num_likeds = document.getElementsByClassName('num_likeds');
+                        //     for (let i = 0; i < num_likeds.length; i++) {
+                        //         num_likeds[i].innerText = user['liked'].length;
+                        //         num_likeds[i].style.display = 'flex';
+                        //     }
+                        // }
+                        if (user['q_products_count'] > 0) {
+                            let num_basket = document.getElementsByClassName('num_basket');
+                            for (let i = 0; i < num_basket.length; i++) {
+                                num_basket[i].innerText = user['q_products_count'];
+                                num_basket[i].style.display = 'flex';
+                            }
                         }
                         favorites_btn[i].href = '/favorites';
                         basket_btn[i].onclick = function () {
@@ -693,9 +718,26 @@
         }
         price_hover.onclick = function () {
             showAuth();
-            alert('Сделать добавление в корзину');
+            addProduct(product['id'], count);
         }
         return box;
+    }
+
+
+    // Функция добавления товара в корзину
+    function addProduct(id, count) {
+        let data = {
+            'product_id': id,
+            'count': count,
+        }
+        $.ajax({
+            url: 'api/busket/add_product',
+            type: "GET",
+            data: data,
+            success: function (msg) {
+                console.log(msg);
+            }
+        })
     }
 
 
@@ -716,6 +758,8 @@
         })
     }
 
+
+    // Кастомный блок для ошибок и успешных действий
     function notification(message, status) {
         // 1 - ошибка, 2 - правильное
         notification_popup.classList.add('_active');
@@ -733,10 +777,6 @@
         }
     }
 
-
-    choose_delivery.onclick = function () {
-        outdoingList();
-    }
 
     /* Срабатывает на oninput, приводит номер телефона в нужный регистр */
     function maskPhone(element) {
@@ -776,14 +816,22 @@
             data: data,
             type: 'GET',
             success: function (msg) {
-                $('.delete_basket').remove();
-                console.log('producti', msg);
-                final_price.innerText = msg['message']['busket']['discount_cost'] + ' ₽';
-                basket_id = msg['message']['busket']['id'];
-                drawBasket(msg['message']['products']);
+                if (msg['message']['products'].length === 0) {
+                    empty_basket.style.display = 'block';
+                    content.style.display = 'none';
+                } else {
+                    $('.delete_basket').remove();
+                    console.log('producti', msg);
+                    final_price.innerText = msg['message']['busket']['discount_cost'] + ' ₽';
+                    basket_id = msg['message']['busket']['id'];
+                    console.log(basket_id);
+                    drawBasket(msg['message']['products']);
+                }
             }
         })
     }
+
+    console.log(basket_id);
 
 
     function drawBasket(products) {
@@ -795,10 +843,13 @@
             box.style.display = 'block';
             basket_item_place.append(box);
             basket_item_place.style.display = 'block';
+            choose_delivery.onclick = function () {
+                outdoingList();
+            }
         }
     }
 
-
+    // Функция создания блоков в корзине
     function createProductBasket(product) {
         let box = document.getElementById('basket_item').cloneNode(true);
         box.id = '';
@@ -808,8 +859,10 @@
         let price = box.getElementsByClassName('price')[0];
         let discount_price = box.getElementsByClassName('disc_price_bucket')[0];
         let delete_product = box.getElementsByClassName('fa-times')[0];
+        let input = box.getElementsByClassName('product_counter_inp')[0];
         // img.src = 'https://azbukaflower.ru/wp-content/uploads/2019/02/1999072.jpg?v=1601926983';
         name.innerText = product['name'];
+        input.value = product['q_count'];
         if (product['discount_type'] > 0) {
             price.classList.add('have_disc');
             discount_price.innerText = product['discount_cost'] + ' ₽';
@@ -825,6 +878,23 @@
         return box;
     }
 
+    // Добавить или уменьшить количество товара в корзине
+    function changeCountProduct(){
+        let data = {
+            'product_id': 1,
+            'count': 1,
+        }
+        $.ajax({
+            url: '/api/busket/add_product',
+            data: data,
+            type: "GET",
+            success: function(msg){
+                console.log(msg);
+            }
+        })
+
+    }
+
 
     function DeleteProductBasket(product_id) {
         let data = {
@@ -832,7 +902,7 @@
             'product_id': product_id,
         }
         $.ajax({
-            url: '/api/basket/remove_product_key',
+            url: '/api/busket/remove_product_key',
             data: data,
             type: "GET",
             success: function (msg) {
