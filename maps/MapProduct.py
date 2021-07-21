@@ -1,6 +1,6 @@
 import json
 
-from flask import Blueprint, request
+from flask import Blueprint, request, session
 
 import utils
 
@@ -62,7 +62,20 @@ def api_product_remove():
 
 @product_app.route('/site/products/smart', methods=['POST'])
 def site_products_smart():
-    return utils.complete_request_post({'info': request.data}, request.path)
+    params = json.loads(request.data)
+    if 'user_id' in session:
+        params['user_id'] = session['user_id']
+    else:
+        params['user_id'] = 0
+    if 'busket_id' in session:
+        params['busket_id'] = session['busket_id']
+    else:
+        params['busket_id'] = 0
+    print(params)
+    resp = utils.complete_request_post_with_parameters({'info': params}, request.path)
+    #print('rest', resp)
+    print(resp)
+    return resp
 
 
 @product_app.route('/site/likeds/products')
