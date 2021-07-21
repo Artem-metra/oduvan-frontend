@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Личный кабинет</title>
+    <link rel="stylesheet" href="../static/libs/datepicker/css/datepicker.min.css">
+
     {% include 'pc_headers.html' %}
 </head>
 <body id="body">
@@ -56,18 +58,19 @@
                 <input class="popup_input new_data" type="email" placeholder="Электронная почта"
                        id="your_email_address">
                 <div class="catalog_flex_catalog">
-                    <div class="birthday_item">
-                        <input class="popup_input" type="number" placeholder="День" id="birthday_day"
-                               onkeypress="this.value=this.value.substring(0,1);">
-                    </div>
-                    <div class="birthday_item">
-                        <input class="popup_input" type="number" placeholder="Месяц" id="birthday_month"
-                               onkeypress="this.value=this.value.substring(0,1);">
-                    </div>
-                    <div class="birthday_item">
-                        <input class="popup_input" type="number" placeholder="Год" id="birthday_year"
-                               onkeypress="this.value=this.value.substring(0,3);">
-                    </div>
+                    <!--                    <div class="birthday_item">-->
+                    <!--                        <input class="popup_input" type="number" placeholder="День" id="birthday_day"-->
+                    <!--                               onkeypress="this.value=this.value.substring(0,1);">-->
+                    <!--                    </div>-->
+                    <!--                    <div class="birthday_item">-->
+                    <!--                        <input class="popup_input" type="number" placeholder="Месяц" id="birthday_month"-->
+                    <!--                               onkeypress="this.value=this.value.substring(0,1);">-->
+                    <!--                    </div>-->
+                    <!--                    <div class="birthday_item">-->
+                    <!--                        <input class="popup_input" type="number" placeholder="Год" id="birthday_year"-->
+                    <!--                               onkeypress="this.value=this.value.substring(0,3);">-->
+                    <!--                    </div>-->
+                    <input type='text' class='datepicker-here popup_input' placeholder="Дата рождения"/>
                 </div>
                 <div class="all_catalog_href" style="float: none;width:100%;height:50px;" id="save_changes">
                     Сохранить изменения
@@ -106,10 +109,11 @@
 
         <div class="catalog_flex createorder" style="padding:0;display: none" id="personal_address">
             <!-- Адреса -->
-            <div class="address_place">
-                <div class="address_item" id="address_item">
+            <div class="address_place" id="address_place">
+                <div class="address_item" id="address_item" style="display: none">
+                    <!-- Блок с добавлением адресов -->
                     <div class="add_address">
-                        <div class="catalog_flex">
+                        <div class="catalog_flex change">
                             <div class="right_nav_place">
                                 <div class="right_nav_item">
                                     <span class="fas fa-map-marker-alt"></span>
@@ -119,61 +123,58 @@
                                 Добавить адреса
                             </div>
                         </div>
+                        <!-- Блок с указанием данных об адресе -->
                         <div class="completed_address  address_info" style="display: none">
                             <div class="catalog_flex info">
                                 <div class="address_info_zag">
                                     Название:
                                 </div>
-                                <div class="address_info_zag" style="color:#FFFFFF">
-                                    Офис
+                                <input class="popup_input name_address" style="height: 35px;width: 70%;">
+                            </div>
+                            <div class="catalog_flex info">
+                                <div class="address_info_zag">
+                                    Адрес:
+                                </div>
+                                <input class="popup_input address_address" style="height: 35px;width: 70%;">
+                            </div>
+                            <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0;">
+                                <div class="all_catalog_href"
+                                     style="float: none;width: 100%;height: 50px;background: #FFFFFF;color:#293048">
+                                    Сохранить
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Блок с уже заполненным адресом -->
+                        <div class="data_address  address_info" style="display: none">
+                            <div class="catalog_flex info">
+                                <div class="address_info_zag">
+                                    Название:
+                                </div>
+                                <div class="address_info_zag name_address_user">
+                                    г.Воронеж, ул.Урыского, 2В
                                 </div>
                             </div>
                             <div class="catalog_flex info">
                                 <div class="address_info_zag">
                                     Адрес:
                                 </div>
-                                <div class="address_info_zag" style="color:#FFFFFF">
-                                    Урывского, 2В
+                                <div class="address_info_zag address_address_user">
+                                    г.Воронеж, ул.Урыского, 2В
                                 </div>
                             </div>
-
                             <div class="catalog_flex info" style="border-bottom: 0;margin-top:10px;">
-                                <div class="all_catalog_href"
+                                <div class="all_catalog_href btn_change_address"
                                      style="background: #FFFFFF; color:#293048;height:70px;margin-right:10px;">
                                     Изменить
                                 </div>
-                                <div class="all_catalog_href" style="height:70px;border: 4px solid #FFFFFF;">
+                                <div class="all_catalog_href btn_delete_address"
+                                     style="height:70px;border: 4px solid #FFFFFF;">
                                     Удалить
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!--                <div class="address_item add_adress">-->
-                <!--                    <div class="catalog_flex">-->
-                <!--                        <div class="right_nav_place">-->
-                <!--                            <div class="right_nav_item">-->
-                <!--                                <span class="fas fa-map-marker-alt"></span>-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-                <!--                        <div class="blog_item_text_read" style="margin-top: 15px;">-->
-                <!--                            Добавить адреса-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="address_item add_address">-->
-                <!--                    <div class="catalog_flex">-->
-                <!--                        <div class="right_nav_place">-->
-                <!--                            <div class="right_nav_item">-->
-                <!--                                <span class="fas fa-map-marker-alt"></span>-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-                <!--                        <div class="blog_item_text_read" style="margin-top: 15px;">-->
-                <!--                            Добавить адреса-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
             </div>
         </div>
 
@@ -356,19 +357,134 @@
                 inputs[i].classList.remove('error');
             }
         }
-        if (user['addresses'].length > 0) {
-            let box = address_item.cloneNode(true);
-            for (let i = 0; i < user['addresses'].length; i++) {
 
+
+        // Если у пользователя уже есть адреса в ЛК, то выводим блок с адресами
+        if (user['addresses'].length !== 0) {
+            console.log(user['addresses'].length);
+            for (let i = 0; i < user['addresses'].length; i++) {
+                let box = address_item.cloneNode(true);
+                let inputs_ad = box.getElementsByClassName('popup_input');
+                for (let i = 0; i < inputs_ad.length; i++) {
+                    inputs_ad[i].oninput = function () {
+                        inputs_ad[i].classList.remove('error');
+                    }
+                }
+                box.id = '';
+                let data_address = box.getElementsByClassName('data_address')[0];
+                let name_address_user = box.getElementsByClassName('name_address_user')[0];
+                let address_address_user = box.getElementsByClassName('address_address_user')[0];
+                let btn_change = box.getElementsByClassName('btn_change_address')[0];
+                let btn_delete = box.getElementsByClassName('btn_delete_address')[0];
+                name_address_user.innerText = user['addresses'][i]['name'];
+                address_address_user.innerText = user['addresses'][i]['address'];
+                btn_change.onclick = function () {
+                    let completed_address = box.getElementsByClassName('completed_address')[0];
+                    completed_address.style.display = 'block';
+                    completed_address.style.zIndex = 650;
+                    let btn_save = box.getElementsByClassName('all_catalog_href')[0];
+                    let address = box.getElementsByClassName('address_address')[0];
+                    let name_address = box.getElementsByClassName('name_address')[0];
+                    address.value = user['addresses'][i]['address'];
+                    name_address.value = user['addresses'][i]['name'];
+                    btn_save.onclick = function () {
+                        if (address.value === '' || name_address.value === '') {
+                            let inputs = box.getElementsByClassName('popup_input');
+                            for (let i = 0; i < inputs.length; i++) {
+                                inputs[i].classList.add('error');
+                            }
+                            notification('Заполните все обязательные поля', 1);
+                            return;
+                        }
+                        if(address.value === user['addresses'][i]['address'] && name_address.value === user['addresses'][i]['name']){
+                            notification('Вы ничего не поменяли', 1);
+                            return;
+                        }
+                        changeAddress(name_address.value, address.value, user['addresses'][i]['id'])
+                    }
+
+
+                }
+                btn_delete.onclick = function () {
+
+                }
+                data_address.style.display = 'block';
+                box.style.display = 'inline-block';
+                address_place.append(box);
             }
         }
+
+        // Вывод адресов или, если ещё нет адресов, то вывод блоков с возможностью добавлять адреса
+
+        for (let i = 0; i < 3 - user['addresses'].length; i++) {
+            let box = address_item.cloneNode(true);
+            let inputs_ad = box.getElementsByClassName('popup_input');
+            for (let i = 0; i < inputs_ad.length; i++) {
+                inputs_ad[i].oninput = function () {
+                    inputs_ad[i].classList.remove('error');
+                }
+            }
+            box.id = '';
+
+            let icon = box.getElementsByClassName('right_nav_place')[0];
+            let btn_add = box.getElementsByClassName('blog_item_text_read')[0];
+            let completed_address = box.getElementsByClassName('completed_address')[0];
+            let name_address = box.getElementsByClassName('name_address')[0];
+            let address = box.getElementsByClassName('address_address')[0];
+            let btn_save = box.getElementsByClassName('all_catalog_href')[0];
+            icon.onclick = function () {
+                completed_address.style.display = 'block';
+            }
+            btn_add.onclick = function () {
+                completed_address.style.display = 'block';
+            }
+            let address_data = '';
+            // $(address).suggestions({
+            //     token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
+            //     type: "ADDRESS",
+            //     /* Вызывается, когда пользователь выбирает одну из подсказок */
+            //     onSelect: function (suggestion) {
+            //         console.log('Дашло 2');
+            //         if (Number(suggestion['data']['fias_level']) < 8) {
+            //             notification('Укажите точный адрес', 1);
+            //             return;
+            //         }
+            //         address_data = suggestion['value'];
+            //     }
+            // })
+
+            old_password.oninput = function () {
+                old_password.classList.remove('error');
+            }
+
+            btn_save.onclick = function () {
+                if (name_address.value === '' || address.value === '') {
+                    let inputs = box.getElementsByClassName('popup_input');
+                    for (let i = 0; i < inputs.length; i++) {
+                        inputs[i].classList.add('error');
+                    }
+                    notification('Заполните обязательные поля', 1);
+                    return;
+                }
+                address_data = address.value;
+                addAddress(name_address.value, address_data);
+
+            }
+            box.style.display = 'inline-block';
+            address_place.append(box);
+        }
+
+        // if (user['addresses'].length === 0) {
+
+
     }
 
 
     /* Проверка старого пароля на правильность */
     function checkingOldPassword() {
         if (old_password.value === '') {
-            alert('Вы ничего не ввели');
+            old_password.classList.add('error');
+            notification('Вы ничего не ввели', 1);
             return;
         } else {
             let data = {
@@ -433,7 +549,7 @@
     }
 
 
-    // Редкатировать пользователя
+    // Редактировать пользователя
     function EditUser(status) {
         // status = 1 - изменение основных данных, 2 - пароля
         if (status === 1) {
@@ -492,13 +608,35 @@
         }
     }
 
-    function changeAddress() {
+    // функция удаления адреса
+    function addAddress(name, address) {
         let data = {
             'id': user['id'],
-            'address': '',
+            'address': address,
+            'name': name,
         }
         $.ajax({
             url: 'api/user/add_address',
+            data: data,
+            type: "GET",
+            success: function (msg) {
+                console.log(msg);
+                GetUser();
+            }
+        })
+    }
+
+
+    // функция изменения адреса
+    function changeAddress(name, address, address_id) {
+        let data = {
+            'id': user['id'],
+            'name': name,
+            'address': address,
+            'address_id': address_id,
+        }
+        $.ajax({
+            url: 'api/user/change_address',
             data: data,
             type: "GET",
             success: function (msg) {
@@ -509,5 +647,6 @@
 
 
 </script>
+<script src="../static/libs/datepicker/js/datepicker.min.js"></script>
 </body>
 </html>

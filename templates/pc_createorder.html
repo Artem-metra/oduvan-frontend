@@ -249,29 +249,64 @@
     let address = '';
     let additionally = [];
 
-
-    let inp_data = document.getElementById('date_input_one');
-    choose_data.onclick = function () {
-        inp_data.classList.add('_active');
-    }
-
-    inp_choose_data.onchange = function () {
-        let data_value = inp_choose_data.value;
-        inp_data.classList.remove('_active');
-        addres_info_date.innerText = data_value;
-    }
-
-
-    let inp_time = document.getElementById('date_input_two');
-    choose_time.onclick = function () {
-        inp_time.classList.add('_active');
-    }
-
-    inp_choose_time.onchange = function () {
-        let time_value = inp_choose_time.value;
-        inp_time.classList.remove('_active');
-        addres_info_time.innerText = time_value;
-    }
+// // Создание динамического времени и даты
+//     let timeElapsed = Date.now();
+//     let today = new Date(timeElapsed);
+//     let day_now = today.toLocaleDateString();
+//     addres_info_date.innerText = day_now;
+//
+//     let my_full_time
+//     let todayy = new Date;
+//     let my_hours = todayy.getHours();
+//     let my_min = todayy.getMinutes();
+//     let my_null = 0;
+//     if (my_min < 10){
+//         let gab = my_null + '' + my_min
+//         my_full_time = my_hours + ':' + gab;
+//     }else {
+//         my_full_time = my_hours + ':' + my_min;
+//     }
+//     // let my_full_time = my_hours + ':' + my_min;
+//     addres_info_time.innerText = my_full_time;
+//     console.log(my_full_time);
+//
+//
+//
+//     const options = {
+//         year: 'numeric',
+//         month: 'numeric',
+//         day: 'numeric',
+//     }
+//
+//     const date = new Date()
+//     date.setDate(date.getDate())
+//
+//     const on_block = date.toLocaleString("ru", options).split('.').reverse().join('-')
+//     document.getElementById("inp_choose_data").setAttribute("min", on_block)
+//
+//
+//     let inp_data = document.getElementById('date_input_one');
+//     choose_data.onclick = function () {
+//         inp_data.classList.add('_active');
+//     }
+//
+//     inp_choose_data.onchange = function () {
+//         let data_value = inp_choose_data.value;
+//         inp_data.classList.remove('_active');
+//         addres_info_date.innerText = data_value;
+//     }
+//
+//
+//     let inp_time = document.getElementById('date_input_two');
+//     choose_time.onclick = function () {
+//         inp_time.classList.add('_active');
+//     }
+//
+//     inp_choose_time.onchange = function () {
+//         let time_value = inp_choose_time.value;
+//         inp_time.classList.remove('_active');
+//         addres_info_time.innerText = time_value;
+//     }
 
 
 
