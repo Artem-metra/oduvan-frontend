@@ -8,6 +8,7 @@ let discount_type = 0;
 let page = 0;
 let paginations = 0;
 
+
 getCategories();
 // Получим категории
 function getCategories() {
@@ -57,7 +58,7 @@ loadProducts();
 
 /* Правильная подгрузка продуктов */
 function loadProducts() {
-    console.log(category_id);
+    console.log(cost_start, cost_end);
     $('.delete_card').remove();
     let data = {
         'category_id': category_id,
@@ -224,8 +225,10 @@ function removeItemAll(arr, value) {
 }
 
 function startSorting() {
-    cost_start = price_min.value;
-    cost_end = price_max.value;
+    console.log('Дашло!');
+    cost_start = Number(price_min.value);
+    cost_end = Number(price_max.value);
+
     loadProducts();
 }
 

@@ -412,7 +412,7 @@
 <script>
     let user = null;
     let basket_id = 0;
-
+    let count = 1;
 
     /* Открытие попапа */
     function OpenPopup(popup, status) {
@@ -643,7 +643,7 @@
                                 num_basket[i].style.display = 'flex';
                             }
                         }
-                        if(user['avatar'] !== "null"){
+                        if (user['avatar'] !== "null") {
                             let img = document.createElement('img');
                             img.className = 'avatar_user';
                             img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
@@ -675,7 +675,25 @@
             data: data,
             success: function (msg) {
                 console.log(msg);
-                GetUser();
+                loadProducts();
+            }
+        })
+    }
+
+    /* Удаление из избранного */
+    function DeleteLikeds(product_id, user_id) {
+        console.log('Дашло');
+        let data = {
+            'product_id': product_id,
+            'user_id': user_id
+        }
+        $.ajax({
+            url: 'api/user/disliked',
+            type: "GET",
+            data: data,
+            success: function (msg) {
+                console.log(msg);
+                loadProducts();
             }
         })
     }
@@ -710,22 +728,22 @@
         price.innerText = product['cost'] + ' ₽';
         href.href = 'product?id=' + product['id'];
 
-        if (product['in_basket'] === true) {
-            place_for_favor.innerHTML = '<span class="fas fa-heart active"></span>';
+        if (product['q_is_liked'] === 1) {
+            place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
+            place_for_favor.onclick = function () {
+                DeleteLikeds(product['id'], user['id']);
+            }
+
         } else {
             place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
-        }
-
-        place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
-
-        place_for_favor.onclick = function () {
-            if (showAuth() === true) {
+            place_for_favor.onclick = function () {
                 AddLikeds(product['id'], user['id']);
-                place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
             }
         }
+
         price_hover.onclick = function () {
-            showAuth();
+            // showAuth();
+            console.log(product['id']);
             addProduct(product['id'], count);
         }
         return box;
@@ -734,6 +752,7 @@
 
     // Функция добавления товара в корзину
     function addProduct(id, count) {
+        console.log(id, count);
         let data = {
             'product_id': id,
             'count': count,
@@ -883,7 +902,7 @@
     }
 
     // Добавить или уменьшить количество товара в корзине
-    function changeCountProduct(){
+    function changeCountProduct() {
         let data = {
             'product_id': 1,
             'count': 1,
@@ -892,7 +911,7 @@
             url: '/api/busket/add_product',
             data: data,
             type: "GET",
-            success: function(msg){
+            success: function (msg) {
                 console.log(msg);
             }
         })

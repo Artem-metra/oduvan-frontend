@@ -70,7 +70,7 @@
                     <!--                        <input class="popup_input" type="number" placeholder="Год" id="birthday_year"-->
                     <!--                               onkeypress="this.value=this.value.substring(0,3);">-->
                     <!--                    </div>-->
-                    <input type='text' class='datepicker-here popup_input' placeholder="Дата рождения"/>
+                    <input type='text' class='datepicker-here popup_input' readonly placeholder="Дата рождения"/>
                 </div>
                 <div class="all_catalog_href" style="float: none;width:100%;height:50px;" id="save_changes">
                     Сохранить изменения
@@ -406,7 +406,7 @@
 
                 }
                 btn_delete.onclick = function () {
-
+                    deleteAddress(user['addresses'][i]['id']);
                 }
                 data_address.style.display = 'block';
                 box.style.display = 'inline-block';
@@ -439,19 +439,19 @@
                 completed_address.style.display = 'block';
             }
             let address_data = '';
-            // $(address).suggestions({
-            //     token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
-            //     type: "ADDRESS",
-            //     /* Вызывается, когда пользователь выбирает одну из подсказок */
-            //     onSelect: function (suggestion) {
-            //         console.log('Дашло 2');
-            //         if (Number(suggestion['data']['fias_level']) < 8) {
-            //             notification('Укажите точный адрес', 1);
-            //             return;
-            //         }
-            //         address_data = suggestion['value'];
-            //     }
-            // })
+            $(address).suggestions({
+                token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
+                type: "ADDRESS",
+                /* Вызывается, когда пользователь выбирает одну из подсказок */
+                onSelect: function (suggestion) {
+                    console.log('Дашло 2');
+                    if (Number(suggestion['data']['fias_level']) < 8) {
+                        notification('Укажите точный адрес', 1);
+                        return;
+                    }
+                    address_data = suggestion['value'];
+                }
+            })
 
             old_password.oninput = function () {
                 old_password.classList.remove('error');
@@ -640,6 +640,23 @@
             data: data,
             type: "GET",
             success: function (msg) {
+                console.log(msg);
+            }
+        })
+    }
+
+
+    // Функция удаления адреса
+    function deleteAddress(address_id){
+        let data = {
+            'id': user['id'],
+            'address_id': address_id,
+        }
+        $.ajax({
+            url: 'api/user/remove_address',
+            data: data,
+            type: "GET",
+            success: function(msg){
                 console.log(msg);
             }
         })
