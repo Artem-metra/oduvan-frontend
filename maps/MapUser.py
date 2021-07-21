@@ -52,7 +52,8 @@ def api_user_registration():
 def api_user_auth():
     resp = utils.complete_request(request, request.path)
     if 'user_id' not in session:
-        session['user_id'] = resp['user']
+        if 'user' in resp:
+            session['user_id'] = resp['user']
     return resp
 
 
