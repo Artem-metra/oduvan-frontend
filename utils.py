@@ -18,9 +18,9 @@ def complete_request(req, path):
     return json.loads(resp.text)
 
 
-# TODO: неправильная передача запроса
 def complete_request_post(data, path):
     url = address + path
+    data['image'] = data['image'][data['image'].find(','):]
     resp = requests.post(url, data)
     return json.loads(resp.text)
 
