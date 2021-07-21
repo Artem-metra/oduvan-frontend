@@ -28,10 +28,16 @@ def api_busket_edit():
 
 @busket_app.route('/api/busket/add_product')
 def api_busket_add_product():
-    resp = requests.get('http://45.12.19.118:80/api/busket/create')
-    print(resp)
-
-    return utils.complete_request(request, request.path)
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    if 'busket_id' not in params.keys():
+        if 'busket_id' in session:
+            params = {'busket_id': session['busket_id']}
+        else:
+            return 'error'
+    resp = utils.complete_request_with_parameters(params, request.path)
+    return resp
 
 
 @busket_app.route('/api/busket/remove_product_key')
@@ -44,9 +50,7 @@ def api_busket_remove_product_key():
             params = {'busket_id': session['busket_id']}
         else:
             return 'error'
-    resp = utils.complete_request(params, request.path)
-    if 'busket_id' not in session:
-        session['busket_id'] = resp['busket']['id']
+    resp = utils.complete_request_with_parameters(params, request.path)
     return resp
 
 
@@ -60,9 +64,7 @@ def api_busket_remove_product_count():
             params = {'busket_id': session['busket_id']}
         else:
             return 'error'
-    resp = utils.complete_request(params, request.path)
-    if 'busket_id' not in session:
-        session['busket_id'] = resp['busket']['id']
+    resp = utils.complete_request_with_parameters(params, request.path)
     return resp
 
 
@@ -76,9 +78,7 @@ def api_busket_clear():
             params = {'busket_id': session['busket_id']}
         else:
             return 'error'
-    resp = utils.complete_request(params, request.path)
-    if 'busket_id' not in session:
-        session['busket_id'] = resp['busket']['id']
+    resp = utils.complete_request_with_parameters(params, request.path)
     return resp
 
 
@@ -132,7 +132,5 @@ def api_busket_choice_purchase_type():
             params = {'busket_id': session['busket_id']}
         else:
             return 'error'
-    resp = utils.complete_request(params, request.path)
-    if 'busket_id' not in session:
-        session['busket_id'] = resp['busket']['id']
+    resp = utils.complete_request_with_parameters(params, request.path)
     return resp
