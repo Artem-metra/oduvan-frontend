@@ -1854,10 +1854,6 @@ input[type="checkbox"] {
     border-bottom: 2px solid #FFFFFF;
 }
 
-.address_item:first-child {
-    padding: 20px;
-}
-
 .address_item:last-child {
     margin-right: 0;
 }
@@ -1869,17 +1865,18 @@ input[type="checkbox"] {
     text-transform: uppercase;
 }
 
-.address_item.add_adress {
+.add_address {
     border: 4px solid #293048;
+    height: 310px;
 }
 
-.address_item.add_adress .catalog_flex {
+.add_address .catalog_flex {
     height: 100%;
     justify-content: center;
     flex-direction: column;
 }
 
-.address_item.add_adress .right_nav_place {
+.add_address .right_nav_place {
     margin-right: 0;
 }
 
