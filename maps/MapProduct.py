@@ -72,7 +72,7 @@ def site_likeds_products():
 
 @product_app.route('/api/products/add_image', methods=['POST'])
 def api_product_add_new_image():
-    return utils.complete_request_post(request.data, request.path)
+    return utils.complete_request_post(json.loads(request.data), request.path)
 
 
 @product_app.route('/api/products/remove_image')
@@ -82,4 +82,4 @@ def api_product_remove_image():
 
 @product_app.route('/api/products/edit_image', methods=['POST'])
 def api_user_edit_image():
-    return utils.complete_request_post(request.data, request.path)
+    return utils.complete_request_post(json.loads(request.data), request.path)
