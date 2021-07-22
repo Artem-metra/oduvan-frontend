@@ -67,10 +67,10 @@ def site_products_smart():
         params['user_id'] = session['user_id']
     else:
         params['user_id'] = 0
-    if 'busket_id' in session:
-        params['busket_id'] = session['busket_id']
+    if 'basket_id' in session:
+        params['basket_id'] = session['basket_id']
     else:
-        params['busket_id'] = 0
+        params['basket_id'] = 0
     print(params)
     resp = utils.complete_request_post_with_parameters({'info': params}, request.path)
     #print('rest', resp)
