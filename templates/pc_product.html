@@ -289,7 +289,9 @@
         } else {
             disc_price_bucket.style.display = 'none';
         }
-        add_to_basket.onclick = function(){
+        let count = document.getElementById('counter_product')
+        let minus = document.getElementById('minus_counter');
+        add_to_basket.onclick = function () {
             showAuth();
             alert('Сделать корзину');
         }
@@ -314,21 +316,17 @@
     }
 
 
-    let count = document.getElementById('counter_product')
-    let minus = document.getElementById('minus_counter');
-
-
     // Счетчик товаров
-    minus.onclick = function (){
-         if(count.value > 1){
+    minus.onclick = function () {
+        if (count.value > 1) {
             count.value--;
         }
 
     }
 
 
-    plus_counter.onclick = function (){
-        if(count.value >= 1){
+    plus_counter.onclick = function () {
+        if (count.value >= 1) {
             count.value++;
             console.log('test');
         }
