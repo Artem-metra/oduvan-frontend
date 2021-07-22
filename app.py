@@ -2,7 +2,7 @@
 from flask import Flask, request, abort, session, json, render_template
 import utils, traceback
 from maps.MapArticle import article_app
-from maps.MapBusket import busket_app
+from maps.MapBasket import basket_app
 from maps.MapCategory import category_app
 from maps.MapDeal import deal_app
 from maps.MapDelivery import delivery_app
@@ -21,7 +21,7 @@ app.secret_key = 'super super secret key, her vzlomaesh'
 app.register_blueprint(promo_code_app)
 app.register_blueprint(category_app)
 app.register_blueprint(product_app)
-app.register_blueprint(busket_app)
+app.register_blueprint(basket_app)
 app.register_blueprint(deal_app)
 app.register_blueprint(payment_app)
 app.register_blueprint(shop_app)
