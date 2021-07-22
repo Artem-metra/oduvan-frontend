@@ -62,7 +62,7 @@
                             <input type="number" value="0" id="price_min"> ₽
                         </div>
                     </div>
-                        <div class="price_place">
+                    <div class="price_place">
                         <span>До</span>
                         <div id="price_do" class="price_price">
                             <input type="number" value="100000" id="price_max"> ₽
@@ -77,11 +77,14 @@
                 <div id="flowers_place">
                     <div class="choose_flower" id="choose_flower" style="display: none">
                         <div class="checkbox" style="margin-left:5px;">
-                            <input type="checkbox" id="flower_item"
-                                   class="scal_chek custom-checkbox">
-                            <label for="flower_item" class="lab_desc sub_zag checkbox_for_choose_flower"></label>
+                            <input type="checkbox" id="choose_flow_one"
+                                   class="scal_chek checkbox_for_choose_flower custom-checkbox"
+                                   style="margin-top: 20px;">
+                            <label for="choose_flow_one" class="lab_desc">
+                                <span class="name_flower"></span>
+                            </label>
                         </div>
-                        <span class="name_flower">Роза кустовая</span>
+
                     </div>
                 </div>
 
@@ -171,7 +174,7 @@
                                     <span class="fa fa-minus"></span>
                                 </div>
                                 <div>
-                                    В корзине: 1
+                                    В корзине: <input type="number" class="product_counter_inp"/>
                                 </div>
                                 <div>
                                     <span class="fa fa-plus"></span>
