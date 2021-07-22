@@ -1067,6 +1067,7 @@ input[type="checkbox"] {
     height: 100vh;
     background: #FFFFFF;
     width: 30%;
+    min-width:550px;
     right: 0;
     top: 0;
     padding: 25px 10px;
@@ -1620,7 +1621,6 @@ input[type="checkbox"] {
     width: 125px;
     height: 125px;
     display: block;
-    margin-bottom: 10px;
     border: 4px solid #29304899;
     z-index: 500;
 }
@@ -1980,6 +1980,11 @@ input[type="checkbox"] {
 
 #flowers_place .custom-checkbox + label::before {
     background: #c2c5cb;
+}
+#flowers_place .custom-checkbox:checked + label::before {
+    border-color: #F877AD;
+    background-color: #F877AD;
+    background-image: url('../static/img/check_mark.svg') ;
 }
 
 /* стили при наведении курсора на checkbox */

@@ -195,7 +195,6 @@ function drawFlowers(flower) {
         checkbox.id = 'flowers-' + i;
         // name_flower.for = 'flowers' + i;
         checkbox.onchange = function () {
-
             if (checkbox.checked) {
                 flowers.push(checkbox.value);
             } else {

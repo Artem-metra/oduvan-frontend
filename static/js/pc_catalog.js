@@ -10,6 +10,7 @@ let paginations = 0;
 
 
 getCategories();
+
 // Получим категории
 function getCategories() {
     $.ajax({
@@ -140,8 +141,8 @@ function loadProducts() {
 
         // let checkboxes = document.getElementsByClassName('custom-checkbox');
         let checkboxes = document.getElementsByClassName('checkbox_for_choose_flower');
-        for (let i = 0; i < checkboxes.length; i++){
-            if(checkboxes[i].checked){
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
                 checkboxes[i].checked = false;
             }
         }
@@ -181,16 +182,39 @@ function loadFlowers() {
 
 function drawFlowers(flower) {
     for (let i = 0; i < flower.length; i++) {
+        // let fl = choose_flower.cloneNode(true);
+        // fl.id = '';
+        // let name = fl.getElementsByClassName('name_flower')[0];
+        // let checkbox = fl.getElementsByClassName('checkbox_for_choose_flower')[0];
+        // // выбор на чекбоксы
+        // checkbox.id = '';
+        // checkbox.id = 'flowers-' + i;
+        // let name_flower = fl.getElementsByClassName('name_flower')[0];
+        // let newId =  'flowers-' + i;
+        // name_flower.setAttribute('for', newId);
+        // checkbox.onchange = function () {
+        //     if (checkbox.checked) {
+        //         flowers.push(checkbox.value);
+        //     } else {
+        //         flowers = removeItemAll(flowers, checkbox.value);
+        //     }
+        //     console.log(flowers);
+        // }
+        // name.innerText = flower[i]['name'];
+        // checkbox.value = flower[i]['name'];
+        // fl.style.display = 'flex';
+        // flowers_place.append(fl);
+
         let fl = choose_flower.cloneNode(true);
         fl.id = '';
         let name = fl.getElementsByClassName('name_flower')[0];
         let checkbox = fl.getElementsByClassName('checkbox_for_choose_flower')[0];
-        // выбор на чекбоксы
         checkbox.id = '';
-        checkbox.id = 'flowers-' + i;
-        let name_flower = fl.getElementsByClassName('name_flower')[0];
-        let newId =  'flowers-' + i;
+        let name_flower = fl.getElementsByClassName('lab_desc')[0];
+        let newId = 'flowers-' + i;
         name_flower.setAttribute('for', newId);
+        checkbox.id = 'flowers-' + i;
+        // name_flower.for = 'flowers' + i;
         checkbox.onchange = function () {
             if (checkbox.checked) {
                 flowers.push(checkbox.value);
@@ -201,7 +225,7 @@ function drawFlowers(flower) {
         }
         name.innerText = flower[i]['name'];
         checkbox.value = flower[i]['name'];
-        fl.style.display = 'flex';
+        fl.style.display = 'block';
         flowers_place.append(fl);
     }
 }

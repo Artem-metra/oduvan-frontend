@@ -262,7 +262,7 @@
         </a>
         <div class="name_and_price">
             <div class="slider_name_bucket">Букет "Индиго"</div>
-            <div class="catalog_flex_catalog"
+            <div class="catalog_flex_catalog "
                  style="align-items: center;justify-content: space-between;padding: 0 15px;">
                 <div>
                     <div class="price">
@@ -289,7 +289,7 @@
                     <span class="fa fa-minus"></span>
                 </div>
                 <div>
-                    В корзине: 1
+                    В корзине: <input type="number" class="product_counter_inp" />
                 </div>
                 <div>
                     <span class="fa fa-plus"></span>
@@ -714,6 +714,9 @@
         let discount_text = box.getElementsByClassName('discount_text')[0];
         let discount_place = box.getElementsByClassName('discount_place')[0];
         let discount_price = box.getElementsByClassName('disc_price_bucket')[0];
+        let added_product = box.getElementsByClassName('added_product')[0];
+        let product_counter_inp = box.getElementsByClassName('product_counter_inp')[0];
+
         img.src = product['photos'][0];
         name.innerText = product['name'];
         if (product['discount_type'] > 0) {
@@ -741,11 +744,19 @@
             }
         }
 
-        price_hover.onclick = function () {
-            // showAuth();
-            console.log(product['id']);
-            addProduct(product['id'], count);
+        if (product['q_count'] > 0) {
+            price_hover.style.display = 'none';
+            added_product.style.display = 'flex';
+            product_counter_inp.value = product['q_count'];
+
+        } else {
+            price_hover.onclick = function () {
+                // showAuth();
+                console.log(product['id']);
+                addProduct(product['id'], count);
+            }
         }
+
         return box;
     }
 
@@ -763,6 +774,7 @@
             data: data,
             success: function (msg) {
                 console.log(msg);
+                loadBasket();
             }
         })
     }
