@@ -267,9 +267,8 @@ pressing_on_arrow_name.onclick = function() {
     sorted_select_items.style.top = '35px';
     sorted_select_items.style.right = '10px';
     height_increase.style.height = '140px';
-    // height_increase.style.float = 'right';
     my_privat_mar.style.marginTop = '-140px';
     height_increase.style.width = '50%';
     my_class_cher.style.transform = 'rotate(180deg)';
-    my_class_cher   .style.transition = 'transform .3s';
+    my_class_cher.style.transition = 'transform .3s';
 }

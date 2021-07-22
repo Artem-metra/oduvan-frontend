@@ -20,8 +20,8 @@
                 </div>
                 <input class="popup_input" placeholder="Ваше имя" id="name_user" readonly>
                 <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__" id="phone_user" readonly>
-                <input class="popup_input" type="email" placeholder="Электронная почта" id="email_user" readonly>
-                <input class="popup_input" type="text" placeholder="Адрес" id="address_user">
+                <input class="popup_input" type="email" placeholder="Электронная почта" id="email_user">
+                <input class="popup_input" type="text" placeholder="Адрес куда доставить" id="address_user">
 
                 <div id="addresses_place">
 
@@ -38,8 +38,6 @@
                     <input class="popup_input input_sender" placeholder="Имя получателя" id="name_sender">
                     <input class="popup_input input_sender" type="tel" placeholder="+7 (___) ___-__-__"
                            id="phone_sender">
-                    <input class="popup_input input_sender" type="email" placeholder="Адрес получателя"
-                           id="address_sender">
                 </div>
                 <div class="name_buckets">
                     Дополнительно
@@ -102,7 +100,7 @@
                         <div class="catalog_flex" style="position: relative; ">
                             <div class="date_input" id="date_input_one">
                                 <input type="date" class="popup_input" id="inp_choose_data"
-                                       data-date-format="DD MMMM YYYY">
+                                       >
                             </div>
                             <div class="address_info_zag" id="addres_info_date">
                                 <!--06.07.2021-->
@@ -249,66 +247,100 @@
     let address = '';
     let additionally = [];
 
-// // Создание динамического времени и даты
-//     let timeElapsed = Date.now();
-//     let today = new Date(timeElapsed);
-//     let day_now = today.toLocaleDateString();
-//     addres_info_date.innerText = day_now;
-//
-//     let my_full_time
-//     let todayy = new Date;
-//     let my_hours = todayy.getHours();
-//     let my_min = todayy.getMinutes();
-//     let my_null = 0;
-//     if (my_min < 10){
-//         let gab = my_null + '' + my_min
-//         my_full_time = my_hours + ':' + gab;
-//     }else {
-//         my_full_time = my_hours + ':' + my_min;
-//     }
-//     // let my_full_time = my_hours + ':' + my_min;
-//     addres_info_time.innerText = my_full_time;
-//     console.log(my_full_time);
-//
-//
-//
-//     const options = {
-//         year: 'numeric',
-//         month: 'numeric',
-//         day: 'numeric',
-//     }
-//
-//     const date = new Date()
-//     date.setDate(date.getDate())
-//
-//     const on_block = date.toLocaleString("ru", options).split('.').reverse().join('-')
-//     document.getElementById("inp_choose_data").setAttribute("min", on_block)
-//
-//
-//     let inp_data = document.getElementById('date_input_one');
-//     choose_data.onclick = function () {
-//         inp_data.classList.add('_active');
-//     }
-//
-//     inp_choose_data.onchange = function () {
-//         let data_value = inp_choose_data.value;
-//         inp_data.classList.remove('_active');
-//         addres_info_date.innerText = data_value;
-//     }
-//
-//
-//     let inp_time = document.getElementById('date_input_two');
-//     choose_time.onclick = function () {
-//         inp_time.classList.add('_active');
-//     }
-//
-//     inp_choose_time.onchange = function () {
-//         let time_value = inp_choose_time.value;
-//         inp_time.classList.remove('_active');
-//         addres_info_time.innerText = time_value;
-//     }
 
 
+    // Создание динамического времени и даты
+    let timeElapsed = Date.now();
+    let today = new Date(timeElapsed);
+    let day_now = today.toLocaleDateString().split('.').reverse().join('-');
+    addres_info_date.innerText = day_now.split('-').reverse().join('.');
+    // console.log(day_now);
+
+    let time_value = '';
+    let my_full_time
+    let todayy = new Date;
+    let my_hours = todayy.getHours();
+    let my_min = todayy.getMinutes();
+    let my_null = 0;
+    if (my_min < 10){
+        let gab = my_null + '' + my_min
+        my_full_time = my_hours + ':' + gab;
+    }else {
+        my_full_time = my_hours + ':' + my_min;
+    }
+    // let my_full_time = my_hours + ':' + my_min;
+    addres_info_time.innerText = my_full_time;
+    console.log(my_full_time);
+
+
+
+    const options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+    }
+
+    const date = new Date()
+    date.setDate(date.getDate())
+
+    const on_block = date.toLocaleString("ru", options).split('.').reverse().join('-')
+    document.getElementById("inp_choose_data").setAttribute("min", on_block)
+
+
+    let inp_data = document.getElementById('date_input_one');
+    choose_data.onclick = function () {
+        inp_data.classList.add('_active');
+
+    }
+    inp_choose_time.min = '8:00';
+    inp_choose_time.max = '20:00';
+
+    inp_choose_time.onchange = function () {
+        time_value = inp_choose_time.value;
+        inp_time.classList.remove('_active');
+        addres_info_time.innerText = time_value;
+
+
+        // РЕЖИМ РАБОТЫ С 8:00 ДО 20:00
+        if(time_value <= inp_choose_time.min && time_value >=  inp_choose_time.max){
+             notification('Наш режим рабоыт с 8:00 до 20:00', 1);
+             console.log(time_value)
+        }else {
+            notification('Все успешно', 2);
+        }
+
+
+        console.log(time_value);
+    }
+
+
+
+    inp_choose_data.onchange = function () {
+        let data_value = inp_choose_data.value;
+        inp_data.classList.remove('_active');
+        addres_info_date.innerText = data_value.split('-').reverse().join('.');
+        // console.log(data_value);
+        // console.log(day_now);
+
+        // ПРОВЕРКА НА СОВПАДЕНИЕ ДАТЫ
+
+        // if(data_value === day_now){
+        //     // if(time_value <= inp_choose_time.min && time_value >=  inp_choose_time.max){
+        //     //     console.log('Сейчас заказать нельзя');
+        //     //
+        //     // }
+        // }
+    }
+
+
+
+    let inp_time = document.getElementById('date_input_two');
+    choose_time.onclick = function () {
+        inp_time.classList.add('_active');
+    }
+
+
+    // РЕЖИМ РАБОТЫ С 8:00 ДО 20:00
 
 
     money_payment.onchange = function () {
@@ -437,45 +469,10 @@
             }
         }
 
-        // Время и дата
-        addres_info_date.innerText = day_now;
-        addres_info_time.innerText = my_full_time;
 
 
-        const options = {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric',
-        }
-
-        const date = new Date()
-        date.setDate(date.getDate())
-
-        const on_block = date.toLocaleString("ru", options).split('.').reverse().join('-')
-        document.getElementById("inp_choose_data").setAttribute("min", on_block)
 
 
-        let inp_data = document.getElementById('date_input_one');
-        choose_data.onclick = function () {
-            inp_data.classList.add('_active');
-        }
-
-        inp_choose_data.onchange = function () {
-            let data_value = inp_choose_data.value;
-            inp_data.classList.remove('_active');
-            addres_info_date.innerText = data_value;
-        }
-
-        let inp_time = document.getElementById('date_input_two');
-        choose_time.onclick = function () {
-            inp_time.classList.add('_active');
-        }
-
-        inp_choose_time.onchange = function () {
-            let time_value = inp_choose_time.value;
-            inp_time.classList.remove('_active');
-            addres_info_time.innerText = time_value;
-        }
 
         // Если на поля получателя были добавлены классы error (не были заполнены), то когда они будут заполняться, класс пропадёт
         let inputs = document.getElementsByClassName('input_sender');
@@ -558,6 +555,9 @@
             notification('Заполните адрес доставки', 1);
             address_user.classList.add('error');
             return;
+        }
+        if(day_now === data_value){
+
         }
         createDeal();
     }

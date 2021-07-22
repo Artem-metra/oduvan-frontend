@@ -13,10 +13,11 @@
             <div class="right_header_part_item">
                 <div class="right_nav_place">
                     <a class="right_nav_item" id="favorites">
-                        <span class="fas fa-heart"></span>
+                        <span class="fas fa-heart" ></span>
                     </a>
                 </div>
                 <div class="right_nav_place">
+                    <span class="num_basket"></span>
                     <a class="right_nav_item" id="go_to_basket">
                         <span class="fas fa-shopping-bag"></span>
                     </a>
@@ -54,6 +55,7 @@
                         </a>
                     </div>
                     <div class="right_nav_place">
+                        <span class="num_basket"></span>
                         <a class="right_nav_item">
                             <span class="fas fa-shopping-bag"></span>
                         </a>
@@ -313,8 +315,9 @@
                             </a>
                         </div>
                         <div class="right_nav_place">
+                            <span class="name_buckets"></span>
                             <a class="right_nav_item">
-                                <span class="fas fa-shopping-bag"></span>
+                                <span class="fas fa-shopping-bag "></span>
                             </a>
                         </div>
                         <div class="right_nav_place">
@@ -605,11 +608,14 @@
                 } else {
                     user = msg['user'];
                     console.log(user);
-                    if (user['liked'].length > 0) {
-                        num_likeds.innerText = user['liked'].length;
-                        num_likeds.style.display = 'flex';
+                    if (user['q_products_count'] > 0) {
+                        let num_basket = document.getElementsByClassName('num_basket');
+                        for (let i = 0; i < num_basket.length; i++) {
+                            num_basket[i].innerText = user['q_products_count'];
+                            num_basket[i].style.display = 'flex';
+                        }
                     }
-                    loadBasket();
+                    // loadBasket();
                     favorites.href = '/favorites';
                     go_to_basket.onclick = function () {
                         OpenPopup(basket_popup, 2);
@@ -680,6 +686,30 @@
             }
         }
         return box;
+    }
+
+     function loadBasket() {
+        let data = {
+            'user_id': user['id'],
+        }
+        $.ajax({
+            url: '/api/busket/get_by_user',
+            data: data,
+            type: 'GET',
+            success: function (msg) {
+                if (msg['message']['products'].length === 0) {
+                    empty_basket.style.display = 'block';
+                    content.style.display = 'none';
+                } else {
+                    $('.delete_basket').remove();
+                    console.log('producti', msg);
+                    final_price.innerText = msg['message']['busket']['discount_cost'] + ' ₽';
+                    basket_id = msg['message']['busket']['id'];
+                    console.log(basket_id);
+                    drawBasket(msg['message']['products']);
+                }
+            }
+        })
     }
 
 
