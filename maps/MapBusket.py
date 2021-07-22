@@ -2,118 +2,118 @@ from flask import Blueprint, request, session
 
 import utils
 
-busket_app = Blueprint('busket_app', __name__)
+basket_app = Blueprint('basket_app', __name__)
 
 
-@busket_app.route('/api/busket/create')
-def api_busket_create():
+@basket_app.route('/api/basket/create')
+def api_basket_create():
     resp = utils.complete_request(request, request.path)
-    if 'busket_id' not in session:
-        session['busket_id'] = resp['busket']['id']
+    if 'basket_id' not in session:
+        session['basket_id'] = resp['basket']['id']
     return resp
 
 
-@busket_app.route('/api/buskets/get')
-def api_buskets_get():
+@basket_app.route('/api/baskets/get')
+def api_baskets_get():
     return utils.complete_request(request, request.path)
 
 
-@busket_app.route('/api/busket/edit')
-def api_busket_edit():
+@basket_app.route('/api/basket/edit')
+def api_basket_edit():
     return utils.complete_request(request, request.path)
 
 
-@busket_app.route('/api/busket/add_product')
-def api_busket_add_product():
+@basket_app.route('/api/basket/add_product')
+def api_basket_add_product():
     return utils.complete_request(request, request.path)
 
 
-@busket_app.route('/api/busket/remove_product_key')
-def api_busket_remove_product_key():
+@basket_app.route('/api/basket/remove_product_key')
+def api_basket_remove_product_key():
     params = {}
     for item in request.args:
         params[item] = request.args.get(item)
-    if 'busket_id' not in params.keys():
-        if 'busket_id' in session:
-            params = {'busket_id': session['busket_id']}
+    if 'basket_id' not in params.keys():
+        if 'basket_id' in session:
+            params = {'basket_id': session['basket_id']}
         else:
             return 'error'
     resp = utils.complete_request(params, request.path)
-    if 'busket_id' not in session:
-        session['busket_id'] = resp['busket']['id']
+    if 'basket_id' not in session:
+        session['basket_id'] = resp['basket']['id']
     return resp
 
 
-@busket_app.route('/api/busket/remove_product_count')
-def api_busket_remove_product_count():
+@basket_app.route('/api/basket/remove_product_count')
+def api_basket_remove_product_count():
     params = {}
     for item in request.args:
         params[item] = request.args.get(item)
-    if 'busket_id' not in params.keys():
-        if 'busket_id' in session:
-            params = {'busket_id': session['busket_id']}
+    if 'basket_id' not in params.keys():
+        if 'basket_id' in session:
+            params = {'basket_id': session['basket_id']}
         else:
             return 'error'
     resp = utils.complete_request(params, request.path)
-    if 'busket_id' not in session:
-        session['busket_id'] = resp['busket']['id']
+    if 'basket_id' not in session:
+        session['basket_id'] = resp['basket']['id']
     return resp
 
 
-@busket_app.route('/api/busket/clear')
-def api_busket_clear():
+@basket_app.route('/api/basket/clear')
+def api_basket_clear():
     params = {}
     for item in request.args:
         params[item] = request.args.get(item)
-    if 'busket_id' not in params.keys():
-        if 'busket_id' in session:
-            params = {'busket_id': session['busket_id']}
+    if 'basket_id' not in params.keys():
+        if 'basket_id' in session:
+            params = {'basket_id': session['basket_id']}
         else:
             return 'error'
     resp = utils.complete_request(params, request.path)
-    if 'busket_id' not in session:
-        session['busket_id'] = resp['busket']['id']
+    if 'basket_id' not in session:
+        session['basket_id'] = resp['basket']['id']
     return resp
 
 
-@busket_app.route('/api/busket/remove')
-def api_busket_remove():
+@basket_app.route('/api/basket/remove')
+def api_basket_remove():
     return utils.complete_request(request, request.path)
 
 
-@busket_app.route('/api/busket/get_by_busket_id')
-def api_busket_get_by_busket_id():
+@basket_app.route('/api/basket/get_by_basket_id')
+def api_basket_get_by_basket_id():
     return utils.complete_request(request, request.path)
 
 
 
-@busket_app.route('/api/busket/get_by_user')
-def api_busket_get_by_user():
+@basket_app.route('/api/basket/get_by_user')
+def api_basket_get_by_user():
     params = {}
     for item in request.args:
         params[item] = request.args.get(item)
-    if 'busket_id' not in params.keys():
-        if 'busket_id' in session:
-            params = {'busket_id': session['busket_id']}
+    if 'basket_id' not in params.keys():
+        if 'basket_id' in session:
+            params = {'basket_id': session['basket_id']}
         else:
             return 'error'
     resp = utils.complete_request(params, request.path)
-    if 'busket_id' not in session:
-        session['busket_id'] = resp['busket']['id']
+    if 'basket_id' not in session:
+        session['basket_id'] = resp['basket']['id']
     return resp
 
 
-@busket_app.route('/api/busket/choice_purchase_type')
-def api_busket_choice_purchase_type():
+@basket_app.route('/api/basket/choice_purchase_type')
+def api_basket_choice_purchase_type():
     params = {}
     for item in request.args:
         params[item] = request.args.get(item)
-    if 'busket_id' not in params.keys():
-        if 'busket_id' in session:
-            params = {'busket_id': session['busket_id']}
+    if 'basket_id' not in params.keys():
+        if 'basket_id' in session:
+            params = {'basket_id': session['basket_id']}
         else:
             return 'error'
     resp = utils.complete_request(params, request.path)
-    if 'busket_id' not in session:
-        session['busket_id'] = resp['busket']['id']
+    if 'basket_id' not in session:
+        session['basket_id'] = resp['basket']['id']
     return resp

@@ -74,6 +74,16 @@ def api_user_add_address():
     return utils.complete_request(request, request.path)
 
 
+@user_app.route('/api/user/change_address')
+def api_user_change_address():
+    return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/user/remove_address')
+def api_user_remove_address():
+    return utils.complete_request(request, request.path)
+
+
 @user_app.route('/api/user/check_password')
 def api_user_check_password():
     return utils.complete_request(request, request.path)
