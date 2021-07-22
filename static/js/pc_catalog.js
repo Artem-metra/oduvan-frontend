@@ -225,7 +225,7 @@ function drawFlowers(flower) {
         }
         name.innerText = flower[i]['name'];
         checkbox.value = flower[i]['name'];
-        fl.style.display = 'block';
+        fl.style.display = 'flex';
         flowers_place.append(fl);
     }
 }

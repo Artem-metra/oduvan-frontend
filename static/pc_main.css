@@ -217,7 +217,7 @@ input[type="checkbox"] {
 }
 
 .right_header_part_item {
-    display: inline-block;
+    display: flex;
     margin-right: 30px;
     font-weight: 600;
     font-size: 16px;
@@ -225,6 +225,7 @@ input[type="checkbox"] {
     text-align: right;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+    align-items: center;
 }
 
 .right_nav_place {
@@ -1572,13 +1573,15 @@ input[type="checkbox"] {
     width: 18px;
     height: 18px;
 }
-
-.choose_flower span {
+.choose_flower {
+    font-size: 20px;
+}
+.choose_flower .name_flower{
     width: 90%;
     font-weight: 450;
-    font-size: 20px;
     color: #293048;
-    opacity: 0.8;
+    opacity: 0.9;
+    margin-left:10px;
 }
 
 /*====== Страница товара =======*/
@@ -1979,7 +1982,20 @@ input[type="checkbox"] {
 }
 
 #flowers_place .custom-checkbox + label::before {
-    background: #c2c5cb;
+    background-color: #c2c5cb;
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid #EAEAED;
+    border-radius: 100%;
+    margin-right: 0.5em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
+    transform: scale(1.5);
 }
 #flowers_place .custom-checkbox:checked + label::before {
     border-color: #F877AD;
@@ -2008,7 +2024,6 @@ input[type="checkbox"] {
 
 /* стили для чекбокса, находящегося в состоянии disabled */
 .custom-checkbox:disabled + label::before {
-
     background-color: #F877AD;
 }
 

@@ -42,18 +42,18 @@
                 <div class="name_buckets">
                     Дополнительно
                 </div>
-                <input class="popup_input" placeholder="Комментарии к заказу">
-                <input class="popup_input" placeholder="Текст для открытки">
+                <input class="popup_input additionally_input" placeholder="Комментарии к заказу">
+                <input class="popup_input additionally_input" placeholder="Текст для открытки">
 
                 <div class="catalog_flex">
                     <div class="checkbox" style="margin-left:5px;">
                         <input type="checkbox" id="add_carrying"
-                               class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                               class="scal_chek custom-checkbox additionally_input" value="0" style="margin-top: 20px;">
                         <label for="add_carrying" class="lab_desc sub_zag">Добавить переноску</label>
                     </div>
                     <div class="checkbox" style="margin-left:5px;">
                         <input type="checkbox" id="add_aquapack"
-                               class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                               class="scal_chek custom-checkbox additionally_input" value="0" style="margin-top: 20px;">
                         <label for="add_aquapack" class="lab_desc sub_zag">Добавить аквапак</label>
                     </div>
                 </div>
@@ -97,25 +97,27 @@
                         <!--                            </div>-->
                         <!--                            <span class="fa fa-chevron-down"></span>-->
                         <!--                        </div>-->
-                        <div class="catalog_flex" style="position: relative; ">
-                            <div class="date_input" id="date_input_one">
-                                <input type="date" class="popup_input" id="inp_choose_data"
-                                       >
+                        <div id="date_time_place">
+                            <div class="catalog_flex" style="position: relative; ">
+                                <div class="date_input" id="date_input_one">
+                                    <input type="date" class="popup_input" id="inp_choose_data"
+                                    >
+                                </div>
+                                <div class="address_info_zag" id="addres_info_date">
+                                    <!--06.07.2021-->
+                                </div>
+                                <span id="choose_data">Выбрать дату</span>
                             </div>
-                            <div class="address_info_zag" id="addres_info_date">
-                                <!--06.07.2021-->
-                            </div>
-                            <span id="choose_data">Выбрать дату</span>
-                        </div>
 
-                        <div class="catalog_flex" style="position: relative;">
-                            <div class="date_input" id="date_input_two">
-                                <input type="time" class="popup_input" id="inp_choose_time">
+                            <div class="catalog_flex" style="position: relative;">
+                                <div class="date_input" id="date_input_two">
+                                    <input type="time" class="popup_input" id="inp_choose_time">
+                                </div>
+                                <div class="address_info_zag" id="addres_info_time">
+                                    <!--21:00-->
+                                </div>
+                                <span id="choose_time">Выбрать время</span>
                             </div>
-                            <div class="address_info_zag" id="addres_info_time">
-                                <!--21:00-->
-                            </div>
-                            <span id="choose_time">Выбрать время</span>
                         </div>
                     </div>
                     <div class="catalog_flex" style="justify-content: space-between;padding:0">
@@ -245,8 +247,9 @@
     let shop_id = 0;
     let payment_type = 0;
     let address = '';
-    let additionally = [];
-
+    let additionally = []; // Текс комментария, текст открытки, переноска, аквапак
+    // let purchase_type = 0;
+    let date_delivery_come = '00:00';
 
 
     // Создание динамического времени и даты
@@ -262,16 +265,15 @@
     let my_hours = todayy.getHours();
     let my_min = todayy.getMinutes();
     let my_null = 0;
-    if (my_min < 10){
+    if (my_min < 10) {
         let gab = my_null + '' + my_min
         my_full_time = my_hours + ':' + gab;
-    }else {
+    } else {
         my_full_time = my_hours + ':' + my_min;
     }
     // let my_full_time = my_hours + ':' + my_min;
     addres_info_time.innerText = my_full_time;
     console.log(my_full_time);
-
 
 
     const options = {
@@ -302,17 +304,16 @@
 
 
         // РЕЖИМ РАБОТЫ С 8:00 ДО 20:00
-        if(time_value <= inp_choose_time.min && time_value >=  inp_choose_time.max){
-             notification('Наш режим рабоыт с 8:00 до 20:00', 1);
-             console.log(time_value)
-        }else {
+        if (time_value <= inp_choose_time.min && time_value >= inp_choose_time.max) {
+            notification('Наш график работы с 8:00 до 20:00', 1);
+            console.log(time_value)
+        } else {
             notification('Все успешно', 2);
         }
 
 
         console.log(time_value);
     }
-
 
 
     inp_choose_data.onchange = function () {
@@ -333,7 +334,6 @@
     }
 
 
-
     let inp_time = document.getElementById('date_input_two');
     choose_time.onclick = function () {
         inp_time.classList.add('_active');
@@ -341,23 +341,6 @@
 
 
     // РЕЖИМ РАБОТЫ С 8:00 ДО 20:00
-
-
-    money_payment.onchange = function () {
-        if (card_payment.checked) {
-            card_payment.checked = false;
-        } else {
-            money_payment.checked = true;
-        }
-    }
-    card_payment.onchange = function () {
-        if (money_payment.checked) {
-            money_payment.checked = false;
-        } else {
-            card_payment.checked = true;
-        }
-    }
-
 
     /* Получение пользователя */
     GetUser();
@@ -378,16 +361,13 @@
 
     // Подгрузка товаров для оформления заказа
     function loadBasket() {
-        let data = {
-            'user_id': user['id'],
-        }
         $.ajax({
-            url: '/api/busket/get_by_user',
-            data: data,
+            url: '/api/busket/get_by_busket_id',
             type: 'GET',
             success: function (msg) {
                 if (msg['message']['busket']['purchase_type'] === 1) {
                     shop_id = -1;
+                    date_time_place.style.display = 'none';
                     loadShops();
                 }
                 console.log(msg);
@@ -408,8 +388,20 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                // Если пользователь не выбрал магазин для доставки, то при ончейндж селекта, еррор пропадает
+                select_shops.onchange = function () {
+                    select_shops.classList.remove('error');
+                }
+                for (let i = 0; i < msg['message']['shops'].length; i++) {
+                    let option = document.createElement('option');
+                    option.value = msg['message']['shops'][i]['id'];
+                    option.innerText = msg['message']['shops'][i]['name'];
+                    select_shops.append(option);
+                }
                 select_shops.style.display = 'block';
-
+                select_shops.onchange = function () {
+                    shop_id = select_shops.value;
+                }
             }
         })
     }
@@ -453,6 +445,7 @@
         promo_code.onclick = function () {
             checkPromoCode();
         }
+
         // Выбор наличными оплата или картой
         money_payment.onchange = function () {
             if (card_payment.checked) {
@@ -469,12 +462,7 @@
             }
         }
 
-
-
-
-
-
-        // Если на поля получателя были добавлены классы error (не были заполнены), то когда они будут заполняться, класс пропадёт
+        // Если на поля получателя были добавлены классы error (не были заполнены), то, когда они будут заполняться, класс пропадёт
         let inputs = document.getElementsByClassName('input_sender');
         for (let i = 0; i < inputs.length; i++) {
             inputs[i].oninput = function () {
@@ -485,99 +473,138 @@
             }
         }
 
-        // Если пользователь не выбрал магазин для доставки, то при ончейндж селекта, еррор пропадает
-        select_shops.onchange = function () {
-            select_shops.classList.remove('error');
-        }
-
         // Если пользователь не указал или не выбрал адрес доставки, то снимаем инпуту error, как только начнёт вводить
-        address_user.oninput = function(){
-           address_user.classList.remove('error');
+        address_user.oninput = function () {
+            address_user.classList.remove('error');
         }
 
-
-    }
-
-
-    // Функция проверки промокода
-    function checkPromoCode() {
-        let data = {
-            'promo_code': promo_code_code.value,
+        // Аквапак и переноска
+        add_carrying.onchange = function () {
+            if (add_carrying.checked) {
+                add_carrying.value = 1;
+            } else {
+                add_carrying.value = 0;
+            }
         }
-        $.ajax({
-            url: '/api/promo_code/get_promo_code',
-            type: "GET",
-            data: data,
-            success: function (msg) {
-                if (msg['status'] === 'error') {
-                    notification('Такого промокода не существует', 1);
+        add_aquapack.onchange = function () {
+            if (add_aquapack.checked) {
+                add_aquapack.value = 1;
+            } else {
+                add_aquapack.value = 0;
+            }
+        }
+
+        // Добавляем в массив additionally при onchange
+        let add_inputs = document.getElementsByClassName('additionally_input');
+        for (let i = 0; i < add_inputs.length; i++) {
+            add_inputs[i].onchange = function () {
+                if (add_inputs[i].checked) {
+                    additionally.push(Number(add_inputs[i].value));
                 } else {
-                    notification('Промокод успешно использован', 2);
+                    additionally = removeItemAll(additionally, Number(add_inputs[i].value));
                 }
-                console.log(msg);
+                if (add_inputs[i].value === '') {
+                    additionally.push(add_inputs[i].value);
+                } else {
+                    additionally = removeItemAll(additionally, add_inputs[i].value);
+                }
+                console.log(additionally);
             }
-        })
+        }
     }
 
-    // При нажатии на кнопку "Оформить заказ" вызываем функцию
-    oformit_zakaz.onclick = function () {
-        placeOrder();
-    }
+        function removeItemAll(arr, value) {
+            var i = 0;
+            while (i < arr.length) {
+                if (arr[i] === value) {
+                    arr.splice(i, 1);
+                } else {
+                    ++i;
+                }
+            }
+            return arr;
+        }
 
-    // Проверки перед заказом
-    function placeOrder() {
-        // Если чекбокс "Отправить другому человеку" checked, то проверяем все ли поля получателя заполнены
-        if (get_other_people.checked) {
-            let inputs = document.getElementsByClassName('input_sender');
-            for (let i = 0; i < inputs.length; i++) {
-                if (name_sender.value === '' || phone_sender.value === '' || address_sender.value === '') {
-                    for (let i = 0; i < inputs.length; i++) {
-                        if (inputs[i].value === '') {
-                            inputs[i].classList.add('error');
-                            notification('Заполните обязательные поля', 1);
-                        }
+
+        // Функция проверки промокода
+        function checkPromoCode() {
+            let data = {
+                'promo_code': promo_code_code.value,
+            }
+            $.ajax({
+                url: '/api/promo_code/get_promo_code',
+                type: "GET",
+                data: data,
+                success: function (msg) {
+                    if (msg['status'] === 'error') {
+                        notification('Такого промокода не существует', 1);
+                    } else {
+                        notification('Промокод успешно использован', 2);
                     }
-
+                    console.log(msg);
                 }
-            }
-            return;
+            })
         }
-        if (!money_payment.checked && !card_payment.checked) {
-            notification('Выберите способ оплаты', 1);
-            return;
-        }
-        if (shop_id === -1) {
-            notification('Выберите магазин, в котором получите товар', 1);
-            select_shops.classList.add('error');
-            return;
-        }
-        if (address_user.value === '') {
-            notification('Заполните адрес доставки', 1);
-            address_user.classList.add('error');
-            return;
-        }
-        if(day_now === data_value){
 
+        // При нажатии на кнопку "Оформить заказ" вызываем функцию
+        oformit_zakaz.onclick = function () {
+            placeOrder();
         }
-        createDeal();
-    }
 
-    // Функция оформления заказа отправляется в банк
-    function createDeal() {
-        let data = {
-            'shop_id': shop_id,
-        }
-        $.ajax({
-            url: 'api/deal/create',
-            type: "POST",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(data),
-            success: function (msg) {
-                console.log(msg);
+        // Проверки перед заказом
+        function placeOrder() {
+            // Если чекбокс "Отправить другому человеку" checked, то проверяем все ли поля получателя заполнены
+            if (get_other_people.checked) {
+                let inputs = document.getElementsByClassName('input_sender');
+                for (let i = 0; i < inputs.length; i++) {
+                    if (name_sender.value === '' || phone_sender.value === '' || address_sender.value === '') {
+                        for (let i = 0; i < inputs.length; i++) {
+                            if (inputs[i].value === '') {
+                                inputs[i].classList.add('error');
+                                notification('Заполните обязательные поля', 1);
+                            }
+                        }
+
+                    }
+                }
+                return;
             }
-        })
-    }
+            if (!money_payment.checked && !card_payment.checked) {
+                notification('Выберите способ оплаты', 1);
+                return;
+            }
+            if (shop_id === -1) {
+                notification('Выберите магазин, в котором получите товар', 1);
+                select_shops.classList.add('error');
+                return;
+            }
+            if (address_user.value === '') {
+                notification('Заполните адрес доставки', 1);
+                address_user.classList.add('error');
+                return;
+            }
+            if (day_now === data_value) {
+
+            }
+            createDeal();
+        }
+
+        // Функция оформления заказа отправляется в банк
+        function createDeal() {
+            let data = {
+                'shop_id': shop_id,
+            }
+            $.ajax({
+                url: 'api/deal/create',
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
+                success: function (msg) {
+                    console.log(msg);
+                }
+            })
+        }
 
 
 </script>

@@ -192,12 +192,12 @@
                                 </div>
                             </div>
                             <div class="add_to_basket_place" style="max-width:100%;">
-                                <div class="fa fa-minus" id="minus_counter" onclick="changeCounter(2)"></div>
+                                <div class="fa fa-minus minus_counter"></div>
                                 <div class="counter_place">
                                     <input type="number" class="product_counter_inp" id="counter_product" value="1">
                                     <span style="font-weight: 600;">ШТ</span>
                                 </div>
-                                <span class="fa fa-plus"></span>
+                                <div class="fa fa-plus plus_counter"></div>
                             </div>
                             <div class="fa fa-times"></div>
                         </div>
@@ -289,7 +289,7 @@
                     <span class="fa fa-minus"></span>
                 </div>
                 <div>
-                    В корзине: <input type="number" class="product_counter_inp" />
+                    В корзине: <input type="number" class="product_counter_inp"/>
                 </div>
                 <div>
                     <span class="fa fa-plus"></span>
@@ -596,8 +596,12 @@
                 type: 'GET',
                 data: data,
                 success: function (msg) {
+                    if (msg['status'] === 'error') {
+                        notification('Пароль введён неверно', 1);
+                        return;
+                    }
                     console.log(msg);
-                    // location.href = '/cabinet';
+                    location.href = '/cabinet';
                 }
             })
         }
@@ -636,13 +640,6 @@
                         //         num_likeds[i].style.display = 'flex';
                         //     }
                         // }
-                        if (user['q_products_count'] > 0) {
-                            let num_basket = document.getElementsByClassName('num_basket');
-                            for (let i = 0; i < num_basket.length; i++) {
-                                num_basket[i].innerText = user['q_products_count'];
-                                num_basket[i].style.display = 'flex';
-                            }
-                        }
                         if (user['avatar'] !== "null") {
                             let img = document.createElement('img');
                             img.className = 'avatar_user';
@@ -651,9 +648,9 @@
                             user_item.append(img);
                         }
                         favorites_btn[i].href = '/favorites';
+                        loadBasket();
                         basket_btn[i].onclick = function () {
                             OpenPopup(basket_popup, 2);
-                            loadBasket();
                         }
                         user_btn[i].href = '/cabinet';
                     }
@@ -862,6 +859,13 @@
                     console.log(basket_id);
                     drawBasket(msg['message']['products']);
                 }
+                if (msg['message']['busket']['positions_count'] > 0) {
+                    let num_basket = document.getElementsByClassName('num_basket');
+                    for (let i = 0; i < num_basket.length; i++) {
+                        num_basket[i].innerText = msg['message']['busket']['positions_count'];
+                        num_basket[i].style.display = 'flex';
+                    }
+                }
             }
         })
     }
@@ -895,9 +899,28 @@
         let discount_price = box.getElementsByClassName('disc_price_bucket')[0];
         let delete_product = box.getElementsByClassName('fa-times')[0];
         let input = box.getElementsByClassName('product_counter_inp')[0];
+        let minus_counter = box.getElementsByClassName('minus_counter')[0];
+        let plus_counter = box.getElementsByClassName('plus_counter')[0];
         // img.src = 'https://azbukaflower.ru/wp-content/uploads/2019/02/1999072.jpg?v=1601926983';
         name.innerText = product['name'];
-        input.value = product['q_count'];
+        let value_inp = product['q_count'];
+        input.value = Number(value_inp);
+        console.log(Number(input.value));
+
+        if (input.value === 1) {
+            minus_counter.classList.add('disabled');
+        }
+        minus_counter.onclick = function () {
+            console.log(input.value);
+            if (input.value === 1) {
+                return;
+            }
+            input.value -= Number(1);
+        }
+        plus_counter.onclick = function () {
+            console.log(input.value);
+            input.value += Number(1);
+        }
         if (product['discount_type'] > 0) {
             price.classList.add('have_disc');
             discount_price.innerText = product['discount_cost'] + ' ₽';
