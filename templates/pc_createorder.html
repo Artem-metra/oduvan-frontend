@@ -362,10 +362,10 @@
     // Подгрузка товаров для оформления заказа
     function loadBasket() {
         $.ajax({
-            url: '/api/busket/get_by_busket_id',
+            url: '/api/basket/get_by_basket_id',
             type: 'GET',
             success: function (msg) {
-                if (msg['message']['busket']['purchase_type'] === 1) {
+                if (msg['message']['basket']['purchase_type'] === 1) {
                     shop_id = -1;
                     date_time_place.style.display = 'none';
                     loadShops();
@@ -374,7 +374,7 @@
                 $('.delete_card').remove();
                 let final_price = document.getElementsByClassName('final_price');
                 for (let i = 0; i < final_price.length; i++) {
-                    final_price[i].innerText = msg['message']['busket']['discount_cost'] + ' ₽';
+                    final_price[i].innerText = msg['message']['basket']['discount_cost'] + ' ₽';
                 }
                 drawBasket(msg['message']['products']);
             }
