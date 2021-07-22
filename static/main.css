@@ -202,6 +202,24 @@ input[type="checkbox"] {
     opacity: 0.9;
     transition: opacity .4s;
     margin-right: 30px;
+    overflow: hidden;
+}
+
+.num_basket {
+    position: absolute;
+    top: 7px;
+    right: 3px;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #F877AD;
+    z-index: 9999;
+    color: #FFFFFF;
 }
 
 .right_nav_place:hover {
@@ -1034,17 +1052,20 @@ input[type="checkbox"] {
     box-shadow: 0 2px 7px rgba(41, 48, 72, 0.15);
     position: relative;
 }
+
 .card_item:nth-child(2n+1) {
     width: 48.5%;
     margin-right: 10px;
 }
-.card_item .right_nav_place{
+
+.card_item .right_nav_place {
     height: 61px;
     width: 61px;
     background: #c2c5cb;
-    color:#FFFFFF;
+    color: #FFFFFF;
     font-size: 32px;
 }
+
 .add_to_favorites {
     position: absolute;
     top: 8px;
@@ -1062,9 +1083,10 @@ input[type="checkbox"] {
     border-radius: 68px;
     align-items: center;
     justify-content: space-between;
-    padding:5px;
+    padding: 5px;
 }
-.percent_place{
+
+.percent_place {
     width: 61px;
     height: 100%;
     border-radius: 50%;
@@ -1073,17 +1095,20 @@ input[type="checkbox"] {
     justify-content: center;
     background: #FFFFFF;
 }
-.percent_place .fa-percent{
-    color:#F877AD;
+
+.percent_place .fa-percent {
+    color: #F877AD;
     font-size: 28px;
 }
-.discount_text{
+
+.discount_text {
     text-transform: uppercase;
     font-size: 22px;
-    color:#FFFFFF;
-    padding:0 8px;
+    color: #FFFFFF;
+    padding: 0 8px;
 }
-.card_img_place{
+
+.card_img_place {
     height: 70%;
     width: 100%;
     display: flex;
@@ -1091,53 +1116,58 @@ input[type="checkbox"] {
     background: #FFFFFF;
     justify-content: center;
 }
-.card_img_place img{
+
+.card_img_place img {
     width: 100%;
     height: 100%;
 }
 
-.card_text{
+.card_text {
     height: 30%;
     display: flex;
     align-items: center;
-    padding:0 25px;
+    padding: 0 25px;
 }
-.name_bucket{
+
+.name_bucket {
     font-weight: 600;
     font-size: 22px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     padding-bottom: 5px;
 }
-.price_bucket{
+
+.price_bucket {
     font-weight: 600;
     font-size: 36px;
     text-transform: uppercase;
 }
-.add_to_basket_card{
+
+.add_to_basket_card {
     height: 90px;
-    width:90px;
+    width: 90px;
     border-radius: 50%;
     background: #293048;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.add_to_basket_card .fa-shopping-bag{
+
+.add_to_basket_card .fa-shopping-bag {
     font-size: 36px;
-    color:#FFFFFF;
+    color: #FFFFFF;
 }
 
 
 /*==== Страница личного кабинета ======*/
 /* Страница личного кабинета история*/
-.head{
+.head {
     background-color: #F4F5F6;
     padding-top: 40px;
     padding-bottom: 30px;
 }
 
-.head_block__title{
+.head_block__title {
 
     display: flex;
     justify-content: flex-start;
@@ -1145,7 +1175,7 @@ input[type="checkbox"] {
     margin-bottom: 14px;
 }
 
-.head_block__title--1{
+.head_block__title--1 {
     font-style: normal;
     font-weight: 600;
     font-size: 37px;
@@ -1155,7 +1185,7 @@ input[type="checkbox"] {
     padding-right: 5px;
 }
 
-.head_block__title--2{
+.head_block__title--2 {
     font-style: normal;
     font-weight: 600;
     font-size: 37px;
@@ -1165,7 +1195,7 @@ input[type="checkbox"] {
     padding-right: 5px;
 }
 
-.head_block__title--3{
+.head_block__title--3 {
     font-style: normal;
     font-weight: 600;
     font-size: 37px;
@@ -1177,7 +1207,7 @@ input[type="checkbox"] {
 }
 
 
-.head_title{
+.head_title {
     font-style: normal;
     font-weight: 500;
     font-size: 51px;
@@ -1187,7 +1217,7 @@ input[type="checkbox"] {
 }
 
 
-.head_desc{
+.head_desc {
     font-style: normal;
     font-weight: normal;
     font-size: 34px;
@@ -1196,22 +1226,22 @@ input[type="checkbox"] {
     width: 720px;
 }
 
-.main{
+.main {
     padding-top: 50px;
     padding-bottom: 60px;
 }
 
-.main_choice{
+.main_choice {
     padding-top: 35px;
 }
 
 
-.main__list{
+.main__list {
     display: flex;
     justify-content: space-evenly;
 }
 
-.main__item{
+.main__item {
     font-style: normal;
     font-weight: 600;
     font-size: 30px;
@@ -1228,18 +1258,18 @@ input[type="checkbox"] {
     border-radius: 61px;
 }
 
-.main__item:last-child{
+.main__item:last-child {
     margin-right: 0;
 }
 
 
-.main__item.active_color{
+.main__item.active_color {
     background-color: #F877AD;
     color: #fff;
     display: block;
 }
 
-.main_info__one{
+.main_info__one {
     margin-top: 30px;
     box-shadow: 0px 4px 16px rgba(41, 48, 72, 0.15);
     padding-top: 20px;
@@ -1248,7 +1278,7 @@ input[type="checkbox"] {
     padding-right: 16px;
 }
 
-.main_info__two{
+.main_info__two {
     margin-top: 20px;
     box-shadow: 0px 4px 16px rgba(41, 48, 72, 0.15);
     padding-top: 45px;
@@ -1258,20 +1288,20 @@ input[type="checkbox"] {
 }
 
 
-.info_desc__item{
+.info_desc__item {
     border-bottom: 2px solid #290348;
     padding-bottom: 30px;
     margin-bottom: 30px;
 }
 
 
-.desc_item__list{
+.desc_item__list {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.desc_item__list--1{
+.desc_item__list--1 {
     font-style: normal;
     font-weight: 450;
     font-size: 34px;
@@ -1279,7 +1309,7 @@ input[type="checkbox"] {
     text-align: left;
 }
 
-.desc_item__list--2{
+.desc_item__list--2 {
     font-style: normal;
     font-weight: 450;
     font-size: 38px;
@@ -1289,7 +1319,7 @@ input[type="checkbox"] {
 }
 
 
-.category_list{
+.category_list {
     margin-top: 42px;
     width: 100%;
     display: flex;
@@ -1298,7 +1328,7 @@ input[type="checkbox"] {
     flex-wrap: wrap;
 }
 
-.category_item{
+.category_item {
     width: 49%;
     display: flex;
     align-items: flex-start;
@@ -1307,12 +1337,12 @@ input[type="checkbox"] {
 }
 
 
-.category_item__desc{
+.category_item__desc {
     margin-left: 8px;
 }
 
 
-.flow_name{
+.flow_name {
     font-style: normal;
     font-weight: 600;
     font-size: 34px;
@@ -1322,7 +1352,7 @@ input[type="checkbox"] {
     color: #293048;
 }
 
-.flow_price{
+.flow_price {
     font-style: normal;
     font-weight: 450;
     font-size: 64px;
@@ -1332,12 +1362,12 @@ input[type="checkbox"] {
 
 /* Страница личного кабинета адрес*/
 
-.main__list__adr{
+.main__list__adr {
     display: flex;
     justify-content: space-between;
 }
 
-.main__item__adr{
+.main__item__adr {
     font-style: normal;
     font-weight: 600;
     font-size: 9.83333px;
@@ -1354,9 +1384,7 @@ input[type="checkbox"] {
 }
 
 
-
-
-.main_info__adr{
+.main_info__adr {
     margin-top: 20px;
     background-color: #293048;
     padding-top: 45px;
@@ -1365,20 +1393,20 @@ input[type="checkbox"] {
     padding-right: 16px;
 }
 
-.info_desc__item__adr{
+.info_desc__item__adr {
     border-bottom: 2px solid #fff;
     padding-bottom: 30px;
-     margin-bottom: 25px;
+    margin-bottom: 25px;
 }
 
 
-.desc_item__list__adr{
+.desc_item__list__adr {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.desc_item__list--1__adr{
+.desc_item__list--1__adr {
     font-style: normal;
     font-weight: 450;
     font-size: 34px;
@@ -1388,7 +1416,7 @@ input[type="checkbox"] {
     text-transform: uppercase;
 }
 
-.desc_item__list--2__adr{
+.desc_item__list--2__adr {
     font-style: normal;
     font-weight: 450;
     font-size: 34px;
@@ -1398,11 +1426,11 @@ input[type="checkbox"] {
 }
 
 
-.main_group__btn__adr{
+.main_group__btn__adr {
     text-align: center;
 }
 
-.btn_left{
+.btn_left {
     font-style: normal;
     font-weight: 600;
     font-size: 30px;
@@ -1419,8 +1447,7 @@ input[type="checkbox"] {
 }
 
 
-
-.btn_right{
+.btn_right {
     font-style: normal;
     font-weight: 600;
     font-size: 30px;
@@ -1436,7 +1463,7 @@ input[type="checkbox"] {
 }
 
 
-.adres_block{
+.adres_block {
     margin-top: 38px;
     display: flex;
     flex-direction: column;
@@ -1448,7 +1475,7 @@ input[type="checkbox"] {
 }
 
 
-.adres_img{
+.adres_img {
     background-color: #EAEAED;
     padding: 12px;
     padding-left: 14px;
@@ -1457,7 +1484,7 @@ input[type="checkbox"] {
     margin-bottom: 20px;
 }
 
-.adres_desc{
+.adres_desc {
     font-style: normal;
     font-weight: 600;
     font-size: 35px;
@@ -1469,7 +1496,7 @@ input[type="checkbox"] {
     color: #293048;
 }
 
-.my_marker{
+.my_marker {
     font-size: 50px;
     margin-bottom: 20px;
     background-color: #EAEAED;
@@ -1490,16 +1517,15 @@ input[type="checkbox"] {
     margin-bottom: 25px;
 }
 
-.date_of_birth{
+.date_of_birth {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.mar_rig{
+.mar_rig {
     margin-right: 8px;
 }
-
 
 
 .popup_input {
@@ -1516,7 +1542,7 @@ input[type="checkbox"] {
 }
 
 .popup_input::placeholder {
-  font-size: 30px;
+    font-size: 30px;
 }
 
 .your_order_place {
@@ -1539,7 +1565,7 @@ input[type="checkbox"] {
     margin-bottom: 16px;
 }
 
-.btn_save{
+.btn_save {
     font-style: normal;
     font-weight: 600;
     font-size: 30px;
@@ -1553,7 +1579,7 @@ input[type="checkbox"] {
     line-height: 150.02%;
 }
 
-.container_on_block{
+.container_on_block {
     width: 100%;
 }
 
@@ -1615,34 +1641,33 @@ input[type="checkbox"] {
 }
 
 
-
-.dop_name_buck{
+.dop_name_buck {
     margin-top: 30px;
 }
 
 
-.scal_chek{
+.scal_chek {
     transform: scale(3.5);
     margin-left: 16px;
     border-radius: 100%;
 }
 
-.lab_desc{
+.lab_desc {
     margin-left: 8px;
     font-size: 32px;
     margin-bottom: 35px;
 }
 
-.mar_left{
+.mar_left {
     margin-left: 20px;
 }
 
-.price{
+.price {
     font-size: 32px;
 }
 
 
-.small_product_img{
+.small_product_img {
     display: block;
     margin: 0 auto;
 }
@@ -1650,68 +1675,66 @@ input[type="checkbox"] {
 
 /* Кастомный чекбокс*/
 .custom-checkbox {
-      position: absolute;
-      z-index: -1;
-      opacity: 0;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
 }
 
-    /* для элемента label, связанного с .custom-checkbox */
-.custom-checkbox+label {
-      display: inline-flex;
-      align-items: center;
-      user-select: none;
+/* для элемента label, связанного с .custom-checkbox */
+.custom-checkbox + label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
     cursor: pointer;
 }
 
-    /* создание в label псевдоэлемента before со следующими стилями */
-.custom-checkbox+label::before {
-      content: '';
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-      flex-shrink: 0;
-      flex-grow: 0;
-      border: 1px solid #EAEAED;
-      border-radius: 100%;
-      margin-right: 0.5em;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: 50% 50%;
-      background-color: #EAEAED;
+/* создание в label псевдоэлемента before со следующими стилями */
+.custom-checkbox + label::before {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid #EAEAED;
+    border-radius: 100%;
+    margin-right: 0.5em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
+    background-color: #cfcfd4;
     transform: scale(1.5);
 }
 
-    /* стили при наведении курсора на checkbox */
-.custom-checkbox:not(:disabled):not(:checked)+label:hover::before {
-      border-color: #F877AD;
+/* стили при наведении курсора на checkbox */
+.custom-checkbox:not(:disabled):not(:checked) + label:hover::before {
+    border-color: #F877AD;
 }
 
-    /* стили для активного чекбокса (при нажатии на него) */
-.custom-checkbox:not(:disabled):active+label::before {
-      background-color: #F877AD;
-      border-color: #F877AD;
-}
-
-
-
-    /* стили для чекбокса, находящегося в состоянии checked */
-.custom-checkbox:checked+label::before {
-      border-color: #F877AD;
-      background-color: #F877AD;
-      background-image: url("../static/img/check_mark.svg");
-}
-
-    /* стили для чекбокса, находящегося в состоянии disabled */
-.custom-checkbox:disabled+label::before {
-      background-color: #EAEAED;
+/* стили для активного чекбокса (при нажатии на него) */
+.custom-checkbox:not(:disabled):active + label::before {
+    background-color: #F877AD;
+    border-color: #F877AD;
 }
 
 
+/* стили для чекбокса, находящегося в состоянии checked */
+.custom-checkbox:checked + label::before {
+    z-index: 500;
+    border-color: #F877AD;
+    background-color: #F877AD;
+    background-image: url("../static/img/check_mark.svg");
+}
+
+/* стили для чекбокса, находящегося в состоянии disabled */
+.custom-checkbox:disabled + label::before {
+    background-color: #EAEAED;
+}
 
 
 /* ===== Карточка товара ===== */
 
-.big_product_img{
+.big_product_img {
     margin-top: 40px;
     width: 100%;
     height: 100%;
@@ -1735,15 +1758,15 @@ input[type="checkbox"] {
     z-index: 1;
 }
 
-.small_product_card{
+.small_product_card {
     margin-right: 15px;
 }
 
-.small_product_card:last-child{
+.small_product_card:last-child {
     margin-right: 0;
 }
 
-.non_active{
+.non_active {
     opacity: 0.5;
 }
 
@@ -1840,17 +1863,15 @@ input[type="checkbox"] {
     height: 40%;
 }
 
-.sorted_zag{
+.sorted_zag {
     font-size: 35px;
 }
 
-.zag_favor{
+.zag_favor {
     font-size: 70px;
     text-transform: uppercase;
     margin-top: 20px;
 }
-
-
 
 
 .slider_item_card {
@@ -1875,7 +1896,7 @@ input[type="checkbox"] {
     font-size: 32px;
     position: absolute;
     right: 5px;
-    top:5px;
+    top: 5px;
 }
 
 .add_to_favorites {
@@ -1965,7 +1986,7 @@ input[type="checkbox"] {
 }
 
 .price_bucket.have_disc {
-    color:#c2c5cb;
+    color: #c2c5cb;
     text-decoration: line-through;
     text-decoration-color: #F877AD;
     font-size: 34px;
@@ -1994,14 +2015,6 @@ input[type="checkbox"] {
     color: #FFFFFF;
 }
 
-.add_to_basket_place {
-    color: #293048;
-    max-width: 350px;
-    height: 70px;
-    background: #e1e2e5;
-    display: flex;
-    align-items: center;
-}
 
 .add_to_basket_place .fa-minus, .add_to_basket_place .fa-plus {
     text-align: center;
@@ -2026,7 +2039,7 @@ input[type="checkbox"] {
     max-width: 50px;
     min-width: 30px;
     text-align: center;
-    font-size: 20px;
+    font-size: 40px;
     font-weight: 450;
     padding: 3px 0;
     background: transparent;
@@ -2039,4 +2052,81 @@ input[type="checkbox"] {
     text-decoration-color: #F877AD;
     font-size: 32px;
     padding-bottom: 5px;
+}
+
+
+.price_price {
+    font-weight: 450;
+    font-size: 24px;
+}
+
+.price_price input {
+    background: transparent;
+    border: 0;
+    width: 71%;
+    font-weight: 450;
+    font-size: 40px;
+}
+
+
+.price_place {
+    width: 50%;
+}
+
+.appear_about_pressing_left {
+    width: 50%;
+}
+
+.appear_about_pressing_right {
+    width: 50%;
+}
+
+
+#sorted_select_items_list {
+    position: absolute;
+    transform: translate(0, -50px);
+    transition: transform 0.4s;
+    width: 40%;
+    z-index: 100;
+}
+
+.sorted_select_items {
+    position: absolute;
+    padding: 15px 0;
+    background: #ffffff;
+    width: 47%;
+    height: auto;
+    z-index: 100;
+}
+
+
+#sorted_select_items_list {
+    position: absolute;
+    transform: translate(0, -50px);
+    transition: transform 0.4s;
+    width: 95%;
+    z-index: 10;
+}
+
+#sorted_select_items_list._active {
+    transform: translate(0, 0);
+    transition: transform 0.4s;
+    z-index: 10;
+}
+
+
+.sorted_select_item {
+    padding: 8px 10px;
+    color: #b0bbbe;
+    border-bottom: 2px solid #b0bbbe;
+    text-transform: uppercase;
+    font-size: 31px;
+    transition: all .3s;
+}
+
+.sorted_select_item:hover {
+    cursor: pointer;
+    background: #F877AD;
+    transition: all .3s;
+    color: #FFFFFF;
 }

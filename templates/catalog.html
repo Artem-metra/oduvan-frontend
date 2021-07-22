@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<aDOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,12 +25,35 @@
         </div>
 
         <div class="catalog_flex_catalog sorted_and_filters">
-            <div class="filters_place" id="filter_place">
-                Фильтры <span class="fa fa-chevron-down"></span>
+            <div class="filters_place" id="filter_place" style="margin-bottom: 25px">
+                Фильтры <span class="fa fa-chevron-down my_class_img" id="my_class_img"></span>
             </div>
-            <div class="sorted_place">
-                Сортировка: <span class="active_sort">Название</span><span class="fa fa-chevron-down"></span>
+            <div class="sorted_place" style="display: inherit">
+                Сортировка:
+                <div class="pressing_on_arrow_name" id="pressing_on_arrow_name" style="margin-left: 15px">
+                     <span class="active_sort">Название</span><span class="fa fa-chevron-down" id="my_class_cher"></span>
+                </div>
             </div>
+        </div>
+
+         <div id="sorted_select_items_list">
+                <div class="sorted_select_items" id="sorted_select_items" style="font-size: 37px">
+                <div class="sorted_select_item">
+                    Самые популярные
+                </div>
+                <div class="sorted_select_item">
+                    По возрастанию цены
+                </div>
+                <div class="sorted_select_item">
+                    По убыванию цены
+                </div>
+                <div class="sorted_select_item">
+                    По размеру скидки
+                </div>
+            </div>
+        </div>
+        <div class="" id="height_increase">
+
         </div>
 
 
@@ -92,28 +115,61 @@
 
 
        <div class="appear_about_pressing" id="appear_about_pressing">
+            <div class="appear_about_pressing_left">
+               <div class="sorted_zag" id="my_privat_mar" style="font-size: 50px; margin-bottom: 20px;">
+                    Цена
+           </div>
+                <div class="catalog_flex_catalog" style="width:80%;">
+                    <div class="price_place">
+                        <span style="font-size: 30px;">От</span>
+                        <div id="price_ot" class="price_price">
+                            <input type="number" value="0" id="price_min"> ₽
+                        </div>
+                    </div>
+                    <div class="price_place">
+                        <span style="font-size: 30px">До</span>
+                        <div id="price_do" class="price_price">
+                            <input type="number" value="100000" id="price_max" > ₽
+                        </div>
+                    </div>
+                </div>
+                <input type="range" id="price_controller" min="0" max="100000" style="width: 51%; margin-top: 25px;margin-bottom: 25px">
                  <div id="flowers_place">
-            <div class="choose_flower" id="choose_flower" style="display: none">
-                <input type="checkbox" class="checkbox_for_choose_flower">
-                <span class="name_flower">Роза кустовая</span>
+            <div class="choose_flower" id="choose_flower" style="display: none; font-size: 40px">
+
+                <input type="checkbox" id="choose_flow_one" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" style="margin-top: 20px;">
+                <label for="choose_flow_one" class="lab_desc name_flower" style="font-size: 37px"></label>
+
+<!--                <input type="checkbox" class="checkbox_for_choose_flower">-->
+<!--                <span class="name_flower">Роза кустовая</span>-->
             </div>
         </div>
 
-        <div class="sorted_zag">
+        <div class="sorted_zag" style="font-size: 50px; margin-top: 20px; margin-bottom: 20px">
             Упаковка
         </div>
-        <div class="choose_flower">
-            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="1">
-            <span>Плёнка</span>
+        <div class="choose_flower" style="font-size: 36px">
+            <input type="checkbox" id="choose_flow-one" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="1" style="margin-top: 20px;">
+            <label for="choose_flow-one" class="lab_desc name_flower" style="font-size: 37px">Плёнка</label>
+<!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="1">-->
+<!--            <span>Плёнка</span>-->
         </div>
-        <div class="choose_flower">
-            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="2">
-            <span>Крафт.плёнка</span>
+        <div class="choose_flower" style="font-size: 36px">
+            <input type="checkbox" id="choose_flow-two" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="2" style="margin-top: 20px;">
+            <label for="choose_flow-two" class="lab_desc name_flower" style="font-size: 37px">Крафт.плёнка</label>
+<!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="2">-->
+<!--            <span>Крафт.плёнка</span>-->
         </div>
-        <div class="choose_flower">
-            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="3">
-            <span>Ленты</span>
+        <div class="choose_flower" style="font-size: 36px">
+            <input type="checkbox" id="choose_flow-three" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="3" style="margin-top: 20px;">
+            <label for="choose_flow-three" class="lab_desc name_flower" style="font-size: 37px">Ленты</label>
+<!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="3">-->
+<!--            <span>Ленты</span>-->
         </div>
+          </div>
+
+
+
 
          <div class="all_catalog_href" style="float: none;margin: 20px 0 15px;height: 110px;width: 100%"
                  id="startsorting">
@@ -125,6 +181,8 @@
                 </div>
             </div>
        </div>
+
+
 
 
 

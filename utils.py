@@ -9,6 +9,13 @@ def is_mobile(user_agent):
     return 'mobile' in str(user_agent).lower()
 
 
+def complete_request_with_data(path):
+    data = {}
+    url = address + path
+    resp = requests.get(url, data)
+    return json.loads(resp.text)
+
+
 def complete_request(req, path):
     data = {}
     for item in req.args:
@@ -29,3 +36,14 @@ def complete_request_with_parameters(params, path):
     url = address + path
     resp = requests.get(url, params)
     return json.loads(resp.text)
+
+
+def complete_request_post_with_parameters(params, path):
+    url = address + path
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    print(json.dumps(params))
+    resp = requests.post(url, data=json.dumps(params['info'], ensure_ascii=False), headers=headers)
+    print(resp.request.headers)
+    return resp.text

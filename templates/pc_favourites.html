@@ -88,7 +88,7 @@
             url: '/api/user/get',
             type: 'GET',
             success: function (msg) {
-                user = msg['user'];
+                user = msg['message']['user'];
                 loadFavorites();
             }
         });

@@ -79,39 +79,39 @@ function loadProducts() {
         }
     });
 
-    // /* Рендж для регулировки цен */
+    /* Рендж для регулировки цен */
 
-    // price_controller.onchange = function () {
-    //     console.log(price_controller.value);
-    //     price_max.value = price_controller.value;
-    // }
+    price_controller.onchange = function () {
+        console.log(price_controller.value);
+        price_max.value = price_controller.value;
+    }
 
-    // /* Проверки при изменении цены */
+    /* Проверки при изменении цены */
 
-    // price_min.onchange = function () {
-    //     console.log(price_min.value);
-    //     if (price_min.value < 0) {
-    //         price_min.value = 0;
-    //     }
-    //     if (price_min.value > price_max.value) {
-    //         price_min.value = price_max.value - 1;
-    //     }
-    // }
-    // price_max.onchange = function () {
-    //     if (price_max.value < 0) {
-    //         price_max.value = price_min.value + 1;
-    //     }
-    //     if (price_max.value < price_min.value) {
-    //         price_max.value = price_min.value + 1;
-    //     }
-    // }
+    price_min.onchange = function () {
+        console.log(price_min.value);
+        if (price_min.value < 0) {
+            price_min.value = 0;
+        }
+        if (price_min.value > price_max.value) {
+            price_min.value = price_max.value - 1;
+        }
+    }
+    price_max.onchange = function () {
+        if (price_max.value < 0) {
+            price_max.value = price_min.value + 1;
+        }
+        if (price_max.value < price_min.value) {
+            price_max.value = price_min.value + 1;
+        }
+    }
 
 
     /* Выпадающий список с сортировками по названиям, по цене и т.д */
 
-    // /* Выпадающий список с сортировками по названиям, по цене и т.д */
+    /* Выпадающий список с сортировками по названиям, по цене и т.д */
 
-    // chevron_for_list.onclick = function () {
+    // pressing_on_arrow_name.onclick = function () {
     //     if (chevron_list.classList.contains('_active')) {
     //         sorted_select_items_list.className = '';
     //         chevron_list.classList.remove('_active');
@@ -188,8 +188,13 @@ function drawFlowers(flower) {
         fl.id = '';
         let name = fl.getElementsByClassName('name_flower')[0];
         let checkbox = fl.getElementsByClassName('checkbox_for_choose_flower')[0];
+        checkbox.id = '';
+        let name_flower = fl.getElementsByClassName('name_flower')[0];
+        let newId =  'flowers-' + i;
+        name_flower.setAttribute('for', newId);
+        checkbox.id = 'flowers-' + i;
+        // name_flower.for = 'flowers' + i;
         checkbox.onchange = function () {
-
             if (checkbox.checked) {
                 flowers.push(checkbox.value);
             } else {
@@ -248,6 +253,21 @@ function drawProducts(msg) {
 }
 
 appear_about_pressing.style.display = 'none'
-filters_place.onclick = function (){
-    appear_about_pressing.style.display = 'block'
+filter_place.onclick = function (){
+    appear_about_pressing.style.display = 'block';
+    my_class_img.style.transform = 'rotate(180deg)';
+    my_class_img.style.transition = 'transform .3s';
+}
+
+
+sorted_select_items_list.style.display = 'none';
+pressing_on_arrow_name.onclick = function() {
+    sorted_select_items_list.style.display = 'block';
+    sorted_select_items.style.top = '35px';
+    sorted_select_items.style.right = '10px';
+    height_increase.style.height = '140px';
+    my_privat_mar.style.marginTop = '-140px';
+    height_increase.style.width = '50%';
+    my_class_cher.style.transform = 'rotate(180deg)';
+    my_class_cher.style.transition = 'transform .3s';
 }

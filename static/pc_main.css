@@ -103,8 +103,8 @@ input[type="checkbox"] {
 /* Уведомления об ошибке или успешности действия */
 .notification {
     position: fixed;
-    width: 200px;
-    height: 75px;
+    width: 300px;
+    height: 85px;
     border-radius: 8px;
     bottom: 20px;
     right: 20px;
@@ -117,14 +117,14 @@ input[type="checkbox"] {
 
 .notification_zag {
     padding: 4px 0;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     text-align: center;
     border-bottom: 1px solid #FFFFFF;
 }
 
 .notification_message {
-    font-size: 14px;
+    font-size: 16px;
     padding: 5px 10px;
 }
 
@@ -217,7 +217,7 @@ input[type="checkbox"] {
 }
 
 .right_header_part_item {
-    display: inline-block;
+    display: flex;
     margin-right: 30px;
     font-weight: 600;
     font-size: 16px;
@@ -225,6 +225,7 @@ input[type="checkbox"] {
     text-align: right;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+    align-items: center;
 }
 
 .right_nav_place {
@@ -235,6 +236,7 @@ input[type="checkbox"] {
     opacity: 0.9;
     transition: opacity .4s;
     margin-right: 30px;
+    overflow: hidden;
 }
 
 .right_nav_place:hover {
@@ -650,7 +652,10 @@ input[type="checkbox"] {
     overflow: hidden;
     font-size: 18px;
 }
-
+.pagination_item._active{
+    background: #F877AD;
+    color:#FFFFFF;
+}
 .pagination_num {
     display: flex;
     justify-content: center;
@@ -1066,6 +1071,7 @@ input[type="checkbox"] {
     height: 100vh;
     background: #FFFFFF;
     width: 30%;
+    min-width:550px;
     right: 0;
     top: 0;
     padding: 25px 10px;
@@ -1570,13 +1576,15 @@ input[type="checkbox"] {
     width: 18px;
     height: 18px;
 }
-
-.choose_flower span {
+.choose_flower {
+    font-size: 20px;
+}
+.choose_flower .name_flower{
     width: 90%;
     font-weight: 450;
-    font-size: 20px;
     color: #293048;
-    opacity: 0.8;
+    opacity: 0.9;
+    margin-left:10px;
 }
 
 /*====== Страница товара =======*/
@@ -1619,7 +1627,6 @@ input[type="checkbox"] {
     width: 125px;
     height: 125px;
     display: block;
-    margin-bottom: 10px;
     border: 4px solid #29304899;
     z-index: 500;
 }
@@ -1750,9 +1757,11 @@ input[type="checkbox"] {
     width: 50%;
     padding-right: 25px;
 }
-#addresses_place{
+
+#addresses_place {
     display: none;
 }
+
 #recipient {
     /*transition: transform .5s;*/
     /*transform: scale(0);*/
@@ -1826,9 +1835,15 @@ input[type="checkbox"] {
 
 .avatar {
     border-radius: 50%;
-    width: 72px;
+    width: 86px;
     height: 72px;
     margin-right: 15px;
+}
+
+.avatar_user {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
 
 /* Адреса */
@@ -1837,25 +1852,40 @@ input[type="checkbox"] {
 }
 
 .address_item {
-    width: 30%;
+    width: 32%;
     height: 310px;
     margin-right: 15px;
     display: inline-block;
     overflow: hidden;
+    position: relative;
 }
 
-.address_item.address_info {
+.address_info {
     background: #293048;
     color: #FFFFFF;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
-.address_item.address_info .catalog_flex {
-    padding: 15px 0;
-    border-bottom: 2px solid #FFFFFF;
+.completed_address .catalog_flex.info {
+    margin: 15px 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ffff;
 }
 
-.address_item:first-child {
-    padding: 20px;
+.data_address {
+    z-index: 600;
+}
+.suggestions-suggestions{
+    background: #293048 !important;
+}
+.data_address .catalog_flex.info {
+    margin: 15px 10px;
+    border-bottom: 1px solid #ffff;
+    padding-bottom: 10px;
 }
 
 .address_item:last-child {
@@ -1869,17 +1899,19 @@ input[type="checkbox"] {
     text-transform: uppercase;
 }
 
-.address_item.add_adress {
+.add_address {
     border: 4px solid #293048;
+    height: 310px;
+    position: relative;
 }
 
-.address_item.add_adress .catalog_flex {
+.catalog_flex.change {
     height: 100%;
     justify-content: center;
     flex-direction: column;
 }
 
-.address_item.add_adress .right_nav_place {
+.add_address .right_nav_place {
     margin-right: 0;
 }
 
@@ -1955,7 +1987,25 @@ input[type="checkbox"] {
 }
 
 #flowers_place .custom-checkbox + label::before {
-    background: #c2c5cb;
+    background-color: #c2c5cb;
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid #EAEAED;
+    border-radius: 100%;
+    margin-right: 0.5em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
+    transform: scale(1.5);
+}
+#flowers_place .custom-checkbox:checked + label::before {
+    border-color: #F877AD;
+    background-color: #F877AD;
+    background-image: url('../static/img/check_mark.svg') ;
 }
 
 /* стили при наведении курсора на checkbox */
@@ -1979,7 +2029,6 @@ input[type="checkbox"] {
 
 /* стили для чекбокса, находящегося в состоянии disabled */
 .custom-checkbox:disabled + label::before {
-
     background-color: #F877AD;
 }
 
@@ -1999,7 +2048,7 @@ input[type="checkbox"] {
     transform: translate(0, 0);
     transition: all .5s;
     opacity: 1;
-    z-index: 999;
+    z-index: 500;
 }
 
 
