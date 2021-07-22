@@ -202,6 +202,24 @@ input[type="checkbox"] {
     opacity: 0.9;
     transition: opacity .4s;
     margin-right: 30px;
+    overflow: hidden;
+}
+
+.num_basket{
+    position: absolute;
+    top: 7px;
+    right: 3px;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #F877AD;
+    z-index: 9999;
+    color: #FFFFFF;
 }
 
 .right_nav_place:hover {
@@ -1995,14 +2013,7 @@ input[type="checkbox"] {
     color: #FFFFFF;
 }
 
-.add_to_basket_place {
-    color: #293048;
-    max-width: 350px;
-    height: 70px;
-    background: #e1e2e5;
-    display: flex;
-    align-items: center;
-}
+
 
 .add_to_basket_place .fa-minus, .add_to_basket_place .fa-plus {
     text-align: center;
@@ -2027,7 +2038,7 @@ input[type="checkbox"] {
     max-width: 50px;
     min-width: 30px;
     text-align: center;
-    font-size: 20px;
+    font-size: 40px;
     font-weight: 450;
     padding: 3px 0;
     background: transparent;
