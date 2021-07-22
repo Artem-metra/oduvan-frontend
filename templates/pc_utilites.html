@@ -32,7 +32,7 @@
                         </a>
                     </div>
                     <div class="right_nav_place">
-                        <a class="right_nav_item user_item">
+                        <a class="right_nav_item user_item" id="user_item">
                             <span class="fas fa-user"></span>
                         </a>
                     </div>
@@ -412,6 +412,7 @@
 <script>
     let user = null;
     let basket_id = 0;
+    let count = 1;
 
 
     /* Открытие попапа */
@@ -643,6 +644,13 @@
                                 num_basket[i].style.display = 'flex';
                             }
                         }
+                        if(user['avatar'] !== "null"){
+                            let img = document.createElement('img');
+                            img.className = 'avatar_user';
+                            img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
+                            user_item.innerHTML = '';
+                            user_item.append(img);
+                        }
                         favorites_btn[i].href = '/favorites';
                         basket_btn[i].onclick = function () {
                             OpenPopup(basket_popup, 2);
@@ -809,12 +817,8 @@
 
 
     function loadBasket() {
-        let data = {
-            'user_id': user['id'],
-        }
         $.ajax({
-            url: '/api/busket/get_by_user',
-            data: data,
+            url: '/api/busket/get_by_busket_id',
             type: 'GET',
             success: function (msg) {
                 if (msg['message']['products'].length === 0) {
