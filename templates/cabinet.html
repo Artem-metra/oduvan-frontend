@@ -28,7 +28,133 @@
         </div>
     </section>
 
-    <!-- ЛК история -->
+
+
+<!-- ЛК адрес -->
+
+
+    <section class="main" id="main_personal">
+        <div class="container">
+            <div class="requisites_place">
+                <h2 class="name_buckets">
+                    Личные данные
+                </h2>
+                <input class="popup_input" placeholder="Ваше имя" id="your_name">
+                <input class="popup_input" placeholder="Ваша фамилия" id="your_surname">
+                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__" id="your_mobile">
+                <input class="popup_input" type="email" placeholder="Электронная почта" id="your_email_address">
+                <div class="date_of_birth">
+                    <input class="popup_input mar_rig" placeholder="День" id="birthday_day" maxlength="2">
+                    <input class="popup_input mar_rig" placeholder="Месяц" id="birthday_month" maxlength="2">
+                    <input class="popup_input" placeholder="Год" id="birthday_year" maxlength="4">
+                </div>
+                <div class="all_catalog_href" style="float: none;width:100%; height: 80px" id="save_changes">
+                    Сохранить изменения
+                </div>
+            </div>
+            <!-- Аватарка пользователся и пароль -->
+            <div class="your_order_place ">
+                <div class="ava_place">
+                    <div class="catalog_flex" style="justify-content: normal">
+                        <img src="" class="avatar">
+
+                        <input class="all_catalog_href" style="width: 100%" type="file"
+                               id="avatar" placeholder="" value="">
+                        <label for="avatar"></label>
+                    </div>
+                </div>
+
+                <div class="name_buckets">
+                    Пароль
+                </div>
+                <input class="popup_input" placeholder="Старый пароль" type="password" id="old_password">
+                <input class="popup_input" placeholder="Новый пароль" type="password">
+                <input class="popup_input" placeholder="Повторите новый пароль" type="password">
+                <div class="all_catalog_href" style="float: none;width:100%;height:80px;" id="send_old_pas">
+                    Проверить
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+<!--     Тут должен быть еще один класс createorder-->
+	<div class="catalog_flex" style="padding:0;display: none" id="main_adres">
+            <!-- Адреса -->
+            <div class="address_place" id="address_place">
+                <div class="address_item" id="address_item" style="display: none; margin: 0 auto; margin-top: 40px; margin-bottom: 40px">
+                    <!-- Блок с добавлением адресов -->
+                    <div class="add_address">
+                        <div class="catalog_flex change">
+                            <div class="right_nav_place">
+                                <div class="right_nav_item" style="font-size: 40px">
+                                    <span class="fas fa-map-marker-alt"></span>
+                                </div>
+                            </div>
+                            <div class="blog_item_text_read" style="margin-top: 15px; font-size: 35px">
+                                Добавить адреса
+                            </div>
+                        </div>
+                        <!-- Блок с указанием данных об адресе -->
+                        <div class="completed_address  address_info" style="display: none">
+                            <div class="catalog_flex info">
+                                <div class="address_info_zag">
+                                    Название:
+                                </div>
+                                <input class="popup_input name_address" style="height: 35px;width: 70%;">
+                            </div>
+                            <div class="catalog_flex info">
+                                <div class="address_info_zag">
+                                    Адрес:
+                                </div>
+                                <input class="popup_input address_address" style="height: 35px;width: 70%;">
+                            </div>
+                            <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0;">
+                                <div class="all_catalog_href"
+                                     style="float: none;width: 100%;height: 50px;background: #FFFFFF;color:#293048">
+                                    Сохранить
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Блок с уже заполненным адресом -->
+                        <div class="data_address  address_info" style="display: none">
+                            <div class="catalog_flex info">
+                                <div class="address_info_zag">
+                                    Название:
+                                </div>
+                                <div class="address_info_zag name_address_user">
+                                    г.Воронеж, ул.Урыского, 2В
+                                </div>
+                            </div>
+                            <div class="catalog_flex info">
+                                <div class="address_info_zag">
+                                    Адрес:
+                                </div>
+                                <div class="address_info_zag address_address_user">
+                                    г.Воронеж, ул.Урыского, 2В
+                                </div>
+                            </div>
+                            <div class="catalog_flex info" style="border-bottom: 0;margin-top:10px;">
+                                <div class="all_catalog_href btn_change_address"
+                                     style="background: #FFFFFF; color:#293048;height:70px;margin-right:10px;">
+                                    Изменить
+                                </div>
+                                <div class="all_catalog_href btn_delete_address"
+                                     style="height:70px;border: 4px solid #FFFFFF;">
+                                    Удалить
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+	<!-- ЛК история -->
 	<section class="main" id="main_history">
 		<div class="container">
 			<div class="main_info__two">
@@ -78,140 +204,6 @@
 		</div>
 	</section>
 
-<!-- ЛК адрес -->
-   <section class="main" id="main_adres">
-		<div class="container">
-			<div class="main_info__adr">
-				<div class="main_info__desc__adr">
-					<div class="info_desc__item__adr">
-						<ul class="desc_item__list__adr">
-							<li class="desc_item__list--1__adr">Название</li>
-							<li class="desc_item__list--2__adr">Офис</li>
-						</ul>
-					</div>
-
-					<div class="info_desc__item__adr">
-						<ul class="desc_item__list__adr">
-							<li class="desc_item__list--1__adr">Адрес</li>
-							<li class="desc_item__list--2__adr">Воронеж, Ул. Урывского 2В</li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="main_group__btn__adr">
-					<button class="btn--reset btn_left" type="button">Изменить</button>
-					<button class="btn--reset btn_right" type="button">Удалить</button>
-				</div>
-			</div>
-
-			<div class="adres_block" id="adres_block_one">
-				<span class="fas fa-map-marker-alt my_marker"></span>
-				<p class="adres_desc" id="adres_desc_map_1">Добавить адрес</p>
-			</div>
-
-			<div class="adres_block" id="adres_block_two">
-				<span class="fas fa-map-marker-alt my_marker"></span>
-				<p class="adres_desc" id="adres_desc_map_2">Добавить адрес</p>
-			</div>
-		</div>
-	</section>
-
-    <section class="main" id="main_personal">
-        <div class="container">
-            <div class="requisites_place">
-                <h2 class="name_buckets">
-                    Личные данные
-                </h2>
-                <input class="popup_input" placeholder="Ваше имя" id="your_name">
-                <input class="popup_input" placeholder="Ваша фамилия" id="your_surname">
-                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__" id="your_mobile">
-                <input class="popup_input" type="email" placeholder="Электронная почта" id="your_email_address">
-                <div class="date_of_birth">
-                    <input class="popup_input mar_rig" placeholder="День" id="birthday_day" maxlength="2">
-                    <input class="popup_input mar_rig" placeholder="Месяц" id="birthday_month" maxlength="2">
-                    <input class="popup_input" placeholder="Год" id="birthday_year" maxlength="4">
-                </div>
-                <div class="all_catalog_href" style="float: none;width:100%; height: 80px" id="save_changes">
-                    Сохранить изменения
-                </div>
-            </div>
-            <!-- Аватарка пользователся и пароль -->
-            <div class="your_order_place ">
-                <div class="ava_place">
-                    <div class="catalog_flex" style="justify-content: normal">
-                        <img src="" class="avatar">
-
-                        <input class="all_catalog_href" style="width: 100%" type="file"
-                               id="avatar" placeholder="" value="">
-                        <label for="avatar"></label>
-                    </div>
-                </div>
-
-                <div class="name_buckets">
-                    Пароль
-                </div>
-                <input class="popup_input" placeholder="Старый пароль" type="password" id="old_password">
-                <input class="popup_input" placeholder="Новый пароль" type="password">
-                <input class="popup_input" placeholder="Повторите новый пароль" type="password">
-                <div class="all_catalog_href" style="float: none;width:100%;height:80px;" id="send_old_pas">
-                    Проверить
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="activ_adres" id="activ_adres_map_one">
-        <div class="container">
-            <div class="main_info__adr">
-				<div class="main_info__desc__adr">
-					<div class="info_desc__item__adr">
-						<ul class="desc_item__list__adr">
-							<li class="desc_item__list--1__adr">Название</li>
-							<li class="desc_item__list--2__adr">Офис</li>
-						</ul>
-					</div>
-
-					<div class="info_desc__item__adr">
-						<ul class="desc_item__list__adr">
-							<li class="desc_item__list--1__adr">Адрес</li>
-							<li class="desc_item__list--2__adr">Воронеж, Ул. Урывского 2В</li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="main_group__btn__adr">
-					<button class="btn--reset btn_save" type="button">Сохранить</button>
-				</div>
-			</div>
-        </div>
-    </section>
-
-    <section class="activ_adres" id="activ_adres_map_two">
-        <div class="container">
-            <div class="main_info__adr">
-				<div class="main_info__desc__adr">
-					<div class="info_desc__item__adr">
-						<ul class="desc_item__list__adr">
-							<li class="desc_item__list--1__adr">Название</li>
-							<li class="desc_item__list--2__adr">Офис</li>
-						</ul>
-					</div>
-
-					<div class="info_desc__item__adr">
-						<ul class="desc_item__list__adr">
-							<li class="desc_item__list--1__adr">Адрес</li>
-							<li class="desc_item__list--2__adr">Воронеж, Ул. Урывского 2В</li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="main_group__btn__adr">
-					<button class="btn--reset btn_save" type="button">Сохранить</button>
-				</div>
-			</div>
-        </div>
-    </section>
-
     {% include 'utilites.html' %}
 
 
@@ -221,27 +213,7 @@
 <script>
     console.log("test");
 
-    // Проверить работу при нажатии на добавить адрес, так как нет доступа на сервер
 
-    activ_adres_map_one.style.display = 'none';
-    activ_adres_map_two.style.display = 'none';
-
-    adres_desc_map_1.onclick = function (){
-        adres_block_one.style.display = 'none';
-        active_adres_map_one.style.display = 'block';
-        active_adres_map_one.classList.add('container_on_block');
-        main_adres.style.paddingBottom = '0';
-
-    }
-
-
-    adres_desc_map_2.onclick = function (){
-        adres_block_two.style.display = 'none';
-        active_adres_map_two.style.display = 'block';
-        active_adres_map_two.classList.add('container_on_block');
-        active_adres_map_two.style.marginBottom = '20px';
-
-    }
 
     main_history.style.display = 'none';
     main_personal.style.display = 'block'
@@ -297,30 +269,30 @@
    }
 
 
-    mapingItem();
-	// при желании можно переделать под мапинги, так как я делал по своему
-    function mapingItem() {
-        let maping = document.getElementsByClassName('catalog_category_item');
-        for (let i = 0; i < maping.length; i++) {
-            maping[i].onclick = function () {
-                document.getElementsByClassName('_active')[0].classList.remove('_active');
-                maping[i].classList.add('_active');
-                if (maping[i].id === 'personal_info_map') {
-                    personal_info.style.display = 'flex';
-                    personal_address.style.display = 'none';
-                    personal_history.style.display = 'none';
-                } else if (maping[i].id === 'personal_address_map') {
-                    personal_address.style.display = 'block';
-                    personal_info.style.display = 'none';
-                    personal_history.style.display = 'none';
-                } else {
-                    personal_history.style.display = 'block';
-                    personal_info.style.display = 'none';
-                    personal_address.style.display = 'none';
-                }
-            }
-        }
-    }
+    // mapingItem();
+	// // при желании можно переделать под мапинги, так как я делал по своему
+    // function mapingItem() {
+    //     let maping = document.getElementsByClassName('catalog_category_item');
+    //     for (let i = 0; i < maping.length; i++) {
+    //         maping[i].onclick = function () {
+    //             document.getElementsByClassName('_active')[0].classList.remove('_active');
+    //             maping[i].classList.add('_active');
+    //             if (maping[i].id === 'personal_info_map') {
+    //                 personal_info.style.display = 'flex';
+    //                 personal_address.style.display = 'none';
+    //                 personal_history.style.display = 'none';
+    //             } else if (maping[i].id === 'personal_address_map') {
+    //                 personal_address.style.display = 'block';
+    //                 personal_info.style.display = 'none';
+    //                 personal_history.style.display = 'none';
+    //             } else {
+    //                 personal_history.style.display = 'block';
+    //                 personal_info.style.display = 'none';
+    //                 personal_address.style.display = 'none';
+    //             }
+    //         }
+    //     }
+    // }
 
     send_old_pas.onclick = function () {
         checkingOldPassword();
@@ -356,6 +328,7 @@
         });
     }
 
+
     function DrawInfoUser() {
         console.log(user);
         name_user.innerText = user['name'];
@@ -363,7 +336,135 @@
         your_surname.value = user['surname'];
         your_mobile.value = '+7' + user['phone'];
         your_email_address.value = user['email'];
+        avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
+        let inputs = document.getElementsByClassName('new_data');
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].oninput = function () {
+                inputs[i].classList.remove('error');
+            }
+        }
+
+
+        // Если у пользователя уже есть адреса в ЛК, то выводим блок с адресами
+        if (user['addresses'].length !== 0) {
+            console.log(user['addresses'].length);
+            for (let i = 0; i < user['addresses'].length; i++) {
+                let box = address_item.cloneNode(true);
+                let inputs_ad = box.getElementsByClassName('popup_input');
+                for (let i = 0; i < inputs_ad.length; i++) {
+                    inputs_ad[i].oninput = function () {
+                        inputs_ad[i].classList.remove('error');
+                    }
+                }
+                box.id = '';
+                let data_address = box.getElementsByClassName('data_address')[0];
+                let name_address_user = box.getElementsByClassName('name_address_user')[0];
+                let address_address_user = box.getElementsByClassName('address_address_user')[0];
+                let btn_change = box.getElementsByClassName('btn_change_address')[0];
+                let btn_delete = box.getElementsByClassName('btn_delete_address')[0];
+                name_address_user.innerText = user['addresses'][i]['name'];
+                address_address_user.innerText = user['addresses'][i]['address'];
+                btn_change.onclick = function () {
+                    let completed_address = box.getElementsByClassName('completed_address')[0];
+                    completed_address.style.display = 'block';
+                    completed_address.style.zIndex = 650;
+                    let btn_save = box.getElementsByClassName('all_catalog_href')[0];
+                    let address = box.getElementsByClassName('address_address')[0];
+                    let name_address = box.getElementsByClassName('name_address')[0];
+                    address.value = user['addresses'][i]['address'];
+                    name_address.value = user['addresses'][i]['name'];
+                    btn_save.onclick = function () {
+                        if (address.value === '' || name_address.value === '') {
+                            let inputs = box.getElementsByClassName('popup_input');
+                            for (let i = 0; i < inputs.length; i++) {
+                                inputs[i].classList.add('error');
+                            }
+                            notification('Заполните все обязательные поля', 1);
+                            return;
+                        }
+                        if(address.value === user['addresses'][i]['address'] && name_address.value === user['addresses'][i]['name']){
+                            notification('Вы ничего не поменяли', 1);
+                            return;
+                        }
+                        changeAddress(name_address.value, address.value, user['addresses'][i]['id'])
+                    }
+
+
+                }
+                btn_delete.onclick = function () {
+
+                }
+                data_address.style.display = 'block';
+                box.style.display = 'inline-block';
+                address_place.append(box);
+            }
+        }
+
+        // Вывод адресов или, если ещё нет адресов, то вывод блоков с возможностью добавлять адреса
+
+        for (let i = 0; i < 3 - user['addresses'].length; i++) {
+            let box = address_item.cloneNode(true);
+            let inputs_ad = box.getElementsByClassName('popup_input');
+            for (let i = 0; i < inputs_ad.length; i++) {
+                inputs_ad[i].oninput = function () {
+                    inputs_ad[i].classList.remove('error');
+                }
+            }
+            box.id = '';
+
+            let icon = box.getElementsByClassName('right_nav_place')[0];
+            let btn_add = box.getElementsByClassName('blog_item_text_read')[0];
+            let completed_address = box.getElementsByClassName('completed_address')[0];
+            let name_address = box.getElementsByClassName('name_address')[0];
+            let address = box.getElementsByClassName('address_address')[0];
+            let btn_save = box.getElementsByClassName('all_catalog_href')[0];
+            icon.onclick = function () {
+                completed_address.style.display = 'block';
+            }
+            btn_add.onclick = function () {
+                completed_address.style.display = 'block';
+            }
+            let address_data = '';
+            // $(address).suggestions({
+            //     token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
+            //     type: "ADDRESS",
+            //     /* Вызывается, когда пользователь выбирает одну из подсказок */
+            //     onSelect: function (suggestion) {
+            //         console.log('Дашло 2');
+            //         if (Number(suggestion['data']['fias_level']) < 8) {
+            //             notification('Укажите точный адрес', 1);
+            //             return;
+            //         }
+            //         address_data = suggestion['value'];
+            //     }
+            // })
+
+            old_password.oninput = function () {
+                old_password.classList.remove('error');
+            }
+
+            btn_save.onclick = function () {
+                if (name_address.value === '' || address.value === '') {
+                    let inputs = box.getElementsByClassName('popup_input');
+                    for (let i = 0; i < inputs.length; i++) {
+                        inputs[i].classList.add('error');
+                    }
+                    notification('Заполните обязательные поля', 1);
+                    return;
+                }
+                address_data = address.value;
+                addAddress(name_address.value, address_data);
+
+            }
+            box.style.display = 'inline-block';
+            address_place.append(box);
+        }
+
+        // if (user['addresses'].length === 0) {
+
+
     }
+
 
 
     /* Проверка старого пароля на правильность */
