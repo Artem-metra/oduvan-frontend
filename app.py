@@ -2,7 +2,7 @@
 from flask import Flask, request, abort, session, json, render_template
 import utils, traceback
 from maps.MapArticle import article_app
-from maps.MapBusket import busket_app
+from maps.MapBasket import busket_app
 from maps.MapCategory import category_app
 from maps.MapDeal import deal_app
 from maps.MapDelivery import delivery_app
