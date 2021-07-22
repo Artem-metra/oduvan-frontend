@@ -135,8 +135,10 @@
                                 <div class="address_info_zag">
                                     Адрес:
                                 </div>
-                                <input class="popup_input address_address" id="address_address"
-                                       style="height: 35px;width: 70%;">
+                                <div style="width: 70%">
+                                    <input class="popup_input address_address"
+                                           style="height: 35px;">
+                                </div>
                             </div>
                             <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0;">
                                 <div class="all_catalog_href"
@@ -298,14 +300,16 @@
 
     /* Получение пользователя */
     GetUser();
+    console.log(user);
 
     function GetUser() {
         $.ajax({
             url: '/api/user/get',
             type: 'GET',
             success: function (msg) {
+                console.log('user', user);
                 user = msg['message']['user'];
-                console.log(user);
+
                 DrawInfoUser();
             }
         });
@@ -443,7 +447,7 @@
             }
             let address_data = '';
 
-            console.log($(address_address).suggestions({
+           $(address).suggestions({
                     token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
                     type: "ADDRESS",
                     /* Вызывается, когда пользователь выбирает одну из подсказок */
@@ -456,7 +460,7 @@
                         address_data = suggestion['value'];
                     }
                 })
-            )
+
 
             old_password.oninput = function () {
                 old_password.classList.remove('error');
@@ -619,6 +623,10 @@
 
     // функция удаления адреса
     function addAddress(name, address) {
+        if(address === ''){
+            notification('Укажите точный адрес', 1);
+            return;
+        }
         let data = {
             'id': user['id'],
             'address': address,
@@ -683,30 +691,35 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
-                drawHistory();
+                // drawHistory();
             }
 
         })
     }
 
-    function drawHistory(order){
-           let box = one_order_place.cloneNode(true);
-           let address = box.getElementsByClassName('address_order')[0];
-           let cost = box.getElementsByClassName('cost_order')[0];
-           let date = box.getElementsByClassName('date_order')[0];
-           address.innerText = '';
-           cost.innerText = '';
-           date.innerText = '';
+    function drawHistory(order) {
+        let box = one_order_place.cloneNode(true);
+        let address = box.getElementsByClassName('address_order')[0];
+        let cost = box.getElementsByClassName('cost_order')[0];
+        let date = box.getElementsByClassName('date_order')[0];
+        address.innerText = '';
+        cost.innerText = '';
+        date.innerText = '';
 
-           for(let i = 0; i < order['products'].length; i++){
-               let order = history_order_item.cloneNode(true);
-               let img = order.getElementsByClassName('small_product_img')[0];
-               let name = order.getElementsByClassName('bucket_na_zakaz')[0];
-               let cost = order.getElementsByClassName('price')[0];
-           }
+        for (let i = 0; i < order['products'].length; i++) {
+            let order = history_order_item.cloneNode(true);
+            let img = order.getElementsByClassName('small_product_img')[0];
+            let name = order.getElementsByClassName('bucket_na_zakaz')[0];
+            let cost = order.getElementsByClassName('price')[0];
 
-           box.style.display = 'block';
-           personal_history.append(box);
+            img.src = '';
+            name.innerText = '';
+            cost.innerText = '';
+            box.append(order);
+        }
+
+        box.style.display = 'block';
+        personal_history.append(box);
 
 
     }

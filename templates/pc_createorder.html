@@ -182,13 +182,13 @@
                                         </div>
                                     </div>
                                     <div class="add_to_basket_place" style="max-width:100%;">
-                                        <div class="fa fa-minus" id="minus_counter" onclick="changeCounter(2)"></div>
+                                        <div class="fa fa-minus minus_counter"></div>
                                         <div class="counter_place">
-                                            <input type="number" class="product_counter_inp" id="counter_product"
+                                            <input type="number" class="product_counter_inp"
                                                    value="1">
                                             <span style="font-weight: 600;">ШТ</span>
                                         </div>
-                                        <span class="fa fa-plus"></span>
+                                        <div class="fa fa-plus plus_counter"></div>
                                     </div>
                                     <div class="fa fa-times"></div>
                                 </div>
@@ -422,6 +422,21 @@
         }
     }
 
+    $('#address_user').suggestions({
+            token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
+            type: "ADDRESS",
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function (suggestion) {
+                console.log('Дашло 2');
+                if (Number(suggestion['data']['fias_level']) < 8) {
+                    notification('Укажите точный адрес', 1);
+                    return;
+                }
+                // address_data = suggestion['value'];
+            }
+        })
+
+
 
     // Отрисовка товаров
     function drawBasket(products) {
@@ -513,98 +528,98 @@
         }
     }
 
-        function removeItemAll(arr, value) {
-            var i = 0;
-            while (i < arr.length) {
-                if (arr[i] === value) {
-                    arr.splice(i, 1);
+    function removeItemAll(arr, value) {
+        var i = 0;
+        while (i < arr.length) {
+            if (arr[i] === value) {
+                arr.splice(i, 1);
+            } else {
+                ++i;
+            }
+        }
+        return arr;
+    }
+
+
+    // Функция проверки промокода
+    function checkPromoCode() {
+        let data = {
+            'promo_code': promo_code_code.value,
+        }
+        $.ajax({
+            url: '/api/promo_code/get_promo_code',
+            type: "GET",
+            data: data,
+            success: function (msg) {
+                if (msg['status'] === 'error') {
+                    notification('Такого промокода не существует', 1);
                 } else {
-                    ++i;
+                    notification('Промокод успешно использован', 2);
                 }
+                console.log(msg);
             }
-            return arr;
-        }
+        })
+    }
 
+    // При нажатии на кнопку "Оформить заказ" вызываем функцию
+    oformit_zakaz.onclick = function () {
+        placeOrder();
+    }
 
-        // Функция проверки промокода
-        function checkPromoCode() {
-            let data = {
-                'promo_code': promo_code_code.value,
-            }
-            $.ajax({
-                url: '/api/promo_code/get_promo_code',
-                type: "GET",
-                data: data,
-                success: function (msg) {
-                    if (msg['status'] === 'error') {
-                        notification('Такого промокода не существует', 1);
-                    } else {
-                        notification('Промокод успешно использован', 2);
-                    }
-                    console.log(msg);
-                }
-            })
-        }
-
-        // При нажатии на кнопку "Оформить заказ" вызываем функцию
-        oformit_zakaz.onclick = function () {
-            placeOrder();
-        }
-
-        // Проверки перед заказом
-        function placeOrder() {
-            // Если чекбокс "Отправить другому человеку" checked, то проверяем все ли поля получателя заполнены
-            if (get_other_people.checked) {
-                let inputs = document.getElementsByClassName('input_sender');
-                for (let i = 0; i < inputs.length; i++) {
-                    if (name_sender.value === '' || phone_sender.value === '' || address_sender.value === '') {
-                        for (let i = 0; i < inputs.length; i++) {
-                            if (inputs[i].value === '') {
-                                inputs[i].classList.add('error');
-                                notification('Заполните обязательные поля', 1);
-                            }
+    // Проверки перед заказом
+    function placeOrder() {
+        // Если чекбокс "Отправить другому человеку" checked, то проверяем все ли поля получателя заполнены
+        if (get_other_people.checked) {
+            let inputs = document.getElementsByClassName('input_sender');
+            for (let i = 0; i < inputs.length; i++) {
+                if (name_sender.value === '' || phone_sender.value === '' || address_sender.value === '') {
+                    for (let i = 0; i < inputs.length; i++) {
+                        if (inputs[i].value === '') {
+                            inputs[i].classList.add('error');
+                            notification('Заполните обязательные поля', 1);
                         }
-
                     }
-                }
-                return;
-            }
-            if (!money_payment.checked && !card_payment.checked) {
-                notification('Выберите способ оплаты', 1);
-                return;
-            }
-            if (shop_id === -1) {
-                notification('Выберите магазин, в котором получите товар', 1);
-                select_shops.classList.add('error');
-                return;
-            }
-            if (address_user.value === '') {
-                notification('Заполните адрес доставки', 1);
-                address_user.classList.add('error');
-                return;
-            }
-            if (day_now === data_value) {
 
-            }
-            createDeal();
-        }
-
-        // Функция оформления заказа отправляется в банк
-        function createDeal() {
-            let data = {
-                'shop_id': shop_id,
-            }
-            $.ajax({
-                url: 'api/deal/create',
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(data),
-                success: function (msg) {
-                    console.log(msg);
                 }
-            })
+            }
+            return;
         }
+        if (!money_payment.checked && !card_payment.checked) {
+            notification('Выберите способ оплаты', 1);
+            return;
+        }
+        if (shop_id === -1) {
+            notification('Выберите магазин, в котором получите товар', 1);
+            select_shops.classList.add('error');
+            return;
+        }
+        if (address_user.value === '') {
+            notification('Заполните адрес доставки', 1);
+            address_user.classList.add('error');
+            return;
+        }
+        if (day_now === data_value) {
+
+        }
+        createDeal();
+    }
+
+    // Функция оформления заказа отправляется в банк
+    function createDeal() {
+        let data = {
+            'shop_id': shop_id,
+        }
+        $.ajax({
+            url: 'api/deal/create',
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            success: function (msg) {
+                console.log(msg);
+            }
+        })
+    }
 
 
 </script>

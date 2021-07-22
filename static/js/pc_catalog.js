@@ -5,7 +5,7 @@ let cost_start = 0;
 let flowers = [];
 let packaging = [];
 let discount_type = 0;
-let page = 0;
+let page = 1;
 let paginations = 0;
 
 
@@ -69,7 +69,7 @@ function loadProducts() {
         'cost_end': cost_end,
         'flowers': flowers,
         'packaging': packaging,
-        'page': 0,
+        'page': page,
     }
     $.ajax({
         url: '/site/products/smart',
@@ -218,14 +218,14 @@ function drawFlowers(flower) {
         // name_flower.for = 'flowers' + i;
         checkbox.onchange = function () {
             if (checkbox.checked) {
-                flowers.push(checkbox.value);
+                flowers.push(Number(checkbox.value));
             } else {
-                flowers = removeItemAll(flowers, checkbox.value);
+                flowers = removeItemAll(flowers, Number(checkbox.value));
             }
             console.log(flowers);
         }
         name.innerText = flower[i]['name'];
-        checkbox.value = flower[i]['name'];
+        checkbox.value = flower[i]['id'];
         fl.style.display = 'flex';
         flowers_place.append(fl);
     }
@@ -271,7 +271,14 @@ function drawProducts(msg) {
         pagination.classList.add('delete_paginations');
         let pag_num = pagination.getElementsByClassName('pagination_num')[0];
         pag_num.innerText = i;
+        if(i === page){
+            pagination.classList.add('_active');
+        }
         pagination.style.display = 'inline-block';
+        pagination.onclick = function(){
+            page = i;
+            loadProducts();
+        }
         pag_place.append(pagination);
     }
 

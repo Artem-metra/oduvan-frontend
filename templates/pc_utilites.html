@@ -507,11 +507,11 @@
     // Отправляем тип доставки (курьером или самовывоз)
     function sendBasketInfo(type) {
         let data = {
-            'busket_id': basket_id,
+            'basket_id': basket_id,
             'purchase_type': type,
         }
         $.ajax({
-            url: '/api/busket/choice_purchase_type',
+            url: '/api/basket/choice_purchase_type',
             data: data,
             type: "GET",
             success: function (msg) {
@@ -617,6 +617,7 @@
             type: 'GET',
             success: function (msg) {
                 console.log(msg);
+                loadBasket();
                 let user_btn = document.getElementsByClassName('user_item');
                 let favorites_btn = document.getElementsByClassName('favorites');
                 let basket_btn = document.getElementsByClassName('basket');
@@ -649,7 +650,7 @@
                             user_item.append(img);
                         }
                         favorites_btn[i].href = '/favorites';
-                        loadBasket();
+
                         basket_btn[i].onclick = function () {
                             OpenPopup(basket_popup, 2);
                         }
@@ -767,11 +768,12 @@
             'count': count,
         }
         $.ajax({
-            url: 'api/busket/add_product',
+            url: 'api/basket/add_product',
             type: "GET",
             data: data,
             success: function (msg) {
                 console.log(msg);
+                loadProducts();
                 loadBasket();
             }
         })
@@ -846,7 +848,7 @@
 
     function loadBasket() {
         $.ajax({
-            url: '/api/busket/get_by_busket_id',
+            url: '/api/basket/get_by_basket_id',
             type: 'GET',
             success: function (msg) {
                 if (msg['message']['products'].length === 0) {
@@ -855,15 +857,15 @@
                 } else {
                     $('.delete_basket').remove();
                     console.log('producti', msg);
-                    final_price.innerText = msg['message']['busket']['discount_cost'] + ' ₽';
-                    basket_id = msg['message']['busket']['id'];
+                    final_price.innerText = msg['message']['basket']['discount_cost'] + ' ₽';
+                    basket_id = msg['message']['basket']['id'];
                     console.log(basket_id);
                     drawBasket(msg['message']['products']);
                 }
-                if (msg['message']['busket']['positions_count'] > 0) {
+                if (msg['message']['basket']['positions_count'] > 0) {
                     let num_basket = document.getElementsByClassName('num_basket');
                     for (let i = 0; i < num_basket.length; i++) {
-                        num_basket[i].innerText = msg['message']['busket']['positions_count'];
+                        num_basket[i].innerText = msg['message']['basket']['positions_count'];
                         num_basket[i].style.display = 'flex';
                     }
                 }
@@ -879,7 +881,6 @@
         for (let i = 0; i < products.length; i++) {
             let box = createProductBasket(products[i]);
             box.classList.add('delete_basket');
-            console.log(box);
             box.style.display = 'block';
             basket_item_place.append(box);
             basket_item_place.style.display = 'block';
@@ -912,11 +913,12 @@
             minus_counter.classList.add('disabled');
         }
         minus_counter.onclick = function () {
-            console.log(input.value);
-            if (input.value === 1) {
-                return;
-            }
-            input.value -= Number(1);
+            // console.log(input.value);
+            // if (input.value === 1) {
+            //     return;
+            // }
+            // input.value -= Number(1);
+            console.log('Жэпа');
         }
         plus_counter.onclick = function () {
             console.log(input.value);
@@ -944,7 +946,7 @@
             'count': 1,
         }
         $.ajax({
-            url: '/api/busket/add_product',
+            url: '/api/basket/add_product',
             data: data,
             type: "GET",
             success: function (msg) {
@@ -957,15 +959,14 @@
 
     function DeleteProductBasket(product_id) {
         let data = {
-            'busket_id': basket_id,
+            'basket_id': basket_id,
             'product_id': product_id,
         }
         $.ajax({
-            url: '/api/busket/remove_product_key',
+            url: '/api/basket/remove_product_key',
             data: data,
             type: "GET",
             success: function (msg) {
-                console.log(msg);
                 loadBasket();
             }
         })

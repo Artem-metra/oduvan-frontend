@@ -652,7 +652,10 @@ input[type="checkbox"] {
     overflow: hidden;
     font-size: 18px;
 }
-
+.pagination_item._active{
+    background: #F877AD;
+    color:#FFFFFF;
+}
 .pagination_num {
     display: flex;
     justify-content: center;
@@ -1876,7 +1879,9 @@ input[type="checkbox"] {
 .data_address {
     z-index: 600;
 }
-
+.suggestions-suggestions{
+    background: #293048 !important;
+}
 .data_address .catalog_flex.info {
     margin: 15px 10px;
     border-bottom: 1px solid #ffff;
