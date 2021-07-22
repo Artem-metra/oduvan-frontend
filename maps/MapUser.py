@@ -24,9 +24,10 @@ def api_user_get():
         params[item] = request.args.get(item)
     if 'user_id' not in params.keys():
         if 'user_id' in session:
-            params = {'id': session['user_id']}
+            params = {'user_id': session['user_id']}
         else:
             return 'error'
+
     return utils.complete_request_with_parameters(params, request.path)
 
 

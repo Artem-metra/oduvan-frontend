@@ -350,7 +350,7 @@
             url: '/api/user/get',
             type: 'GET',
             success: function (msg) {
-                user = msg['user'];
+                user = msg['message']['user'];
                 name_user.value = user['name'] + ' ' + user['surname'];
                 phone_user.value = '+7' + user['phone'];
                 email_user.value = user['email'];

@@ -79,8 +79,9 @@ function loadProducts() {
         data: JSON.stringify(data),
         success: function (msg) {
             console.log(msg);
+            $('.delete_paginations').remove();
+            paginations = Number(msg['message']['pages']);
             drawProducts(msg['message']['products']);
-            paginations = msg['message']['pages'];
         }
     });
     /* Рендж для регулировки цен */
@@ -263,9 +264,11 @@ function drawProducts(msg) {
         document.getElementById('item_card_place').append(box);
     }
     console.log(paginations);
-    for (let i = 0; i < paginations; i++) {
+
+    for (let i = 1; i < paginations + 1; i++) {
         let pagination = pagination_item.cloneNode(true);
         pagination.id = '';
+        pagination.classList.add('delete_paginations');
         let pag_num = pagination.getElementsByClassName('pagination_num')[0];
         pag_num.innerText = i;
         pagination.style.display = 'inline-block';
