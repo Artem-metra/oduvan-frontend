@@ -606,7 +606,7 @@
                         OpenPopup(registrationpopup, 1);
                     }
                 } else {
-                    user = msg['user'];
+                    user = msg['message']['user'];
                     console.log(user);
                     if (user['q_products_count'] > 0) {
                         let num_basket = document.getElementsByClassName('num_basket');

@@ -443,20 +443,20 @@
             }
             let address_data = '';
 
-            console.log($(address_address).suggestions({
-                    token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
-                    type: "ADDRESS",
-                    /* Вызывается, когда пользователь выбирает одну из подсказок */
-                    onSelect: function (suggestion) {
-                        console.log('Дашло 2');
-                        if (Number(suggestion['data']['fias_level']) < 8) {
-                            notification('Укажите точный адрес', 1);
-                            return;
-                        }
-                        address_data = suggestion['value'];
-                    }
-                })
-            )
+            // console.log($(address_address).suggestions({
+            //         token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
+            //         type: "ADDRESS",
+            //         /* Вызывается, когда пользователь выбирает одну из подсказок */
+            //         onSelect: function (suggestion) {
+            //             console.log('Дашло 2');
+            //             if (Number(suggestion['data']['fias_level']) < 8) {
+            //                 notification('Укажите точный адрес', 1);
+            //                 return;
+            //             }
+            //             address_data = suggestion['value'];
+            //         }
+            //     })
+            // )
 
             old_password.oninput = function () {
                 old_password.classList.remove('error');

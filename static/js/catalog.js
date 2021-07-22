@@ -269,8 +269,8 @@ filter_place.onclick = function (){
 
 sorted_select_items_list.style.display = 'none';
 pressing_on_arrow_name.onclick = function() {
-    let display = sorted_select_items_list.style.display;
-    if(display == 'none'){
+
+    if(sorted_select_items_list.style.display === 'none'){
         sorted_select_items_list.style.display = 'block';
         sorted_select_items.style.top = '35px';
         sorted_select_items.style.right = '10px';
