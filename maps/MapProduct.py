@@ -40,7 +40,6 @@ def api_product_get():
     params['basket_id'] = session['basket_id']
     response = utils.complete_request_with_parameters(params, request.path)
     print(response, params)
-    return response
 
 
 @product_app.route('/api/product/edit')
