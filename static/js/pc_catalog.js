@@ -65,6 +65,7 @@ function drawCategories(msg) {
                 category_id = 0;
             } else {
                 category_id = msg[i]['id'];
+                BreadCoast(category_id);
             }
             loadProducts();
         }
