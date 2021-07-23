@@ -49,10 +49,11 @@ def index():
 # Catalog
 @app.route('/catalog')
 def catalog():
+    id = request.values.get('category_id', 0, int)
     if utils.is_mobile(request.user_agent):
-        return render_template('catalog.html')
+        return render_template('catalog.html', id=id)
     else:
-        return render_template('pc_catalog.html')
+        return render_template('pc_catalog.html', id=id)
 
 
 # favorites

@@ -3,7 +3,7 @@
     <div class="container">
         <div class="flex_menu">
             <nav class="nav">
-                <a class="nav-link" href="/catalog">Каталог</a>
+                <a class="nav-link" href="/catalog?category_id=1">Каталог</a>
                 <a class="nav-link" onclick="OpenPopup(ds_popup ,3)">Доставка</a>
                 <a class="nav-link">Оплата</a>
                 <a class="nav-link" href="/blog">Блог</a>
@@ -171,7 +171,7 @@
             </div>
 
             <!-- Карточка товара в корзине -->
-            <div id="basket_item_place" style="display: none;">
+            <div id="basket_items_place" style="display: none;">
                 <div class="basket_item" id="basket_item" style="display: none;">
                     <div class="catalog_flex" style="justify-content: normal">
                         <div class="small_product_card" style="margin-right:15px;">
@@ -261,8 +261,11 @@
             <img src="../static/img/catalog_img.png" class="slider_img">
         </a>
         <div class="name_and_price">
-            <div class="slider_name_bucket">Букет "Индиго"</div>
-            <div class="catalog_flex_catalog "
+            <div class="catalog_flex_catalog">
+                <div class="slider_name_bucket">Букет "Индиго"</div>
+                <div class="price_basket" style="display: none;"></div>
+            </div>
+            <div class="catalog_flex_catalog for_basket"
                  style="align-items: center;justify-content: space-between;padding: 0 15px;">
                 <div>
                     <div class="price">
@@ -317,7 +320,7 @@
         <div class="container">
             <div class="flex_menu">
                 <nav class="nav">
-                    <a class="nav-link" href="/catalog">Каталог</a>
+                    <a class="nav-link" href="/catalog?category_id=1">Каталог</a>
                     <a class="nav-link">Доставка</a>
                     <a class="nav-link">Оплата</a>
                     <a class="nav-link" href="/blog">Блог</a>
@@ -418,6 +421,9 @@
     function OpenPopup(popup, status) {
         // status: 1 - регистрация с авторизацией, 2 - корзина, 3 - скидка
         blurpopup.style.display = 'block';
+        blurpopup.onclick = function () {
+            ClosePopup(popup);
+        }
         body.style.overflow = 'hidden';
         if (status === 1) {
             popup.classList.add('_active');
@@ -496,7 +502,7 @@
                 } else {
                     choose_delivery_list.className = '_active';
                     chevron_for_delivery.classList.add('_active');
-                    basket_item_place.className = 'move_up';
+                    basket_items_place.className = 'move_up';
                     notification('Выберите способ доставки', 1);
                 }
             }
@@ -642,17 +648,17 @@
                         //         num_likeds[i].style.display = 'flex';
                         //     }
                         // }
-                        if (user['avatar'] !== "null") {
-                            let img = document.createElement('img');
-                            img.className = 'avatar_user';
-                            img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
-                            user_item.innerHTML = '';
-                            user_item.append(img);
-                        }
                         favorites_btn[i].href = '/favorites';
 
                         basket_btn[i].onclick = function () {
                             OpenPopup(basket_popup, 2);
+                        }
+                        if (user['avatar'] !== "null") {
+                            let img = document.createElement('img');
+                            img.className = 'avatar_user';
+                            img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
+                            user_btn[i].innerHTML = '';
+                            user_btn[i].append(img);
                         }
                         user_btn[i].href = '/cabinet';
                     }
@@ -715,6 +721,8 @@
         let discount_price = box.getElementsByClassName('disc_price_bucket')[0];
         let added_product = box.getElementsByClassName('added_product')[0];
         let product_counter_inp = box.getElementsByClassName('product_counter_inp')[0];
+        let for_basket = box.getElementsByClassName('for_basket')[0];
+        let price_basket = box.getElementsByClassName('price_basket')[0];
 
         img.src = product['photos'][0];
         name.innerText = product['name'];
@@ -744,6 +752,10 @@
         }
 
         if (product['q_count'] > 0) {
+            box.classList.add('in_basket');
+            for_basket.style.display = 'none';
+            price_basket.style.display = 'block';
+            price_basket.innerText = Number(product['q_count'] * product['discount_cost']) + ' ₽';
             price_hover.style.display = 'none';
             added_product.style.display = 'flex';
             product_counter_inp.value = product['q_count'];
@@ -773,7 +785,7 @@
             data: data,
             success: function (msg) {
                 console.log(msg);
-                loadProducts();
+                // loadProducts();
                 loadBasket();
             }
         })
@@ -837,11 +849,11 @@
         if (chevron_for_delivery.classList.contains('_active')) {
             choose_delivery_list.className = '';
             chevron_for_delivery.classList.remove('_active');
-            basket_item_place.className = '';
+            basket_items_place.className = '';
         } else {
             choose_delivery_list.className = '_active';
             chevron_for_delivery.classList.add('_active');
-            basket_item_place.className = 'move_up';
+            basket_items_place.className = 'move_up';
         }
     }
 
@@ -862,10 +874,10 @@
                     console.log(basket_id);
                     drawBasket(msg['message']['products']);
                 }
-                if (msg['message']['basket']['positions_count'] > 0) {
+                if (msg['message']['basket']['products_count'] > 0) {
                     let num_basket = document.getElementsByClassName('num_basket');
                     for (let i = 0; i < num_basket.length; i++) {
-                        num_basket[i].innerText = msg['message']['basket']['positions_count'];
+                        num_basket[i].innerText = msg['message']['basket']['products_count'];
                         num_basket[i].style.display = 'flex';
                     }
                 }
@@ -882,8 +894,8 @@
             let box = createProductBasket(products[i]);
             box.classList.add('delete_basket');
             box.style.display = 'block';
-            basket_item_place.append(box);
-            basket_item_place.style.display = 'block';
+            basket_items_place.append(box);
+            basket_items_place.style.display = 'block';
             choose_delivery.onclick = function () {
                 outdoingList();
             }
@@ -926,11 +938,67 @@
         }
         if (product['discount_type'] > 0) {
             price.classList.add('have_disc');
-            discount_price.innerText = product['discount_cost'] + ' ₽';
-        } else {
+            price.innerText = Number(product['cost'] * product['q_count']) + ' ₽';
             discount_price.style.display = 'block';
+            discount_price.innerText = Number(product['discount_cost'] * product['q_count']) + ' ₽';
+        } else {
+            discount_price.style.display = 'none';
+            price.innerText = Number(product['cost'] * product['q_count']) + ' ₽';
         }
-        price.innerText = product['cost'] + ' ₽';
+
+
+        delete_product.onclick = function () {
+            DeleteProductBasket(product['id']);
+        }
+        href.href = '/product?id=' + product['id'];
+        return box;
+    }
+
+
+    // Отрисовка слайдера
+    function createProductSlider(product) {
+        let box = document.getElementById('basket_item').cloneNode(true);
+        box.id = '';
+        let href = box.getElementsByClassName('small_product_place')[0];
+        let img = box.getElementsByClassName('small_product_img')[0];
+        let name = box.getElementsByClassName('bucket_na_zakaz')[0];
+        let price = box.getElementsByClassName('price')[0];
+        let discount_price = box.getElementsByClassName('disc_price_bucket')[0];
+        let delete_product = box.getElementsByClassName('fa-times')[0];
+        let input = box.getElementsByClassName('product_counter_inp')[0];
+        let minus_counter = box.getElementsByClassName('minus_counter')[0];
+        let plus_counter = box.getElementsByClassName('plus_counter')[0];
+        // img.src = 'https://azbukaflower.ru/wp-content/uploads/2019/02/1999072.jpg?v=1601926983';
+        name.innerText = product['name'];
+        let value_inp = product['q_count'];
+        input.value = Number(value_inp);
+        console.log(Number(input.value));
+
+        if (input.value === 1) {
+            minus_counter.classList.add('disabled');
+        }
+        minus_counter.onclick = function () {
+            // console.log(input.value);
+            // if (input.value === 1) {
+            //     return;
+            // }
+            // input.value -= Number(1);
+            console.log('Жэпа');
+        }
+        plus_counter.onclick = function () {
+            console.log(input.value);
+            input.value += Number(1);
+        }
+        if (product['discount_type'] > 0) {
+            price.classList.add('have_disc');
+            price.innerText = Number(product['cost'] * product['q_count']) + ' ₽';
+            discount_price.style.display = 'block';
+            discount_price.innerText = Number(product['discount_cost'] * product['q_count']) + ' ₽';
+        } else {
+            discount_price.style.display = 'none';
+            price.innerText = Number(product['cost'] * product['q_count']) + ' ₽';
+        }
+
 
         delete_product.onclick = function () {
             DeleteProductBasket(product['id']);
