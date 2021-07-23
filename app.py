@@ -33,8 +33,7 @@ app.register_blueprint(flower_app)
 app.register_blueprint(user_app)
 app.register_blueprint(delivery_app)
 app.register_blueprint(position_app)
-session.permanent = True
-app.permanent_session_lifetime = timedelta(days=31)
+
 
 
 # Index

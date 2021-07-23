@@ -1,5 +1,5 @@
 let category_id = 0;
-let sorted_type = 0;
+let sorted_type = 1;
 let cost_end = 150000;
 let cost_start = 0;
 let flowers = [];
@@ -67,12 +67,26 @@ function drawCategories(msg) {
                 category_id = msg[i]['id'];
             }
             loadProducts();
-            console.log('category_id:', category_id);
         }
         catalog_category_place.append(category);
         console.log('Высота', catalog_category_place.offsetHeight);
         place_top_cats.style.paddingTop = catalog_category_place.offsetHeight + 5 + 'px';
         place_top_cats.style.paddingBottom = '30px';
+        // //Сортировка по параметрам
+        // let inputs = document.getElementsByClassName('sorted_po');
+        // for (let i = 1; i < inputs.length + 1; i++) {
+        //     inputs[i].onclick = function () {
+        //         sorted_type = i;
+        //         console.log('sorted_type', sorted_type);
+        //         if ([i] !== sorted_type) {
+        //             active_sorted.innerText = inputs[i].getAttribute('placeholder');
+        //             console.log(inputs[i].getAttribute('placeholder'));
+        //             inputs[i].style.display = 'none';
+        //             sorted_select_items_list.className = '';
+        //             chevron_list.classList.remove('_active');
+        //         }
+        //     }
+        // }
     }
 
 }
@@ -106,32 +120,20 @@ function loadProducts() {
             drawProducts(msg['message']['products']);
         }
     });
-    /* Рендж для регулировки цен */
-    price_controller.onchange = function () {
-        console.log(price_controller.value);
-        price_max.value = price_controller.value;
-    }
-    /* Проверки при изменении цены */
-    price_min.onchange = function () {
-        console.log(price_min.value);
-        if (price_min.value < 0) {
-            price_min.value = 0;
-        }
-        if (price_min.value > price_max.value) {
-            price_min.value = price_max.value - 1;
-        }
-    }
-    price_max.onchange = function () {
-        if (price_max.value < 0) {
-            price_max.value = price_min.value + 1;
-        }
-        if (price_max.value < price_min.value) {
-            price_max.value = price_min.value + 1;
-        }
-    }
+
 
     /* Выпадающий список с сортировками по названиям, по цене и т.д */
     chevron_for_list.onclick = function () {
+        let inputs = document.getElementsByClassName('sorted_po');
+        console.log('inputs', inputs);
+        for (let i = 1; i < inputs.length + 1; i++) {
+            console.log(i, sorted_type);
+            if (i !== sorted_type) {
+                inputs[i - 1].style.display = 'block';
+            } else {
+                inputs[i - 1].style.display = 'none';
+            }
+        }
         if (chevron_list.classList.contains('_active')) {
             sorted_select_items_list.className = '';
             chevron_list.classList.remove('_active');
@@ -153,7 +155,7 @@ function loadProducts() {
 
     throw_off.onclick = function () {
         category_id = 0;
-        sorted_type = 0;
+        sorted_type = 1;
         cost_end = 150000;
         cost_start = 0;
         flowers = [];
@@ -199,6 +201,8 @@ function loadFlowers() {
         success: function (msg) {
             console.log(msg);
             drawFlowers(msg['message']);
+            minPrice();
+            maxPrice();
         }
     })
 }
@@ -303,5 +307,69 @@ function drawProducts(msg) {
         }
         pag_place.append(pagination);
     }
-
 }
+
+// Получение миниальной цены товара в категории
+function minPrice() {
+    let data = {
+        'category_id': id,
+    }
+    $.ajax({
+        url: '/api/min_price_for_category',
+        type: "GET",
+        data: data,
+        success: function (msg) {
+            console.log(msg);
+            price_min.value = msg['message']['min_cost'];
+            price_controller.setAttribute('min', Number(msg['message']['min_cost']));
+
+            /* Рендж для регулировки цен */
+            price_controller.oninput = function () {
+                console.log(price_controller.value);
+                price_max.value = price_controller.value;
+            }
+            /* Проверки при изменении цены */
+            price_min.onchange = function () {
+                console.log(price_min.value);
+                if (Number(price_min.value) < msg['message']['min_cost']) {
+                    price_min.value = Number(msg['message']['min_cost']);
+                }
+                if (Number(price_min.value) > Number(price_max.value)) {
+                    price_min.value = Number(msg['message']['min_cost']);
+                }
+            }
+        }
+    })
+}
+
+// Получение максимальной цены товара в категории
+function maxPrice() {
+    let data = {
+        'category_id': id,
+    }
+    $.ajax({
+        url: '/api/max_price_for_category',
+        type: "GET",
+        data: data,
+        success: function (msg) {
+            console.log(msg);
+            price_max.value = msg['message']['max_cost'];
+            price_controller.setAttribute('max', Number(msg['message']['max_cost']));
+            price_max.onchange = function () {
+                if (Number(price_max.value) < Number(price_min.value)) {
+                    price_max.value = Number( price_min.value + price_max.value++);
+                }
+                if(Number(price_max.value) > msg['message']['max_cost']){
+                    price_max.value = msg['message']['max_cost'];
+                }
+            }
+        }
+    })
+}
+
+
+// Хлебные крошки
+BreadCoast(id);
+
+
+
