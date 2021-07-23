@@ -40,7 +40,6 @@ def api_product_get():
     params['basket_id'] = session['basket_id']
     response = utils.complete_request_with_parameters(params, request.path)
     print(response, params)
-    return response
 
 
 @product_app.route('/api/product/edit')
@@ -109,3 +108,23 @@ def api_product_remove_image():
 @product_app.route('/api/products/edit_image', methods=['POST'])
 def api_user_edit_image():
     return utils.complete_request_post(json.loads(request.data), request.path)
+
+
+@product_app.route('/api/max_price_for_category')
+def api_max_price_for_category():
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    response = utils.complete_request_with_parameters(params, request.path)
+    print(response)
+    return response
+
+
+@product_app.route('/api/min_price_for_category')
+def api_min_price_for_category():
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    response = utils.complete_request_with_parameters(params, request.path)
+    print(response)
+    return response

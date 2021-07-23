@@ -320,17 +320,17 @@
         let data_value = inp_choose_data.value;
         inp_data.classList.remove('_active');
         addres_info_date.innerText = data_value.split('-').reverse().join('.');
-        // console.log(data_value);
-        // console.log(day_now);
+        console.log(data_value);
+        console.log(day_now);
 
         // ПРОВЕРКА НА СОВПАДЕНИЕ ДАТЫ
 
-        // if(data_value === day_now){
-        //     // if(time_value <= inp_choose_time.min && time_value >=  inp_choose_time.max){
-        //     //     console.log('Сейчас заказать нельзя');
-        //     //
-        //     // }
-        // }
+        if(data_value === day_now){
+            if(time_value <= inp_choose_time.min && time_value >=  inp_choose_time.max){
+                console.log('Сейчас заказать нельзя');
+
+            }
+        }
     }
 
 
@@ -365,7 +365,8 @@
             url: '/api/basket/get_by_basket_id',
             type: 'GET',
             success: function (msg) {
-                if (msg['message']['basket']['purchase_type'] === 1) {
+                purchase_type = msg['message']['basket']['purchase_type']
+                if (purchase_type === 1) {
                     shop_id = -1;
                     date_time_place.style.display = 'none';
                     loadShops();
@@ -412,20 +413,20 @@
     }
 
 
-    // Изменение количества товара
-    function changeCounter(action) {
-        console.log(Number(counter_product.value));
-        if (action === 1) {
-            counter_product.value += 1;
-        } else {
-            if (counter_product.value === 1) {
-                minus_counter.classList.add('none_active');
-                return;
-            } else {
-                counter_product.value -= 1;
-            }
-        }
-    }
+    // // Изменение количества товара
+    // function changeCounter(action) {
+    //     console.log(Number(counter_product.value));
+    //     if (action === 1) {
+    //         counter_product.value += 1;
+    //     } else {
+    //         if (counter_product.value === 1) {
+    //             minus_counter.classList.add('none_active');
+    //             return;
+    //         } else {
+    //             counter_product.value -= 1;
+    //         }
+    //     }
+    // }
 
     $('#address_user').suggestions({
             token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
@@ -598,7 +599,7 @@
             select_shops.classList.add('error');
             return;
         }
-        if (address_user.value === '') {
+        if (purchase_type === 2 && address_user.value === '') {
             notification('Заполните адрес доставки', 1);
             address_user.classList.add('error');
             return;

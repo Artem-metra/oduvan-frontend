@@ -135,7 +135,7 @@
                                 <div class="address_info_zag">
                                     Адрес:
                                 </div>
-                                <input class="popup_input address_address" id="address_address"
+                                <input class="popup_input address_address"
                                        style="height: 35px;width: 70%;">
                             </div>
                             <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0;">
@@ -682,7 +682,7 @@
             name.innerText = products[i]['name'];
             cost.innerText = products[i]['discount_cost'] + ' ₽';
             href_product.href = 'product?id=' + products[i]['id'];
-            order.style.display = 'block';
+            order.style.display = 'inline-block';
             box.append(order);
         }
         box.style.display = 'block';

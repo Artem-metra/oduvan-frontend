@@ -22,11 +22,11 @@
                 <div class="sorted_text" style="display: block" id="sorted_text">
                     <div id="sorted_place">
                         <div class="catalog_flex" style="padding: 0;">
-                            <div class="sorted_select_item" style="color: #293048;border-bottom: 0">
+                            <div class="sorted_select_item" style="color: #293048;border-bottom: 0;width: 35%;height: 100%;">
                                 Сортировка:
                             </div>
                             <div class="catalog_flex" style="padding:0">
-                                <div class="sorted_text_select">
+                                <div class="sorted_text_select" id="active_sorted">
                                     По названию
                                 </div>
                                 <div id="chevron_for_list"><span class="fa fa-chevron-down" id="chevron_list"></span>
@@ -36,18 +36,11 @@
                     </div>
                     <div id="sorted_select_items_list">
                         <div class="sorted_select_items">
-                            <input class="sorted_select_item">
-                            Самые популярные
-
-                            <input class="sorted_select_item">
-                            По возрастанию цены
-
-                            <input class="sorted_select_item">
-                            По убыванию цены
-
-                            <input class="sorted_select_item">
-                            По размеру скидки
-
+                            <input class="sorted_select_item sorted_po" placeholder="По названию" readonly>
+                            <input class="sorted_select_item sorted_po" placeholder="По возрастанию цены" readonly>
+                            <input class="sorted_select_item sorted_po" placeholder="По убыванию цены" readonly>
+                            <input class="sorted_select_item sorted_po" placeholder="По размеру скидки" readonly>
+                            <input class="sorted_select_item sorted_po" placeholder="Самые популярные" readonly>
                         </div>
                     </div>
                 </div>
@@ -173,14 +166,12 @@
                                 </div>
                             </div>
                             <div class="added_product" style="display: none">
-                                <div>
-                                    <span class="fa fa-minus"></span>
-                                </div>
+                                <div class="fa fa-minus minus_counter"></div>
                                 <div>
                                     В корзине: <input type="number" class="product_counter_inp"/>
                                 </div>
                                 <div>
-                                    <span class="fa fa-plus"></span>
+                                    <div class="fa fa-plus plus_counter"></div>
                                 </div>
                             </div>
                         </div>
