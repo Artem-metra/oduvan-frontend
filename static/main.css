@@ -1029,7 +1029,7 @@ input[type="checkbox"] {
     letter-spacing: 0.04em;
     text-transform: uppercase;
     justify-content: space-between;
-    margin-top: 15px;
+    margin-top: 50px;
 
 }
 
@@ -1069,19 +1069,6 @@ input[type="checkbox"] {
     right: 8px;
 }
 
-.discount_place {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    height: 61px;
-    width: auto;
-    display: flex;
-    background: #29304845;
-    border-radius: 68px;
-    align-items: center;
-    justify-content: space-between;
-    padding:5px;
-}
 .percent_place{
     width: 61px;
     height: 100%;
@@ -1893,10 +1880,11 @@ input[type="checkbox"] {
     background: #FFFFFF;
     box-shadow: 0 2px 7px rgba(41, 48, 72, 0.15);
     position: relative;
+    margin-right: 36px;
 }
 
 .slider_item_card:nth-child(2n+1) {
-    margin-right: 24px;
+    margin-right: 0px;
 }
 
 .slider_item_card .right_nav_place {
@@ -1906,7 +1894,7 @@ input[type="checkbox"] {
     font-size: 32px;
     position: absolute;
     right: 5px;
-    top:5px;
+    top:20px;
 }
 
 .add_to_favorites {
@@ -1917,8 +1905,8 @@ input[type="checkbox"] {
 
 .discount_place {
     position: absolute;
-    top: 8px;
-    left: 8px;
+    top: 20px;
+    left: 20px;
     height: 61px;
     width: auto;
     display: flex;
@@ -2336,4 +2324,36 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #ac51b5;
 }
+
+
+.catalog_zag._active_cat {
+    color: #F877AD;
+}
+
+.price_hover {
+    opacity: 0;
+    z-index: 1;
+    transition: opacity .4s;
+    width: 100%;
+    background: #293048;
+    height: 70px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+}
+
+.price_hover_price {
+    font-size: 24px;
+}
+
+pagination_place {
+    width: 100%;
+    text-align: center;
+}
+
 
