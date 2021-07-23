@@ -33,8 +33,14 @@ def api_products_sort_from_max_to_min():
 
 @product_app.route('/api/product/get')
 def api_product_get():
-    pass
-    return utils.complete_request(request, request.path)
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    params['user_id'] = session['user_id']
+    params['basket_id'] = session['basket_id']
+    response = utils.complete_request_with_parameters(params, request.path)
+    print(response, params)
+    return response
 
 
 @product_app.route('/api/product/edit')
@@ -73,14 +79,21 @@ def site_products_smart():
         params['basket_id'] = 0
     print(params)
     resp = utils.complete_request_post_with_parameters({'info': params}, request.path)
-    #print('rest', resp)
+    # print('rest', resp)
     print(resp)
     return resp
 
 
 @product_app.route('/site/likeds/products')
 def site_likeds_products():
-    return utils.complete_request(request, request.path)
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    params['user_id'] = session['user_id']
+    params['basket_id'] = session['basket_id']
+    response = utils.complete_request_with_parameters(params, request.path)
+    print(response, params)
+    return response
 
 
 @product_app.route('/api/products/add_image', methods=['POST'])

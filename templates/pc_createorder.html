@@ -26,7 +26,7 @@
                 <div id="addresses_place">
 
                 </div>
-                <div class="checkbox" style="margin-left:5px;">
+                <div class="checkbox" id="get_other_people_place" style="margin-left:5px;">
                     <input type="checkbox" id="get_other_people"
                            class="scal_chek custom-checkbox" style="margin-top: 20px;">
                     <label for="get_other_people" class="lab_desc sub_zag">Отправить другому человеку</label>
@@ -248,7 +248,7 @@
     let payment_type = 0;
     let address = '';
     let additionally = []; // Текс комментария, текст открытки, переноска, аквапак
-    // let purchase_type = 0;
+    let purchase_type = 0;
     let date_delivery_come = '00:00';
 
 
@@ -354,13 +354,13 @@
                 name_user.value = user['name'] + ' ' + user['surname'];
                 phone_user.value = '+7' + user['phone'];
                 email_user.value = user['email'];
-                loadBasket();
+                loadBasketOrder();
             }
         });
     }
 
     // Подгрузка товаров для оформления заказа
-    function loadBasket() {
+    function loadBasketOrder() {
         $.ajax({
             url: '/api/basket/get_by_basket_id',
             type: 'GET',
@@ -369,14 +369,17 @@
                     shop_id = -1;
                     date_time_place.style.display = 'none';
                     loadShops();
+                    get_other_people_place.style.display = 'none';
+                    address_user.style.display = 'none';
                 }
+
                 console.log(msg);
                 $('.delete_card').remove();
                 let final_price = document.getElementsByClassName('final_price');
                 for (let i = 0; i < final_price.length; i++) {
                     final_price[i].innerText = msg['message']['basket']['discount_cost'] + ' ₽';
                 }
-                drawBasket(msg['message']['products']);
+                drawBasketOrder(msg['message']['products']);
             }
         })
     }
@@ -388,6 +391,7 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                $('.delete_shop').remove();
                 // Если пользователь не выбрал магазин для доставки, то при ончейндж селекта, еррор пропадает
                 select_shops.onchange = function () {
                     select_shops.classList.remove('error');
@@ -395,6 +399,7 @@
                 for (let i = 0; i < msg['message']['shops'].length; i++) {
                     let option = document.createElement('option');
                     option.value = msg['message']['shops'][i]['id'];
+                    option.className = 'delete_shop';
                     option.innerText = msg['message']['shops'][i]['name'];
                     select_shops.append(option);
                 }
@@ -439,7 +444,7 @@
 
 
     // Отрисовка товаров
-    function drawBasket(products) {
+    function drawBasketOrder(products) {
         console.log(products, basket_id);
         for (let i = 0; i < products.length; i++) {
             let box = createProductBasket(products[i]);

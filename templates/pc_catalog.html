@@ -15,9 +15,9 @@
                 <div class="place_breadcoast">
                     <a href="">Главная</a> / <a href="">Каталог</a> / <a href="">Букеты</a>
                 </div>
-                <h1 class="catalog_zag">
-                    Букеты
-                </h1>
+                <div id="place_top_cats">
+
+                </div>
 
                 <div class="sorted_text" style="display: block" id="sorted_text">
                     <div id="sorted_place">
@@ -37,16 +37,16 @@
                     <div id="sorted_select_items_list">
                         <div class="sorted_select_items">
                             <input class="sorted_select_item">
-                                Самые популярные
+                            Самые популярные
 
                             <input class="sorted_select_item">
-                                По возрастанию цены
+                            По возрастанию цены
 
                             <input class="sorted_select_item">
-                                По убыванию цены
+                            По убыванию цены
 
                             <input class="sorted_select_item">
-                                По размеру скидки
+                            По размеру скидки
 
                         </div>
                     </div>
@@ -118,7 +118,7 @@
             <!-- Основная часть каталога -->
             <div class="catalog_card_place">
                 <!-- Категории -->
-                <div id="catalog_category_place">
+                <div id="catalog_category_place" style="padding-bottom: 25px;">
                     <div class="catalog_category" id="catalog_category_card" style="display: none">
                         <div class="catalog_category_item">
                             Все
@@ -146,8 +146,11 @@
                             <img src="../static/img/catalog_img.png" class="slider_img">
                         </a>
                         <div class="name_and_price">
-                            <div class="slider_name_bucket">Букет "Индиго"</div>
-                            <div class="catalog_flex_catalog"
+                            <div class="catalog_flex" style="padding-bottom: 0px;">
+                                <div class="slider_name_bucket">Букет "Индиго"</div>
+                                <div class="price_basket slider_name_bucket" style="display: none;"></div>
+                            </div>
+                            <div class="catalog_flex_catalog for_basket"
                                  style="align-items: center;justify-content: space-between;padding: 0 15px;">
                                 <div>
                                     <div class="price">
@@ -196,6 +199,9 @@
 
 {% include 'pc_utilites.html' %}
 <!-- Функции к каталогу -->
+<script>
+    let id = {{id}};
+</script>
 <script src="../static/js/pc_catalog.js"></script>
 
 

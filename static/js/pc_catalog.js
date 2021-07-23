@@ -13,12 +13,31 @@ getCategories();
 
 // Получим категории
 function getCategories() {
+    let data = {
+        'category_id': id,
+    }
     $.ajax({
         url: '/api/categories/get',
+        data: data,
         type: 'GET',
         success: function (msg) {
             console.log(msg['message']);
-            drawCategories(msg['message']);
+            for (let i = 0; i < msg['message']['top_categories'].length; i++) {
+                let div = document.createElement('div');
+                div.style.padding = '8px 0';
+                let item = document.createElement('a');
+                item.href = 'catalog?category_id=' + msg['message']['top_categories'][i]['id'];
+                if (msg['message']['top_categories'][i]['id'] === id) {
+                    item.className = 'catalog_zag _active_cat';
+                } else {
+                    item.className = 'catalog_zag';
+                }
+
+                item.innerText = msg['message']['top_categories'][i]['name'];
+                div.append(item);
+                place_top_cats.append(div);
+            }
+            drawCategories(msg['message']['categories']);
         }
     });
 }
@@ -51,6 +70,9 @@ function drawCategories(msg) {
             console.log('category_id:', category_id);
         }
         catalog_category_place.append(category);
+        console.log('Высота', catalog_category_place.offsetHeight);
+        place_top_cats.style.paddingTop = catalog_category_place.offsetHeight + 5 + 'px';
+        place_top_cats.style.paddingBottom = '30px';
     }
 
 }
@@ -271,11 +293,11 @@ function drawProducts(msg) {
         pagination.classList.add('delete_paginations');
         let pag_num = pagination.getElementsByClassName('pagination_num')[0];
         pag_num.innerText = i;
-        if(i === page){
+        if (i === page) {
             pagination.classList.add('_active');
         }
         pagination.style.display = 'inline-block';
-        pagination.onclick = function(){
+        pagination.onclick = function () {
             page = i;
             loadProducts();
         }
