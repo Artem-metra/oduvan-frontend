@@ -1,4 +1,6 @@
 # from backend_app import *
+from datetime import timedelta
+
 from flask import Flask, request, abort, session, json, render_template
 import utils, traceback
 from maps.MapArticle import article_app
@@ -31,6 +33,8 @@ app.register_blueprint(flower_app)
 app.register_blueprint(user_app)
 app.register_blueprint(delivery_app)
 app.register_blueprint(position_app)
+session.permanent = True
+app.permanent_session_lifetime = timedelta(days=31)
 
 
 # Index
