@@ -13,8 +13,12 @@ def api_category_create():
 
 @category_app.route('/api/categories/get')
 def api_categories_get():
-    pass
-    return utils.complete_request(request, request.path)
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    response = utils.complete_request_with_parameters(params, request.path)
+    print(response)
+    return response
 
 
 @category_app.route('/api/category/get')
