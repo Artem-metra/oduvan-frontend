@@ -19,7 +19,7 @@
 <div class="catalog">
     <div class="container">
         <div id="favorites_place">
-            <div id="card_product" style="display: none;">
+            <div class="slider_item_card" id="card_product" style="display: none">
                 <div class="right_nav_place">
                     <div class="right_nav_item">
 
@@ -37,8 +37,11 @@
                     <img src="../static/img/catalog_img.png" class="slider_img">
                 </a>
                 <div class="name_and_price">
-                    <div class="slider_name_bucket">Букет "Индиго"</div>
-                    <div class="catalog_flex_catalog"
+                    <div class="catalog_flex" style="padding-bottom: 0;">
+                        <div class="slider_name_bucket">Букет "Индиго"</div>
+                        <div class="slider_name_bucket price_basket" style="display: none;"></div>
+                    </div>
+                    <div class="catalog_flex_catalog for_basket"
                          style="align-items: center;justify-content: space-between;padding: 0 15px;">
                         <div>
                             <div class="price">
@@ -65,7 +68,7 @@
                             <span class="fa fa-minus"></span>
                         </div>
                         <div>
-                            В корзине: 1
+                            В корзине: <input type="number" class="product_counter_inp"/>
                         </div>
                         <div>
                             <span class="fa fa-plus"></span>
@@ -88,14 +91,14 @@
             url: '/api/user/get',
             type: 'GET',
             success: function (msg) {
-                user = msg['user'];
-                loadFavorites();
+                user = msg['message']['user'];
+                loadProducts();
             }
         });
     }
 
 
-    function loadFavorites() {
+    function loadProducts() {
         console.log(user);
         console.log('user', user['id']);
         let data = {
@@ -106,7 +109,7 @@
             type: "GET",
             data: data,
             success: function (msg) {
-                 $('.delete_card').remove();
+                $('.delete_card').remove();
                 console.log(msg);
                 drawProducts(msg['message']['products']);
                 paginations = msg['message']['pages'];

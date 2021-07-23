@@ -15,18 +15,18 @@
                 <div class="place_breadcoast">
                     <a href="">Главная</a> / <a href="">Каталог</a> / <a href="">Букеты</a>
                 </div>
-                <h1 class="catalog_zag">
-                    Букеты
-                </h1>
+                <div id="place_top_cats">
+
+                </div>
 
                 <div class="sorted_text" style="display: block" id="sorted_text">
                     <div id="sorted_place">
                         <div class="catalog_flex" style="padding: 0;">
-                            <div class="sorted_select_item" style="color: #293048;border-bottom: 0">
+                            <div class="sorted_select_item" style="color: #293048;border-bottom: 0;width: 35%;height: 100%;">
                                 Сортировка:
                             </div>
                             <div class="catalog_flex" style="padding:0">
-                                <div class="sorted_text_select">
+                                <div class="sorted_text_select" id="active_sorted">
                                     По названию
                                 </div>
                                 <div id="chevron_for_list"><span class="fa fa-chevron-down" id="chevron_list"></span>
@@ -36,18 +36,11 @@
                     </div>
                     <div id="sorted_select_items_list">
                         <div class="sorted_select_items">
-                            <div class="sorted_select_item">
-                                Самые популярные
-                            </div>
-                            <div class="sorted_select_item">
-                                По возрастанию цены
-                            </div>
-                            <div class="sorted_select_item">
-                                По убыванию цены
-                            </div>
-                            <div class="sorted_select_item">
-                                По размеру скидки
-                            </div>
+                            <input class="sorted_select_item sorted_po" placeholder="По названию" readonly>
+                            <input class="sorted_select_item sorted_po" placeholder="По возрастанию цены" readonly>
+                            <input class="sorted_select_item sorted_po" placeholder="По убыванию цены" readonly>
+                            <input class="sorted_select_item sorted_po" placeholder="По размеру скидки" readonly>
+                            <input class="sorted_select_item sorted_po" placeholder="Самые популярные" readonly>
                         </div>
                     </div>
                 </div>
@@ -62,7 +55,7 @@
                             <input type="number" value="0" id="price_min"> ₽
                         </div>
                     </div>
-                        <div class="price_place">
+                    <div class="price_place">
                         <span>До</span>
                         <div id="price_do" class="price_price">
                             <input type="number" value="100000" id="price_max"> ₽
@@ -77,11 +70,14 @@
                 <div id="flowers_place">
                     <div class="choose_flower" id="choose_flower" style="display: none">
                         <div class="checkbox" style="margin-left:5px;">
-                            <input type="checkbox" id="flower_item"
-                                   class="scal_chek custom-checkbox">
-                            <label for="flower_item" class="lab_desc sub_zag checkbox_for_choose_flower"></label>
+                            <input type="checkbox" id="choose_flow_one"
+                                   class="scal_chek checkbox_for_choose_flower custom-checkbox"
+                                   style="margin-top: 20px;">
+                            <label for="choose_flow_one" class="lab_desc">
+                                <span class="name_flower"></span>
+                            </label>
                         </div>
-                        <span class="name_flower">Роза кустовая</span>
+
                     </div>
                 </div>
 
@@ -115,7 +111,7 @@
             <!-- Основная часть каталога -->
             <div class="catalog_card_place">
                 <!-- Категории -->
-                <div id="catalog_category_place">
+                <div id="catalog_category_place" style="padding-bottom: 25px;">
                     <div class="catalog_category" id="catalog_category_card" style="display: none">
                         <div class="catalog_category_item">
                             Все
@@ -143,8 +139,11 @@
                             <img src="../static/img/catalog_img.png" class="slider_img">
                         </a>
                         <div class="name_and_price">
-                            <div class="slider_name_bucket">Букет "Индиго"</div>
-                            <div class="catalog_flex_catalog"
+                            <div class="catalog_flex" style="padding-bottom: 0px;">
+                                <div class="slider_name_bucket">Букет "Индиго"</div>
+                                <div class="price_basket slider_name_bucket" style="display: none;"></div>
+                            </div>
+                            <div class="catalog_flex_catalog for_basket"
                                  style="align-items: center;justify-content: space-between;padding: 0 15px;">
                                 <div>
                                     <div class="price">
@@ -167,14 +166,12 @@
                                 </div>
                             </div>
                             <div class="added_product" style="display: none">
+                                <div class="fa fa-minus minus_counter"></div>
                                 <div>
-                                    <span class="fa fa-minus"></span>
+                                    В корзине: <input type="number" class="product_counter_inp"/>
                                 </div>
                                 <div>
-                                    В корзине: 1
-                                </div>
-                                <div>
-                                    <span class="fa fa-plus"></span>
+                                    <div class="fa fa-plus plus_counter"></div>
                                 </div>
                             </div>
                         </div>
@@ -193,6 +190,9 @@
 
 {% include 'pc_utilites.html' %}
 <!-- Функции к каталогу -->
+<script>
+    let id = {{id}};
+</script>
 <script src="../static/js/pc_catalog.js"></script>
 
 

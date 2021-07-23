@@ -24,9 +24,10 @@ def api_user_get():
         params[item] = request.args.get(item)
     if 'user_id' not in params.keys():
         if 'user_id' in session:
-            params = {'id': session['user_id']}
+            params = {'user_id': session['user_id']}
         else:
             return 'error'
+
     return utils.complete_request_with_parameters(params, request.path)
 
 
@@ -86,4 +87,19 @@ def api_user_add_new_avatar():
 
 @user_app.route('/api/user/remove_avatar')
 def api_user_remove_avatar():
+    return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/user/change_address')
+def api_user_change_address():
+    return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/user/remove_address')
+def api_user_remove_address():
+    return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/history_deals/get_all')
+def get_all_deals_for_user():
     return utils.complete_request(request, request.path)

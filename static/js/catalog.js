@@ -195,7 +195,6 @@ function drawFlowers(flower) {
         checkbox.id = 'flowers-' + i;
         // name_flower.for = 'flowers' + i;
         checkbox.onchange = function () {
-
             if (checkbox.checked) {
                 flowers.push(checkbox.value);
             } else {
@@ -255,21 +254,38 @@ function drawProducts(msg) {
 
 appear_about_pressing.style.display = 'none'
 filter_place.onclick = function (){
-    appear_about_pressing.style.display = 'block';
-    my_class_img.style.transform = 'rotate(180deg)';
-    my_class_img.style.transition = 'transform .3s';
+    let display = appear_about_pressing.style.display;
+    if(display == 'none'){
+        appear_about_pressing.style.display = 'block';
+        my_class_img.style.transform = 'rotate(180deg)';
+        my_class_img.style.transition = 'transform .3s';
+    }else {
+        appear_about_pressing.style.display = 'none';
+        my_class_img.style.transform = 'rotate(0deg)';
+        my_class_img.style.transition = 'transform .3s';
+    }
 }
 
 
 sorted_select_items_list.style.display = 'none';
 pressing_on_arrow_name.onclick = function() {
-    sorted_select_items_list.style.display = 'block';
-    sorted_select_items.style.top = '35px';
-    sorted_select_items.style.right = '10px';
-    height_increase.style.height = '140px';
-    // height_increase.style.float = 'right';
-    my_privat_mar.style.marginTop = '-140px';
-    height_increase.style.width = '50%';
-    my_class_cher.style.transform = 'rotate(180deg)';
-    my_class_cher   .style.transition = 'transform .3s';
+
+    if(sorted_select_items_list.style.display === 'none'){
+        sorted_select_items_list.style.display = 'block';
+        sorted_select_items.style.top = '35px';
+        sorted_select_items.style.right = '10px';
+        height_increase.style.height = '180px';
+        my_privat_mar.style.marginTop = '-180px';
+        height_increase.style.width = '50%';
+        my_class_cher.style.transform = 'rotate(180deg)';
+        my_class_cher.style.transition = 'transform .3s';
+    }else {
+        sorted_select_items_list.style.display = 'none';
+        my_class_cher.style.transform = 'rotate(0deg)';
+        my_class_cher.style.transition = 'transform .3s';
+        height_increase.style.height = '0';
+        height_increase.style.height = '180px';
+        my_privat_mar.style.marginTop = '-180px';
+        height_increase.style.width = '50%';
+    }
 }
