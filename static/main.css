@@ -2356,4 +2356,8 @@ pagination_place {
     text-align: center;
 }
 
+.slider_item_card .right_nav_item .fa-heart._active{
+     color: #F877AD;
+}
+
 

@@ -274,7 +274,7 @@
                         2 600 Р
                     </div>
                 </div>
-                <div class="add_to_basket_card" id="add_to_basket_card">
+                <div class="add_to_basket_card">
                     <span class="fas fa-shopping-bag"></span>
                 </div>
             </div>
@@ -670,11 +670,12 @@
     }
 
 
-    /* Отрисовка товара */
+
+     /* Отрисовка товара */
     function createProduct(product) {
         let box = document.getElementById('card_product').cloneNode(true);
         box.id = '';
-        box.className = 'slider_item_card';
+        box.className = 'slider_item_card delete_card';
         let img = box.getElementsByClassName('slider_img')[0];
         let name = box.getElementsByClassName('slider_name_bucket')[0];
         let price = box.getElementsByClassName('price')[0];
@@ -685,8 +686,16 @@
         let discount_text = box.getElementsByClassName('discount_text')[0];
         let discount_place = box.getElementsByClassName('discount_place')[0];
         let discount_price = box.getElementsByClassName('disc_price_bucket')[0];
+        let added_product = box.getElementsByClassName('added_product')[0];
+        let for_basket = box.getElementsByClassName('for_basket')[0];
+        let price_basket = box.getElementsByClassName('price_basket')[0];
+        let plus_counter = box.getElementsByClassName('plus_counter')[0];
+        let input = box.getElementsByClassName('product_counter_inp')[0];
+        let minus_counter = box.getElementsByClassName('minus_counter')[0];
+        input.value = Number(product['q_count']);
         img.src = product['photos'][0];
         name.innerText = product['name'];
+        // Если продукт имеет скидку
         if (product['discount_type'] > 0) {
             price.classList.add('have_disc');
             discount_text.innerText = product['discount_type'] + ' % ' + 'скидка';
@@ -696,29 +705,109 @@
             discount_price.style.display = 'none';
         }
         // hover_price.innerText = product['discount_cost'] + ' ₽';
+        price.innerText = product['cost'] + ' ₽';
+        href.href = 'product?id=' + product['id'];
 
-       if (product['q_is_liked'] === 1) {
+        // Если продукт в избранном
+        if (product['q_is_liked'] === 1) {
             place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
             place_for_favor.onclick = function () {
                 DeleteLikeds(product['id'], user['id']);
+                place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
             }
-       }    else {
+        } else {
             place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
             place_for_favor.onclick = function () {
                 AddLikeds(product['id'], user['id']);
+                place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
             }
-       }
+        }
+        // Если продукт в корзине
+        if (product['q_count'] > 0) {
+            console.log(product['q_count']);
+            box.classList.add('in_basket');
+            for_basket.style.display = 'none';
+            price_basket.innerText = Number(product['q_count'] * product['discount_cost']) + ' ₽';
+            price_basket.style.display = 'block';
 
-        .onclick = function () {
-                // showAuth();
-            console.log('Четко')
-            // console.log(product['id']);
-            // addProduct(product['id'], count);
-    }
 
+            console.log(Number(input.value));
+            // Счётчик
+            input.onchange = function () {
+                if (Number(input.value) > 1) {
+                    changeProduct(product['id'], Number(input.value));
+                    price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+                }
+                if (Number(input.value) < 1) {
+                    input.value = 1;
+                    price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+                }
+            }
+            if (Number(input.value) === 1) {
+                minus_counter.classList.add('disabled');
+            }
+            minus_counter.onclick = function () {
+                if (Number(input.value) > 1) {
+                    input.value--;
+                    addProduct(product['id'], Number(-1));
+                    price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+                } else {
+                    minus_counter.classList.add('disabled');
+                }
+                console.log(input.value);
+            }
+            plus_counter.onclick = function () {
+                if (Number(input.value) >= 1) {
+                    minus_counter.classList.remove('disabled');
+                    input.value++;
+                    addProduct(product['id'], Number(1));
+                    price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+                }
+                console.log(input.value);
+            }
+            added_product.style.display = 'flex';
 
+        } else {
+            // let add_to_basket_card = document.getElementsByClassName('add_to_basket_card')[0];
+            // add_to_basket_card.onclick = function () {
+            //     addProduct(product['id'], 1);
+            //     box.classList.add('in_basket');
+            //     added_product.style.display = 'flex';
+            //     for_basket.style.display = 'none';
+            //     input.value = 1;
+            //     price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+            //     price_basket.style.display = 'block';
+            //     input.onchange = function () {
+            //         if (input.value > 1) {
+            //             changeProduct(product['id'], Number(input.value));
+            //             price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+            //         }
+            //     }
+            //     if (Number(input.value) === 1) {
+            //         minus_counter.classList.add('disabled');
+            //     }
+            //     minus_counter.onclick = function () {
+            //         if (Number(input.value) > 1) {
+            //             input.value--;
+            //             addProduct(product['id'], Number(-1));
+            //             price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+            //         } else {
+            //             minus_counter.className = 'disabled';
+            //         }
+            //     }
+            //     plus_counter.onclick = function () {
+            //         if (Number(input.value) >= 1) {
+            //             minus_counter.classList.remove('disabled');
+            //             input.value++;
+            //             addProduct(product['id'], Number(1));
+            //             price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+            //         }
+            //     }
+            // }
+        }
         return box;
     }
+
 
 
 
