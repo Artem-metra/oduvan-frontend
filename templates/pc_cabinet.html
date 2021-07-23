@@ -135,10 +135,8 @@
                                 <div class="address_info_zag">
                                     Адрес:
                                 </div>
-                                <div style="width: 70%">
-                                    <input class="popup_input address_address"
-                                           style="height: 35px;">
-                                </div>
+                                <input class="popup_input address_address" id="address_address"
+                                       style="height: 35px;width: 70%;">
                             </div>
                             <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0;">
                                 <div class="all_catalog_href"
@@ -249,14 +247,12 @@
 
     /* Получение пользователя */
     GetUser();
-    console.log(user);
 
     function GetUser() {
         $.ajax({
             url: '/api/user/get',
             type: 'GET',
             success: function (msg) {
-                console.log('user', user);
                 user = msg['message']['user'];
                 DrawInfoUser();
             }
@@ -422,7 +418,6 @@
                     address_data = suggestion['value'];
                 }
             })
-
 
             old_password.oninput = function () {
                 old_password.classList.remove('error');
@@ -656,7 +651,6 @@
                 for(let i = 0; i < msg['message']['deals_list'].length; i++){
                   drawHistory(msg['message']['deals_list'][i]);
                 }
-
             }
 
         })
