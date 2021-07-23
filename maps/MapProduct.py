@@ -80,7 +80,14 @@ def site_products_smart():
 
 @product_app.route('/site/likeds/products')
 def site_likeds_products():
-    return utils.complete_request(request, request.path)
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    params['user_id'] = session['user_id']
+    params['basket_id'] = session['basket_id']
+    response = utils.complete_request_with_parameters(params, request.path)
+    print(response)
+    return response
 
 
 @product_app.route('/api/products/add_image', methods=['POST'])
