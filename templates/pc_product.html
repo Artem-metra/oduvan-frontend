@@ -11,7 +11,7 @@
 <div class="catalog">
     <div class="container">
         <div class="place_breadcoast">
-            <a href="">Главная</a> / <a href="">Избранное</a>
+            <a href="">Главная</a> /
         </div>
 
         <div class="catalog_flex_catalog" style="margin-top:50px;">
@@ -57,7 +57,7 @@
                 <div class="price" id="price" style="padding:20px 0 15px 0;display: inline-block">5 400 ₽</div>
 
                 <!-- Счетчик товаров -->
-                <div class="add_to_basket_place">
+                <div class="add_to_basket_place" id="basket_place">
                     <div id="minus_counter" style="text-align: center">
                         <div class="fa fa-minus" id="minus_counter_btn"></div>
                     </div>
@@ -271,7 +271,7 @@
             success: function (msg) {
                 console.log('product', msg);
                 category_id = msg['product']['category_id'];
-
+                getCategory(category_id);
                 drawProduct(msg['product']);
             }
         })
@@ -283,18 +283,18 @@
         console.log(msg);
         description_product.innerText = msg['description'];
         name_bucket.innerText = msg['name'];
-
-
         let count = document.getElementById('counter_product');
-
-        count.value = msg['q_count'];
-
+        if (msg['q_count'] === 0) {
+            count.value = 1;
+        } else {
+            count.value = msg['q_count'];
+        }
         count.onchange = function () {
             if (count.value === '') {
-                count.value === 1;
+                count.value = 1;
                 return;
             } else if (count.value < 1) {
-                count.value === 1;
+                count.value = 1;
                 return;
             } else {
                 addProduct(msg['id'], Number(count.value));
@@ -302,13 +302,30 @@
             }
 
         }
-        price.innerText = Number(msg['cost'] * msg['q_count']) + ' ₽';
-        if (msg['discount_type'] > 0) {
+        if (msg['q_count'] > 0) {
             disc_price_bucket.innerText = Number(msg['discount_cost'] * msg['q_count']) + ' ₽';
-            price.classList.add('have_disc')
+            price.innerText = Number(msg['cost'] * msg['q_count']) + ' ₽';
+            add_to_basket.style.display = 'block';
+            count.value = msg['q_count'];
+            basket_place.style.display = 'none';
+
+
         } else {
-            disc_price_bucket.style.display = 'none';
+            price.innerText = Number(msg['cost']) + ' ₽';
+            if (msg['discount_type'] > 0) {
+                disc_price_bucket.innerText = Number(msg['discount_cost']) + ' ₽';
+                price.classList.add('have_disc')
+            } else {
+                disc_price_bucket.style.display = 'none';
+            }
+            add_to_basket.onclick = function () {
+                addProduct(msg['id'], count.value);
+                add_to_basket.style.display = 'none';
+                basket_place.style.display = 'flex';
+                getProduct();
+            }
         }
+
         let minus = document.getElementById('minus_counter');
         let plus = document.getElementById('plus_counter');
 
@@ -337,17 +354,11 @@
         }
 
 
-        add_to_basket.onclick = function () {
-            addProduct(msg['id'], count.value);
-        }
-
     }
 
-    getCategory(category_id);
 
     /* Получить категорию */
     function getCategory(category_id) {
-        console.log(category_id)
         let data = {
             'category_id': category_id,
         }

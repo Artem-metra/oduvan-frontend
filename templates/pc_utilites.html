@@ -622,7 +622,6 @@
             url: '/api/user/get',
             type: 'GET',
             success: function (msg) {
-                console.log(msg);
                 loadBasket();
                 let user_btn = document.getElementsByClassName('user_item');
                 let favorites_btn = document.getElementsByClassName('favorites');
@@ -641,13 +640,6 @@
                     } else {
                         user = msg['message']['user'];
                         console.log(user);
-                        // if (user['liked'].length > 0) {
-                        //     let num_likeds = document.getElementsByClassName('num_likeds');
-                        //     for (let i = 0; i < num_likeds.length; i++) {
-                        //         num_likeds[i].innerText = user['liked'].length;
-                        //         num_likeds[i].style.display = 'flex';
-                        //     }
-                        // }
                         favorites_btn[i].href = '/favorites';
 
                         basket_btn[i].onclick = function () {
@@ -888,11 +880,11 @@
             'id': category_id,
         }
         $.ajax({
-            url: '/api/get_nesting_by_category_id',
+            url: '/api/get_nesting_by_id',
             data: data,
             type: 'GET',
             success: function (msg) {
-                console.log(msg);
+                console.log('breadcoast', msg);
             }
         })
     }
