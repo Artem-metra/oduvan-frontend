@@ -1853,7 +1853,34 @@ input[type="checkbox"] {
     display: none;
     padding:25px 0;
 }
-
+.add_address_order{
+    margin-right: 10px;
+}
+.add_address_order:last-child{
+    margin-right: 0;
+}
+.add_address_order .all_catalog_href{
+    width: 100%;
+    background: #FFFFFF;
+    color:#293048;
+    float: none;
+    height: 50px;
+}
+.column_grid{
+    width: 100%;
+    height:100%;
+    flex-direction: column;
+    align-items: center;
+}
+.column_grid div:first-child{
+    height: 15%;
+}
+.column_grid div:nth-child(2){
+    height:55%;
+}
+.column_grid div:last-child{
+    height:30%;
+}
 #recipient {
     /*transition: transform .5s;*/
     /*transform: scale(0);*/

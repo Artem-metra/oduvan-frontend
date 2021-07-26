@@ -877,20 +877,31 @@
         })
     }
 
-
+function breadCoast(categorie_id) {
+        let data = null;
+        $.ajax({
+            url: `http://213.139.208.90:1002/api/categories/get/path?id=` + categorie_id,
+            type: 'get',
+            async: false,
+            success: function (msg) {
+                data = msg;
+            }
+        });
+        return data;
+    }
     /* Хлебные крошки */
     function BreadCoast(category_id) {
-        let data = {
-            'id': category_id,
-        }
+        let data = [];
         $.ajax({
-            url: '/api/get_nesting_by_id',
-            data: data,
+            url: '/api/get_nesting_by_id?id=' + category_id,
             type: 'GET',
+            async: false,
             success: function (msg) {
                 console.log('breadcoast', msg);
+                data = msg['message']['list_categories'];
             }
-        })
+        });
+        return data;
     }
 
 
@@ -1120,8 +1131,6 @@
 
 
     /// Слайдер популярное
-
-    loadProducts()
 
     function loadProducts() {
         $('.delete_card').remove();

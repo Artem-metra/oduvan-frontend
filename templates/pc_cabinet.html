@@ -306,6 +306,7 @@
         your_mobile.value = '+7' + user['phone'];
         your_email_address.value = user['email'];
         avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
+        day_datepicker.value = user['birthday'];
         let inputs = document.getElementsByClassName('new_data');
         for (let i = 0; i < inputs.length; i++) {
             inputs[i].oninput = function () {
@@ -525,7 +526,7 @@
     function EditUser(status) {
         // status = 1 - изменение основных данных, 2 - пароля
         if (status === 1) {
-            if (your_name.value === '' || your_phone.value === '') {
+            if (your_name.value === '' || your_mobile.value === '') {
                 let inputs = document.getElementsByClassName('new_data');
                 for (let i = 0; i < inputs.length; i++) {
                     if (inputs[i].value === '') {
@@ -535,13 +536,12 @@
                 notification('Заполните обязательные поля!', 1);
                 return;
             }
-            let birthday = birthday_year + '.' + birthday_month + '.' + birthday_day;
             let data = {
                 'id': user['id'],
                 'name': your_name.value,
                 'surname': your_surname.value,
                 'phone': your_mobile.value,
-                'birthday': birthday,
+                'birthday': day_datepicker.value,
             }
             $.ajax({
                 url: '/api/user/edit',
@@ -549,7 +549,9 @@
                 type: "GET",
                 success: function (msg) {
                     console.log(msg);
-                    alert('Ваши данные успешно изменены');
+                    if(msg['status'] === 'ok'){
+                      notification('Ваши данные успешно изменены!', 2);
+                    }
                 }
             })
         } else {
@@ -699,7 +701,7 @@
     $(function () {
         $("#day_datepicker").datepicker({
             minDate: "-3650D",
-            maxDate: 0
+            maxDate: new Date()
         });
     });
 
