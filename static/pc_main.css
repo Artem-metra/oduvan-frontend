@@ -666,7 +666,7 @@ position: absolute;
     color: #FFFFFF;
 }
 
-.added_product .fa-plus, .added_product .fa-minus {
+    .added_product .fa-plus, .added_product .fa-minus {
     font-size: 24px;
 }
 

@@ -181,6 +181,7 @@ input[type="checkbox"] {
 
 .right_header_part {
     text-align: right;
+    margin-top: 20px;
 }
 
 .right_header_part_item {
@@ -255,6 +256,7 @@ input[type="checkbox"] {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-bottom: 30px;
 }
 
 .mobile_menu span {
@@ -889,7 +891,7 @@ input[type="checkbox"] {
 }
 
 .sub_zag {
-    font-size: 28px;
+    font-size: 32px;
     color: #293048;
 }
 
@@ -931,7 +933,7 @@ input[type="checkbox"] {
 }
 
 .blog_item_text_zag {
-    font-size: 42px;
+    font-size: 50px;
     line-height: 110%;
     text-transform: uppercase;
     font-weight: 450;
@@ -939,7 +941,7 @@ input[type="checkbox"] {
 
 .description_explanations {
     margin-top: 20px;
-    font-size: 38px;
+    font-size: 28px;
     line-height: 120%;
     font-weight: normal;
 }
@@ -949,7 +951,7 @@ input[type="checkbox"] {
     background: linear-gradient(81.1deg, #FFF0EF 0%, #FAEFFF 100%);
     height: 400px;
     width: 185px;
-    right: -100px;
+    right: 0px;
     top: 40%;
     z-index: -1;
 }
@@ -997,7 +999,7 @@ input[type="checkbox"] {
 .catalog_category {
     border-radius: 100px;
     width: auto;
-    height: 40px;
+    /*height: 40px;*/
     display: inline-block;
     margin: 0 5px 10px 0;
 }
@@ -1015,7 +1017,7 @@ input[type="checkbox"] {
     cursor: pointer;
     margin-bottom: 8px;
     font-weight: 500;
-    padding: 3px 15px;
+    padding: 10px 25px;
     min-width: 95px;
 }
 
@@ -1842,11 +1844,6 @@ input[type="checkbox"] {
 }
 
 
-.description_explanations {
-    font-size: 24px;
-    line-height: 120%;
-    font-weight: normal;
-}
 
 .description_explanations span {
     display: block;
@@ -2119,7 +2116,7 @@ input[type="checkbox"] {
     color: #b0bbbe;
     border-bottom: 2px solid #b0bbbe;
     text-transform: uppercase;
-    font-size: 31px;
+    font-size: 36px;
     transition: all .3s;
 }
 
@@ -2359,5 +2356,123 @@ pagination_place {
 .slider_item_card .right_nav_item .fa-heart._active{
      color: #F877AD;
 }
+
+.date_input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    transform: translate(0, -120%);
+    transition: all .5s;
+    z-index: -1;
+    opacity: 0;
+
+}
+
+.date_input._active {
+    transform: translate(0, 0);
+    transition: all .5s;
+    opacity: 1;
+    z-index: 500;
+    top: -30px;
+}
+
+
+.pagination_item {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 25px 15px 0 0;
+    background: #29304833;
+    display: inline-block;
+    overflow: hidden;
+    font-size: 40px;
+}
+
+.pagination_item._active {
+    background: #F877AD;
+    color: #FFFFFF;
+}
+
+
+.pagination_num {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.pagination_num:hover {
+    cursor: pointer;
+}
+
+.pagination_num._active {
+    background: #293048;
+    color: #FFFFFF;
+}
+
+
+/* Добавление в корзину  */
+
+.added_product {
+    z-index: 2;
+    transition: opacity .4s;
+    width: 100%;
+    background: #293048;
+    height: 70px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+}
+
+.added_product .product_counter_inp {
+    color: #FFFFFF;
+}
+
+.added_product .fa-plus, .added_product .fa-minus {
+    font-size: 24px;
+}
+
+/* Правки по главной старнице */
+
+.bockets_mob{
+    font-size: 38px;
+    margin-right: 15px;
+    background: rgba(255, 255, 255, 0.6);
+    width: 170px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+
+.card_main_item {
+    width: 50%;
+    border: 16px solid #FFFFFF;
+    position: relative;
+    padding: 40px 0 40px 40px;
+    margin-bottom: 15px;
+    height: auto;
+    display: inline-block;
+    overflow: hidden;
+    background: linear-gradient(81.1deg, #FFF0EF 0%, #FAEFFF 100%);
+    box-shadow: 0px 4px 16px rgba(41, 48, 72, 0.15);
+}
+
+.price{
+    padding-left: 18px;
+    margin-top: 10px
+}
+
 
 

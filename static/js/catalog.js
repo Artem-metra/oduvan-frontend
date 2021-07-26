@@ -103,7 +103,7 @@ function loadProducts() {
         }
     });
     /* Рендж для регулировки цен */
-    price_controller.onchange = function () {
+    price_controller.oninput = function () {
         console.log(price_controller.value);
         price_max.value = price_controller.value;
     }
@@ -325,8 +325,8 @@ pressing_on_arrow_name.onclick = function() {
         sorted_select_items_list.style.display = 'block';
         sorted_select_items.style.top = '35px';
         sorted_select_items.style.right = '10px';
-        height_increase.style.height = '180px';
-        my_privat_mar.style.marginTop = '-180px';
+        // height_increase.style.height = '180px';
+        // my_privat_mar.style.marginTop = '-180px';
         height_increase.style.width = '50%';
         my_class_cher.style.transform = 'rotate(180deg)';
         my_class_cher.style.transition = 'transform .3s';
@@ -335,8 +335,8 @@ pressing_on_arrow_name.onclick = function() {
         my_class_cher.style.transform = 'rotate(0deg)';
         my_class_cher.style.transition = 'transform .3s';
         height_increase.style.height = '0';
-        height_increase.style.height = '180px';
-        my_privat_mar.style.marginTop = '-180px';
+        // height_increase.style.height = '180px';
+        // my_privat_mar.style.marginTop = '-180px';
         height_increase.style.width = '50%';
     }
 }

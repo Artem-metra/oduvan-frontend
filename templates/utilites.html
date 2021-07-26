@@ -244,8 +244,7 @@
 <!-- Карточка товара -->
 
 <div id="item_card_place" style="padding-top: 35px;display: none">
-    <!-- Карточка товара -->
-    <div class="slider_item_card" id="card_product">
+    <div class="slider_item_card" id="card_product" style="display: none">
         <div class="right_nav_place">
             <div class="right_nav_item">
 
@@ -263,8 +262,11 @@
             <img src="../static/img/catalog_img.png" class="slider_img">
         </a>
         <div class="name_and_price">
-            <div class="slider_name_bucket">Букет "Индиго"</div>
-            <div class="catalog_flex_catalog"
+            <div class="catalog_flex_catalog">
+                <div class="slider_name_bucket">Букет "Индиго"</div>
+                <div class="price_basket" style="display: none;"></div>
+            </div>
+            <div class="catalog_flex_catalog for_basket"
                  style="align-items: center;justify-content: space-between;padding: 0 15px;">
                 <div>
                     <div class="price">
@@ -278,15 +280,21 @@
                     <span class="fas fa-shopping-bag"></span>
                 </div>
             </div>
+            <div class="price_hover">
+                <div>
+                    В корзину
+                </div>
+                <div class="price_hover_price">
+                    5 400 ₽
+                </div>
+            </div>
             <div class="added_product" style="display: none">
+                <div class="fa fa-minus minus_counter"></div>
                 <div>
-                    <span class="fa fa-minus"></span>
+                    В корзине: <input type="number" class="product_counter_inp"/>
                 </div>
                 <div>
-                    В корзине: 1
-                </div>
-                <div>
-                    <span class="fa fa-plus"></span>
+                    <div class="fa fa-plus plus_counter"></div>
                 </div>
             </div>
         </div>
@@ -671,7 +679,7 @@
 
 
 
-     /* Отрисовка товара */
+    /* Отрисовка товара */
     function createProduct(product) {
         let box = document.getElementById('card_product').cloneNode(true);
         box.id = '';
@@ -768,39 +776,79 @@
             added_product.style.display = 'flex';
 
         } else {
-            // let add_to_basket_card = document.getElementsByClassName('add_to_basket_card')[0];
-            // add_to_basket_card.onclick = function () {
-            //     addProduct(product['id'], 1);
-            //     box.classList.add('in_basket');
-            //     added_product.style.display = 'flex';
-            //     for_basket.style.display = 'none';
-            //     input.value = 1;
-            //     price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
-            //     price_basket.style.display = 'block';
-            //     input.onchange = function () {
-            //         if (input.value > 1) {
-            //             changeProduct(product['id'], Number(input.value));
-            //             price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+            let add_to_basket_card = box.getElementsByClassName('add_to_basket_card')[0];
+            add_to_basket_card.style.zIndex = 100;
+            add_to_basket_card.onclick = function (){
+                console.log('asgasgdg')
+                addProduct(product['id'], 1);
+                box.classList.add('in_basket');
+                added_product.style.display = 'flex';
+                for_basket.style.display = 'none';
+                input.value = 1;
+                price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+                price_basket.style.display = 'block';
+                input.onchange = function () {
+                    if (input.value > 1) {
+                        changeProduct(product['id'], Number(input.value));
+                        price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+                    }
+                }
+                if (Number(input.value) === 1) {
+                    minus_counter.classList.add('disabled');
+                }
+                minus_counter.onclick = function () {
+                    if (Number(input.value) > 1) {
+                        input.value--;
+                        addProduct(product['id'], Number(-1));
+                        price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+                    } else {
+                        minus_counter.className = 'disabled';
+                    }
+                }
+                plus_counter.onclick = function () {
+                    if (Number(input.value) >= 1) {
+                        minus_counter.classList.remove('disabled');
+                        input.value++;
+                        addProduct(product['id'], Number(1));
+                        price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+                    }
+                }
+            }
+            // for( let i = 0; i < add_to_basket_card.length; i++){
+            //     add_to_basket_card.onclick = function () {
+            //         console.log('good');
+            //         addProduct(product['id'], 1);
+            //         box.classList.add('in_basket');
+            //         added_product.style.display = 'flex';
+            //         for_basket.style.display = 'none';
+            //         input.value = 1;
+            //         price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+            //         price_basket.style.display = 'block';
+            //         input.onchange = function () {
+            //             if (input.value > 1) {
+            //                 changeProduct(product['id'], Number(input.value));
+            //                 price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+            //             }
             //         }
-            //     }
-            //     if (Number(input.value) === 1) {
-            //         minus_counter.classList.add('disabled');
-            //     }
-            //     minus_counter.onclick = function () {
-            //         if (Number(input.value) > 1) {
-            //             input.value--;
-            //             addProduct(product['id'], Number(-1));
-            //             price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
-            //         } else {
-            //             minus_counter.className = 'disabled';
+            //         if (Number(input.value) === 1) {
+            //             minus_counter.classList.add('disabled');
             //         }
-            //     }
-            //     plus_counter.onclick = function () {
-            //         if (Number(input.value) >= 1) {
-            //             minus_counter.classList.remove('disabled');
-            //             input.value++;
-            //             addProduct(product['id'], Number(1));
-            //             price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+            //         minus_counter.onclick = function () {
+            //             if (Number(input.value) > 1) {
+            //                 input.value--;
+            //                 addProduct(product['id'], Number(-1));
+            //                 price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+            //             } else {
+            //                 minus_counter.className = 'disabled';
+            //             }
+            //         }
+            //         plus_counter.onclick = function () {
+            //             if (Number(input.value) >= 1) {
+            //                 minus_counter.classList.remove('disabled');
+            //                 input.value++;
+            //                 addProduct(product['id'], Number(1));
+            //                 price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+            //             }
             //         }
             //     }
             // }
@@ -811,7 +859,7 @@
 
 
 
-     function addProduct(id, count) {
+    function addProduct(id, count) {
         console.log(id, count);
         let data = {
             'product_id': id,
@@ -845,7 +893,7 @@
     }
 
 
-     function loadBasket() {
+    function loadBasket() {
         let data = {
             'user_id': user['id'],
         }
