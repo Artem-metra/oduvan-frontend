@@ -43,7 +43,7 @@
 
             <div class="mobile_list">
                 <div class="nav_list">
-                    <a class="nav-link" href="/catalog">Каталог</a>
+                    <a class="nav-link" href="/catalog?category_id=1">Каталог</a>
                     <a class="nav-link">Блог</a>
                     <a class="nav-link">Доставка</a>
                     <a class="nav-link">Оплата</a>
@@ -336,11 +336,11 @@
 
             <div class="catalog_flex" style="padding:25px 0">
                 <div style="width: 50%">
-                    <a class="nav-link" href="/catalog">Каталог</a>
+                    <a class="nav-link" href="/catalog?category_id=1">Каталог</a>
                     <a class="nav-link" href="/blog">Блог</a>
                 </div>
                 <div style="width: 50%">
-                    <a class="nav-link" href="/catalog">Доставка</a>
+                    <a class="nav-link" href="#">Доставка</a>
                     <a class="nav-link" href="/blog">Оплата</a>
                 </div>
             </div>
@@ -606,7 +606,7 @@
                         OpenPopup(registrationpopup, 1);
                     }
                 } else {
-                    user = msg['user'];
+                    user = msg['message']['user'];
                     console.log(user);
                     if (user['q_products_count'] > 0) {
                         let num_basket = document.getElementsByClassName('num_basket');

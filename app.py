@@ -1,4 +1,6 @@
 # from backend_app import *
+from datetime import timedelta
+
 from flask import Flask, request, abort, session, json, render_template
 import utils, traceback
 from maps.MapArticle import article_app
@@ -17,6 +19,7 @@ from maps.MapUser import user_app
 
 app = Flask(__name__)
 app.secret_key = 'super super secret key, her vzlomaesh'
+app.config['SESSION_PERMANENT'] = True
 
 app.register_blueprint(promo_code_app)
 app.register_blueprint(category_app)
@@ -33,6 +36,11 @@ app.register_blueprint(delivery_app)
 app.register_blueprint(position_app)
 
 
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+
+
 # Index
 @app.route('/')
 def index():
@@ -45,10 +53,11 @@ def index():
 # Catalog
 @app.route('/catalog')
 def catalog():
+    id = request.values.get('category_id', 0, int)
     if utils.is_mobile(request.user_agent):
-        return render_template('catalog.html')
+        return render_template('catalog.html', id=id)
     else:
-        return render_template('pc_catalog.html')
+        return render_template('pc_catalog.html', id=id)
 
 
 # favorites
@@ -114,6 +123,11 @@ def get_nesting_by_id():
 # @app.before_request
 # def redirect_on_api():
 # print(request)
+
+
+@app.route('/api/get_nesting_by_id')
+def get_nesting_by_id():
+    return utils.complete_request(request, request.path)
 
 
 if __name__ == '__main__':

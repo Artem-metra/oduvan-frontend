@@ -130,3 +130,15 @@ def api_basket_choice_purchase_type():
             return 'error'
     resp = utils.complete_request_with_parameters(params, request.path)
     return resp
+
+
+@basket_app.route('/api/change_count')
+def api_change_cost():
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    params['user_id'] = session['user_id']
+    params['basket_id'] = session['basket_id']
+    response = utils.complete_request_with_parameters(params, request.path)
+    print(response)
+    return response

@@ -11,7 +11,7 @@
 <div class="catalog">
     <div class="container">
         <div class="place_breadcoast">
-            <a href="">Главная</a> / <a href="">Избранное</a>
+            <a href="">Главная</a> /
         </div>
 
         <div class="catalog_flex_catalog" style="margin-top:50px;">
@@ -57,7 +57,7 @@
                 <div class="price" id="price" style="padding:20px 0 15px 0;display: inline-block">5 400 ₽</div>
 
                 <!-- Счетчик товаров -->
-                <div class="add_to_basket_place">
+                <div class="add_to_basket_place" id="basket_place">
                     <div id="minus_counter" style="text-align: center">
                         <div class="fa fa-minus" id="minus_counter_btn"></div>
                     </div>
@@ -242,19 +242,19 @@
     let id = {{id}};
 
 
-    function changeCounter(action) {
-        console.log(Number(counter_product.value));
-        if (action === 1) {
-            counter_product.value += 1;
-        } else {
-            if (counter_product.value === 1) {
-                minus_counter.classList.add('none_active');
-                return;
-            } else {
-                counter_product.value -= 1;
-            }
-        }
-    }
+    // function changeCounter(action) {
+    //     console.log(Number(counter_product.value));
+    //     if (action === 1) {
+    //         counter_product.value += 1;
+    //     } else {
+    //         if (counter_product.value === 1) {
+    //             minus_counter.classList.add('none_active');
+    //             return;
+    //         } else {
+    //             counter_product.value -= 1;
+    //         }
+    //     }
+    // }
 
 
     getProduct();
@@ -269,7 +269,7 @@
             type: 'GET',
             data: data,
             success: function (msg) {
-                console.log(msg);
+                console.log('product', msg);
                 category_id = msg['product']['category_id'];
                 getCategory(category_id);
                 drawProduct(msg['product']);
@@ -277,30 +277,88 @@
         })
     }
 
+
     /* Отрисовать продукт */
     function drawProduct(msg) {
         console.log(msg);
         description_product.innerText = msg['description'];
         name_bucket.innerText = msg['name'];
-        price.innerText = msg['cost'] + ' ₽';
-        if (msg['discount_type'] > 0) {
-            disc_price_bucket.innerText = msg['discount_cost'] + ' ₽';
-            price.classList.add('have_disc')
+        let count = document.getElementById('counter_product');
+        if (msg['q_count'] === 0) {
+            count.value = 1;
         } else {
-            disc_price_bucket.style.display = 'none';
+            count.value = msg['q_count'];
         }
-        let count = document.getElementById('counter_product')
+        count.onchange = function () {
+            if (count.value === '') {
+                count.value = 1;
+                return;
+            } else if (count.value < 1) {
+                count.value = 1;
+                return;
+            } else {
+                addProduct(msg['id'], Number(count.value));
+                getProduct();
+            }
+
+        }
+        if (msg['q_count'] > 0) {
+            disc_price_bucket.innerText = Number(msg['discount_cost'] * msg['q_count']) + ' ₽';
+            price.innerText = Number(msg['cost'] * msg['q_count']) + ' ₽';
+            add_to_basket.style.display = 'block';
+            count.value = msg['q_count'];
+            basket_place.style.display = 'none';
+
+
+        } else {
+            price.innerText = Number(msg['cost']) + ' ₽';
+            if (msg['discount_type'] > 0) {
+                disc_price_bucket.innerText = Number(msg['discount_cost']) + ' ₽';
+                price.classList.add('have_disc')
+            } else {
+                disc_price_bucket.style.display = 'none';
+            }
+            add_to_basket.onclick = function () {
+                addProduct(msg['id'], count.value);
+                add_to_basket.style.display = 'none';
+                basket_place.style.display = 'flex';
+                getProduct();
+            }
+        }
+
         let minus = document.getElementById('minus_counter');
-        add_to_basket.onclick = function () {
-            showAuth();
-            alert('Сделать корзину');
+        let plus = document.getElementById('plus_counter');
+
+
+        // Счетчик товаров
+        console.log(count.value);
+        if (Number(count.value) === 1) {
+            minus.className = 'disabled';
         }
+        minus.onclick = function () {
+            if (count.value > 1) {
+                count.value--;
+                addProduct(msg['id'], Number(-1));
+                getProduct();
+            } else {
+                minus.className = 'disabled';
+            }
+        }
+        plus.onclick = function () {
+            if (count.value >= 1) {
+                minus.classList.remove('disabled');
+                count.value++;
+                addProduct(msg['id'], Number(1));
+                getProduct();
+            }
+        }
+
 
     }
 
+
     /* Получить категорию */
     function getCategory(category_id) {
-        console.log(category_id)
         let data = {
             'category_id': category_id,
         }
@@ -315,23 +373,6 @@
         })
     }
 
-
-    // Счетчик товаров
-    minus.onclick = function () {
-        if (count.value > 1) {
-            count.value--;
-        }
-
-    }
-
-
-    plus_counter.onclick = function () {
-        if (count.value >= 1) {
-            count.value++;
-            console.log('test');
-        }
-
-    }
 
 </script>
 </body>

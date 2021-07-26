@@ -14,7 +14,7 @@
             ДОСТАВКА БУКЕТОВ <br> в Воронеже
         </h1>
         <strong class="main_sub_zag">Закажи свой идеальный букет</strong>
-        <div  id="down_to_catalog"><span class="fa fa-chevron-down"></span></div>
+        <div id="down_to_catalog"><span class="fa fa-chevron-down"></span></div>
     </div>
 </div>
 
@@ -23,7 +23,7 @@
     <div class="container">
         <div class="catalog_flex">
             <h2 class="catalog_zag">Наш каталог</h2>
-            <a class="all_catalog_href" href="/catalog">
+            <a class="all_catalog_href href_catalog" href="/catalog">
                 Весь каталог
             </a>
         </div>
@@ -83,7 +83,7 @@
     <div class="container">
         <div class="catalog_flex">
             <h2 class="catalog_zag">Популярное</h2>
-            <a class="all_catalog_href" href="/catalog">
+            <a class="all_catalog_href href_catalog" href="/catalog">
                 Весь каталог
             </a>
         </div>
@@ -499,6 +499,27 @@
 
 {% include 'pc_utilites.html' %}
 <script>
+
+    loadCategories();
+
+    function loadCategories() {
+        let data = {
+            'category_id': 0,
+        }
+        $.ajax({
+            url: '/api/categories/get',
+            data: data,
+            type: 'GET',
+            success: function (msg) {
+                console.log('categoris', msg);
+                let inputs = document.getElementsByClassName('href_catalog');
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].href = 'catalog?category_id=' + msg['message']['top_categories'][0]['id'];
+                }
+            }
+        });
+    }
+
 
     down_to_catalog.onclick = function (e) {
         e.preventDefault();
