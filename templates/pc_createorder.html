@@ -12,7 +12,19 @@
         <div class="place_breadcoast">
             <a href="/">Главная</a> / <a href="/createorder" class="active_page">Оформление заказа</a>
         </div>
-
+        <!-- В корзине пусто -->
+        <div class="basket_place" id="basket_place" style="min-height: 90vh;display: none;">
+            <div class="empty_basket" id="empty_basket_createorder">
+                <div class="empty_basket_info">
+                    <div class="name_buckets">
+                        В корзине пусто!
+                        <a class="all_catalog_href" href="/catalog?category_id=1">
+                            Перейти в каталог
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="catalog_flex createorder">
             <div class="requisites_place">
                 <div class="name_buckets">
@@ -23,9 +35,27 @@
                 <input class="popup_input" type="email" placeholder="Электронная почта" id="email_user">
                 <input class="popup_input" type="text" placeholder="Адрес куда доставить" id="address_user">
 
-                <div id="addresses_place">
-
-                </div>
+<!--                <div id="addresses_place" style="position: relative">-->
+<!--                    <div class="data_address address_info" id="address_item" style="display: none">-->
+<!--                        <div class="catalog_flex info">-->
+<!--                            <div class="address_info_zag">-->
+<!--                                Название:-->
+<!--                            </div>-->
+<!--                            <div class="address_info_zag name_address_user">-->
+<!--                                г.Воронеж, ул.Урыского, 2В-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="catalog_flex info">-->
+<!--                            <div class="address_info_zag">-->
+<!--                                Адрес:-->
+<!--                            </div>-->
+<!--                            <div class="address_info_zag address_address_user" style="width: 65%">-->
+<!--                                г.Воронеж, ул.Урыского, 2В-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="all_catalog_href choose_address" style="width: 100%">Выбрать</div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="checkbox" id="get_other_people_place" style="margin-left:5px;">
                     <input type="checkbox" id="get_other_people"
                            class="scal_chek custom-checkbox" style="margin-top: 20px;">
@@ -42,18 +72,18 @@
                 <div class="name_buckets">
                     Дополнительно
                 </div>
-                <input class="popup_input additionally_input" placeholder="Комментарии к заказу">
-                <input class="popup_input additionally_input" placeholder="Текст для открытки">
+                <input class="popup_input additionally_input" id="comment_order" placeholder="Комментарии к заказу">
+                <input class="popup_input additionally_input" id="text_order" placeholder="Текст для открытки">
 
                 <div class="catalog_flex">
                     <div class="checkbox" style="margin-left:5px;">
                         <input type="checkbox" id="add_carrying"
-                               class="scal_chek custom-checkbox additionally_input" value="0" style="margin-top: 20px;">
+                               class="scal_chek custom-checkbox" value="0" style="margin-top: 20px;">
                         <label for="add_carrying" class="lab_desc sub_zag">Добавить переноску</label>
                     </div>
                     <div class="checkbox" style="margin-left:5px;">
                         <input type="checkbox" id="add_aquapack"
-                               class="scal_chek custom-checkbox additionally_input" value="0" style="margin-top: 20px;">
+                               class="scal_chek custom-checkbox" value="0" style="margin-top: 20px;">
                         <label for="add_aquapack" class="lab_desc sub_zag">Добавить аквапак</label>
                     </div>
                 </div>
@@ -247,7 +277,7 @@
     let shop_id = 0;
     let payment_type = 0;
     let address = '';
-    let additionally = []; // Текс комментария, текст открытки, переноска, аквапак
+    let additionally = ['', '', 0, 0]; // Текс комментария, текст открытки, переноска, аквапак
     let purchase_type = 0;
     let date_delivery_come = '00:00';
 
@@ -325,8 +355,8 @@
 
         // ПРОВЕРКА НА СОВПАДЕНИЕ ДАТЫ
 
-        if(data_value === day_now){
-            if(time_value <= inp_choose_time.min && time_value >=  inp_choose_time.max){
+        if (data_value === day_now) {
+            if (time_value <= inp_choose_time.min && time_value >= inp_choose_time.max) {
                 console.log('Сейчас заказать нельзя');
 
             }
@@ -365,7 +395,8 @@
             url: '/api/basket/get_by_basket_id',
             type: 'GET',
             success: function (msg) {
-                purchase_type = msg['message']['basket']['purchase_type']
+                console.log('Корзина в оформлении заказа', msg)
+                purchase_type = msg['message']['basket']['purchase_type'];
                 if (purchase_type === 1) {
                     shop_id = -1;
                     date_time_place.style.display = 'none';
@@ -373,8 +404,11 @@
                     get_other_people_place.style.display = 'none';
                     address_user.style.display = 'none';
                 }
-
-                console.log(msg);
+                if (msg['message']['products'].length === 0) {
+                    document.getElementsByClassName('createorder')[0].style.display = 'none';
+                    document.getElementById('empty_basket_createorder').style.display = 'block';
+                    basket_place.style.display = 'block';
+                }
                 $('.delete_card').remove();
                 let final_price = document.getElementsByClassName('final_price');
                 for (let i = 0; i < final_price.length; i++) {
@@ -429,19 +463,18 @@
     // }
 
     $('#address_user').suggestions({
-            token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
-            type: "ADDRESS",
-            /* Вызывается, когда пользователь выбирает одну из подсказок */
-            onSelect: function (suggestion) {
-                console.log('Дашло 2');
-                if (Number(suggestion['data']['fias_level']) < 8) {
-                    notification('Укажите точный адрес', 1);
-                    return;
-                }
-                // address_data = suggestion['value'];
+        token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
+        type: "ADDRESS",
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function (suggestion) {
+            console.log('Дашло 2');
+            if (Number(suggestion['data']['fias_level']) < 8) {
+                notification('Укажите точный адрес', 1);
+                return;
             }
-        })
-
+            // address_data = suggestion['value'];
+        }
+    })
 
 
     // Отрисовка товаров
@@ -453,6 +486,27 @@
             box.classList.add('delete_card');
             document.getElementById('basket_item_place').append(box);
         }
+
+        // if (user['addresses'].length > 0) {
+        //     addresses_place.style.display = 'block';
+        //     for (let i = 0; i < user['addresses'].length; i++) {
+        //         let address = address_item.cloneNode(true);
+        //         address.id = '';
+        //         address.style.display = 'block';
+        //         let name = address.getElementsByClassName('name_address_user')[0];
+        //         let address_user = address.getElementsByClassName('address_address_user')[0];
+        //         let choose = address.getElementsByClassName('choose_address')[0];
+        //
+        //         name.innerText = user['addresses'][i]['name'];
+        //         address_user.innerText = user['addresses'][i]['address'];
+        //         choose.onclick = function(){
+        //             address_user.value = user['addresses'][i]['address'];
+        //         }
+        //         addresses_place.append(address);
+        //     }
+        // }
+
+
         document.getElementById('basket_item_place').style.display = 'block';
         /* Если чекбокс "Отправить другому человеку поставлен, то открываем блок "Получатель"" */
         get_other_people.onchange = function () {
@@ -503,35 +557,57 @@
         add_carrying.onchange = function () {
             if (add_carrying.checked) {
                 add_carrying.value = 1;
+                additionally[2] = 1;
+                console.log(additionally);
             } else {
+                additionally[2] = 0;
                 add_carrying.value = 0;
             }
         }
         add_aquapack.onchange = function () {
             if (add_aquapack.checked) {
                 add_aquapack.value = 1;
+                additionally[3] = 1;
+                console.log(additionally);
             } else {
                 add_aquapack.value = 0;
+                additionally[3] = 0;
             }
         }
 
-        // Добавляем в массив additionally при onchange
-        let add_inputs = document.getElementsByClassName('additionally_input');
-        for (let i = 0; i < add_inputs.length; i++) {
-            add_inputs[i].onchange = function () {
-                if (add_inputs[i].checked) {
-                    additionally.push(Number(add_inputs[i].value));
-                } else {
-                    additionally = removeItemAll(additionally, Number(add_inputs[i].value));
-                }
-                if (add_inputs[i].value === '') {
-                    additionally.push(add_inputs[i].value);
-                } else {
-                    additionally = removeItemAll(additionally, add_inputs[i].value);
-                }
-                console.log(additionally);
+
+        comment_order.onchange = function () {
+            if (comment_order.value === '') {
+                additionally[0] = '';
+            } else {
+                additionally[0] = comment_order.value;
             }
         }
+        text_order.onchange = function () {
+            if (text_order.value === '') {
+                additionally[1] = '';
+            } else {
+                additionally[1] = text_order.value;
+            }
+        }
+
+        // // Добавляем в массив additionally при onchange
+        // let add_inputs = document.getElementsByClassName('additionally_input');
+        // for (let i = 0; i < add_inputs.length; i++) {
+        //     add_inputs[i].onchange = function () {
+        //         if (add_inputs[i].checked) {
+        //             additionally.push(Number(add_inputs[i].value));
+        //         } else {
+        //             additionally = removeItemAll(additionally, Number(add_inputs[i].value));
+        //         }
+        //         if (add_inputs[i].value === '') {
+        //             additionally.push(add_inputs[i].value);
+        //         } else {
+        //             additionally = removeItemAll(additionally, add_inputs[i].value);
+        //         }
+        //         console.log(additionally);
+        //     }
+        // }
     }
 
     function removeItemAll(arr, value) {
@@ -560,6 +636,7 @@
                 if (msg['status'] === 'error') {
                     notification('Такого промокода не существует', 1);
                 } else {
+                    loadBasketOrder();
                     notification('Промокод успешно использован', 2);
                 }
                 console.log(msg);
@@ -585,7 +662,6 @@
                             notification('Заполните обязательные поля', 1);
                         }
                     }
-
                 }
             }
             return;
@@ -604,9 +680,7 @@
             address_user.classList.add('error');
             return;
         }
-        if (day_now === data_value) {
 
-        }
         createDeal();
     }
 

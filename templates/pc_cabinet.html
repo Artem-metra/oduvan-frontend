@@ -70,7 +70,8 @@
                     <!--                        <input class="popup_input" type="number" placeholder="Год" id="birthday_year"-->
                     <!--                               onkeypress="this.value=this.value.substring(0,3);">-->
                     <!--                    </div>-->
-                    <input type='text' class='datepicker-here popup_input' readonly placeholder="Дата рождения"/>
+                    <input type='text' id="day_datepicker" class='datepicker-here popup_input' readonly
+                           placeholder="Дата рождения"/>
                 </div>
                 <div class="all_catalog_href" style="float: none;width:100%;height:50px;" id="save_changes">
                     Сохранить изменения
@@ -135,8 +136,10 @@
                                 <div class="address_info_zag">
                                     Адрес:
                                 </div>
-                                <input class="popup_input address_address"
-                                       style="height: 35px;width: 70%;">
+                                <div style="width: 70%">
+                                    <input class="popup_input address_address"
+                                           style="height: 35px;width: 100%;">
+                                </div>
                             </div>
                             <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0;">
                                 <div class="all_catalog_href"
@@ -254,6 +257,7 @@
             type: 'GET',
             success: function (msg) {
                 user = msg['message']['user'];
+                $('.delete_address').remove();
                 DrawInfoUser();
             }
         });
@@ -308,8 +312,6 @@
                 inputs[i].classList.remove('error');
             }
         }
-
-
         // Если у пользователя уже есть адреса в ЛК, то выводим блок с адресами
         if (user['addresses'].length !== 0) {
             console.log(user['addresses'].length);
@@ -322,6 +324,7 @@
                     }
                 }
                 box.id = '';
+                box.classList.add('delete_address');
                 let data_address = box.getElementsByClassName('data_address')[0];
                 let name_address_user = box.getElementsByClassName('name_address_user')[0];
                 let address_address_user = box.getElementsByClassName('address_address_user')[0];
@@ -357,7 +360,6 @@
                             type: "ADDRESS",
                             /* Вызывается, когда пользователь выбирает одну из подсказок */
                             onSelect: function (suggestion) {
-                                console.log('Дашло 2');
                                 if (Number(suggestion['data']['fias_level']) < 8) {
                                     notification('Укажите точный адрес', 1);
                                     return;
@@ -390,7 +392,7 @@
                 }
             }
             box.id = '';
-
+            box.classList.add('delete_address');
             let icon = box.getElementsByClassName('right_nav_place')[0];
             let btn_add = box.getElementsByClassName('blog_item_text_read')[0];
             let completed_address = box.getElementsByClassName('completed_address')[0];
@@ -595,6 +597,7 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                notification('Адрес успешно сохранён!', 2);
                 GetUser();
             }
         })
@@ -615,6 +618,8 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                notification('Ваши данные обновлены!', 2);
+                GetUser();
             }
         })
     }
@@ -633,6 +638,8 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                notification('Адрес успешно удалён!', 2);
+                GetUser();
             }
         })
     }
@@ -648,8 +655,8 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
-                for(let i = 0; i < msg['message']['deals_list'].length; i++){
-                  drawHistory(msg['message']['deals_list'][i]);
+                for (let i = 0; i < msg['message']['deals_list'].length; i++) {
+                    drawHistory(msg['message']['deals_list'][i]);
                 }
             }
 
@@ -665,7 +672,7 @@
         let cost = box.getElementsByClassName('cost_order')[0];
         let date = box.getElementsByClassName('date_order')[0];
         address.innerText = order_item['address'];
-        cost.innerText = order_item['cost']  + ' ₽';
+        cost.innerText = order_item['cost'] + ' ₽';
         let order_date = order_item['date_delivery'].split(' ', '');
         console.log(order_date);
         date.innerText = order_item['date_delivery'];
@@ -688,6 +695,13 @@
         box.style.display = 'block';
         personal_history.append(box);
     }
+
+    $(function () {
+        $("#day_datepicker").datepicker({
+            minDate: "-3650D",
+            maxDate: 0
+        });
+    });
 
 
 </script>

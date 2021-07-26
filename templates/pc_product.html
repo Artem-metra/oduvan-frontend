@@ -114,98 +114,18 @@
                 Весь каталог
             </a>
         </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
+        <!-- Слайдер -->
+        <div id="swiper_place">
+            <div class="row rw m-t-16" id="slider_place">
+                <!-- Slider Banners -->
+                <div class="col-xs-12">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper"></div>
+                        <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>
+                        <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>
+                        <!--                        <div class="pagination_place">-->
+                        <!--                            <div class="swiper-pagination" style="position:static"></div>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -273,6 +193,7 @@
                 category_id = msg['product']['category_id'];
                 getCategory(category_id);
                 drawProduct(msg['product']);
+                loadProducts();
             }
         })
     }
