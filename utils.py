@@ -1,6 +1,7 @@
 import json
 
 import requests
+from flask import Response
 
 address = 'http://45.12.19.118:80'
 
@@ -14,6 +15,33 @@ def complete_request_with_data(path):
     url = address + path
     resp = requests.get(url, data)
     return json.loads(resp.text)
+
+
+def getError(error_text):
+    res = {
+        'status': 'error',
+        'message': error_text
+    }
+    return Response(
+        response=json.dumps(res, ensure_ascii=False),
+        mimetype='application/json',
+        status=200
+    )
+
+
+def getAnswer(text, info=None):
+    if info is None:
+        info = {}
+    res = {
+        'status': 'ok',
+        'message': text
+    }
+    answer = {**res, **info}
+    return Response(
+        response=json.dumps(answer, ensure_ascii=False),
+        mimetype='application/json',
+        status=200
+    )
 
 
 def complete_request(req, path):

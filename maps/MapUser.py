@@ -62,7 +62,12 @@ def api_user_auth():
 
 @user_app.route('/api/user/liked')
 def api_user_liked():
-    return utils.complete_request(request, request.path)
+    product_id = request.values.get('product_id')
+    if 'liked' not in session:
+        session['liked'] = 1
+    else:
+        session['liked'] = session.get('liked') + 1
+    return utils.getAnswer('ok')
 
 
 @user_app.route('/api/user/disliked')
@@ -97,19 +102,4 @@ def api_user_add_new_avatar():
 
 @user_app.route('/api/user/remove_avatar')
 def api_user_remove_avatar():
-    return utils.complete_request(request, request.path)
-
-
-@user_app.route('/api/user/change_address')
-def api_user_change_address():
-    return utils.complete_request(request, request.path)
-
-
-@user_app.route('/api/user/remove_address')
-def api_user_remove_address():
-    return utils.complete_request(request, request.path)
-
-
-@user_app.route('/api/history_deals/get_all')
-def get_all_deals_for_user():
     return utils.complete_request(request, request.path)
