@@ -87,6 +87,42 @@ input[type="checkbox"] {
     padding: 0 30px;
 }
 
+
+/* Уведомления об ошибке или успешности действия */
+.notification {
+    position: fixed;
+    width: 400px;
+    height: 150px;
+    border-radius: 8px;
+    bottom: 20px;
+    right: 20px;
+    transform: translate(120%, 0);
+    transition: transform .4s;
+    background: #3e3e3e;
+    color: #FFFFFF;
+    z-index: 9999;
+}
+
+.notification_zag {
+    padding: 4px 0;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+.notification_message {
+    font-size: 30px;
+    padding: 5px 10px;
+}
+
+.notification._active {
+    transform: translate(0, 0);
+    transition: transform .4s;
+}
+
+
+
 /* Header */
 .header {
     height: 100px;
@@ -346,7 +382,7 @@ input[type="checkbox"] {
 .main_zag {
     font-style: normal;
     font-weight: 450;
-    font-size: 96px;
+    font-size: 110px;
     line-height: 110%;
     text-transform: uppercase;
     position: absolute;
@@ -354,7 +390,7 @@ input[type="checkbox"] {
 }
 
 .main_sub_zag {
-    font-size: 36px;
+    font-size: 44px;
     line-height: 100%;
     font-weight: normal;
     margin: 45px 0 30px 0;
@@ -611,8 +647,10 @@ input[type="checkbox"] {
 }
 
 .basket_info .catalog_flex {
-    padding: 15px 0;
+    padding: 0px 35px;
     border-bottom: 4px solid #293048;
+    margin-top: 40px;
+    margin-bottom: 17px;
 }
 
 .basket_info .address_info_zag {
@@ -661,15 +699,48 @@ input[type="checkbox"] {
 }
 
 .basket_item {
-    width: 100%;
+    width: 90%;
     position: relative;
-    height: 155px;
+    height: 270px;
 }
 
-.basket_item .fa-times {
-    color: #293048;
-    font-size: 20px;
+/*.basket_item .fa-times {*/
+/*    color: #293048;*/
+/*    font-size: 20px;*/
+/*    top: 4px;*/
+/*    right: 4px;*/
+/*}*/
+
+
+#basket_items_place.move_up {
+    padding-top: 50px;
+    transition: padding-top .3s;
 }
+
+#choose_delivery_list._active {
+    transform: translate(0, 62px);
+    opacity: 1;
+    transition: all .4s;
+    z-index: 10;
+
+}
+
+.basket_info .fa-chevron-down._active {
+    transform: rotate(180deg);
+    transition: transform .2s;
+}
+
+#choose_delivery_list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translate(0, -14px);
+    opacity: 0;
+    transition: all .4s;
+    z-index: -10;
+}
+
 
 .basket_item .fa-times:hover {
     color: #F54343;
@@ -730,7 +801,7 @@ input[type="checkbox"] {
 /*======= Главная ===========*/
 /* Каталог на главной */
 .catalog {
-    padding: 50px 0;
+    padding: 100px 0;
 }
 
 .catalog_flex {
@@ -777,7 +848,7 @@ input[type="checkbox"] {
 
 .individual_order_info {
     width: 90%;
-    height: 900px;
+    height: 1100px;
     background: #ffffff;
     box-shadow: 0 4px 16px rgba(41, 48, 72, 0.15);
 }
@@ -813,17 +884,17 @@ input[type="checkbox"] {
 
 .bucket_na_zakaz {
     font-weight: 600;
-    font-size: 48px;
+    font-size: 36px;
     line-height: 150%;
     letter-spacing: 0.04em;
     text-transform: uppercase;
 }
 
 .individual_zakaz {
-    font-size: 56px;
+    font-size: 70px;
     line-height: 110%;
     text-transform: uppercase;
-    padding-top: 15px;
+    margin: 45px 0;
 }
 
 .individual_info {
@@ -923,8 +994,8 @@ input[type="checkbox"] {
 
 .info_pered_footer_img img {
     float: right;
-    width: 250px;
-    height: 350px;
+    width: 350px;
+    height: 450px;
 }
 
 .info_pered_footer_text {
@@ -941,7 +1012,7 @@ input[type="checkbox"] {
 
 .description_explanations {
     margin-top: 20px;
-    font-size: 28px;
+    font-size: 32px;
     line-height: 120%;
     font-weight: normal;
 }
@@ -1086,7 +1157,7 @@ input[type="checkbox"] {
 }
 .discount_text{
     text-transform: uppercase;
-    font-size: 22px;
+    font-size: 26px;
     color:#FFFFFF;
     padding:0 8px;
 }
@@ -1929,12 +2000,6 @@ input[type="checkbox"] {
     font-size: 28px;
 }
 
-.discount_text {
-    text-transform: uppercase;
-    font-size: 22px;
-    color: #FFFFFF;
-    padding: 0 8px;
-}
 
 .slider_item_card_img_place {
     height: 70%;
@@ -1961,10 +2026,11 @@ input[type="checkbox"] {
 .slider_name_bucket {
     padding-left: 18px;
     font-weight: 600;
-    font-size: 28px;
+    font-size: 30px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    padding-bottom: 5px;
+    margin-top: 4px;
+
 }
 
 .price {
@@ -2138,16 +2204,17 @@ input[type="checkbox"] {
 .address_item {
     width: 90%;
     height: 310px;
-    margin-right: 15px;
+    /*margin-right: 15px;*/
     display: inline-block;
     overflow: hidden;
     position: relative;
+    margin-bottom: 35px;
 }
 
 
-.address_item:last-child {
-    margin-right: 0;
-}
+/*.address_item:last-child {*/
+/*    margin-right: 0;*/
+/*}*/
 
 
 .add_address {
@@ -2191,9 +2258,6 @@ input[type="checkbox"] {
 
 
 
-.blog_item:first-child .blog_item_text_read {
-    margin-top: 10px;
-}
 
 
 .completed_address .catalog_flex.info {
@@ -2457,7 +2521,7 @@ pagination_place {
 
 
 .card_main_item {
-    width: 50%;
+    width: 100%;
     border: 16px solid #FFFFFF;
     position: relative;
     padding: 40px 0 40px 40px;
@@ -2469,10 +2533,80 @@ pagination_place {
     box-shadow: 0px 4px 16px rgba(41, 48, 72, 0.15);
 }
 
+.card_on_main{
+    margin-right: 35px;
+}
+
 .price{
-    padding-left: 18px;
+    /*padding-left: 18px;*/
     margin-top: 10px
 }
+
+
+.cont_on_horizontscroll{
+    overflow-y: auto;
+    width: auto;
+    white-space: normal;
+    display: flex;
+}
+
+
+.blog_item {
+    width: 70%;
+    height: auto;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 16px rgba(41, 48, 72, 0.15);
+    padding: 10px;
+    margin-right: 50px;
+}
+
+.blog_item_text_zag {
+    font-size: 46px;
+    line-height: 110%;
+    text-transform: uppercase;
+    font-weight: 450;
+}
+
+
+.blog_item_text_preview {
+    font-size: 34px;
+    line-height: 100%;
+    padding: 20px 0;
+}
+
+
+.blog_item_text_read {
+    font-weight: 600;
+    font-size:  34px;
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-top: 50px;
+    cursor: pointer;
+    padding-bottom: 30px;
+}
+
+.blog_item_text{
+    padding-left: 15px;
+}
+
+.swiper-container.slider_name_bucket{
+    font-size: 20px;
+}
+
+.swiper-container .price_basket{
+    font-size: 32px;
+    margin-left: 30px;
+}
+
+
+.basket_item_place{
+    margin-bottom: 160px;
+}
+
+
+.basket_info_for_order.
 
 
 

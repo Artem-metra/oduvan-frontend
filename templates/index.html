@@ -22,20 +22,37 @@
 <!-- Наш каталог -->
 <div class="catalog">
     <div class="container">
-        <h2 class="catalog_zag" style="margin-bottom: 25px">Наш каталог</h2>
+        <h2 class="catalog_zag" style="margin-bottom: 40px;">Наш каталог</h2>
         <!-- Наш каталог - карточки -->
-        <div class="card_on_main">
-            <div class="card_main_item" style="width:70%;margin-right:1.7%">
-                <span class="buckets bockets_mob">Букеты</span>
-                <strong class="name_buckets">
-                    Монобукеты
-                </strong>
-                <img src="../static/img/big_img_main.png">
-                <a href="" class="to_choose_href" style="font-size: 35px;">Выбрать <span class="fa fa-chevron-right" style="margin-left: 20px"></span></a>
+
+        <div class="cont_on_horizontscroll" style="height: 734px;">
+
+            <div class="card_on_main">
+                <div class="card_main_item">
+                    <span class="buckets bockets_mob">Букеты</span>
+                    <strong class="name_buckets">
+                        Монобукеты
+                    </strong>
+                    <img src="../static/img/big_img_main.png">
+                    <a href="" class="to_choose_href" style="font-size: 35px;">Выбрать <span class="fa fa-chevron-right" style="margin-left: 20px"></span></a>
+                </div>
             </div>
+
+            <div class="card_on_main">
+                <div class="card_main_item">
+                    <span class="buckets bockets_mob">Букеты</span>
+                    <strong class="name_buckets">
+                        Монобукеты
+                    </strong>
+                    <img src="../static/img/big_img_main.png">
+                    <a href="" class="to_choose_href" style="font-size: 35px;">Выбрать <span class="fa fa-chevron-right" style="margin-left: 20px"></span></a>
+                </div>
+            </div>
+
         </div>
 
-        <a class="all_catalog_href" href="/catalog" style="margin-top: 20px">
+
+        <a class="all_catalog_href" href="/catalog" style="margin-top: 30px; width: 400px; height: 100px; font-size: 40px">
             Весь каталог
         </a>
     </div>
@@ -44,32 +61,23 @@
 <!-- Популярное -->
 <div class="catalog" style="background: rgba(41, 48, 72, 0.1);">
     <div class="container">
-        <h2 class="catalog_zag" style="margin-bottom: 25px">Популярное</h2>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
+        <h2 class="catalog_zag" style="margin-bottom: 40px">Популярное</h2>
+        <div id="swiper_place">
+            <div class="row rw m-t-16" id="slider_place">
+                <!-- Slider Banners -->
+                <div class="col-xs-12">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper"></div>
+<!--                        <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>-->
+<!--                        <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>-->
+                        <!--                        <div class="pagination_place">-->
+                        <!--                            <div class="swiper-pagination" style="position:static"></div>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
         </div>
-        <a class="all_catalog_href" href="/catalog">
+        <a class="all_catalog_href" href="/catalog" style="margin-top: 30px; width: 400px; height: 100px; font-size: 40px">
             Весь каталог
         </a>
     </div>
@@ -84,7 +92,7 @@
         </div>
         <div class="individual_order_info_text">
             <div class="individual_order_info_text_info">
-                <span class="bucket_na_zakaz">Букет на заказ</span>
+                <div class="bucket_na_zakaz" style="margin-top: 20px; margin-bottom: 20px;">Букет на заказ</div>
                 <h3 class="individual_zakaz">Индивидуальный <br> заказ букета</h3>
                 <div class="individual_info">
                     Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
@@ -92,7 +100,7 @@
                     упаковке
                 </div>
                 <div style="display: flex;margin: 0 auto;justify-content: center">
-                    <a class="all_catalog_href" style="float: none;">
+                    <a class="all_catalog_href" style="margin-top: 30px; width: 400px; height: 100px; font-size: 40px">
                         Сделать заказ
                     </a>
                 </div>
@@ -105,7 +113,7 @@
 <!-- Скидки -->
 <div class="catalog" style="background: rgba(41, 48, 72, 0.1);">
     <div class="container">
-        <h2 class="catalog_zag" style="margin-bottom: 25px">Скидки</h2>
+        <h2 class="catalog_zag" style="margin-bottom: 40px">Скидки</h2>
         <div class="slider_item_card">
             <div class="right_nav_place">
                 <div class="right_nav_item">
@@ -131,7 +139,7 @@
             </div>
         </div>
 
-        <a class="all_catalog_href" href="/catalog">
+        <a class="all_catalog_href" href="/catalog" style="margin-top: 30px; width: 400px; height: 100px; font-size: 40px">
             Все скидки
         </a>
     </div>
@@ -141,33 +149,53 @@
 <!-- Блог -->
 <div class="catalog">
     <div class="container">
-        <h2 class="catalog_zag" style="margin-bottom: 25px">Блог</h2>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
+        <h2 class="catalog_zag" style="margin-bottom: 40px">Блог</h2>
+
+        <div class="cont_on_horizontscroll">
+
+            <div class="blog_item">
+                <div class="blog_item_info">
+                    <img src="../static/img/blog_big_img.png">
+                    <div class="blog_item_text">
+                        <div class="blog_item_text_zag">
+                            Открыт новый магазин
+                        </div>
+                        <div class="blog_item_text_preview">
+                            Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
+                            на
+                            дресскод
+                            и оформление...
+                        </div>
+                        <div class="blog_item_text_read">
+                            Прочитать
+                        </div>
                     </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
+                </div>
+            </div>
+
+            <div class="blog_item">
+                <div class="blog_item_info">
+                    <img src="../static/img/blog_big_img.png" >
+                    <div class="blog_item_text">
+                        <div class="blog_item_text_zag">
+                            Открыт новый магазин
+                        </div>
+                        <div class="blog_item_text_preview">
+                            Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
+                            на
+                            дресскод
+                            и оформление...
+                        </div>
+                        <div class="blog_item_text_read">
+                            Прочитать
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
-        <a class="all_catalog_href" href="/blog">
+        <a class="all_catalog_href" href="/blog" style="margin-top: 30px; width: 400px; height: 100px; font-size: 40px">
             Больше статей
         </a>
     </div>
@@ -254,7 +282,7 @@
 
 
 <!-- Краткая инфа перед футером -->
-<div class="catalog" id="about_pered_footer">
+<div class="catalog" id="about_pered_footer" style="padding-top: 150px;">
     <div class="pink_item_center"></div>
     <div class="pink_item_left"></div>
     <div class="pink_item_right"></div>
@@ -306,6 +334,99 @@
 
 
 {% include 'utilites.html' %}
+
+<script>
+
+    // loadCategories();
+    //
+    // function loadCategories() {
+    //     let data = {
+    //         'category_id': 0,
+    //     }
+    //     $.ajax({
+    //         url: '/api/categories/get',
+    //         data: data,
+    //         type: 'GET',
+    //         success: function (msg) {
+    //             console.log('categoris', msg);
+    //             let inputs = document.getElementsByClassName('href_catalog');
+    //             for (let i = 0; i < inputs.length; i++) {
+    //                 inputs[i].href = 'catalog?category_id=' + msg['message']['top_categories'][0]['id'];
+    //             }
+    //         }
+    //     });
+    // }
+    //
+    //
+    // down_to_catalog.onclick = function (e) {
+    //     e.preventDefault();
+    //     document.getElementById('our_catalog').scrollIntoView({
+    //         behavior: 'smooth',
+    //         block: 'start',
+    //     })
+    // }
+
+    loadProducts();
+
+    function loadProducts() {
+        $('.delete_card').remove();
+        let data = {
+            'sorted_type': 5,
+            'page_count': 16,
+        }
+        $.ajax({
+            url: '/site/products/smart',
+            type: 'POST',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            success: function (msg) {
+                console.log('loadProducts', msg);
+                createSlider(msg['message']['products']);
+            }
+        });
+    }
+
+    function createSlider(products) {
+        let box = swiper_place.cloneNode(true);
+        let swiper = box.getElementsByClassName('swiper-container')[0];
+        let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
+        let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
+        let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
+        let pagination_place = box.getElementsByClassName('pagination_place')[0];
+        let bullets = box.getElementsByClassName('swiper-pagination')[0];
+        let sw = new Swiper(swiper, {
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+            spaceBetween: 30,
+            // pagination: {
+            //     el: '.swiper-pagination',
+            //     type: 'bullets',
+            // },
+            grabCursor: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false
+            },
+            parallax: {
+                enabled: true
+            },
+            loop: true
+        });
+        for (let i = 0; i < products.length; i++) {
+            let slider = createProduct(products[i]);
+            let swiper_slide = document.createElement('div');
+            swiper_slide.className = 'swiper-slide';
+            swiper_slide.style.width = '45%';
+            slider.style.display = 'block';
+            slider.style.width = '100%';
+            swiper_slide.style.marginRight = '20px';
+            swiper_slide.append(slider);
+            wrapper.append(swiper_slide);
+            document.getElementById('slider_place').append(box);
+        }
+    }
+</script>
 
 </body>
 </html>
