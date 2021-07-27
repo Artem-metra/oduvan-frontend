@@ -48,7 +48,11 @@ def api_user_check():
 
 @user_app.route('/api/user/registration')
 def api_user_registration():
-    return utils.complete_request(request, request.path)
+    resp = utils.complete_request(request, request.path)
+    if 'user_id' not in session:
+        if 'user_id' in resp:
+            session['user_id'] = resp['user_id']
+    return resp
 
 
 @user_app.route('/api/user/auth')
@@ -64,9 +68,11 @@ def api_user_auth():
 def api_user_liked():
     product_id = request.values.get('product_id')
     if 'liked' not in session:
-        session['liked'] = 1
+        session['liked'] = list(product_id)
     else:
-        session['liked'] = session.get('liked') + 1
+        l = session.get('liked')
+        l.append(product_id)
+        session['liked'] = l
     return utils.getAnswer('ok')
 
 
@@ -103,3 +109,16 @@ def api_user_add_new_avatar():
 @user_app.route('/api/user/remove_avatar')
 def api_user_remove_avatar():
     return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/user/confirmed')
+def api_user_confirmed():
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    if 'user_id' not in params.keys():
+        if 'user_id' in session:
+            params = {'user_id': session['user_id']}
+        else:
+            return 'error'
+    return utils.complete_request_with_parameters(params, request.path)

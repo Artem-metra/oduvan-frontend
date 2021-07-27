@@ -125,10 +125,6 @@ def get_nesting_by_id():
 # print(request)
 
 
-@app.route('/api/get_nesting_by_id')
-def get_nesting_by_id():
-    return utils.complete_request(request, request.path)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
