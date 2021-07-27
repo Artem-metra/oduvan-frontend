@@ -26,7 +26,7 @@
                 <div id="addresses_place">
 
                 </div>
-                <div class="checkbox" style="margin-left:5px;">
+                <div class="checkbox" id="get_other_people_place" style="margin-left:5px;">
                     <input type="checkbox" id="get_other_people"
                            class="scal_chek custom-checkbox" style="margin-top: 20px;">
                     <label for="get_other_people" class="lab_desc sub_zag">Отправить другому человеку</label>
@@ -89,7 +89,7 @@
                     </div>
                     <div class="description_explanations">
                         <select class="popup_input" id="select_shops" style="display: none;padding: 0 10px;">
-                            <option value="-1">Не выбрано</option>
+                            <option value="-1" style="font-size: 16px;">Не выбрано</option>
                         </select>
                         <!--                        <div class="catalog_flex">-->
                         <!--                            <div class="address_info_zag">-->
@@ -98,25 +98,25 @@
                         <!--                            <span class="fa fa-chevron-down"></span>-->
                         <!--                        </div>-->
                         <div id="date_time_place">
-                            <div class="catalog_flex" style="position: relative; ">
+                            <div class="catalog_flex" style="position: relative; margin-bottom: 32px">
                                 <div class="date_input" id="date_input_one">
-                                    <input type="date" class="popup_input" id="inp_choose_data"
+                                    <input type="date" class="popup_input" id="inp_choose_data" style="background-color: #293048;"
                                     >
                                 </div>
-                                <div class="address_info_zag" id="addres_info_date">
+                                <div class="address_info_zag" id="addres_info_date" style="font-size: 36px">
                                     <!--06.07.2021-->
                                 </div>
-                                <span id="choose_data">Выбрать дату</span>
+                                <span id="choose_data" style="font-size: 36px">Выбрать дату</span>
                             </div>
 
-                            <div class="catalog_flex" style="position: relative;">
+                            <div class="catalog_flex" style="position: relative; margin-bottom: 32px">
                                 <div class="date_input" id="date_input_two">
-                                    <input type="time" class="popup_input" id="inp_choose_time">
+                                    <input type="time" class="popup_input" id="inp_choose_time" style="background-color: #293048;">
                                 </div>
-                                <div class="address_info_zag" id="addres_info_time">
+                                <div class="address_info_zag" id="addres_info_time" style="font-size: 36px">
                                     <!--21:00-->
                                 </div>
-                                <span id="choose_time">Выбрать время</span>
+                                <span id="choose_time" style="font-size: 36px">Выбрать время</span>
                             </div>
                         </div>
                     </div>
@@ -242,11 +242,6 @@
 
 {% include 'utilites.html' %}
 
-
-
-</body>
-
-
 <script>
     // Переменные для запроса об отправке заявки
     let shop_id = 0;
@@ -348,7 +343,7 @@
     // РЕЖИМ РАБОТЫ С 8:00 ДО 20:00
 
     /* Получение пользователя */
-    GetUser();
+     GetUser();
 
     function GetUser() {
         $.ajax({
@@ -359,29 +354,33 @@
                 name_user.value = user['name'] + ' ' + user['surname'];
                 phone_user.value = '+7' + user['phone'];
                 email_user.value = user['email'];
-                loadBasket();
+                loadBasketOrder();
             }
         });
     }
 
     // Подгрузка товаров для оформления заказа
-    function loadBasket() {
+    function loadBasketOrder() {
         $.ajax({
             url: '/api/basket/get_by_basket_id',
             type: 'GET',
             success: function (msg) {
-                if (msg['message']['basket']['purchase_type'] === 1) {
+                purchase_type = msg['message']['basket']['purchase_type']
+                if (purchase_type === 1) {
                     shop_id = -1;
                     date_time_place.style.display = 'none';
                     loadShops();
+                    get_other_people_place.style.display = 'none';
+                    address_user.style.display = 'none';
                 }
+
                 console.log(msg);
                 $('.delete_card').remove();
                 let final_price = document.getElementsByClassName('final_price');
                 for (let i = 0; i < final_price.length; i++) {
                     final_price[i].innerText = msg['message']['basket']['discount_cost'] + ' ₽';
                 }
-                drawBasket(msg['message']['products']);
+                drawBasketOrder(msg['message']['products']);
             }
         })
     }
@@ -393,6 +392,7 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                $('.delete_shop').remove();
                 // Если пользователь не выбрал магазин для доставки, то при ончейндж селекта, еррор пропадает
                 select_shops.onchange = function () {
                     select_shops.classList.remove('error');
@@ -400,7 +400,9 @@
                 for (let i = 0; i < msg['message']['shops'].length; i++) {
                     let option = document.createElement('option');
                     option.value = msg['message']['shops'][i]['id'];
+                    option.className = 'delete_shop';
                     option.innerText = msg['message']['shops'][i]['name'];
+                    option.style.fontSize = '16px'
                     select_shops.append(option);
                 }
                 select_shops.style.display = 'block';
@@ -412,20 +414,20 @@
     }
 
 
-    // Изменение количества товара
-    function changeCounter(action) {
-        console.log(Number(counter_product.value));
-        if (action === 1) {
-            counter_product.value += 1;
-        } else {
-            if (counter_product.value === 1) {
-                minus_counter.classList.add('none_active');
-                return;
-            } else {
-                counter_product.value -= 1;
-            }
-        }
-    }
+    // // Изменение количества товара
+    // function changeCounter(action) {
+    //     console.log(Number(counter_product.value));
+    //     if (action === 1) {
+    //         counter_product.value += 1;
+    //     } else {
+    //         if (counter_product.value === 1) {
+    //             minus_counter.classList.add('none_active');
+    //             return;
+    //         } else {
+    //             counter_product.value -= 1;
+    //         }
+    //     }
+    // }
 
     $('#address_user').suggestions({
             token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
@@ -444,7 +446,7 @@
 
 
     // Отрисовка товаров
-    function drawBasket(products) {
+    function drawBasketOrder(products) {
         console.log(products, basket_id);
         for (let i = 0; i < products.length; i++) {
             let box = createProductBasket(products[i]);
@@ -598,7 +600,7 @@
             select_shops.classList.add('error');
             return;
         }
-        if (address_user.value === '') {
+        if (purchase_type === 2 && address_user.value === '') {
             notification('Заполните адрес доставки', 1);
             address_user.classList.add('error');
             return;
@@ -628,4 +630,8 @@
 
 
 </script>
+
+
+</body>
+
 </html>

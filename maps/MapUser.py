@@ -28,7 +28,8 @@ def api_user_get():
         else:
             return 'error'
 
-    return utils.complete_request_with_parameters(params, request.path)
+    d = utils.complete_request_with_parameters(params, request.path)
+    return d
 
 
 @user_app.route('/api/user/edit')
