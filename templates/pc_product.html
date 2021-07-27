@@ -10,8 +10,8 @@
 
 <div class="catalog">
     <div class="container">
-        <div class="place_breadcoast">
-            <a href="">Главная</a> /
+        <div class="place_breadcoast" id="place_breadcoast">
+            <a href="/">Главная</a>
         </div>
 
         <div class="catalog_flex_catalog" style="margin-top:50px;">
@@ -114,98 +114,18 @@
                 Весь каталог
             </a>
         </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
+        <!-- Слайдер -->
+        <div id="swiper_place">
+            <div class="row rw m-t-16" id="slider_place">
+                <!-- Slider Banners -->
+                <div class="col-xs-12">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper"></div>
+                        <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>
+                        <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>
+                        <!--                        <div class="pagination_place">-->
+                        <!--                            <div class="swiper-pagination" style="position:static"></div>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -352,8 +272,73 @@
                 getProduct();
             }
         }
+    }
 
 
+    /// Слайдер популярное
+    loadProducts();
+
+    function loadProducts() {
+        $('.delete_card').remove();
+        let data = {
+            'sorted_type': 5,
+            'page_count': 16,
+        }
+        $.ajax({
+            url: '/site/products/smart',
+            type: 'POST',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            success: function (msg) {
+                console.log('loadProducts', msg);
+                createSlider(msg['message']['products']);
+            }
+        });
+    }
+
+    function createSlider(products) {
+        let box = swiper_place.cloneNode(true);
+        let swiper = box.getElementsByClassName('swiper-container')[0];
+        let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
+        let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
+        let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
+        let pagination_place = box.getElementsByClassName('pagination_place')[0];
+        let bullets = box.getElementsByClassName('swiper-pagination')[0];
+        let sw = new Swiper(swiper, {
+            slidesPerView: 4,
+            slidesPerGroup: 4,
+            spaceBetween: 30,
+            // pagination: {
+            //     el: '.swiper-pagination',
+            //     type: 'bullets',
+            // },
+            grabCursor: true,
+            navigation: {
+                nextEl: right_arrow,
+                prevEl: left_arrow,
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false
+            },
+            parallax: {
+                enabled: true
+            },
+            loop: true
+        });
+        for (let i = 0; i < products.length; i++) {
+            let slider = createProduct(products[i]);
+            let swiper_slide = document.createElement('div');
+            swiper_slide.className = 'swiper-slide';
+            swiper_slide.style.width = '25%';
+            slider.style.display = 'block';
+            slider.style.width = '100%';
+            swiper_slide.style.marginRight = '10px';
+            swiper_slide.append(slider);
+            wrapper.append(swiper_slide);
+            document.getElementById('slider_place').append(box);
+        }
     }
 
 
@@ -369,6 +354,9 @@
             success: function (msg) {
                 console.log(msg);
                 name_cat_bucket.innerText = msg['category']['name'];
+
+                place_breadcoast.innerHtml += `<a href="catalog?category_id=${msg['category']['id']}">${msg['category']['name']}</a>`;
+
             }
         })
     }

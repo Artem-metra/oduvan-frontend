@@ -70,7 +70,8 @@
                     <!--                        <input class="popup_input" type="number" placeholder="Год" id="birthday_year"-->
                     <!--                               onkeypress="this.value=this.value.substring(0,3);">-->
                     <!--                    </div>-->
-                    <input type='text' class='datepicker-here popup_input' readonly placeholder="Дата рождения"/>
+                    <input type='text' id="day_datepicker" class='datepicker-here popup_input' readonly
+                           placeholder="Дата рождения"/>
                 </div>
                 <div class="all_catalog_href" style="float: none;width:100%;height:50px;" id="save_changes">
                     Сохранить изменения
@@ -135,8 +136,10 @@
                                 <div class="address_info_zag">
                                     Адрес:
                                 </div>
-                                <input class="popup_input address_address"
-                                       style="height: 35px;width: 70%;">
+                                <div style="width: 70%">
+                                    <input class="popup_input address_address"
+                                           style="height: 35px;width: 100%;">
+                                </div>
                             </div>
                             <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0;">
                                 <div class="all_catalog_href"
@@ -254,6 +257,7 @@
             type: 'GET',
             success: function (msg) {
                 user = msg['message']['user'];
+                $('.delete_address').remove();
                 DrawInfoUser();
             }
         });
@@ -302,14 +306,13 @@
         your_mobile.value = '+7' + user['phone'];
         your_email_address.value = user['email'];
         avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
+        day_datepicker.value = user['birthday'];
         let inputs = document.getElementsByClassName('new_data');
         for (let i = 0; i < inputs.length; i++) {
             inputs[i].oninput = function () {
                 inputs[i].classList.remove('error');
             }
         }
-
-
         // Если у пользователя уже есть адреса в ЛК, то выводим блок с адресами
         if (user['addresses'].length !== 0) {
             console.log(user['addresses'].length);
@@ -322,6 +325,7 @@
                     }
                 }
                 box.id = '';
+                box.classList.add('delete_address');
                 let data_address = box.getElementsByClassName('data_address')[0];
                 let name_address_user = box.getElementsByClassName('name_address_user')[0];
                 let address_address_user = box.getElementsByClassName('address_address_user')[0];
@@ -357,7 +361,6 @@
                             type: "ADDRESS",
                             /* Вызывается, когда пользователь выбирает одну из подсказок */
                             onSelect: function (suggestion) {
-                                console.log('Дашло 2');
                                 if (Number(suggestion['data']['fias_level']) < 8) {
                                     notification('Укажите точный адрес', 1);
                                     return;
@@ -390,7 +393,7 @@
                 }
             }
             box.id = '';
-
+            box.classList.add('delete_address');
             let icon = box.getElementsByClassName('right_nav_place')[0];
             let btn_add = box.getElementsByClassName('blog_item_text_read')[0];
             let completed_address = box.getElementsByClassName('completed_address')[0];
@@ -523,7 +526,7 @@
     function EditUser(status) {
         // status = 1 - изменение основных данных, 2 - пароля
         if (status === 1) {
-            if (your_name.value === '' || your_phone.value === '') {
+            if (your_name.value === '' || your_mobile.value === '') {
                 let inputs = document.getElementsByClassName('new_data');
                 for (let i = 0; i < inputs.length; i++) {
                     if (inputs[i].value === '') {
@@ -533,13 +536,12 @@
                 notification('Заполните обязательные поля!', 1);
                 return;
             }
-            let birthday = birthday_year + '.' + birthday_month + '.' + birthday_day;
             let data = {
                 'id': user['id'],
                 'name': your_name.value,
                 'surname': your_surname.value,
                 'phone': your_mobile.value,
-                'birthday': birthday,
+                'birthday': day_datepicker.value,
             }
             $.ajax({
                 url: '/api/user/edit',
@@ -547,7 +549,9 @@
                 type: "GET",
                 success: function (msg) {
                     console.log(msg);
-                    alert('Ваши данные успешно изменены');
+                    if(msg['status'] === 'ok'){
+                      notification('Ваши данные успешно изменены!', 2);
+                    }
                 }
             })
         } else {
@@ -595,6 +599,7 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                notification('Адрес успешно сохранён!', 2);
                 GetUser();
             }
         })
@@ -615,6 +620,8 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                notification('Ваши данные обновлены!', 2);
+                GetUser();
             }
         })
     }
@@ -633,6 +640,8 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                notification('Адрес успешно удалён!', 2);
+                GetUser();
             }
         })
     }
@@ -648,8 +657,8 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
-                for(let i = 0; i < msg['message']['deals_list'].length; i++){
-                  drawHistory(msg['message']['deals_list'][i]);
+                for (let i = 0; i < msg['message']['deals_list'].length; i++) {
+                    drawHistory(msg['message']['deals_list'][i]);
                 }
             }
 
@@ -665,7 +674,7 @@
         let cost = box.getElementsByClassName('cost_order')[0];
         let date = box.getElementsByClassName('date_order')[0];
         address.innerText = order_item['address'];
-        cost.innerText = order_item['cost']  + ' ₽';
+        cost.innerText = order_item['cost'] + ' ₽';
         let order_date = order_item['date_delivery'].split(' ', '');
         console.log(order_date);
         date.innerText = order_item['date_delivery'];
@@ -688,6 +697,13 @@
         box.style.display = 'block';
         personal_history.append(box);
     }
+
+    $(function () {
+        $("#day_datepicker").datepicker({
+            minDate: "-3650D",
+            maxDate: new Date()
+        });
+    });
 
 
 </script>
