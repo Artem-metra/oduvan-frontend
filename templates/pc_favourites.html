@@ -19,7 +19,7 @@
 <div class="catalog">
     <div class="container">
         <div id="favorites_place">
-            <div class="slider_item_card" id="card_product" style="display: none">
+            <div id="card_product" style="display: none;">
                 <div class="right_nav_place">
                     <div class="right_nav_item">
 
@@ -37,9 +37,9 @@
                     <img src="../static/img/catalog_img.png" class="slider_img">
                 </a>
                 <div class="name_and_price">
-                    <div class="catalog_flex" style="padding-bottom: 0;">
+                    <div class="catalog_flex" style="padding-bottom: 0px;">
                         <div class="slider_name_bucket">Букет "Индиго"</div>
-                        <div class="slider_name_bucket price_basket" style="display: none;"></div>
+                        <div class="price_basket slider_name_bucket" style="display: none;"></div>
                     </div>
                     <div class="catalog_flex_catalog for_basket"
                          style="align-items: center;justify-content: space-between;padding: 0 15px;">
@@ -64,14 +64,12 @@
                         </div>
                     </div>
                     <div class="added_product" style="display: none">
-                        <div>
-                            <span class="fa fa-minus"></span>
-                        </div>
+                        <div class="fa fa-minus minus_counter"></div>
                         <div>
                             В корзине: <input type="number" class="product_counter_inp"/>
                         </div>
                         <div>
-                            <span class="fa fa-plus"></span>
+                            <div class="fa fa-plus plus_counter"></div>
                         </div>
                     </div>
                 </div>

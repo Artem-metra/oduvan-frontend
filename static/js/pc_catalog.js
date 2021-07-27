@@ -59,13 +59,22 @@ function drawCategories(msg) {
         }
         category.style.display = 'inline-block';
         category.onclick = function () {
+
+            document.getElementsByClassName('active_page')[0].classList.remove('active_page');
+            $('.delete_subcat').remove();
             document.getElementsByClassName('_active')[0].classList.remove('_active');
             cat_name.classList.add('_active');
             if (category.classList.contains('all')) {
                 category_id = 0;
+                $('.delete_cat').remove();
+                let breadcoast = BreadCoast(id);
+                console.log(breadcoast);
+                place_bread.innerHTML += `<a href="/catalog?category_id=${id}" class="active_page">${breadcoast[0]}</a>`;
+
             } else {
                 category_id = msg[i]['id'];
-                BreadCoast(category_id);
+                place_bread.innerHTML += `<span style="text-transform: uppercase;font-weight: 600;color:#F877AD" class="active_page catalog_category_card delete_subcat">
+<span style="color:#293048"> / </span>${msg[i]['name']}</span>`;
             }
             loadProducts();
         }
@@ -157,13 +166,11 @@ function loadProducts() {
     throw_off.onclick = function () {
         category_id = 0;
         sorted_type = 1;
-        cost_end = 150000;
-        cost_start = 0;
         flowers = [];
         packaging = [];
         discount_type = 0;
-        price_max.value = 100000;
-        price_min.value = 0;
+        price_max.value = cost_end;
+        price_min.value = cost_start;
 
         // let checkboxes = document.getElementsByClassName('custom-checkbox');
         let checkboxes = document.getElementsByClassName('checkbox_for_choose_flower');
@@ -182,7 +189,6 @@ function loadProducts() {
 let packages = document.getElementsByClassName('packages_inp');
 for (let i = 0; i < packages.length; i++) {
     packages[i].onchange = function () {
-
         if (packages[i].checked) {
             packaging.push(Number(packages[i].value));
         } else {
@@ -310,6 +316,11 @@ function drawProducts(msg) {
     }
 }
 
+// Хлебные крошки
+let breadcoast = BreadCoast(id);
+console.log(breadcoast);
+place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
+
 // Получение миниальной цены товара в категории
 function minPrice() {
     let data = {
@@ -321,6 +332,7 @@ function minPrice() {
         data: data,
         success: function (msg) {
             console.log(msg);
+            cost_start = msg['message']['min_cost'];
             price_min.value = msg['message']['min_cost'];
             price_controller.setAttribute('min', Number(msg['message']['min_cost']));
 
@@ -354,13 +366,14 @@ function maxPrice() {
         data: data,
         success: function (msg) {
             console.log(msg);
+            cost_end = msg['message']['max_cost'];
             price_max.value = msg['message']['max_cost'];
             price_controller.setAttribute('max', Number(msg['message']['max_cost']));
             price_max.onchange = function () {
                 if (Number(price_max.value) < Number(price_min.value)) {
-                    price_max.value = Number( price_min.value + price_max.value++);
+                    price_max.value = Number(price_min.value + price_max.value++);
                 }
-                if(Number(price_max.value) > msg['message']['max_cost']){
+                if (Number(price_max.value) > msg['message']['max_cost']) {
                     price_max.value = msg['message']['max_cost'];
                 }
             }
@@ -369,8 +382,7 @@ function maxPrice() {
 }
 
 
-// Хлебные крошки
-BreadCoast(id);
+
 
 
 

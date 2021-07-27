@@ -30,50 +30,77 @@
         <!-- Наш каталог - карточки -->
         <div class="card_on_main">
             <div class="card_main_item" style="width:49%;margin-right:1.7%">
-                <span class="buckets">Букеты</span>
-                <strong class="name_buckets">
-                    Монобукеты
-                </strong>
+                <div class="card_main_bg"></div>
+                <div style="z-index:10">
+                    <span class="buckets">Букеты</span>
+                    <strong class="name_buckets">
+                        Монобукеты
+                    </strong>
+
+                    <div class="to_choose_href">
+                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>
+                    </div>
+                </div>
                 <img src="../static/img/big_img_main.png">
-                <a href="" class="to_choose_href">Выбрать <span class="fa fa-chevron-right"></span></a>
             </div>
-            <div class="card_main_item" style="width:49%;">
-                <span class="buckets">Букеты</span>
-                <strong class="name_buckets">
-                    Монобукеты
-                </strong>
+            <div class="card_main_item" style="width:48.5%;">
+                <div class="card_main_bg"></div>
+                <div style="z-index:10">
+                    <span class="buckets">Букеты</span>
+                    <strong class="name_buckets">
+                        Монобукеты
+                    </strong>
+
+                    <div class="to_choose_href">
+                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>
+                    </div>
+                </div>
                 <img src="../static/img/big_img_main.png">
-                <a href="" class="to_choose_href">Выбрать <span class="fa fa-chevron-right"></span></a>
             </div>
 
             <div class="card_main_item" style="width:32%;margin-right:2%">
-                <span class="buckets">Композиции</span>
-                <strong class="name_buckets">
-                    В корзинах
-                </strong>
+                <div class="card_main_bg"></div>
+                <div style="z-index:10">
+                    <span class="buckets">Букеты</span>
+                    <strong class="name_buckets">
+                        Монобукеты
+                    </strong>
+
+                    <div class="to_choose_href">
+                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>
+                    </div>
+                </div>
                 <img src="../static/img/small_img_main.png">
-                <a href="" class="to_choose_href" style="margin-top:40%">Выбрать <span
-                        class="fa fa-chevron-right"></span></a>
             </div>
 
             <div class="card_main_item" style="width:32%;margin-right:1.45%">
-                <span class="buckets">Композиции</span>
-                <strong class="name_buckets">
-                    В конвертах
-                </strong>
+                <div class="card_main_bg"></div>
+                <div style="z-index:10">
+                    <span class="buckets">Букеты</span>
+                    <strong class="name_buckets">
+                        Монобукеты
+                    </strong>
+
+                    <div class="to_choose_href">
+                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>
+                    </div>
+                </div>
                 <img src="../static/img/small_img_main.png">
-                <a href="" class="to_choose_href" style="margin-top:40%">Выбрать <span
-                        class="fa fa-chevron-right"></span></a>
             </div>
 
-            <div class="card_main_item" style="width:32%;">
-                <span class="buckets">Композиции</span>
-                <strong class="name_buckets">
-                    В сумках
-                </strong>
+            <div class="card_main_item" style="width:31.5%;">
+                <div class="card_main_bg"></div>
+                <div style="z-index:10">
+                    <span class="buckets">Букеты</span>
+                    <strong class="name_buckets">
+                        Монобукеты
+                    </strong>
+
+                    <div class="to_choose_href">
+                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>
+                    </div>
+                </div>
                 <img src="../static/img/small_img_main.png">
-                <a href="" class="to_choose_href" style="margin-top:40%">Выбрать <span
-                        class="fa fa-chevron-right"></span></a>
             </div>
         </div>
     </div>
@@ -87,43 +114,60 @@
                 Весь каталог
             </a>
         </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
+
+        <!-- Слайдер -->
+        <div id="swiper_place">
+            <div class="row rw m-t-16" id="slider_place">
+                <!-- Slider Banners -->
+                <div class="col-xs-12">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper"></div>
+                        <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>
+                        <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>
+                        <!--                        <div class="pagination_place">-->
+                        <!--                            <div class="swiper-pagination" style="position:static"></div>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
         </div>
-        <div class="slider_item_card">
+
+
+        <div class="card_product" id="card_product" style="display: none;">
             <div class="right_nav_place">
                 <div class="right_nav_item">
-                    <span class="far fa-heart"></span>
+
                 </div>
             </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
+            <div class="discount_place">
+                <div class="percent_place">
+                    <span class="fa fa-percent"></span>
+                </div>
+                <div class="discount_text">
+                    20% скидка
+                </div>
             </div>
+            <a class="slider_item_card_img_place" href="">
+                <img src="../static/img/catalog_img.png" class="slider_img">
+            </a>
             <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
+                <div class="catalog_flex" style="padding-bottom: 0px;">
+                    <div class="slider_name_bucket">Букет "Индиго"</div>
+                    <div class="price_basket slider_name_bucket" style="display: none;"></div>
+                </div>
+                <div class="catalog_flex_catalog for_basket"
+                     style="align-items: center;justify-content: space-between;padding: 0 15px;">
+                    <div>
+                        <div class="price">
+                            5400 Р
+                        </div>
+                        <div class="disc_price_bucket">
+                            2 600 Р
+                        </div>
+                    </div>
+                    <div class="add_to_basket_card">
+                        <span class="fas fa-shopping-bag"></span>
+                    </div>
                 </div>
                 <div class="price_hover">
                     <div>
@@ -133,57 +177,19 @@
                         5 400 ₽
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="far fa-heart"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
+                <div class="added_product" style="display: none">
+                    <div class="fa fa-minus minus_counter"></div>
                     <div>
-                        В корзину
+                        В корзине: <input type="number" class="product_counter_inp"/>
                     </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="far fa-heart"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
                     <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
+                        <div class="fa fa-plus plus_counter"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
@@ -195,7 +201,8 @@
                 <span class="bucket_na_zakaz">Букет на заказ</span>
                 <h3 class="individual_zakaz">Индивидуальный заказ букета</h3>
                 <div class="individual_info">
-                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
+                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме,
+                    составу
                     и
                     упаковке
                 </div>
@@ -305,7 +312,8 @@
                                 Открыт <br>новый <br>магазин
                             </div>
                             <div class="blog_item_text_preview">
-                                Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание на
+                                Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
+                                на
                                 дресскод
                                 и оформление...
                             </div>
@@ -323,7 +331,8 @@
                                 Открыт <br>новый <br>магазин
                             </div>
                             <div class="blog_item_text_preview">
-                                Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание на
+                                Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
+                                на
                                 дресскод
                                 и оформление...
                             </div>
@@ -341,7 +350,8 @@
                                 Открыт <br>новый <br>магазин
                             </div>
                             <div class="blog_item_text_preview">
-                                Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание на
+                                Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
+                                на
                                 дресскод
                                 и оформление...
                             </div>
@@ -454,7 +464,8 @@
                             Свадебные букеты
                         </div>
                         <div class="description_explanations">
-                            Главная история о любви всегда ваша. Особенной в ней должна быть каждая деталь, и букет - не
+                            Главная история о любви всегда ваша. Особенной в ней должна быть каждая деталь, и букет
+                            - не
                             исключение
                         </div>
                     </div>
@@ -485,7 +496,8 @@
                             БУКЕТЫ В ПОДАРОК
                         </div>
                         <div class="description_explanations">
-                            Домашний уют - одно из сокровищ мира, в котором все продумано до мелочей. И если вы все ещё
+                            Домашний уют - одно из сокровищ мира, в котором все продумано до мелочей. И если вы все
+                            ещё
                             думаете,
                             что дом пустоват, принесите в него “пушистый” букет
                         </div>
@@ -499,7 +511,6 @@
 
 {% include 'pc_utilites.html' %}
 <script>
-
     loadCategories();
 
     function loadCategories() {
@@ -527,6 +538,72 @@
             behavior: 'smooth',
             block: 'start',
         })
+    }
+
+    /// Слайдер популярное
+    loadProducts();
+
+    function loadProducts() {
+        $('.delete_card').remove();
+        let data = {
+            'sorted_type': 5,
+            'page_count': 16,
+        }
+        $.ajax({
+            url: '/site/products/smart',
+            type: 'POST',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            success: function (msg) {
+                console.log('loadProducts', msg);
+                createSlider(msg['message']['products']);
+            }
+        });
+    }
+
+    function createSlider(products) {
+        let box = swiper_place.cloneNode(true);
+        let swiper = box.getElementsByClassName('swiper-container')[0];
+        let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
+        let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
+        let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
+        let pagination_place = box.getElementsByClassName('pagination_place')[0];
+        let bullets = box.getElementsByClassName('swiper-pagination')[0];
+        let sw = new Swiper(swiper, {
+            slidesPerView: 4,
+            slidesPerGroup: 4,
+            spaceBetween: 30,
+            // pagination: {
+            //     el: '.swiper-pagination',
+            //     type: 'bullets',
+            // },
+            grabCursor: true,
+            navigation: {
+                nextEl: right_arrow,
+                prevEl: left_arrow,
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false
+            },
+            parallax: {
+                enabled: true
+            },
+            loop: true
+        });
+        for (let i = 0; i < products.length; i++) {
+            let slider = createProduct(products[i]);
+            let swiper_slide = document.createElement('div');
+            swiper_slide.className = 'swiper-slide';
+            swiper_slide.style.width = '25%';
+            slider.style.display = 'block';
+            slider.style.width = '100%';
+            swiper_slide.style.marginRight = '10px';
+            swiper_slide.append(slider);
+            wrapper.append(swiper_slide);
+            document.getElementById('slider_place').append(box);
+        }
     }
 
 
