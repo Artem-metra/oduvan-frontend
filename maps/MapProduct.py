@@ -36,10 +36,10 @@ def api_product_get():
     params = {}
     for item in request.args:
         params[item] = request.args.get(item)
-    params['user_id'] = session['user_id']
     params['basket_id'] = session['basket_id']
     response = utils.complete_request_with_parameters(params, request.path)
     print(response, params)
+    return response
 
 
 @product_app.route('/api/product/edit')

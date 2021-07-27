@@ -16,13 +16,8 @@
 
         <div class="catalog_flex_catalog" style="margin-top:50px;">
             <!-- Картинки слева. Все картинки букета -->
-            <div class="all_pictures_product_place">
-                <div class="small_product_card _active">
-                    <div class="small_product_place">
-                        <img src="../static/img/slider_img.png" class="small_product_img">
-                    </div>
-                </div>
-                <div class="small_product_card">
+            <div class="all_pictures_product_place" id="all_pictures_product_place">
+                <div class="small_product_card" id="small_product_card" style="display: none;">
                     <div class="small_product_place">
                         <img src="../static/img/slider_img.png" class="small_product_img">
                     </div>
@@ -32,7 +27,7 @@
             <div class="main_pictures_product_place">
                 <div class="big_product_card">
                     <div class="small_product_place">
-                        <img src="../static/img/slider_img.png" class="small_product_img">
+                        <img src="../static/img/slider_img.png" class="small_product_img" id="main_photo">
                     </div>
                 </div>
 
@@ -52,7 +47,8 @@
             <div class="description_product_place">
                 <strong class="bucket_na_zakaz" id="name_cat_bucket">Монобукет</strong>
                 <div class="name_buckets" id="name_bucket" style="padding-top:8px">"Индиго"</div>
-                <div class="price" id="disc_price_bucket" style="padding:20px 0 15px 0;display: inline-block">5 400 ₽
+                <div class="disc_price_bucket" id="disc_price_bucket"
+                     style="padding:20px 0 15px 0;display: inline-block">5 400 ₽
                 </div>
                 <div class="price" id="price" style="padding:20px 0 15px 0;display: inline-block">5 400 ₽</div>
 
@@ -87,16 +83,16 @@
                 </div>
                 <div class="description_explanations">
                     <span id="description_explanations_item">
-                        Цветы: Роза одноголовая
+                        <span id="flowers_product">Цветы: </span>
                     </span>
                     <span>
-                        Упаковка: Ленты, Пленка
+                        <span id="packages_product">Упаковка: </span>
                     </span>
                     <span>
-                         Высота: около 40 см
+                         <span id="height_product">Высота: </span>
                     </span>
                     <span>
-                        Диаметр: около 35 см
+                        <span id="diameter_product">Диаметр: </span>
                     </span>
                 </div>
             </div>
@@ -110,7 +106,7 @@
     <div class="container">
         <div class="catalog_flex">
             <h2 class="catalog_zag">Похожее</h2>
-            <a class="all_catalog_href" href="/catalog">
+            <a class="all_catalog_href" href="/catalog?category_id=1">
                 Весь каталог
             </a>
         </div>
@@ -123,9 +119,9 @@
                         <div class="swiper-wrapper"></div>
                         <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>
                         <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>
-                        <!--                        <div class="pagination_place">-->
-                        <!--                            <div class="swiper-pagination" style="position:static"></div>-->
-                        <!--                        </div>-->
+                        <div class="pagination_place">
+                            <div class="swiper-pagination" style="position:static"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -160,22 +156,7 @@
 {% include 'pc_utilites.html' %}
 <script>
     let id = {{id}};
-
-
-    // function changeCounter(action) {
-    //     console.log(Number(counter_product.value));
-    //     if (action === 1) {
-    //         counter_product.value += 1;
-    //     } else {
-    //         if (counter_product.value === 1) {
-    //             minus_counter.classList.add('none_active');
-    //             return;
-    //         } else {
-    //             counter_product.value -= 1;
-    //         }
-    //     }
-    // }
-
+    let category_id = 0;
 
     getProduct();
 
@@ -190,9 +171,9 @@
             data: data,
             success: function (msg) {
                 console.log('product', msg);
-                category_id = msg['product']['category_id'];
+                category_id = Number(msg['message']['product']['category_id']);
+                drawProduct(msg['message']);
                 getCategory(category_id);
-                drawProduct(msg['product']);
             }
         })
     }
@@ -201,77 +182,120 @@
     /* Отрисовать продукт */
     function drawProduct(msg) {
         console.log(msg);
-        description_product.innerText = msg['description'];
-        name_bucket.innerText = msg['name'];
+        description_product.innerText = msg['product']['description'];
+        name_bucket.innerText = msg['product']['name'];
+        main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][0][0];
+
+        if(msg['product']['photos'] > 0) {
+            for (let i = 0; i < msg['product']['photos'].length; i++) {
+                let images = small_product_card.cloneNode(true);
+                images.id = '';
+                if (i === 0) {
+                    images.classList.add('_active_photo');
+                }
+                let img = images.getElementsByClassName('small_product_img')[0];
+                img.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i][i];
+                images.style.display = 'block';
+                images.onclick = function () {
+                    document.getElementsByClassName('_active_photo')[0].classList.remove('_active_photo');
+                    images.classList.add('_active_photo');
+                    main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i][i];
+                }
+                all_pictures_product_place.append(images);
+            }
+        }
+
+
         let count = document.getElementById('counter_product');
-        if (msg['q_count'] === 0) {
-            count.value = 1;
+
+        if (msg['product']['discount_type'] > 0) {
+            price.classList.add('have_disc');
         } else {
-            count.value = msg['q_count'];
+            disc_price_bucket.style.display = 'none';
+        }
+
+        if (msg['product']['q_count'] > 0) {
+            disc_price_bucket.innerText = Number(msg['product']['discount_cost'] * msg['product']['q_count']) + ' ₽';
+            price.innerText = Number(msg['product']['cost'] * msg['product']['q_count']) + ' ₽';
+            add_to_basket.style.display = 'none';
+            count.value = msg['product']['q_count'];
+            basket_place.style.display = 'flex';
+        } else {
+            price.innerText = Number(msg['product']['cost']) + ' ₽';
+            add_to_basket.style.display = 'flex';
+            basket_place.style.display = 'none';
+            add_to_basket.onclick = function () {
+                addProduct(msg['product']['id'], count.value);
+                add_to_basket.style.display = 'none';
+                basket_place.style.display = 'flex';
+            }
         }
         count.onchange = function () {
             if (count.value === '') {
                 count.value = 1;
-                return;
+                minus.className = 'disabled';
             } else if (count.value < 1) {
                 count.value = 1;
-                return;
+                minus.className = 'disabled';
             } else {
-                addProduct(msg['id'], Number(count.value));
-                getProduct();
+                changeProduct(msg['product']['id'], Number(count.value));
             }
-
-        }
-        if (msg['q_count'] > 0) {
-            disc_price_bucket.innerText = Number(msg['discount_cost'] * msg['q_count']) + ' ₽';
-            price.innerText = Number(msg['cost'] * msg['q_count']) + ' ₽';
-            add_to_basket.style.display = 'block';
-            count.value = msg['q_count'];
-            basket_place.style.display = 'none';
-
-
-        } else {
-            price.innerText = Number(msg['cost']) + ' ₽';
-            if (msg['discount_type'] > 0) {
-                disc_price_bucket.innerText = Number(msg['discount_cost']) + ' ₽';
-                price.classList.add('have_disc')
-            } else {
-                disc_price_bucket.style.display = 'none';
-            }
-            add_to_basket.onclick = function () {
-                addProduct(msg['id'], count.value);
-                add_to_basket.style.display = 'none';
-                basket_place.style.display = 'flex';
-                getProduct();
-            }
+            disc_price_bucket.innerText = Number(count.value * msg['product']['discount_cost']) + ' ₽';
+            price.innerText = Number(count.value * msg['product']['cost']) + ' ₽';
         }
 
         let minus = document.getElementById('minus_counter');
         let plus = document.getElementById('plus_counter');
 
-
         // Счетчик товаров
-        console.log(count.value);
         if (Number(count.value) === 1) {
             minus.className = 'disabled';
         }
         minus.onclick = function () {
-            if (count.value > 1) {
+            if (Number(count.value) > 1) {
                 count.value--;
-                addProduct(msg['id'], Number(-1));
-                getProduct();
-            } else {
+                addProduct(msg['product']['id'], Number(-1));
+                disc_price_bucket.innerText = Number(count.value * msg['product']['discount_cost']) + ' ₽';
+                price.innerText = Number(count.value * msg['product']['cost']) + ' ₽';
+            }
+            if (Number(count.value) === 1) {
                 minus.className = 'disabled';
             }
         }
         plus.onclick = function () {
-            if (count.value >= 1) {
+            if (Number(count.value) >= 1) {
                 minus.classList.remove('disabled');
                 count.value++;
-                addProduct(msg['id'], Number(1));
-                getProduct();
+                addProduct(msg['product']['id'], Number(1));
+                disc_price_bucket.innerText = Number(count.value * msg['product']['discount_cost']) + ' ₽';
+                price.innerText = Number(count.value * msg['product']['cost']) + ' ₽';
             }
         }
+
+        // Выводим детали товара
+        for (let i = 0; i < msg['flowers'].length; i++) {
+            if (i > 0) {
+                flowers_product.innerText += ', ' + msg['flowers'][i]['name'];
+            } else {
+                flowers_product.innerText += ' ' + msg['flowers'][i]['name'];
+            }
+        }
+
+        if (msg['packages'].length < 1) {
+            packages_product.style.display = 'none';
+        } else {
+            for (let i = 0; i < msg['packages'].length; i++) {
+                if (i > 0) {
+                    packages_product.innerText += ', ' + msg['packages'][i]['name'];
+                } else {
+                    packages_product.innerText += ' ' + msg['packages'][i]['name'];
+                }
+            }
+        }
+
+        height_product.innerText += ' ' + msg['product']['height'] + ' см';
+        diameter_product.innerText += ' ' + msg['product']['diameter'] + ' см';
+
     }
 
 
@@ -309,10 +333,11 @@
             slidesPerView: 4,
             slidesPerGroup: 4,
             spaceBetween: 30,
-            // pagination: {
-            //     el: '.swiper-pagination',
-            //     type: 'bullets',
-            // },
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'bullets',
+                clickable: true,
+            },
             grabCursor: true,
             navigation: {
                 nextEl: right_arrow,
@@ -344,6 +369,7 @@
 
     /* Получить категорию */
     function getCategory(category_id) {
+        console.log('categ_id', category_id);
         let data = {
             'category_id': category_id,
         }
@@ -354,9 +380,7 @@
             success: function (msg) {
                 console.log(msg);
                 name_cat_bucket.innerText = msg['category']['name'];
-
                 place_breadcoast.innerHtml += `<a href="catalog?category_id=${msg['category']['id']}">${msg['category']['name']}</a>`;
-
             }
         })
     }

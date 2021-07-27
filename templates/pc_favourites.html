@@ -15,8 +15,20 @@
         <h1 class="catalog_zag" style="text-align: center">Избранное</h1>
     </div>
 </div>
-
-<div class="catalog">
+<!-- В корзине пусто -->
+<div class="basket_place" id="basket_place" style="min-height: 63vh;display: none;">
+    <div class="empty_basket" id="empty_basket_createorder">
+        <div class="empty_basket_info" style="padding-top: 20%">
+            <div class="name_buckets">
+                В избранном нет товаров!
+                <a class="all_catalog_href" href="/catalog?category_id=1">
+                    Перейти в каталог
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="catalog" id="catalog">
     <div class="container">
         <div id="favorites_place">
             <div id="card_product" style="display: none;">
@@ -97,18 +109,18 @@
 
 
     function loadProducts() {
-        console.log(user);
-        console.log('user', user['id']);
-        let data = {
-            'user_id': user['id'],
-        }
         $.ajax({
             url: '/site/likeds/products',
             type: "GET",
-            data: data,
             success: function (msg) {
                 $('.delete_card').remove();
                 console.log(msg);
+                if (msg['message']['products'].length < 1) {
+                    favorites_place.style.display = 'none';
+                    basket_place.style.display = 'block';
+                    empty_basket_createorder.style.display = 'block';
+                    catalog.style.padding = '0px';
+                }
                 drawProducts(msg['message']['products']);
                 paginations = msg['message']['pages'];
             }

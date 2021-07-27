@@ -70,7 +70,6 @@
         <input class="popup_input registration_input" placeholder="Ваше Имя" id="name_user_reg">
         <input class="popup_input" placeholder="Ваша фамилия" id="surname_user_reg">
         <input class="popup_input registration_input" type="tel" placeholder="+7 (__) __-__-_" id="phone_user_reg">
-        <input class="popup_input registration_input" type="email" placeholder="Введите Email" id="email_user_reg">
         <input class="popup_input registration_input" type="password" placeholder="Придумайте пароль"
                id="password_user_reg">
         <input class="popup_input registration_input" type="password" placeholder="Повторите пароль"
@@ -244,7 +243,7 @@
 </div>
 <!-- Карточка товара -->
 <div id="item_card_place" style="padding-top: 35px;display: none">
-    <div class="slider_item_card" id="card_product" style="display: none">
+    <div id="card_product" style="display: none;">
         <div class="right_nav_place">
             <div class="right_nav_item">
 
@@ -262,9 +261,9 @@
             <img src="../static/img/catalog_img.png" class="slider_img">
         </a>
         <div class="name_and_price">
-            <div class="catalog_flex_catalog">
+            <div class="catalog_flex" style="padding-bottom: 0px;">
                 <div class="slider_name_bucket">Букет "Индиго"</div>
-                <div class="price_basket" style="display: none;"></div>
+                <div class="price_basket slider_name_bucket" style="display: none;"></div>
             </div>
             <div class="catalog_flex_catalog for_basket"
                  style="align-items: center;justify-content: space-between;padding: 0 15px;">
@@ -546,7 +545,7 @@
 
     /* Регистрация пользователя */
     function RegistrationUser() {
-        if (name_user_reg.value === '' || phone_user_reg.value === '' || email_user_reg.value === '' || password_user_reg.value === '' || password_user_reg.value === '' || repeatpas_user_reg.value === '') {
+        if (name_user_reg.value === '' || phone_user_reg.value === '' || password_user_reg.value === '' || repeatpas_user_reg.value === '') {
             let inputs = document.getElementsByClassName('registration_input');
             for (let i = 0; i < inputs.length; i++) {
                 if (inputs[i].value.length === 0) {
@@ -574,6 +573,7 @@
                 data: data,
                 success: function (msg) {
                     console.log(msg);
+
                     /* Добавить проверку, что такой Email или Телефон уже зареган */
                 }
             });
@@ -613,6 +613,21 @@
         }
     }
 
+    // Проверка телефонного кода при регистрации
+    function checkedPhoneCode(code) {
+        let data = {
+            'code': code,
+        }
+        $.ajax({
+            url: '/api/user/confirmed',
+            data: data,
+            type: "GET",
+            success: function (msg) {
+                console.log(msg);
+            }
+        })
+    }
+
 
     /* Получение пользователя */
     GetUser();
@@ -631,11 +646,9 @@
                         user_btn[i].onclick = function () {
                             OpenPopup(registrationpopup, 1);
                         }
-                        favorites_btn[i].onclick = function () {
-                            OpenPopup(registrationpopup, 1);
-                        }
+                        favorites_btn[i].href = '/favorites';
                         basket_btn[i].onclick = function () {
-                            OpenPopup(registrationpopup, 1);
+                            OpenPopup(basket_popup, 2);
                         }
                     } else {
                         user = msg['message']['user'];
@@ -660,11 +673,9 @@
     }
 
     /* Добавление в избранное */
-    function AddLikeds(product_id, user_id) {
-        console.log('Дашло');
+    function AddLikeds(product_id) {
         let data = {
             'product_id': product_id,
-            'user_id': user_id
         }
         $.ajax({
             url: 'api/user/liked',
@@ -678,7 +689,6 @@
 
     /* Удаление из избранного */
     function DeleteLikeds(product_id, user_id) {
-        console.log('Дашло');
         let data = {
             'product_id': product_id,
             'user_id': user_id
@@ -740,7 +750,7 @@
         } else {
             place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
             place_for_favor.onclick = function () {
-                AddLikeds(product['id'], user['id']);
+                AddLikeds(product['id']);
                 place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
             }
         }
@@ -843,9 +853,7 @@
             type: "GET",
             data: data,
             success: function (msg) {
-                console.log(msg);
                 loadBasket();
-                console.log(location.pathname);
                 if (location.pathname === '/createorder') {
                     loadBasketOrder();
                 }
@@ -867,7 +875,6 @@
             data: data,
             success: function (msg) {
                 console.log(msg);
-                // loadProducts();
                 loadBasket();
                 // Проверяем, если мы сейчас оформляем заказ, то загружаем loadBasketOrder
                 if (location.pathname === '/createorder') {
@@ -877,7 +884,7 @@
         })
     }
 
-function breadCoast(categorie_id) {
+    function breadCoast(categorie_id) {
         let data = null;
         $.ajax({
             url: `http://213.139.208.90:1002/api/categories/get/path?id=` + categorie_id,
@@ -889,6 +896,7 @@ function breadCoast(categorie_id) {
         });
         return data;
     }
+
     /* Хлебные крошки */
     function BreadCoast(category_id) {
         let data = [];
@@ -1018,21 +1026,27 @@ function breadCoast(categorie_id) {
         console.log(Number(input.value));
 
         // Счётчик
+        if (Number(input.value) === 1) {
+            minus_counter.classList.add('disabled');
+        }
         input.onchange = function () {
-            if (input.value > 1) {
+            if (input.value === '') {
+                input.value = 1;
+                minus_counter.classList.add('disabled');
+            } else if (Number(input.value) < 1) {
+                input.value = 1;
+                minus_counter.classList.add('disabled');
+            } else {
                 changeProduct(product['id'], Number(input.value));
             }
         }
 
-        if (Number(input.value) === 1) {
-            minus_counter.classList.add('disabled');
-        }
         minus_counter.onclick = function () {
             if (Number(input.value) > 1) {
                 input.value--;
                 addProduct(product['id'], Number(-1));
             } else {
-                minus_counter.className = 'disabled';
+                minus_counter.classList.add('disabled');
             }
         }
         plus_counter.onclick = function () {
@@ -1077,22 +1091,37 @@ function breadCoast(categorie_id) {
         name.innerText = product['name'];
         let value_inp = product['q_count'];
         input.value = Number(value_inp);
-        console.log(Number(input.value));
 
-        if (input.value === 1) {
+
+        // Счётчик товара
+        if (Number(input.value) === 1) {
             minus_counter.classList.add('disabled');
         }
+        input.onchange = function () {
+            if (input.value === '') {
+                input.value = 1;
+                minus_counter.classList.add('disabled');
+            } else if (Number(input.value) < 1) {
+                input.value = 1;
+                minus_counter.classList.add('disabled');
+            } else {
+                changeProduct(product['id'], Number(input.value));
+            }
+        }
         minus_counter.onclick = function () {
-            // console.log(input.value);
-            // if (input.value === 1) {
-            //     return;
-            // }
-            // input.value -= Number(1);
-            console.log('Жэпа');
+            if (Number(input.value) > 1) {
+                input.value--;
+                addProduct(product['id'], Number(-1));
+            } else {
+                minus_counter.classList.add('disabled');
+            }
         }
         plus_counter.onclick = function () {
-            console.log(input.value);
-            input.value += Number(1);
+            if (Number(input.value) >= 1) {
+                minus_counter.classList.remove('disabled');
+                input.value++;
+                addProduct(product['id'], Number(1));
+            }
         }
         if (product['discount_type'] > 0) {
             price.classList.add('have_disc');

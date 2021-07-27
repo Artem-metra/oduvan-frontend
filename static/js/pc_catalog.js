@@ -124,43 +124,15 @@ function loadProducts() {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success: function (msg) {
-            console.log(msg);
+            console.log('Продкуты каталога', msg);
             $('.delete_paginations').remove();
             paginations = Number(msg['message']['pages']);
             drawProducts(msg['message']['products']);
         }
     });
 
-
-    /* Выпадающий список с сортировками по названиям, по цене и т.д */
     chevron_for_list.onclick = function () {
-        let inputs = document.getElementsByClassName('sorted_po');
-        console.log('inputs', inputs);
-        for (let i = 1; i < inputs.length + 1; i++) {
-            console.log(i, sorted_type);
-            if (i !== sorted_type) {
-                inputs[i - 1].style.display = 'block';
-            } else {
-                inputs[i - 1].style.display = 'none';
-            }
-        }
-        if (chevron_list.classList.contains('_active')) {
-            sorted_select_items_list.className = '';
-            chevron_list.classList.remove('_active');
-        } else {
-            sorted_select_items_list.className = '_active';
-            chevron_list.classList.add('_active');
-            let sorted_list = sorted_select_items_list.cloneNode(true);
-            console.log(sorted_list);
-            let sorted_item = sorted_list.getElementsByClassName('sorted_select_item');
-            console.log(sorted_item);
-            for (let i = 0; i < sorted_item.length; i++) {
-                sorted_item[i].onclick = function () {
-                    console.log('O da', sorted_item[i]);
-                    alert(sorted_item[i].innerText);
-                }
-            }
-        }
+        outdoingList();
     }
 
     throw_off.onclick = function () {
@@ -180,6 +152,34 @@ function loadProducts() {
             }
         }
         loadProducts();
+    }
+}
+
+function outdoingList() {
+    /* Выпадающий список с сортировками по названиям, по цене и т.д */
+    if (chevron_for_list.className === '') {
+        chevron_list.classList.add('_active');
+        sorted_select_items_list.className = '_active';
+        chevron_for_list.className = '_active';
+        let inputs = document.getElementsByClassName('sorted_po');
+        for (let i = 0; i < inputs.length; i++) {
+            if (i + 1 !== sorted_type) {
+                inputs[i].style.display = 'block';
+            } else {
+                inputs[i].style.display = 'none';
+            }
+            inputs[i].onclick = function () {
+                sorted_type = i + 1;
+                console.log('st', sorted_type);
+                sorted_select_items_list.className = '';
+                chevron_list.classList.remove('_active');
+                active_sorted.innerText = inputs[i].getAttribute('placeholder');
+            }
+        }
+    } else {
+        chevron_list.classList.remove = '_active';
+        sorted_select_items_list.classList.remove('_active');
+        chevron_for_list.classList.remove('_active');
     }
 
 
