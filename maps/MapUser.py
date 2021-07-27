@@ -67,18 +67,25 @@ def api_user_auth():
 @user_app.route('/api/user/liked')
 def api_user_liked():
     product_id = request.values.get('product_id')
+    # session.pop('liked', None)
     if 'liked' not in session:
         session['liked'] = list(product_id)
     else:
-        l = session.get('liked')
-        l.append(product_id)
+        l = list(session.get('liked'))
+        if product_id not in l:
+            l.append(product_id)
         session['liked'] = l
     return utils.getAnswer('ok')
 
 
 @user_app.route('/api/user/disliked')
 def api_user_disliked():
-    return utils.complete_request(request, request.path)
+    product_id = request.values.get('product_id')
+    l = list(session.get('liked'))
+    if product_id in l:
+        l.remove(product_id)
+    session['liked'] = l
+    return utils.getAnswer('ok')
 
 
 @user_app.route('/api/user/add_address')
