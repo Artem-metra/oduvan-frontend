@@ -132,7 +132,7 @@ function loadProducts() {
     });
 
     chevron_for_list.onclick = function () {
-        outdoingList();
+        outdoingListCatalog();
     }
 
     throw_off.onclick = function () {
@@ -155,7 +155,7 @@ function loadProducts() {
     }
 }
 
-function outdoingList() {
+function outdoingListCatalog() {
     /* Выпадающий список с сортировками по названиям, по цене и т.д */
     if (chevron_for_list.className === '') {
         chevron_list.classList.add('_active');
@@ -177,7 +177,7 @@ function outdoingList() {
             }
         }
     } else {
-        chevron_list.classList.remove = '_active';
+        chevron_list.classList.remove('_active');
         sorted_select_items_list.classList.remove('_active');
         chevron_for_list.classList.remove('_active');
     }
@@ -338,12 +338,10 @@ function minPrice() {
 
             /* Рендж для регулировки цен */
             price_controller.oninput = function () {
-                console.log(price_controller.value);
                 price_max.value = price_controller.value;
             }
             /* Проверки при изменении цены */
             price_min.onchange = function () {
-                console.log(price_min.value);
                 if (Number(price_min.value) < msg['message']['min_cost']) {
                     price_min.value = Number(msg['message']['min_cost']);
                 }

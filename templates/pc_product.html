@@ -110,7 +110,8 @@
                 Весь каталог
             </a>
         </div>
-        <!-- Слайдер -->
+        <!-- Слайдер "Популярное" -->
+
         <div id="swiper_place">
             <div class="row rw m-t-16" id="slider_place">
                 <!-- Slider Banners -->
@@ -126,6 +127,7 @@
                 </div>
             </div>
         </div>
+
 
     </div>
 </div>
@@ -156,6 +158,7 @@
 {% include 'pc_utilites.html' %}
 <script>
     let id = {{id}};
+    let name = '';
     let category_id = 0;
 
     getProduct();
@@ -172,8 +175,8 @@
             success: function (msg) {
                 console.log('product', msg);
                 category_id = Number(msg['message']['product']['category_id']);
-                drawProduct(msg['message']);
                 getCategory(category_id);
+                drawProduct(msg['message']);
             }
         })
     }
@@ -184,9 +187,10 @@
         console.log(msg);
         description_product.innerText = msg['product']['description'];
         name_bucket.innerText = msg['product']['name'];
-        main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][0][0];
+        name = msg['product']['name'];
+        // main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][0][0];
 
-        if(msg['product']['photos'] > 0) {
+        if (msg['product']['photos'] > 0) {
             for (let i = 0; i < msg['product']['photos'].length; i++) {
                 let images = small_product_card.cloneNode(true);
                 images.id = '';
@@ -204,10 +208,7 @@
                 all_pictures_product_place.append(images);
             }
         }
-
-
         let count = document.getElementById('counter_product');
-
         if (msg['product']['discount_type'] > 0) {
             price.classList.add('have_disc');
         } else {
@@ -292,10 +293,8 @@
                 }
             }
         }
-
         height_product.innerText += ' ' + msg['product']['height'] + ' см';
         diameter_product.innerText += ' ' + msg['product']['diameter'] + ' см';
-
     }
 
 
@@ -333,11 +332,10 @@
             slidesPerView: 4,
             slidesPerGroup: 4,
             spaceBetween: 30,
-            pagination: {
-                el: '.swiper-pagination',
-                type: 'bullets',
-                clickable: true,
-            },
+            // pagination: {
+            //     el: '.swiper-pagination',
+            //     type: 'bullets',
+            // },
             grabCursor: true,
             navigation: {
                 nextEl: right_arrow,
@@ -380,7 +378,10 @@
             success: function (msg) {
                 console.log(msg);
                 name_cat_bucket.innerText = msg['category']['name'];
-                place_breadcoast.innerHtml += `<a href="catalog?category_id=${msg['category']['id']}">${msg['category']['name']}</a>`;
+                let breadcoast = BreadCoast(category_id);
+                console.log('hleb', breadcoast);
+                place_breadcoast.innerHTML += ' / ' + `<a href="catalog?category_id=${msg['category']['parent_id']}">${breadcoast[0]}</a>` + ' / ' + `<span style="font-weight: 600; text-transform: uppercase">${msg['category']['name']}</span>` + ' / ' +
+                    `<a href="/product?id=${id}" class="active_page">$name</a>`;
             }
         })
     }

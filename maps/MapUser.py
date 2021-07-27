@@ -31,11 +31,6 @@ def api_user_get():
     return utils.complete_request_with_parameters(params, request.path)
 
 
-@user_app.route('/api/user/edit')
-def api_user_edit():
-    return utils.complete_request(request, request.path)
-
-
 @user_app.route('/api/user/remove')
 def api_user_remove():
     return utils.complete_request(request, request.path)
@@ -62,7 +57,17 @@ def api_user_auth():
 
 @user_app.route('/api/user/liked')
 def api_user_liked():
-    return utils.complete_request(request, request.path)
+    product_id = request.values.get('product_id')
+    # session.pop('liked', None)
+    if 'liked' not in session:
+        session['liked'] = list(product_id)
+    else:
+        l = list(session.get('liked'))
+        if product_id not in l:
+            l.append(product_id)
+        session['liked'] = l
+    return utils.getAnswer('ok')
+
 
 @user_app.route('/api/user/list_likes')
 def api_user_list_likes():
@@ -71,7 +76,12 @@ def api_user_list_likes():
 
 @user_app.route('/api/user/disliked')
 def api_user_disliked():
-    return utils.complete_request(request, request.path)
+    product_id = request.values.get('product_id')
+    l = list(session.get('liked'))
+    if product_id in l:
+        l.remove(product_id)
+    session['liked'] = l
+    return utils.getAnswer('ok')
 
 
 @user_app.route('/api/user/add_address')
@@ -97,6 +107,34 @@ def api_user_remove_avatar():
 @user_app.route('/api/user/change_address')
 def api_user_change_address():
     return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/user/change_info')
+def api_user_change_info():
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    if 'user_id' not in params.keys():
+        if 'user_id' in session:
+            params['user_id'] = session['user_id']
+        else:
+            return 'error'
+    response = utils.complete_request_with_parameters(params, request.path)
+    return response
+
+
+@user_app.route('/api/user/change_password')
+def api_user_change_password():
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    if 'user_id' not in params.keys():
+        if 'user_id' in session:
+            params['user_id'] = session['user_id']
+        else:
+            return 'error'
+    response = utils.complete_request_with_parameters(params, request.path)
+    return response
 
 
 @user_app.route('/api/user/remove_address')

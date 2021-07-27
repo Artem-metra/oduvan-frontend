@@ -333,6 +333,7 @@
                 let btn_delete = box.getElementsByClassName('btn_delete_address')[0];
                 name_address_user.innerText = user['addresses'][i]['name'];
                 address_address_user.innerText = user['addresses'][i]['address'];
+
                 btn_change.onclick = function () {
                     let completed_address = box.getElementsByClassName('completed_address')[0];
                     completed_address.style.display = 'block';
@@ -342,6 +343,19 @@
                     let name_address = box.getElementsByClassName('name_address')[0];
                     address.value = user['addresses'][i]['address'];
                     name_address.value = user['addresses'][i]['name'];
+                    let address_data = '';
+                    $(address).suggestions({
+                        token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
+                        type: "ADDRESS",
+                        /* Вызывается, когда пользователь выбирает одну из подсказок */
+                        onSelect: function (suggestion) {
+                            if (Number(suggestion['data']['fias_level']) < 8) {
+                                notification('Укажите точный адрес', 1);
+                                return;
+                            }
+                            address_data = suggestion['value'];
+                        }
+                    });
                     btn_save.onclick = function () {
                         if (address.value === '' || name_address.value === '') {
                             let inputs = box.getElementsByClassName('popup_input');
@@ -355,23 +369,8 @@
                             notification('Вы ничего не поменяли', 1);
                             return;
                         }
-                        let address_data = '';
-                        $(address).suggestions({
-                            token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
-                            type: "ADDRESS",
-                            /* Вызывается, когда пользователь выбирает одну из подсказок */
-                            onSelect: function (suggestion) {
-                                if (Number(suggestion['data']['fias_level']) < 8) {
-                                    notification('Укажите точный адрес', 1);
-                                    return;
-                                }
-                                address_data = suggestion['value'];
-                            }
-                        })
-                        changeAddress(name_address.value, address.value, user['addresses'][i]['id'])
+                        changeAddress(name_address.value, address_data, user['addresses'][i]['id'])
                     }
-
-
                 }
                 btn_delete.onclick = function () {
                     deleteAddress(user['addresses'][i]['id'], user['addresses'][i]['name']);
@@ -383,7 +382,6 @@
         }
 
         // Вывод адресов или, если ещё нет адресов, то вывод блоков с возможностью добавлять адреса
-
         for (let i = 0; i < 3 - user['addresses'].length; i++) {
             let box = address_item.cloneNode(true);
             let inputs_ad = box.getElementsByClassName('popup_input');
@@ -420,7 +418,7 @@
                     }
                     address_data = suggestion['value'];
                 }
-            })
+            });
 
             old_password.oninput = function () {
                 old_password.classList.remove('error');
@@ -435,7 +433,6 @@
                     notification('Заполните обязательные поля', 1);
                     return;
                 }
-                address_data = address.value;
                 addAddress(name_address.value, address_data);
 
             }
@@ -537,21 +534,23 @@
                 notification('Заполните обязательные поля!', 1);
                 return;
             }
+            console.log(day_datepicker.value);
             let data = {
                 'id': user['id'],
                 'name': your_name.value,
+                'email': your_email_address.value,
                 'surname': your_surname.value,
                 'phone': your_mobile.value,
                 'birthday': day_datepicker.value,
             }
             $.ajax({
-                url: '/api/user/edit',
+                url: '/api/user/change_info',
                 data: data,
                 type: "GET",
                 success: function (msg) {
                     console.log(msg);
-                    if(msg['status'] === 'ok'){
-                      notification('Ваши данные успешно изменены!', 2);
+                    if (msg['status'] === 'ok') {
+                        notification('Ваши данные успешно изменены!', 2);
                     }
                 }
             })
@@ -572,7 +571,7 @@
                     'password': new_pass.value,
                 }
                 $.ajax({
-                    url: '/api/user/edit',
+                    url: '/api/user/change_password',
                     data: data,
                     type: "GET",
                     success: function (msg) {
@@ -609,7 +608,7 @@
 
     // функция изменения адреса
     function changeAddress(name, address, address_id) {
-        console.log('changeName', name);
+        console.log('changeName', name, address, address_id);
         let data = {
             'id': user['id'],
             'name': name,

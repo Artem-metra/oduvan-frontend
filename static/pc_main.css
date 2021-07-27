@@ -550,7 +550,7 @@ input[type="checkbox"] {
 .swip_left_arrow {
     position: absolute;
     top: 50%;
-    left: 8px;
+    left: 8%;
     z-index: 2;
     cursor: pointer;
 }
@@ -558,7 +558,7 @@ input[type="checkbox"] {
 .swip_right_arrow {
     position: absolute;
     top: 50%;
-    right: 8px;
+    right: 8%;
     z-index: 2;
     cursor: pointer;
 }
@@ -1943,7 +1943,9 @@ input[type="checkbox"] {
 .system_item:last-child {
     margin-right: 0;
 }
-
+.system_item .small_product_img{
+    z-index: 1;
+}
 .birthday_item {
     width: 32.5%;
     margin-right: 10px;
@@ -2018,7 +2020,7 @@ input[type="checkbox"] {
 }
 
 .data_address {
-    z-index: 600;
+    z-index: 300;
 }
 
 .suggestions-suggestions {
