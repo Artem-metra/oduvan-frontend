@@ -110,14 +110,15 @@ def article():
         return render_template('pc_article.html')
 
 
+@app.route('/api/get_nesting_by_id')
+def get_nesting_by_id():
+    return utils.complete_request(request, request.path)
+
+
 # @app.before_request
 # def redirect_on_api():
 # print(request)
 
-
-@app.route('/api/get_nesting_by_id')
-def get_nesting_by_id():
-    return utils.complete_request(request, request.path)
 
 
 if __name__ == '__main__':

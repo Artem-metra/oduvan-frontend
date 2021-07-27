@@ -49,7 +49,11 @@ def api_user_check():
 
 @user_app.route('/api/user/registration')
 def api_user_registration():
-    return utils.complete_request(request, request.path)
+    resp = utils.complete_request(request, request.path)
+    if 'user_id' not in session:
+        if 'user_id' in resp:
+            session['user_id'] = resp['user_id']
+    return resp
 
 
 @user_app.route('/api/user/auth')
@@ -63,16 +67,40 @@ def api_user_auth():
 
 @user_app.route('/api/user/liked')
 def api_user_liked():
-    return utils.complete_request(request, request.path)
+    product_id = request.values.get('product_id')
+    # session.pop('liked', None)
+    if 'liked' not in session:
+        session['liked'] = list(product_id)
+    else:
+        l = list(session.get('liked'))
+        if product_id not in l:
+            l.append(product_id)
+        session['liked'] = l
+    return utils.getAnswer('ok')
 
 
 @user_app.route('/api/user/disliked')
 def api_user_disliked():
-    return utils.complete_request(request, request.path)
+    product_id = request.values.get('product_id')
+    l = list(session.get('liked'))
+    if product_id in l:
+        l.remove(product_id)
+    session['liked'] = l
+    return utils.getAnswer('ok')
 
 
 @user_app.route('/api/user/add_address')
 def api_user_add_address():
+    return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/user/change_address')
+def api_user_change_address():
+    return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/user/remove_address')
+def api_user_remove_address():
     return utils.complete_request(request, request.path)
 
 
@@ -91,16 +119,14 @@ def api_user_remove_avatar():
     return utils.complete_request(request, request.path)
 
 
-@user_app.route('/api/user/change_address')
-def api_user_change_address():
-    return utils.complete_request(request, request.path)
-
-
-@user_app.route('/api/user/remove_address')
-def api_user_remove_address():
-    return utils.complete_request(request, request.path)
-
-
-@user_app.route('/api/history_deals/get_all')
-def get_all_deals_for_user():
-    return utils.complete_request(request, request.path)
+@user_app.route('/api/user/confirmed')
+def api_user_confirmed():
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    if 'user_id' not in params.keys():
+        if 'user_id' in session:
+            params = {'user_id': session['user_id']}
+        else:
+            return 'error'
+    return utils.complete_request_with_parameters(params, request.path)
