@@ -19,7 +19,6 @@ from maps.MapUser import user_app
 
 app = Flask(__name__)
 app.secret_key = 'super super secret key, her vzlomaesh'
-app.config['SESSION_PERMANENT'] = True
 
 app.register_blueprint(promo_code_app)
 app.register_blueprint(category_app)
@@ -35,10 +34,6 @@ app.register_blueprint(user_app)
 app.register_blueprint(delivery_app)
 app.register_blueprint(position_app)
 
-
-@app.before_request
-def make_session_permanent():
-    session.permanent = True
 
 
 # Index

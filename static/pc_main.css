@@ -710,7 +710,7 @@ input[type="checkbox"] {
     color: #FFFFFF;
 }
 
-.added_product .fa-plus, .added_product .fa-minus {
+    .added_product .fa-plus, .added_product .fa-minus {
     font-size: 24px;
 }
 
@@ -2291,6 +2291,7 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
     background: #ac51b5;
 }
+
 
 
 

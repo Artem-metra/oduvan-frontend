@@ -20,18 +20,18 @@
 
 <div class="catalog" style="text-align: center">
     <div class="container">
-        <div class="catalog_category " style="width: auto;">
-            <div class="catalog_category_item _active" style="font-size: 33px; height: 60px;" id="personal_info_map">
+        <div class="catalog_category " style="width: auto; ">
+            <div class="catalog_category_item _active" style="font-size: 33px; height: 60px;  padding: 10px 19px;" id="personal_info_map">
                 Личная информация
             </div>
         </div>
         <div class="catalog_category">
-            <div class="catalog_category_item" id="personal_address_map" style="font-size: 33px;  height: 60px">
+            <div class="catalog_category_item" id="personal_address_map" style="font-size: 33px;  height: 60px;  padding: 10px 19px;">
                 Адреса
             </div>
         </div>
         <div class="catalog_category">
-            <div class="catalog_category_item" id="personal_history_map" style="font-size: 33px;  height: 60px">
+            <div class="catalog_category_item" id="personal_history_map" style="font-size: 33px;  height: 60px; padding: 10px 19px;">
                 История заказов
             </div>
         </div>
@@ -163,54 +163,114 @@
 
 
 	<!-- ЛК история -->
-	<section class="main" id="personal_history">
-		<div class="container">
-			<div class="main_info__two">
-				<div class="main_info__desc">
-					<div class="info_desc__item">
-						<ul class="desc_item__list">
-							<li class="desc_item__list--1">Адрес</li>
-							<li class="desc_item__list--2">Воронеж, Ул. Урывского 2В</li>
-						</ul>
-					</div>
+<!--	<section class="main" id="personal_history">-->
+<!--		<div class="container">-->
+<!--			<div class="main_info__two">-->
+<!--				<div class="main_info__desc">-->
+<!--					<div class="info_desc__item">-->
+<!--						<ul class="desc_item__list">-->
+<!--							<li class="desc_item__list&#45;&#45;1">Адрес</li>-->
+<!--							<li class="desc_item__list&#45;&#45;2">Воронеж, Ул. Урывского 2В</li>-->
+<!--						</ul>-->
+<!--					</div>-->
 
-					<div class="info_desc__item">
-						<ul class="desc_item__list">
-							<li class="desc_item__list--1">Стоимость</li>
-							<li class="desc_item__list--2">17 200 ₽</li>
-						</ul>
-					</div>
+<!--					<div class="info_desc__item">-->
+<!--						<ul class="desc_item__list">-->
+<!--							<li class="desc_item__list&#45;&#45;1">Стоимость</li>-->
+<!--							<li class="desc_item__list&#45;&#45;2">17 200 ₽</li>-->
+<!--						</ul>-->
+<!--					</div>-->
 
-					<div class="info_desc__item">
-						<ul class="desc_item__list">
-							<li class="desc_item__list--1">Дата</li>
-							<li class="desc_item__list--2">06.07.2021</li>
-						</ul>
-					</div>
-				</div>
+<!--					<div class="info_desc__item">-->
+<!--						<ul class="desc_item__list">-->
+<!--							<li class="desc_item__list&#45;&#45;1">Дата</li>-->
+<!--							<li class="desc_item__list&#45;&#45;2">06.07.2021</li>-->
+<!--						</ul>-->
+<!--					</div>-->
+<!--				</div>-->
 
-				<div class="main_category">
-					<ul class="category_list">
-						<li class="category_item">
-							<img src="../static/img/mobile_catalog.png" alt="">
-							<div class="category_item__desc">
-								<p class="flow_name">Букет «Индиго»</p>
-								<p class="flow_price">5 400 ₽</p>
-							</div>
-						</li>
+<!--				<div class="main_category">-->
+<!--					<ul class="category_list">-->
+<!--						<li class="category_item">-->
+<!--							<img src="../static/img/mobile_catalog.png" alt="">-->
+<!--							<div class="category_item__desc">-->
+<!--								<p class="flow_name">Букет «Индиго»</p>-->
+<!--								<p class="flow_price">5 400 ₽</p>-->
+<!--							</div>-->
+<!--						</li>-->
 
-                        <li class="category_item">
-							<img src="../static/img/mobile_catalog.png" alt="">
-							<div class="category_item__desc">
-								<p class="flow_name">Букет «Индиго»</p>
-								<p class="flow_price">5 400 ₽</p>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
+<!--                        <li class="category_item">-->
+<!--							<img src="../static/img/mobile_catalog.png" alt="">-->
+<!--							<div class="category_item__desc">-->
+<!--								<p class="flow_name">Букет «Индиго»</p>-->
+<!--								<p class="flow_price">5 400 ₽</p>-->
+<!--							</div>-->
+<!--						</li>-->
+<!--					</ul>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</section>-->
+
+    <div class="catalog_flex createorder" style="padding:0;display: none" id="personal_history">
+            <!-- История заказов -->
+            <div class="one_order_place" id="one_order_place" style="display: none">
+                <div class="catalog_flex" style="justify-content: normal;margin-bottom:15px;">
+                    <div style="width:48%;border-bottom: 2px solid #293048;margin-right:15px;">
+                        <div class="catalog_flex">
+                            <div class="address_info_zag">
+                                Адрес:
+                            </div>
+                            <div class="address_info_zag address_order" style="color:#293048">
+                                УЛ. УРЫВСКОГО 2В
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width:35%;border-bottom: 2px solid #293048;margin-right:15px;">
+                        <div class="catalog_flex">
+                            <div class="address_info_zag ">
+                                Стоимость заказа:
+                            </div>
+                            <div class="address_info_zag cost_order" style="color:#293048">
+                                17 200 Р
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width:25%;border-bottom: 2px solid #293048;">
+                        <div class="catalog_flex">
+                            <div class="address_info_zag ">
+                                Дата:
+                            </div>
+                            <div class="address_info_zag date_order" style="color:#293048">
+                                06.07.2021
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="catalog_flex" style="justify-content: normal;padding-bottom: 0;">
+                    <div class="history_order_item" id="history_order_item" style="display: none">
+                        <div class="catalog_flex" style="align-items: normal;justify-content: normal">
+                            <div class="small_product_card" style="margin-right:15px;">
+                                <a class="small_product_place">
+                                    <img src="../static/img/slider_img.png" class="small_product_img">
+                                </a>
+                            </div>
+                            <div>
+                                <div class="bucket_na_zakaz">
+                                    Букет индиго
+                                </div>
+                                <div class="price">
+                                    5400 Р
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     {% include 'utilites.html' %}
 
@@ -603,43 +663,43 @@
     }
 
     // Загрузка истории заказов
-    // function loadHistory() {
-    //     let data = {
-    //         'id': user['id'],
-    //     }
-    //     $.ajax({
-    //         url: '/api/history_deals/get_all',
-    //         data: data,
-    //         type: "GET",
-    //         success: function (msg) {
-    //             console.log(msg);
-    //             drawHistory();
-    //         }
-    //
-    //     })
-    // }
-    //
-    // function drawHistory(order){
-    //        let box = one_order_place.cloneNode(true);
-    //        let address = box.getElementsByClassName('address_order')[0];
-    //        let cost = box.getElementsByClassName('cost_order')[0];
-    //        let date = box.getElementsByClassName('date_order')[0];
-    //        address.innerText = '';
-    //        cost.innerText = '';
-    //        date.innerText = '';
-    //
-    //        for(let i = 0; i < order['products'].length; i++){
-    //            let order = history_order_item.cloneNode(true);
-    //            let img = order.getElementsByClassName('small_product_img')[0];
-    //            let name = order.getElementsByClassName('bucket_na_zakaz')[0];
-    //            let cost = order.getElementsByClassName('price')[0];
-    //        }
-    //
-    //        box.style.display = 'block';
-    //        personal_history.append(box);
-    //
-    //
-    // }
+    function loadHistory() {
+        let data = {
+            'id': user['id'],
+        }
+        $.ajax({
+            url: '/api/history_deals/get_all',
+            data: data,
+            type: "GET",
+            success: function (msg) {
+                console.log(msg);
+                drawHistory();
+            }
+
+        })
+    }
+
+    function drawHistory(order){
+           let box = one_order_place.cloneNode(true);
+           let address = box.getElementsByClassName('address_order')[0];
+           let cost = box.getElementsByClassName('cost_order')[0];
+           let date = box.getElementsByClassName('date_order')[0];
+           address.innerText = '';
+           cost.innerText = '';
+           date.innerText = '';
+
+           for(let i = 0; i < order['products'].length; i++){
+               let order = history_order_item.cloneNode(true);
+               let img = order.getElementsByClassName('small_product_img')[0];
+               let name = order.getElementsByClassName('bucket_na_zakaz')[0];
+               let cost = order.getElementsByClassName('price')[0];
+           }
+
+           box.style.display = 'block';
+           personal_history.append(box);
+
+
+    }
 
 </script>
 </body>
