@@ -400,8 +400,13 @@ input[type="checkbox"] {
     align-items: center;
     color: #ffffff;
     cursor: pointer;
+    transition: opacity .3s;
 }
-
+.all_catalog_href.blur{
+    opacity:0.5;
+    transition: opacity .3s;
+    cursor: default;
+}
 .card_main_item {
     width: 50%;
     border: 16px solid #FFFFFF;
@@ -1195,7 +1200,7 @@ input[type="checkbox"] {
 }
 
 .registr_item {
-    width: 50%;
+    width: 100%;
     text-align: center;
     font-weight: 450;
     font-size: 24px;
