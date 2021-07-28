@@ -7,78 +7,64 @@
 </head>
 <body id="body">
 
-<div class="catalog" style="padding: 100px 0">
+<div class="catalog">
     <div class="container">
-        <div class="place_breadcoast product_font" style="font-size: 40px">
-            <a style="font-size: 40px" href="">Главная</a> / <a style="font-size: 40px" href="">Оформление заказа</a>
+        <div class="place_breadcoast" id="place_breadcoast">
+            <a href="/">Главная</a>
         </div>
 
-        <div class="big_product_card">
-            <div class="small_product_place">
-                <img src="../static/img/catalog_img.png" class="big_product_img">
+        <div class="catalog_flex_catalog" style="margin-top:50px; display: block">
+            <!-- Картинки слева. Все картинки букета -->
+            <div class="all_pictures_product_place" id="all_pictures_product_place">
+                <div class="small_product_card" id="small_product_card" style="display: none;">
+                    <div class="small_product_place">
+                        <img src="../static/img/slider_img.png" class="small_product_img">
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="all_pictures_product_place">
-                <div class="small_product_card">
+            <!-- Главная картинка -->
+            <div class="main_pictures_product_place">
+                <div class="big_product_card">
                     <div class="small_product_place">
-                        <img src="../static/img/catalog_img.png" class="small_product_img">
+                        <img src="../static/img/slider_img.png" class="small_product_img" id="main_photo">
                     </div>
                 </div>
 
-              <div class="small_product_card non_active">
-                    <div class="small_product_place">
-                        <img src="../static/img/catalog_img.png" class="small_product_img">
-                    </div>
+                <div class="flex_for_explanations_product">
+                    <div class="explanations_product">Инструкция свежести</div>
+                    <span class="fa fa-chevron-down"></span>
                 </div>
+                <div class="razdelitel_indicator"></div>
 
-              <div class="small_product_card non_active">
-                    <div class="small_product_place">
-                        <img src="../static/img/catalog_img.png" class="small_product_img">
-                    </div>
+                <div class="flex_for_explanations_product">
+                    <div class="explanations_product">Подробнее о доставке</div>
+                    <span class="fa fa-chevron-down"></span>
                 </div>
-
-              <div class="small_product_card non_active">
-                    <div class="small_product_place">
-                        <img src="../static/img/catalog_img.png" class="small_product_img">
-                    </div>
+                <div class="razdelitel_indicator"></div>
+            </div>
+            <!-- Описание товара -->
+            <div class="description_product_place">
+                <strong class="bucket_na_zakaz" id="name_cat_bucket">Монобукет</strong>
+                <div class="name_buckets" id="name_bucket" style="padding-top:8px; margin-top: 30px; margin-bottom: 30px;">"Индиго"</div>
+                <div class="disc_price_bucket" id="disc_price_bucket"
+                     style="padding:20px 0 15px 0;display: inline-block; font-size: 65px">5 400 ₽
                 </div>
-        </div>
+                <div class="price" id="price" style="padding:20px 0 15px 0;display: inline-block">5 400 ₽</div>
 
-        <div class="flex_for_explanations_product">
-            <div class="explanations_product">Инструкция свежести</div>
-            <span class="fa fa-chevron-down" style="font-size: 35px"></span>
-        </div>
-        <div class="razdelitel_indicator"></div>
-
-        <div class="flex_for_explanations_product">
-            <div class="explanations_product">Подробнее о доставке</div>
-            <span class="fa fa-chevron-down" style="font-size: 35px"></span>
-        </div>
-        <div class="razdelitel_indicator"></div>
-
-        <div class="description_product_place">
-                <div class="bucket_na_zakaz" id="name_bucket" style="text-align: center; font-size: 18px; margin-bottom: 15px;">Монобукет</div>
-                <div class="name_buckets" id="name_cat_bucket" style="padding-top:8px; font-size: 80px">"Индиго"</div>
-                <div class="price" id="disc_price_bucket" style="padding:20px 0 40px 0; text-align: center; font-size: 38px">5 400 ₽
-                </div>
-
-                <!-- Счетчик товара -->
-                <div class="add_to_basket_place">
-                    <div id="minus_counter" style="text-align: center">
-                        <div class="fa fa-minus" id="minus_counter_btn" style="font-size: 35px"></div>
+                <!-- Счетчик товаров -->
+                <div class="add_to_basket_place" id="basket_place">
+                    <div id="minus_counter" class="fa fa-minus" style="text-align: center">
                     </div>
                     <div class="counter_place">
                         <input type="number" class="product_counter_inp" id="counter_product" value="1">
-                        <span style="font-weight: 600; font-size: 35px; padding-left: 10px">ШТ</span>
+                        <span style="font-weight: 600;">ШТ</span>
                     </div>
-                    <div id="plus_counter" style="text-align: center">
-                        <div class="fa fa-plus" style="font-size: 35px"></div>
+                    <div id="plus_counter" class="plus_counter fa fa-plus" style="text-align: center">
                     </div>
                 </div>
 
                 <a href="#" class="all_catalog_href" id="add_to_basket"
-                   style="float:none;width:100%;margin-top:30px;height:110px; font-size: 40px; margin-bottom: 50px">Добавить
+                   style="float:none;width:100%;text-align: center; margin-top:40px;margin-bottom: 40px;height:100px;">Добавить
                     в корзину</a>
                 <div class="description_zag">
                     Описание
@@ -94,22 +80,23 @@
                 </div>
                 <div class="description_explanations">
                     <span id="description_explanations_item">
-                        Цветы: Роза одноголовая
+                        <span id="flowers_product">Цветы: </span>
                     </span>
                     <span>
-                        Упаковка: Ленты, Пленка
+                        <span id="packages_product">Упаковка: </span>
                     </span>
                     <span>
-                         Высота: около 40 см
+                         <span id="height_product">Высота: </span>
                     </span>
                     <span>
-                        Диаметр: около 35 см
+                        <span id="diameter_product">Диаметр: </span>
                     </span>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Похожее -->
 <div class="catalog" style="background: #f5f5f6;">
     <div class="container">
@@ -159,16 +146,153 @@
         </div>
     </div>
 </div>
+
+
 {% include 'utilites.html' %}
 
 </body>
 
 <script>
 
+
+      let id = {{id}};
+    let name = '';
+    let category_id = 0;
+
+    getProduct();
+
+    /* Получить продукт */
+    function getProduct() {
+        let data = {
+            'id': id
+        }
+        $.ajax({
+            url: 'api/product/get',
+            type: 'GET',
+            data: data,
+            success: function (msg) {
+                console.log('product', msg);
+                category_id = Number(msg['message']['product']['category_id']);
+                getCategory(category_id);
+                drawProduct(msg['message']);
+            }
+        })
+    }
+
+
+    /* Отрисовать продукт */
+    function drawProduct(msg) {
+        console.log(msg);
+        description_product.innerText = msg['product']['description'];
+        name_bucket.innerText = msg['product']['name'];
+        name = msg['product']['name'];
+        // main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][0][0];
+
+        if (msg['product']['photos'] > 0) {
+            for (let i = 0; i < msg['product']['photos'].length; i++) {
+                let images = small_product_card.cloneNode(true);
+                images.id = '';
+                if (i === 0) {
+                    images.classList.add('_active_photo');
+                }
+                let img = images.getElementsByClassName('small_product_img')[0];
+                img.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i][i];
+                images.style.display = 'block';
+                images.onclick = function () {
+                    document.getElementsByClassName('_active_photo')[0].classList.remove('_active_photo');
+                    images.classList.add('_active_photo');
+                    main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i][i];
+                }
+                all_pictures_product_place.append(images);
+            }
+        }
+        let count = document.getElementById('counter_product');
+        if (msg['product']['discount_type'] > 0) {
+            price.classList.add('have_disc');
+        } else {
+            disc_price_bucket.style.display = 'none';
+        }
+
+        if (msg['product']['q_count'] > 0) {
+            disc_price_bucket.innerText = Number(msg['product']['discount_cost'] * msg['product']['q_count']) + ' ₽';
+            price.innerText = Number(msg['product']['cost'] * msg['product']['q_count']) + ' ₽';
+            add_to_basket.style.display = 'none';
+            count.value = msg['product']['q_count'];
+            basket_place.style.display = 'flex';
+        } else {
+            price.innerText = Number(msg['product']['cost']) + ' ₽';
+            add_to_basket.style.display = 'flex';
+            basket_place.style.display = 'none';
+            add_to_basket.onclick = function () {
+                addProduct(msg['product']['id'], count.value);
+                add_to_basket.style.display = 'none';
+                basket_place.style.display = 'flex';
+            }
+        }
+        count.onchange = function () {
+            if (count.value === '') {
+                count.value = 1;
+                minus.className = 'disabled';
+            } else if (count.value < 1) {
+                count.value = 1;
+                minus.className = 'disabled';
+            } else {
+                changeProduct(msg['product']['id'], Number(count.value));
+            }
+            disc_price_bucket.innerText = Number(count.value * msg['product']['discount_cost']) + ' ₽';
+            price.innerText = Number(count.value * msg['product']['cost']) + ' ₽';
+        }
+
+        let minus = document.getElementById('minus_counter');
+        let plus = document.getElementById('plus_counter');
+
+        // Счетчик товаров
+        minus.onclick = function () {
+            if (Number(count.value) > 1) {
+                count.value--;
+                addProduct(msg['product']['id'], Number(-1));
+                disc_price_bucket.innerText = Number(count.value * msg['product']['discount_cost']) + ' ₽';
+                price.innerText = Number(count.value * msg['product']['cost']) + ' ₽';
+            }
+        }
+        plus.onclick = function () {
+            if (Number(count.value) >= 1) {
+                count.value++;
+                addProduct(msg['product']['id'], Number(1));
+                disc_price_bucket.innerText = Number(count.value * msg['product']['discount_cost']) + ' ₽';
+                price.innerText = Number(count.value * msg['product']['cost']) + ' ₽';
+            }
+        }
+
+        // Выводим детали товара
+        for (let i = 0; i < msg['flowers'].length; i++) {
+            if (i > 0) {
+                flowers_product.innerText += ', ' + msg['flowers'][i]['name'];
+            } else {
+                flowers_product.innerText += ' ' + msg['flowers'][i]['name'];
+            }
+        }
+
+        if (msg['packages'].length < 1) {
+            packages_product.style.display = 'none';
+        } else {
+            for (let i = 0; i < msg['packages'].length; i++) {
+                if (i > 0) {
+                    packages_product.innerText += ', ' + msg['packages'][i]['name'];
+                } else {
+                    packages_product.innerText += ' ' + msg['packages'][i]['name'];
+                }
+            }
+        }
+        height_product.innerText += ' ' + msg['product']['height'] + ' см';
+        diameter_product.innerText += ' ' + msg['product']['diameter'] + ' см';
+    }
+
+
+
+
     let count = document.getElementById('counter_product')
     let minus = document.getElementById('minus_counter');
-
-
 
     minus.onclick = function (){
          if(count.value > 1){
@@ -176,7 +300,6 @@
         }
 
     }
-
 
     plus_counter.onclick = function (){
         if(count.value >= 1){
@@ -211,8 +334,8 @@
         let box = swiper_place.cloneNode(true);
         let swiper = box.getElementsByClassName('swiper-container')[0];
         let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
-        let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
-        let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
+        // let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
+        // let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
         let pagination_place = box.getElementsByClassName('pagination_place')[0];
         let bullets = box.getElementsByClassName('swiper-pagination')[0];
         let sw = new Swiper(swiper, {
@@ -245,6 +368,26 @@
             wrapper.append(swiper_slide);
             document.getElementById('slider_place').append(box);
         }
+    }
+
+    function getCategory(category_id) {
+        console.log('categ_id', category_id);
+        let data = {
+            'category_id': category_id,
+        }
+        $.ajax({
+            url: 'api/category/get',
+            type: 'GET',
+            data: data,
+            success: function (msg) {
+                console.log(msg);
+                name_cat_bucket.innerText = msg['category']['name'];
+                let breadcoast = BreadCoast(category_id);
+                console.log('hleb', breadcoast);
+                place_breadcoast.innerHTML += ' / ' + `<a href="catalog?category_id=${msg['category']['parent_id']}">${breadcoast[0]}</a>` + ' / ' + `<span style="font-weight: 600; text-transform: uppercase">${msg['category']['name']}</span>` + ' / ' +
+                    `<a href="/product?id=${id}" class="active_page">${name}</a>`;
+            }
+        })
     }
 
 

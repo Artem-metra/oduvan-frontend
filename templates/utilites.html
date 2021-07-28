@@ -17,7 +17,7 @@
                     </a>
                 </div>
                 <div class="right_nav_place">
-                    <span class="num_basket" style="font-size: 17px"></span>
+                    <span class="num_basket" style="font-size: 29px"></span>
                     <a class="right_nav_item" id="go_to_basket">
                         <span class="fas fa-shopping-bag"></span>
                     </a>
@@ -55,7 +55,7 @@
                         </a>
                     </div>
                     <div class="right_nav_place">
-                        <span class="num_basket"></span>
+                        <span class="num_basket" style="font-size: 29px"></span>
                         <a class="right_nav_item">
                             <span class="fas fa-shopping-bag"></span>
                         </a>
@@ -145,7 +145,7 @@
             <div class="empty_basket_info">
                 <div class="name_buckets">
                     В корзине пусто!
-                    <a class="all_catalog_href" href="/catalog?category_id=1">
+                    <a class="all_catalog_href" href="/catalog?category_id=1" style="width: 80%; margin: 70px auto;">
                         Перейти в каталог
                     </a>
                 </div>
@@ -559,7 +559,8 @@
 
 
     function ClosePopup(popup) {
-        blurpopup.style.display = 'none'
+        blurpopup.style.display = 'none';
+        body.style.overflow = 'scroll';
         popup.classList.remove('_active');
     }
 
@@ -840,27 +841,21 @@
                     price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
                 }
             }
-            if (Number(input.value) === 1) {
-                minus_counter.classList.add('disabled');
-            }
+
             minus_counter.onclick = function () {
                 if (Number(input.value) > 1) {
                     input.value--;
                     addProduct(product['id'], Number(-1));
                     price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
-                } else {
-                    minus_counter.classList.add('disabled');
+                    console.log('InputValue', Number(input.value));
                 }
-                console.log(input.value);
             }
             plus_counter.onclick = function () {
                 if (Number(input.value) >= 1) {
-                    minus_counter.classList.remove('disabled');
                     input.value++;
                     addProduct(product['id'], Number(1));
                     price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
                 }
-                console.log(input.value);
             }
             added_product.style.display = 'flex';
 
@@ -882,21 +877,16 @@
                         price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
                     }
                 }
-                if (Number(input.value) === 1) {
-                    minus_counter.classList.add('disabled');
-                }
-                minus_counter.onclick = function () {
+               minus_counter.onclick = function () {
                     if (Number(input.value) > 1) {
                         input.value--;
                         addProduct(product['id'], Number(-1));
                         price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
-                    } else {
-                        minus_counter.className = 'disabled';
+                        console.log('InputValue', Number(input.value));
                     }
                 }
                 plus_counter.onclick = function () {
                     if (Number(input.value) >= 1) {
-                        minus_counter.classList.remove('disabled');
                         input.value++;
                         addProduct(product['id'], Number(1));
                         price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
@@ -948,38 +938,6 @@
 
 
 
-    function addProduct(id, count) {
-        console.log(id, count);
-        let data = {
-            'product_id': id,
-            'count': count,
-        }
-        $.ajax({
-            url: 'api/basket/add_product',
-            type: "GET",
-            data: data,
-            success: function (msg) {
-                console.log(msg);
-                // loadProducts();
-                loadBasket();
-            }
-        })
-    }
-
-    function DeleteProductBasket(product_id) {
-        let data = {
-            'product_id': product_id,
-        }
-        $.ajax({
-            url: '/api/basket/remove_product_key',
-            data: data,
-            type: "GET",
-            success: function (msg) {
-                loadBasket();
-            }
-        })
-    }
-
 
     function outdoingList() {
         if (chevron_for_delivery.classList.contains('_active')) {
@@ -1009,7 +967,6 @@
                     console.log('producti', msg);
                     final_price.innerText = msg['message']['basket']['discount_cost'] + ' ₽';
                     basket_id = msg['message']['basket']['id'];
-                    console.log(basket_id);
                     drawBasket(msg['message']['products']);
                 }
                 if (msg['message']['basket']['products_count'] > 0) {
@@ -1023,7 +980,49 @@
         })
     }
 
-    console.log(basket_id);
+
+    function addProduct(id, count) {
+        console.log(id, count);
+        let data = {
+            'product_id': id,
+            'count': count,
+        }
+        $.ajax({
+            url: 'api/basket/add_product',
+            type: "GET",
+            data: data,
+            success: function (msg) {
+                loadBasket();
+                if (location.pathname === '/createorder') {
+                    loadBasketOrder();
+                }
+            }
+        })
+    }
+
+
+    function changeProduct(id, count) {
+        console.log(count);
+        console.log(id, count);
+        let data = {
+            'product_id': id,
+            'input_count': count,
+        }
+        $.ajax({
+            url: '/api/change_count',
+            type: "GET",
+            data: data,
+            success: function (msg) {
+                console.log(msg);
+                loadBasket();
+                // Проверяем, если мы сейчас оформляем заказ, то загружаем loadBasketOrder
+                if (location.pathname === '/createorder') {
+                    loadBasketOrder();
+                }
+            }
+        })
+    }
+
 
 
     function drawBasket(products) {
@@ -1039,6 +1038,7 @@
             }
         }
     }
+
 
     // Функция создания блоков в корзине
     function createProductBasket(product) {
@@ -1060,25 +1060,23 @@
 
         // Счётчик
         input.onchange = function () {
-            if (input.value > 1) {
+            if (input.value === '') {
+                input.value = 1;
+            } else if (Number(input.value) < 1) {
+                input.value = 1;
+            } else {
                 changeProduct(product['id'], Number(input.value));
             }
         }
 
-        if (Number(input.value) === 1) {
-            minus_counter.classList.add('disabled');
-        }
         minus_counter.onclick = function () {
             if (Number(input.value) > 1) {
                 input.value--;
                 addProduct(product['id'], Number(-1));
-            } else {
-                minus_counter.className = 'disabled';
             }
         }
         plus_counter.onclick = function () {
             if (Number(input.value) >= 1) {
-                minus_counter.classList.remove('disabled');
                 input.value++;
                 addProduct(product['id'], Number(1));
             }
@@ -1098,6 +1096,22 @@
         }
         href.href = '/product?id=' + product['id'];
         return box;
+    }
+
+
+    function DeleteProductBasket(product_id) {
+        let data = {
+            'product_id': product_id,
+        }
+        $.ajax({
+            url: '/api/basket/remove_product_key',
+            data: data,
+            type: "GET",
+            success: function (msg) {
+                loadBasket();
+                loadBasketOrder();
+            }
+        })
     }
 
 

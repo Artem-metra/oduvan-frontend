@@ -282,6 +282,7 @@ function removeItemAll(arr, value) {
     return arr;
 }
 
+
 function startSorting() {
     console.log('Дашло!');
     cost_start = Number(price_min.value);

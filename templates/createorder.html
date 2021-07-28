@@ -42,8 +42,8 @@
                 <div class="name_buckets">
                     Дополнительно
                 </div>
-                <input class="popup_input additionally_input" placeholder="Комментарии к заказу">
-                <input class="popup_input additionally_input" placeholder="Текст для открытки">
+                <input class="popup_input additionally_input" id="comment_order" placeholder="Комментарии к заказу">
+                <input class="popup_input additionally_input" id="text_order" placeholder="Текст для открытки">
 
                 <div class="catalog_flex">
                     <div class="checkbox" style="margin-left:5px;">
@@ -80,7 +80,7 @@
                         <div id="date_time_place">
                             <div class="catalog_flex" style="position: relative; margin-bottom: 32px">
                                 <div class="date_input" id="date_input_one">
-                                    <input type="date" class="popup_input" id="inp_choose_data" style="background-color: #293048;"
+                                    <input type="date" class="popup_input" id="inp_choose_data" style="background-color: #293048; color: white"
                                     >
                                 </div>
                                 <div class="address_info_zag" id="addres_info_date" style="font-size: 36px">
@@ -91,7 +91,7 @@
 
                             <div class="catalog_flex" style="position: relative; margin-bottom: 32px">
                                 <div class="date_input" id="date_input_two">
-                                    <input type="time" class="popup_input" id="inp_choose_time" style="background-color: #293048;">
+                                    <input type="time" class="popup_input" id="inp_choose_time" style="background-color: #293048; color: white">
                                 </div>
                                 <div class="address_info_zag" id="addres_info_time" style="font-size: 36px">
                                     <!--21:00-->
@@ -104,8 +104,9 @@
                         <div class="price_price" style="color:#293048;opacity:0.6">
                             Сумма заказа
                         </div>
-                        <div class="price_price final_price" style="float: right">
-                            16200 Р
+                       <div class="catalog_flex_catalog" style="align-items: center; width: auto">
+                            <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">9000 ₽</div>
+                            <div class="price final_price">10000 ₽</div>
                         </div>
                     </div>
                     <div class="registr_indicator" style="background: #293048; margin:10px 0;"></div>
@@ -146,7 +147,7 @@
                             <div class="catalog_flex" style="justify-content: normal">
                                 <div class="small_product_card" style="margin-right:15px;">
                                     <a class="small_product_place">
-                                        <img src="../static/img/small_img_main.png" class="small_product_img" style="margin-bottom: 55px; padding-right: 35px">
+                                        <img src="../static/img/small_img_main.png" class="small_product_img" style="margin-bottom: 95px; padding-right: 35px; margin-top: 100px">
                                     </a>
                                 </div>
                                 <div class="basket_info_for_order">
@@ -161,7 +162,7 @@
                                             5400 Р
                                         </div>
                                     </div>
-                                    <div class="fa fa-times" style="float: right; position: absolute; top: 120px; right: 0; font-size: 25px"></div>
+                                    <div class="fa fa-times" style="float: right; position: absolute; top: 135px; right: 0; font-size: 25px"></div>
                                     <div class="add_to_basket_place" style="max-width:100%;">
                                         <div class="fa fa-minus minus_counter"></div>
                                         <div class="counter_place">
@@ -181,8 +182,9 @@
                         <div class="price_price" style="color:#293048;opacity:0.6">
                             Итого:
                         </div>
-                        <div class="price_price final_price" style="float: right">
-                            17200 Р
+                         <div class="catalog_flex_catalog" style="align-items: center;width: auto">
+                            <div class="disc_price_bucket final_dics_price " style="margin-right: 15px; display: block;">9000 ₽</div>
+                            <div class="price final_price">10000 ₽</div>
                         </div>
                     </div>
                     <div class="registr_indicator" style="background: #293048;margin:10px 0;"></div>
@@ -232,13 +234,17 @@
                     <div class="all_catalog_href" id="oformit_zakaz"
                          style="float: none;width:100%;height:90px;justify-content: space-between;padding:0 10px">
                         <div class="pereiti_k_oform">Подтвердить заказ</div>
-                        <div style="float: right" class="price final_price">17200 Р</div>
+                        <div class="catalog_flex_catalog" style="align-items: center;width: auto">
+                            <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">9000 ₽</div>
+                            <div class="price final_price">10000 ₽</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 {% include 'utilites.html' %}
@@ -321,17 +327,17 @@
         let data_value = inp_choose_data.value;
         inp_data.classList.remove('_active');
         addres_info_date.innerText = data_value.split('-').reverse().join('.');
-        // console.log(data_value);
-        // console.log(day_now);
+         console.log(data_value);
+        console.log(day_now);
 
         // ПРОВЕРКА НА СОВПАДЕНИЕ ДАТЫ
 
-        // if(data_value === day_now){
-        //     // if(time_value <= inp_choose_time.min && time_value >=  inp_choose_time.max){
-        //     //     console.log('Сейчас заказать нельзя');
-        //     //
-        //     // }
-        // }
+        if (data_value === day_now) {
+            if (time_value <= inp_choose_time.min && time_value >= inp_choose_time.max) {
+                console.log('Сейчас заказать нельзя');
+
+            }
+        }
     }
 
 
@@ -361,18 +367,21 @@
     }
 
     // Подгрузка товаров для оформления заказа
+     // Подгрузка товаров для оформления заказа
     function loadBasketOrder() {
         $.ajax({
             url: '/api/basket/get_by_basket_id',
             type: 'GET',
             success: function (msg) {
-                purchase_type = msg['message']['basket']['purchase_type']
+                console.log('Корзина в оформлении заказа', msg)
+                purchase_type = msg['message']['basket']['purchase_type'];
                 if (purchase_type === 1) {
                     shop_id = -1;
                     date_time_place.style.display = 'none';
                     loadShops();
                     get_other_people_place.style.display = 'none';
                     address_user.style.display = 'none';
+                    addresses_place.style.display = 'none';
                 }
                 if (msg['message']['products'].length === 0) {
                     document.getElementsByClassName('createorder')[0].style.display = 'none';
@@ -381,8 +390,16 @@
                 }
                 $('.delete_card').remove();
                 let final_price = document.getElementsByClassName('final_price');
+                let disc_price_bucket = document.getElementsByClassName('final_dics_price');
                 for (let i = 0; i < final_price.length; i++) {
-                    final_price[i].innerText = msg['message']['basket']['discount_cost'] + ' ₽';
+                    if (msg['message']['basket']['promo_code'] > 0) {
+                        final_price[i].innerText = msg['message']['basket']['cost'] + ' ₽';
+                        final_price[i].classList.add('have_disc');
+                        disc_price_bucket[i].innerText = msg['message']['basket']['discount_cost'] + ' ₽';
+                    } else {
+                        final_price[i].innerText = msg['message']['basket']['cost'] + ' ₽';
+                        disc_price_bucket[i].style.display = 'none';
+                    }
                 }
                 drawBasketOrder(msg['message']['products']);
             }
@@ -450,14 +467,14 @@
 
 
     // Отрисовка товаров
-    function drawBasketOrder(products) {
-        // console.log(products, basket_id);
+     function drawBasketOrder(products) {
         for (let i = 0; i < products.length; i++) {
             let box = createProductBasket(products[i]);
             box.style.display = 'block';
             box.classList.add('delete_card');
             document.getElementById('basket_item_place').append(box);
         }
+
         document.getElementById('basket_item_place').style.display = 'block';
         /* Если чекбокс "Отправить другому человеку поставлен, то открываем блок "Получатель"" */
         get_other_people.onchange = function () {
@@ -508,35 +525,57 @@
         add_carrying.onchange = function () {
             if (add_carrying.checked) {
                 add_carrying.value = 1;
+                additionally[2] = 1;
+                console.log(additionally);
             } else {
+                additionally[2] = 0;
                 add_carrying.value = 0;
             }
         }
         add_aquapack.onchange = function () {
             if (add_aquapack.checked) {
                 add_aquapack.value = 1;
+                additionally[3] = 1;
+                console.log(additionally);
             } else {
                 add_aquapack.value = 0;
+                additionally[3] = 0;
             }
         }
 
-        // Добавляем в массив additionally при onchange
-        let add_inputs = document.getElementsByClassName('additionally_input');
-        for (let i = 0; i < add_inputs.length; i++) {
-            add_inputs[i].onchange = function () {
-                if (add_inputs[i].checked) {
-                    additionally.push(Number(add_inputs[i].value));
-                } else {
-                    additionally = removeItemAll(additionally, Number(add_inputs[i].value));
-                }
-                if (add_inputs[i].value === '') {
-                    additionally.push(add_inputs[i].value);
-                } else {
-                    additionally = removeItemAll(additionally, add_inputs[i].value);
-                }
-                console.log(additionally);
+
+        comment_order.onchange = function () {
+            if (comment_order.value === '') {
+                additionally[0] = '';
+            } else {
+                additionally[0] = comment_order.value;
             }
         }
+        text_order.onchange = function () {
+            if (text_order.value === '') {
+                additionally[1] = '';
+            } else {
+                additionally[1] = text_order.value;
+            }
+        }
+
+        // // Добавляем в массив additionally при onchange
+        // let add_inputs = document.getElementsByClassName('additionally_input');
+        // for (let i = 0; i < add_inputs.length; i++) {
+        //     add_inputs[i].onchange = function () {
+        //         if (add_inputs[i].checked) {
+        //             additionally.push(Number(add_inputs[i].value));
+        //         } else {
+        //             additionally = removeItemAll(additionally, Number(add_inputs[i].value));
+        //         }
+        //         if (add_inputs[i].value === '') {
+        //             additionally.push(add_inputs[i].value);
+        //         } else {
+        //             additionally = removeItemAll(additionally, add_inputs[i].value);
+        //         }
+        //         console.log(additionally);
+        //     }
+        // }
     }
 
     function removeItemAll(arr, value) {
@@ -634,6 +673,8 @@
 
 
 </script>
+
+
 
 
 </body>
