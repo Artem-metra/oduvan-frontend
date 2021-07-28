@@ -86,7 +86,7 @@ def api_user_list_likes():
     if 'liked' in session:
         print('fffffffffffff12332')
         print({'liked': session['liked']})
-        prtin(type(session['liked']))
+        print(type(session['liked']))
         return utils.complete_request_post_with_parameters({'liked': session['liked']},request.path)
     else:
         return utils.getError('error')
