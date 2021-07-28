@@ -120,67 +120,88 @@
                     </div>
                 </div>
 
-                <!-- Карточка товара -->
-                <div id="item_card_place" style="display: block;padding-top: 35px;">
-                    <div id="card_product" style="display: none;">
-                        <div class="right_nav_place">
-                            <div class="right_nav_item">
 
-                            </div>
+                <!-- Preloader -->
+                <div class="preloader" id="preloader">
+                    <div class="preloader_text">
+                        <span id="message_for_empty">Подождите, товары загружаются!</span>
+                        <div class="lds-roller">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
                         </div>
-                        <div class="discount_place">
-                            <div class="percent_place">
-                                <span class="fa fa-percent"></span>
+                    </div>
+                </div>
+                <div id="content_catalog">
+                    <!-- Место для карточек товаров -->
+                    <div id="item_card_place" style="display: block;padding-top: 35px;">
+
+                        <!-- Карточка товара -->
+                        <div id="card_product" style="display: none;">
+                            <div class="right_nav_place">
+                                <div class="right_nav_item">
+
+                                </div>
                             </div>
-                            <div class="discount_text">
-                                20% скидка
+                            <div class="discount_place">
+                                <div class="percent_place">
+                                    <span class="fa fa-percent"></span>
+                                </div>
+                                <div class="discount_text">
+                                    20% скидка
+                                </div>
                             </div>
-                        </div>
-                        <a class="slider_item_card_img_place" href="">
-                            <img src="../static/img/catalog_img.png" class="slider_img">
-                        </a>
-                        <div class="name_and_price">
-                            <div class="catalog_flex" style="padding-bottom: 0px;">
-                                <div class="slider_name_bucket">Букет "Индиго"</div>
-                                <div class="price_basket slider_name_bucket" style="display: none;"></div>
-                            </div>
-                            <div class="catalog_flex_catalog for_basket"
-                                 style="align-items: center;justify-content: space-between;padding: 0 15px;">
-                                <div>
-                                    <div class="price">
-                                        5400 Р
+                            <a class="slider_item_card_img_place" href="">
+                                <img src="../static/img/catalog_img.png" class="slider_img">
+                            </a>
+                            <div class="name_and_price">
+                                <div class="catalog_flex" style="padding-bottom: 0px;">
+                                    <div class="slider_name_bucket">Букет "Индиго"</div>
+                                    <div class="price_basket slider_name_bucket" style="display: none;"></div>
+                                </div>
+                                <div class="catalog_flex_catalog for_basket"
+                                     style="align-items: center;justify-content: space-between;padding: 0 15px;">
+                                    <div>
+                                        <div class="price">
+                                            5400 Р
+                                        </div>
+                                        <div class="disc_price_bucket">
+                                            2 600 Р
+                                        </div>
                                     </div>
-                                    <div class="disc_price_bucket">
-                                        2 600 Р
+                                    <div class="add_to_basket_card">
+                                        <span class="fas fa-shopping-bag"></span>
                                     </div>
                                 </div>
-                                <div class="add_to_basket_card">
-                                    <span class="fas fa-shopping-bag"></span>
+                                <div class="price_hover">
+                                    <div>
+                                        В корзину
+                                    </div>
+                                    <div class="price_hover_price">
+                                        5 400 ₽
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="price_hover">
-                                <div>
-                                    В корзину
-                                </div>
-                                <div class="price_hover_price">
-                                    5 400 ₽
-                                </div>
-                            </div>
-                            <div class="added_product" style="display: none">
-                                <div class="fa fa-minus minus_counter"></div>
-                                <div>
-                                    В корзине: <input type="number" class="product_counter_inp"/>
-                                </div>
-                                <div>
-                                    <div class="fa fa-plus plus_counter"></div>
+                                <div class="added_product" style="display: none">
+                                    <div class="fa fa-minus minus_counter"></div>
+                                    <div>
+                                        В корзине: <input type="number" class="product_counter_inp"/>
+                                    </div>
+                                    <div>
+                                        <div class="fa fa-plus plus_counter"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="pagination_place" id="pag_place">
-                    <div class="pagination_item" id="pagination_item" style="display: none">
-                        <span class="pagination_num">1</span>
+                    <div class="pagination_place" id="pag_place">
+                        <div class="pagination_item" id="pagination_item" style="display: none">
+                            <span class="pagination_num">1</span>
+                        </div>
                     </div>
                 </div>
             </div>

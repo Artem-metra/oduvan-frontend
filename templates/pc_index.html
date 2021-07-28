@@ -460,21 +460,6 @@
 
 {% include 'pc_utilites.html' %}
 <script>
-    let likeds = [];
-    getLikeds();
-
-    function getLikeds() {
-        $.ajax({
-            url: '/api/user/list_likes',
-            type: "GET",
-            success: function (msg) {
-                for (let i = 0; i < msg['message']['liked'].length; i++) {
-                    likeds.push(Number(msg['message']['liked'][i]));
-                }
-            }
-        })
-    }
-
 
     loadCategories();
 
