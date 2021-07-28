@@ -78,9 +78,18 @@ def api_user_liked():
         session['liked'] = l
     return utils.getAnswer('ok')
 
+
 @user_app.route('/api/user/list_likes')
 def api_user_list_likes():
-    return session['liked']
+    print('fffffffffffffff')
+    print('ffffffffffffffffffffffffffffeeeeeeeeeeeeeeeeeee')
+    if 'liked' in session:
+        print('fffffffffffff12332')
+        print({'liked': session['liked']})
+        prtin(type(session['liked']))
+        return utils.complete_request_post_with_parameters({'liked': session['liked']},request.path)
+    else:
+        return utils.getError('error')
 
 
 @user_app.route('/api/user/disliked')

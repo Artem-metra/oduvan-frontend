@@ -39,7 +39,6 @@ def api_product_get():
     params['user_id'] = session['user_id']
     params['basket_id'] = session['basket_id']
     response = utils.complete_request_with_parameters(params, request.path)
-    print(response, params)
 
 
 @product_app.route('/api/product/edit')
@@ -76,10 +75,8 @@ def site_products_smart():
         params['basket_id'] = session['basket_id']
     else:
         params['basket_id'] = 0
-    print(params)
     resp = utils.complete_request_post_with_parameters({'info': params}, request.path)
     # print('rest', resp)
-    print(resp)
     return resp
 
 
@@ -91,7 +88,6 @@ def site_likeds_products():
     params['user_id'] = session['user_id']
     params['basket_id'] = session['basket_id']
     response = utils.complete_request_with_parameters(params, request.path)
-    print(response, params)
     return response
 
 
@@ -116,7 +112,6 @@ def api_max_price_for_category():
     for item in request.args:
         params[item] = request.args.get(item)
     response = utils.complete_request_with_parameters(params, request.path)
-    print(response)
     return response
 
 
@@ -126,5 +121,4 @@ def api_min_price_for_category():
     for item in request.args:
         params[item] = request.args.get(item)
     response = utils.complete_request_with_parameters(params, request.path)
-    print(response)
     return response

@@ -71,7 +71,5 @@ def complete_request_post_with_parameters(params, path):
     headers = {
         'Content-Type': 'application/json'
     }
-    print(json.dumps(params))
     resp = requests.post(url, data=json.dumps(params['info'], ensure_ascii=False), headers=headers)
-    print(resp.request.headers)
     return resp.text

@@ -17,7 +17,6 @@ def api_categories_get():
     for item in request.args:
         params[item] = request.args.get(item)
     response = utils.complete_request_with_parameters(params, request.path)
-    print(response)
     return response
 
 
