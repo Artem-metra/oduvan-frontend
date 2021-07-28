@@ -71,7 +71,10 @@ def api_user_liked():
 
 @user_app.route('/api/user/list_likes')
 def api_user_list_likes():
-    return session['liked']
+    if 'liked' in session:
+        return utils.getAnswer({'liked': session['liked']})
+    else:
+        return utils.getError('error')
 
 
 @user_app.route('/api/user/disliked')

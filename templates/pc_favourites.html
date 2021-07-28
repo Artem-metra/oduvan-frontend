@@ -92,50 +92,52 @@
 
 {% include 'pc_utilites.html' %}
 <script>
+    // let likeds = [];
+    // getLikeds();
+    //
+    // function getLikeds() {
+    //     $.ajax({
+    //         url: '/api/user/list_likes',
+    //         type: "GET",
+    //         success: function (msg) {
+    //             console.log('Favorites', msg);
+    //             if (msg['message']['liked'].length === 0) {
+    //                 basket_place.style.display = 'block';
+    //                 catalog.style.display = 'block';
+    //             } else {
+    //                 for (let i = 0; i < msg['message']['liked'].length; i++) {
+    //                     likeds.push(Number(msg['message']['liked'][i]));
+    //                 }
+    //                 loadFavorites();
+    //             }
+    //
+    //         }
+    //     })
+    // }
 
-    /* Получение пользователя */
-    GetUser();
 
-    function GetUser() {
+
+    loadFavorites()
+    /* Правильная подгрузка продуктов */
+    function loadFavorites() {
         $.ajax({
-            url: '/api/user/get',
-            type: 'GET',
-            success: function (msg) {
-                user = msg['message']['user'];
-                loadProducts();
-            }
-        });
-    }
-
-
-    function loadProducts() {
-        $.ajax({
-            url: '/site/likeds/products',
-            type: "GET",
-            success: function (msg) {
-                $('.delete_card').remove();
-                console.log(msg);
-                if (msg['message']['products'].length < 1) {
-                    favorites_place.style.display = 'none';
-                    basket_place.style.display = 'block';
-                    empty_basket_createorder.style.display = 'block';
-                    catalog.style.padding = '0px';
-                }
-                drawProducts(msg['message']['products']);
-                paginations = msg['message']['pages'];
+            url: '',
+            type:"GET",
+            success:function(msg){
+                console.log('Favorites', msg);
             }
         })
     }
 
 
-    function drawProducts(msg) {
-        for (let i = 0; i < msg.length; i++) {
-            let box = createProduct(msg[i]);
-            box.style.display = 'inline-block';
-            box.style.width = '24%';
-            document.getElementById('favorites_place').append(box);
-        }
+    function drawProducts(product) {
+        let box = createProduct(product);
+        box.style.display = 'inline-block';
+        box.style.width = '24%';
+        document.getElementById('favorites_place').append(box);
     }
+
+
 </script>
 </body>
 </html>

@@ -110,7 +110,7 @@
     <div class="container">
         <div class="catalog_flex">
             <h2 class="catalog_zag">Популярное</h2>
-            <a class="all_catalog_href href_catalog" href="/catalog">
+            <a class="all_catalog_href href_catalog" href="/catalog?category_id=1">
                 Весь каталог
             </a>
         </div>
@@ -127,9 +127,9 @@
                     <div class="swiper-container">
                         <div class="swiper-wrapper"></div>
 
-                        <div class="pagination_place">
-                            <div class="swiper-pagination" style="position:static"></div>
-                        </div>
+                        <!--                        <div class="pagination_place">-->
+                        <!--                            <div class="swiper-pagination" style="position:static"></div>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -460,6 +460,22 @@
 
 {% include 'pc_utilites.html' %}
 <script>
+    let likeds = [];
+    getLikeds();
+
+    function getLikeds() {
+        $.ajax({
+            url: '/api/user/list_likes',
+            type: "GET",
+            success: function (msg) {
+                for (let i = 0; i < msg['message']['liked'].length; i++) {
+                    likeds.push(Number(msg['message']['liked'][i]));
+                }
+            }
+        })
+    }
+
+
     loadCategories();
 
     function loadCategories() {
@@ -519,7 +535,6 @@
         let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
         let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
         let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
-        let pagination_place = box.getElementsByClassName('pagination_place')[0];
         let sw = new Swiper(swiper, {
             slidesPerView: 4,
             slidesPerGroup: 4,
@@ -536,14 +551,16 @@
             },
             autoplay: {
                 delay: 5000,
-                disableOnInteraction: false
+                disableOnInteraction: false,
             },
             parallax: {
-                enabled: true
+                enabled: true,
             },
-            loop: true
+            loop: true,
         });
+        let pagination_place = box.getElementsByClassName('pagination_place')[0];
         for (let i = 0; i < products.length; i++) {
+
             let slider = createProduct(products[i]);
             let swiper_slide = document.createElement('div');
             swiper_slide.className = 'swiper-slide';
