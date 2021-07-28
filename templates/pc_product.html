@@ -54,15 +54,13 @@
 
                 <!-- Счетчик товаров -->
                 <div class="add_to_basket_place" id="basket_place">
-                    <div id="minus_counter" style="text-align: center">
-                        <div class="fa fa-minus" id="minus_counter_btn"></div>
+                    <div id="minus_counter" class="fa fa-minus" style="text-align: center">
                     </div>
                     <div class="counter_place">
                         <input type="number" class="product_counter_inp" id="counter_product" value="1">
                         <span style="font-weight: 600;">ШТ</span>
                     </div>
-                    <div id="plus_counter" style="text-align: center">
-                        <div class="fa fa-plus"></div>
+                    <div id="plus_counter" class="plus_counter fa fa-plus" style="text-align: center">
                     </div>
                 </div>
 
@@ -249,9 +247,6 @@
         let plus = document.getElementById('plus_counter');
 
         // Счетчик товаров
-        if (Number(count.value) === 1) {
-            minus.className = 'disabled';
-        }
         minus.onclick = function () {
             if (Number(count.value) > 1) {
                 count.value--;
@@ -259,13 +254,9 @@
                 disc_price_bucket.innerText = Number(count.value * msg['product']['discount_cost']) + ' ₽';
                 price.innerText = Number(count.value * msg['product']['cost']) + ' ₽';
             }
-            if (Number(count.value) === 1) {
-                minus.className = 'disabled';
-            }
         }
         plus.onclick = function () {
             if (Number(count.value) >= 1) {
-                minus.classList.remove('disabled');
                 count.value++;
                 addProduct(msg['product']['id'], Number(1));
                 disc_price_bucket.innerText = Number(count.value * msg['product']['discount_cost']) + ' ₽';
@@ -381,7 +372,7 @@
                 let breadcoast = BreadCoast(category_id);
                 console.log('hleb', breadcoast);
                 place_breadcoast.innerHTML += ' / ' + `<a href="catalog?category_id=${msg['category']['parent_id']}">${breadcoast[0]}</a>` + ' / ' + `<span style="font-weight: 600; text-transform: uppercase">${msg['category']['name']}</span>` + ' / ' +
-                    `<a href="/product?id=${id}" class="active_page">$name</a>`;
+                    `<a href="/product?id=${id}" class="active_page">${name}</a>`;
             }
         })
     }

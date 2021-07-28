@@ -525,7 +525,7 @@
             slidesPerGroup: 4,
             spaceBetween: 30,
             pagination: {
-                // el: '.swiper-pagination',
+                el: '.swiper-pagination',
                 type: 'bullets',
                 clickable: true,
             },
@@ -543,12 +543,11 @@
             },
             loop: true
         });
-
         for (let i = 0; i < products.length; i++) {
             let slider = createProduct(products[i]);
             let swiper_slide = document.createElement('div');
             swiper_slide.className = 'swiper-slide';
-            swiper_slide.style.width = '25%';
+            swiper_slide.style.width = '24.47%';
             slider.style.display = 'block';
             slider.style.width = '100%';
             swiper_slide.style.marginRight = '10px';
@@ -559,23 +558,6 @@
         }
     }
 
-
-    // /* Якорь ( плавное перелистывание ) */
-    // anchor();
-    //
-    // function anchor() {
-    //     let nav_link_landing = document.querySelectorAll('.nav-link_landing[href*="#"]');
-    //     for (let anchor of nav_link_landing) {
-    //         anchor.onclick = function (e) {
-    //             e.preventDefault();
-    //             const id = anchor.getAttribute('href').substr(1);
-    //             document.getElementById(id).scrollIntoView({
-    //                 behavior: 'smooth',
-    //                 block: 'start',
-    //             })
-    //         }
-    //     }
-    // }
 </script>
 </body>
 </html>
