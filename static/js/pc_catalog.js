@@ -8,22 +8,8 @@ let discount_type = 0;
 let page = 1;
 let paginations = 0;
 let sub_category = 0;
-let likeds = [];
 
 
-getLikeds();
-
-function getLikeds() {
-    $.ajax({
-        url: '/api/user/list_likes',
-        type: "GET",
-        success: function (msg) {
-            for (let i = 0; i < msg['message']['liked'].length; i++) {
-                likeds.push(Number(msg['message']['liked'][i]));
-            }
-        }
-    })
-}
 
 
 getCategories();
@@ -58,7 +44,6 @@ function getCategories() {
     });
 }
 
-GetUser();
 
 // Отрисовка категорий
 function drawCategories(msg) {
@@ -79,6 +64,7 @@ function drawCategories(msg) {
             $('.delete_subcat').remove();
             document.getElementsByClassName('_active')[0].classList.remove('_active');
             cat_name.classList.add('_active');
+
             if (category.classList.contains('all')) {
                 sub_category = 0;
                 page = 1;
@@ -90,6 +76,7 @@ function drawCategories(msg) {
                 place_bread.innerHTML += `<span style="text-transform: uppercase;font-weight: 600;color:#F877AD" class="active_page catalog_category_card delete_subcat">
 <span style="color:#293048"> / </span>${msg[i]['name']}</span>`;
             }
+
             loadProducts();
         }
         catalog_category_place.append(category);
@@ -104,6 +91,8 @@ loadProducts();
 
 /* Правильная подгрузка продуктов */
 function loadProducts() {
+    minPrice();
+    maxPrice();
     console.log(cost_start, cost_end);
     $('.delete_card').remove();
     console.log('sub_category, category, page', sub_category, id, page);
@@ -129,8 +118,6 @@ function loadProducts() {
             $('.delete_paginations').remove();
             paginations = Number(msg['message']['pages']);
             page = Number(msg['message']['page']);
-            minPrice();
-            maxPrice();
             drawProducts(msg['message']['products']);
         }
     });
@@ -218,29 +205,6 @@ function loadFlowers() {
 
 function drawFlowers(flower) {
     for (let i = 0; i < flower.length; i++) {
-        // let fl = choose_flower.cloneNode(true);
-        // fl.id = '';
-        // let name = fl.getElementsByClassName('name_flower')[0];
-        // let checkbox = fl.getElementsByClassName('checkbox_for_choose_flower')[0];
-        // // выбор на чекбоксы
-        // checkbox.id = '';
-        // checkbox.id = 'flowers-' + i;
-        // let name_flower = fl.getElementsByClassName('name_flower')[0];
-        // let newId =  'flowers-' + i;
-        // name_flower.setAttribute('for', newId);
-        // checkbox.onchange = function () {
-        //     if (checkbox.checked) {
-        //         flowers.push(checkbox.value);
-        //     } else {
-        //         flowers = removeItemAll(flowers, checkbox.value);
-        //     }
-        //     console.log(flowers);
-        // }
-        // name.innerText = flower[i]['name'];
-        // checkbox.value = flower[i]['name'];
-        // fl.style.display = 'flex';
-        // flowers_place.append(fl);
-
         let fl = choose_flower.cloneNode(true);
         fl.id = '';
         let name = fl.getElementsByClassName('name_flower')[0];
@@ -263,6 +227,46 @@ function drawFlowers(flower) {
         checkbox.value = flower[i]['id'];
         fl.style.display = 'flex';
         flowers_place.append(fl);
+    }
+}
+
+loadPackages();
+
+function loadPackages() {
+    $.ajax({
+        url: '/api/packages/get',
+        type: "GET",
+        success: function (msg) {
+            console.log('packages', msg);
+            drawPackages(msg['message']['packages']);
+        }
+    })
+}
+
+
+function drawPackages(packages) {
+    for (let i = 0; i < packages.length; i++) {
+        let box = choose_pack.cloneNode(true);
+        box.id = '';
+        let name = box.getElementsByClassName('name_flower')[0];
+        let checkbox = box.getElementsByClassName('checkbox_for_choose_flower')[0];
+        checkbox.id = '';
+        let name_flower = box.getElementsByClassName('lab_desc')[0];
+        let newId = 'packaging-' + i;
+        name_flower.setAttribute('for', newId);
+        checkbox.id = 'packaging-' + i;
+        checkbox.onchange = function () {
+            if (checkbox.checked) {
+                packaging.push(Number(checkbox.value));
+            } else {
+                packaging = removeItemAll(packaging, Number(checkbox.value));
+            }
+            console.log('packages', packaging);
+        }
+        name.innerText = packages[i]['name'];
+        checkbox.value = packages[i]['id'];
+        box.style.display = 'flex';
+        packages_place.append(box);
     }
 }
 
@@ -298,7 +302,10 @@ function drawProducts(msg) {
         box.style.display = 'inline-block';
         document.getElementById('item_card_place').append(box);
     }
-    console.log(paginations);
+    // Хлебные крошки
+    let breadcoast = BreadCoast(id);
+    console.log(breadcoast);
+    place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
 
     for (let i = 1; i < paginations + 1; i++) {
         let pagination = pagination_item.cloneNode(true);
@@ -318,13 +325,10 @@ function drawProducts(msg) {
     }
 }
 
-// Хлебные крошки
-let breadcoast = BreadCoast(id);
-console.log(breadcoast);
-place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
 
 // Получение миниальной цены товара в категории
 function minPrice() {
+    let start_cost = 0;
     let data = {
         'sub_category': sub_category,
         'category_id': id,
@@ -333,32 +337,34 @@ function minPrice() {
         url: '/api/min_price_for_category',
         type: "GET",
         data: data,
+        async: false,
         success: function (msg) {
             console.log(msg);
-            cost_start = msg['message']['min_cost'];
-            price_min.value = cost_start;
-            price_controller.setAttribute('min', cost_start);
-
+            start_cost = msg['message']['min_cost'];
+            price_min.value = start_cost;
+            price_controller.setAttribute('min', start_cost);
             /* Рендж для регулировки цен */
             price_controller.oninput = function () {
                 price_max.value = price_controller.value;
             }
             /* Проверки при изменении цены */
             price_min.onchange = function () {
-                if (Number(price_min.value) < cost_start) {
-                    price_min.value = cost_start;
+                if (Number(price_min.value) < start_cost) {
+                    price_min.value = start_cost;
                 }
                 if (Number(price_min.value) > Number(price_max.value)) {
-                    price_min.value = cost_start;
+                    price_min.value = start_cost;
                 }
             }
         }
     })
+    cost_start = start_cost;
 }
 
 // Получение максимальной цены товара в категории
 function maxPrice() {
     console.log('cat_id', id);
+    let endcost = 0;
     let data = {
         'sub_category': sub_category,
         'category_id': id,
@@ -367,11 +373,13 @@ function maxPrice() {
         url: '/api/max_price_for_category',
         type: "GET",
         data: data,
+        async: false,
         success: function (msg) {
             console.log(msg);
-            cost_end = msg['message']['max_cost'];
-            price_max.value = cost_end;
+            endcost = msg['message']['max_cost'];
+            price_max.value = endcost;
             price_controller.setAttribute('max', Number(msg['message']['max_cost']));
+            price_controller.value = endcost;
             price_max.onchange = function () {
                 if (Number(price_max.value) < Number(price_min.value)) {
                     price_max.value = Number(price_min.value + price_max.value++);
@@ -382,6 +390,7 @@ function maxPrice() {
             }
         }
     })
+    cost_end = endcost;
 }
 
 

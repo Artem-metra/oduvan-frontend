@@ -22,7 +22,8 @@
                 <div class="sorted_text" style="display: block" id="sorted_text">
                     <div id="sorted_place">
                         <div class="catalog_flex" style="padding: 0;">
-                            <div class="sorted_select_item nohover" style="color: #293048;border-bottom: 0;width: 45%;height: 100%;">
+                            <div class="sorted_select_item nohover"
+                                 style="color: #293048;border-bottom: 0;width: 45%;height: 100%;">
                                 Сортировка:
                             </div>
                             <div class="catalog_flex" style="padding:0">
@@ -84,17 +85,17 @@
                 <div class="sorted_zag">
                     Упаковка
                 </div>
-                <div class="choose_flower">
-                    <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="1">
-                    <span>Плёнка</span>
-                </div>
-                <div class="choose_flower">
-                    <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="2">
-                    <span>Крафт.плёнка</span>
-                </div>
-                <div class="choose_flower">
-                    <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="3">
-                    <span>Ленты</span>
+                <div id="packages_place">
+                    <div class="choose_flower" id="choose_pack" style="display: none">
+                        <div class="checkbox" style="margin-left:5px;">
+                            <input type="checkbox" id="choose_flow_one"
+                                   class="scal_chek checkbox_for_choose_flower custom-checkbox"
+                                   style="margin-top: 20px;">
+                            <label for="choose_flow_one" class="lab_desc">
+                                <span class="name_flower"></span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="all_catalog_href" style="float: none;margin: 20px 0 15px;height: 50px;width: 100%"

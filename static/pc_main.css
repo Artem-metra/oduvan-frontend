@@ -1909,15 +1909,11 @@ input[type="checkbox"] {
 }
 
 #recipient {
-    /*transition: transform .5s;*/
-    /*transform: scale(0);*/
     display: none;
     z-index: 250;
 }
 
 #recipient._active {
-    /*transition: transform .5s;*/
-    /*transform: scale(1);*/
     display: block;
 }
 
@@ -2152,7 +2148,7 @@ input[type="checkbox"] {
     transform: scale(1.5);
 }
 
-#flowers_place .custom-checkbox + label::before {
+.catalog_sorted .custom-checkbox + label::before {
     background-color: #c2c5cb;
     content: '';
     display: inline-block;
@@ -2169,7 +2165,7 @@ input[type="checkbox"] {
     transform: scale(1.5);
 }
 
-#flowers_place .custom-checkbox:checked + label::before {
+.catalog_sorted .custom-checkbox:checked + label::before {
     border-color: #F877AD;
     background-color: #F877AD;
     background-image: url('../static/img/check_mark.svg');

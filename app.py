@@ -16,6 +16,7 @@ from maps.MapPromoCode import promo_code_app
 from maps.MapShop import shop_app
 from maps.MapStaff import staff_app
 from maps.MapUser import user_app
+from maps.MapPackage import package_app
 
 app = Flask(__name__)
 app.secret_key = 'super super secret key, her vzlomaesh'
@@ -33,6 +34,7 @@ app.register_blueprint(flower_app)
 app.register_blueprint(user_app)
 app.register_blueprint(delivery_app)
 app.register_blueprint(position_app)
+app.register_blueprint(package_app)
 
 
 

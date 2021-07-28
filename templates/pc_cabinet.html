@@ -16,7 +16,7 @@
         </div>
         <h1 class="catalog_zag" style="text-align: center">Личный кабинет</h1>
         <div class="price_hover_price" style="text-align: center">
-            Добрый день, <span id="name_user"></span>. В личном кабинете вы можете проверить
+            В личном кабинете вы можете проверить
             ход выполнения ваших заказов, просмотреть
             или изменить личную информацию.
         </div>
@@ -231,20 +231,8 @@
 <script>
 
     /* Получение пользователя */
-    GetUser();
 
-    function GetUser() {
-        $.ajax({
-            url: '/api/user/get',
-            type: 'GET',
-            success: function (msg) {
-                user = msg['message']['user'];
-                $('.delete_address').remove();
-                DrawInfoUser();
-            }
-        });
-    }
-
+    DrawInfoUser();
 
     mapingItem();
 
@@ -274,8 +262,6 @@
 
 
     function DrawInfoUser() {
-        console.log(user);
-        name_user.innerText = user['name'];
         your_name.value = user['name'];
         your_surname.value = user['surname'];
         your_mobile.value = '+7' + user['phone'];
@@ -291,9 +277,9 @@
         save_changes.onclick = function () {
             EditUser();
         }
+        $('.delete_address').remove();
         // Если у пользователя уже есть адреса в ЛК, то выводим блок с адресами
         if (user['addresses'].length !== 0) {
-            console.log(user['addresses'].length);
             for (let i = 0; i < user['addresses'].length; i++) {
                 let box = address_item.cloneNode(true);
                 let inputs_ad = box.getElementsByClassName('popup_input');
@@ -311,7 +297,6 @@
                 let btn_delete = box.getElementsByClassName('btn_delete_address')[0];
                 name_address_user.innerText = user['addresses'][i]['name'];
                 address_address_user.innerText = user['addresses'][i]['address'];
-
                 btn_change.onclick = function () {
                     let completed_address = box.getElementsByClassName('completed_address')[0];
                     completed_address.style.display = 'block';
@@ -413,10 +398,6 @@
             box.style.display = 'inline-block';
             address_place.append(box);
         }
-
-        // if (user['addresses'].length === 0) {
-
-
     }
 
 
@@ -516,6 +497,7 @@
                 console.log(msg);
                 notification('Адрес успешно сохранён!', 2);
                 GetUser();
+                DrawInfoUser();
             }
         })
     }
@@ -538,6 +520,7 @@
                 console.log(msg);
                 notification('Ваши данные обновлены!', 2);
                 GetUser();
+                DrawInfoUser();
             }
         })
     }
@@ -558,6 +541,7 @@
                 console.log(msg);
                 notification('Адрес успешно удалён!', 2);
                 GetUser();
+                DrawInfoUser();
             }
         })
     }
@@ -569,6 +553,7 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                $('.delete_history').remove();
                 for (let i = 0; i < msg['message']['deals_list'].length; i++) {
                     drawHistory(msg['message']['deals_list'][i]);
                 }
@@ -582,6 +567,7 @@
         let products = order['products'];
         let box = one_order_place.cloneNode(true);
         box.id = '';
+        box.classList.add('delete_history');
         let address = box.getElementsByClassName('address_order')[0];
         let cost = box.getElementsByClassName('cost_order')[0];
         let date = box.getElementsByClassName('date_order')[0];
