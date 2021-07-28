@@ -15,8 +15,20 @@
         <h1 class="catalog_zag" style="text-align: center">Избранное</h1>
     </div>
 </div>
-
-<div class="catalog">
+<!-- В корзине пусто -->
+<div class="basket_place" id="basket_place" style="min-height: 63vh;display: none;">
+    <div class="empty_basket" id="empty_basket_createorder">
+        <div class="empty_basket_info" style="padding-top: 20%">
+            <div class="name_buckets">
+                В избранном нет товаров!
+                <a class="all_catalog_href" href="/catalog?category_id=1">
+                    Перейти в каталог
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="catalog" id="catalog">
     <div class="container">
         <div id="favorites_place">
             <div id="card_product" style="display: none;">
@@ -80,50 +92,52 @@
 
 {% include 'pc_utilites.html' %}
 <script>
+    // let likeds = [];
+    // getLikeds();
+    //
+    // function getLikeds() {
+    //     $.ajax({
+    //         url: '/api/user/list_likes',
+    //         type: "GET",
+    //         success: function (msg) {
+    //             console.log('Favorites', msg);
+    //             if (msg['message']['liked'].length === 0) {
+    //                 basket_place.style.display = 'block';
+    //                 catalog.style.display = 'block';
+    //             } else {
+    //                 for (let i = 0; i < msg['message']['liked'].length; i++) {
+    //                     likeds.push(Number(msg['message']['liked'][i]));
+    //                 }
+    //                 loadFavorites();
+    //             }
+    //
+    //         }
+    //     })
+    // }
 
-    /* Получение пользователя */
-    GetUser();
 
-    function GetUser() {
+
+    loadFavorites()
+    /* Правильная подгрузка продуктов */
+    function loadFavorites() {
         $.ajax({
-            url: '/api/user/get',
-            type: 'GET',
-            success: function (msg) {
-                user = msg['message']['user'];
-                loadProducts();
-            }
-        });
-    }
-
-
-    function loadProducts() {
-        console.log(user);
-        console.log('user', user['id']);
-        let data = {
-            'user_id': user['id'],
-        }
-        $.ajax({
-            url: '/site/likeds/products',
-            type: "GET",
-            data: data,
-            success: function (msg) {
-                $('.delete_card').remove();
-                console.log(msg);
-                drawProducts(msg['message']['products']);
-                paginations = msg['message']['pages'];
+            url: '',
+            type:"GET",
+            success:function(msg){
+                console.log('Favorites', msg);
             }
         })
     }
 
 
-    function drawProducts(msg) {
-        for (let i = 0; i < msg.length; i++) {
-            let box = createProduct(msg[i]);
-            box.style.display = 'inline-block';
-            box.style.width = '24%';
-            document.getElementById('favorites_place').append(box);
-        }
+    function drawProducts(product) {
+        let box = createProduct(product);
+        box.style.display = 'inline-block';
+        box.style.width = '24%';
+        document.getElementById('favorites_place').append(box);
     }
+
+
 </script>
 </body>
 </html>

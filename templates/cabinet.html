@@ -46,39 +46,57 @@
                 <h2 class="name_buckets">
                     Личные данные
                 </h2>
-                <input class="popup_input" placeholder="Ваше имя" id="your_name">
+                <input class="popup_input new_data" placeholder="Ваше имя" id="your_name">
                 <input class="popup_input" placeholder="Ваша фамилия" id="your_surname">
-                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__" id="your_mobile">
-                <input class="popup_input" type="email" placeholder="Электронная почта" id="your_email_address">
-                <div class="date_of_birth">
-                    <input class="popup_input mar_rig" placeholder="День" id="birthday_day" maxlength="2">
-                    <input class="popup_input mar_rig" placeholder="Месяц" id="birthday_month" maxlength="2">
-                    <input class="popup_input" placeholder="Год" id="birthday_year" maxlength="4">
+                <input class="popup_input new_data" type="tel" placeholder="+7 (___) ___-__-__" id="your_mobile">
+                <input class="popup_input new_data" type="email" placeholder="Электронная почта" id="your_email_address">
+                 <div class="catalog_flex_catalog">
+                    <!--                    <div class="birthday_item">-->
+                    <!--                        <input class="popup_input" type="number" placeholder="День" id="birthday_day"-->
+                    <!--                               onkeypress="this.value=this.value.substring(0,1);">-->
+                    <!--                    </div>-->
+                    <!--                    <div class="birthday_item">-->
+                    <!--                        <input class="popup_input" type="number" placeholder="Месяц" id="birthday_month"-->
+                    <!--                               onkeypress="this.value=this.value.substring(0,1);">-->
+                    <!--                    </div>-->
+                    <!--                    <div class="birthday_item">-->
+                    <!--                        <input class="popup_input" type="number" placeholder="Год" id="birthday_year"-->
+                    <!--                               onkeypress="this.value=this.value.substring(0,3);">-->
+                    <!--                    </div>-->
+                    <input type='text' id="day_datepicker" class='datepicker-here popup_input' readonly
+                           placeholder="Дата рождения"/>
                 </div>
-                <div class="all_catalog_href" style="float: none;width:100%; height: 80px" id="save_changes">
+                <div class="all_catalog_href" style="float: none;width:100%; height: 100px" id="save_changes">
                     Сохранить изменения
                 </div>
             </div>
             <!-- Аватарка пользователся и пароль -->
             <div class="your_order_place ">
-                <div class="ava_place">
+                 <div class="ava_place">
                     <div class="catalog_flex" style="justify-content: normal">
-                        <img src="" class="avatar">
-
-                        <input class="all_catalog_href" style="width: 100%" type="file"
+                        <img src="" class="avatar" id="avatar_img">
+                        <input class="all_catalog_href" style="width: 100%;display:none" type="file"
                                id="avatar" placeholder="" value="">
-                        <label for="avatar"></label>
+                        <label for="avatar" class="all_catalog_href" style="width: 100%; ">Выберите файл</label>
                     </div>
                 </div>
 
                 <div class="name_buckets">
                     Пароль
                 </div>
-                <input class="popup_input" placeholder="Старый пароль" type="password" id="old_password">
-                <input class="popup_input" placeholder="Новый пароль" type="password">
-                <input class="popup_input" placeholder="Повторите новый пароль" type="password">
-                <div class="all_catalog_href" style="float: none;width:100%;height:80px;" id="send_old_pas">
-                    Проверить
+                 <div id="place_for_old_pas">
+                    <input class="popup_input" placeholder="Старый пароль" type="password" id="old_password">
+                    <div class="all_catalog_href" style="float: none;width:100%;height:100px;" id="send_old_pas">
+                        Проверить
+                    </div>
+                </div>
+                <div id="enter_new_pas" style="display: none;">
+                    <input class="popup_input" placeholder="Новый пароль" type="password" id="new_pass">
+                    <input class="popup_input" placeholder="Повторите новый пароль" type="password"
+                           id="new_pass_repeat">
+                    <div class="all_catalog_href" style="float: none;width:100%;height:100px;" id="save_new_pas">
+                        Сохранить изменения
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,7 +108,7 @@
 <!--     Тут должен быть еще один класс createorder-->
 	<div class="catalog_flex createorder" style="padding:0;display: none" id="personal_address">
             <!-- Адреса -->
-            <div class="address_place" id="address_place">
+            <div class="address_place" id="address_place" style="text-align: center">
                 <div class="address_item" id="address_item" style="display: none;">
                     <!-- Блок с добавлением адресов -->
                     <div class="add_address">
@@ -283,17 +301,17 @@
 /* Получение пользователя */
     GetUser();
 
-    function GetUser() {
+     function GetUser() {
         $.ajax({
             url: '/api/user/get',
             type: 'GET',
             success: function (msg) {
                 user = msg['message']['user'];
-                console.log(user);
+                $('.delete_address').remove();
                 DrawInfoUser();
             }
         });
-    }
+     }
 
 
     mapingItem();
@@ -337,17 +355,14 @@
         your_surname.value = user['surname'];
         your_mobile.value = '+7' + user['phone'];
         your_email_address.value = user['email'];
-        if(user['avatar'] !== ''){
-            avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
-        }
+        avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
+        day_datepicker.value = user['birthday'];
         let inputs = document.getElementsByClassName('new_data');
         for (let i = 0; i < inputs.length; i++) {
             inputs[i].oninput = function () {
                 inputs[i].classList.remove('error');
             }
         }
-
-
         // Если у пользователя уже есть адреса в ЛК, то выводим блок с адресами
         if (user['addresses'].length !== 0) {
             console.log(user['addresses'].length);
@@ -360,6 +375,7 @@
                     }
                 }
                 box.id = '';
+                box.classList.add('delete_address');
                 let data_address = box.getElementsByClassName('data_address')[0];
                 let name_address_user = box.getElementsByClassName('name_address_user')[0];
                 let address_address_user = box.getElementsByClassName('address_address_user')[0];
@@ -389,6 +405,19 @@
                             notification('Вы ничего не поменяли', 1);
                             return;
                         }
+                        let address_data = '';
+                        $(address).suggestions({
+                            token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
+                            type: "ADDRESS",
+                            /* Вызывается, когда пользователь выбирает одну из подсказок */
+                            onSelect: function (suggestion) {
+                                if (Number(suggestion['data']['fias_level']) < 8) {
+                                    notification('Укажите точный адрес', 1);
+                                    return;
+                                }
+                                address_data = suggestion['value'];
+                            }
+                        })
                         changeAddress(name_address.value, address.value, user['addresses'][i]['id'])
                     }
 
@@ -399,8 +428,6 @@
                 }
                 data_address.style.display = 'block';
                 box.style.display = 'inline-block';
-                box.style.marginLeft = '50px';
-                box.style.marginBottom = '35px';
                 address_place.append(box);
             }
         }
@@ -416,7 +443,7 @@
                 }
             }
             box.id = '';
-
+            box.classList.add('delete_address');
             let icon = box.getElementsByClassName('right_nav_place')[0];
             let btn_add = box.getElementsByClassName('blog_item_text_read')[0];
             let completed_address = box.getElementsByClassName('completed_address')[0];
@@ -431,20 +458,19 @@
             }
             let address_data = '';
 
-            // console.log($(address_address).suggestions({
-            //         token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
-            //         type: "ADDRESS",
-            //         /* Вызывается, когда пользователь выбирает одну из подсказок */
-            //         onSelect: function (suggestion) {
-            //             console.log('Дашло 2');
-            //             if (Number(suggestion['data']['fias_level']) < 8) {
-            //                 notification('Укажите точный адрес', 1);
-            //                 return;
-            //             }
-            //             address_data = suggestion['value'];
-            //         }
-            //     })
-            // )
+            $(address).suggestions({
+                token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
+                type: "ADDRESS",
+                /* Вызывается, когда пользователь выбирает одну из подсказок */
+                onSelect: function (suggestion) {
+                    console.log('Дашло 2');
+                    if (Number(suggestion['data']['fias_level']) < 8) {
+                        notification('Укажите точный адрес', 1);
+                        return;
+                    }
+                    address_data = suggestion['value'];
+                }
+            })
 
             old_password.oninput = function () {
                 old_password.classList.remove('error');
@@ -464,8 +490,6 @@
 
             }
             box.style.display = 'inline-block';
-            box.style.marginLeft = '50px';
-            box.style.marginBottom = '35px';
             address_place.append(box);
         }
 
@@ -552,7 +576,7 @@
     function EditUser(status) {
         // status = 1 - изменение основных данных, 2 - пароля
         if (status === 1) {
-            if (your_name.value === '' || your_phone.value === '') {
+            if (your_name.value === '' || your_mobile.value === '') {
                 let inputs = document.getElementsByClassName('new_data');
                 for (let i = 0; i < inputs.length; i++) {
                     if (inputs[i].value === '') {
@@ -562,13 +586,12 @@
                 notification('Заполните обязательные поля!', 1);
                 return;
             }
-            let birthday = birthday_year + '.' + birthday_month + '.' + birthday_day;
             let data = {
                 'id': user['id'],
                 'name': your_name.value,
                 'surname': your_surname.value,
                 'phone': your_mobile.value,
-                'birthday': birthday,
+                'birthday': day_datepicker.value,
             }
             $.ajax({
                 url: '/api/user/edit',
@@ -576,7 +599,9 @@
                 type: "GET",
                 success: function (msg) {
                     console.log(msg);
-                    alert('Ваши данные успешно изменены');
+                    if(msg['status'] === 'ok'){
+                      notification('Ваши данные успешно изменены!', 2);
+                    }
                 }
             })
         } else {
@@ -607,8 +632,13 @@
         }
     }
 
-    // функция удаления адреса
+    // функция добавление адреса
     function addAddress(name, address) {
+        if (address === '') {
+            notification('Укажите точный адрес', 1);
+            return;
+        }
+
         let data = {
             'id': user['id'],
             'address': address,
@@ -620,6 +650,7 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                notification('Адрес успешно сохранён!', 2);
                 GetUser();
             }
         })
@@ -640,12 +671,14 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                notification('Ваши данные обновлены!', 2);
+                GetUser();
             }
         })
     }
 
 
-    // Функция удаления адреса
+   // Функция удаления адреса
     function deleteAddress(address_id, add_name) {
         let data = {
             'id': user['id'],
@@ -658,6 +691,8 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
+                notification('Адрес успешно удалён!', 2);
+                GetUser();
             }
         })
     }
@@ -673,33 +708,53 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
-                drawHistory();
+                for (let i = 0; i < msg['message']['deals_list'].length; i++) {
+                    drawHistory(msg['message']['deals_list'][i]);
+                }
             }
 
         })
     }
 
-    function drawHistory(order){
-           let box = one_order_place.cloneNode(true);
-           let address = box.getElementsByClassName('address_order')[0];
-           let cost = box.getElementsByClassName('cost_order')[0];
-           let date = box.getElementsByClassName('date_order')[0];
-           address.innerText = '';
-           cost.innerText = '';
-           date.innerText = '';
+    function drawHistory(order) {
+        let order_item = order['deal'];
+        let products = order['products'];
+        let box = one_order_place.cloneNode(true);
+        box.id = '';
+        let address = box.getElementsByClassName('address_order')[0];
+        let cost = box.getElementsByClassName('cost_order')[0];
+        let date = box.getElementsByClassName('date_order')[0];
+        address.innerText = order_item['address'];
+        cost.innerText = order_item['cost'] + ' ₽';
+        let order_date = order_item['date_delivery'].split(' ', '');
+        console.log(order_date);
+        date.innerText = order_item['date_delivery'];
 
-           for(let i = 0; i < order['products'].length; i++){
-               let order = history_order_item.cloneNode(true);
-               let img = order.getElementsByClassName('small_product_img')[0];
-               let name = order.getElementsByClassName('bucket_na_zakaz')[0];
-               let cost = order.getElementsByClassName('price')[0];
-           }
+        for (let i = 0; i < products.length; i++) {
+            let order = history_order_item.cloneNode(true);
+            order.id = '';
+            // let img = order.getElementsByClassName('small_product_img')[0];
+            let href_product = order.getElementsByClassName('small_product_place')[0];
+            let name = order.getElementsByClassName('bucket_na_zakaz')[0];
+            let cost = order.getElementsByClassName('price')[0];
 
-           box.style.display = 'block';
-           personal_history.append(box);
-
-
+            // img.src = '';
+            name.innerText = products[i]['name'];
+            cost.innerText = products[i]['discount_cost'] + ' ₽';
+            href_product.href = 'product?id=' + products[i]['id'];
+            order.style.display = 'inline-block';
+            box.append(order);
+        }
+        box.style.display = 'block';
+        personal_history.append(box);
     }
+
+    $(function () {
+        $("#day_datepicker").datepicker({
+            minDate: "-3650D",
+            maxDate: new Date()
+        });
+    });
 
 </script>
 </body>

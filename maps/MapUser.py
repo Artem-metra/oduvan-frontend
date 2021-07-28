@@ -28,13 +28,7 @@ def api_user_get():
         else:
             return 'error'
 
-    d = utils.complete_request_with_parameters(params, request.path)
-    return d
-
-
-@user_app.route('/api/user/edit')
-def api_user_edit():
-    return utils.complete_request(request, request.path)
+    return utils.complete_request_with_parameters(params, request.path)
 
 
 @user_app.route('/api/user/remove')
@@ -49,11 +43,7 @@ def api_user_check():
 
 @user_app.route('/api/user/registration')
 def api_user_registration():
-    resp = utils.complete_request(request, request.path)
-    if 'user_id' not in session:
-        if 'user_id' in resp:
-            session['user_id'] = resp['user_id']
-    return resp
+    return utils.complete_request(request, request.path)
 
 
 @user_app.route('/api/user/auth')
@@ -107,16 +97,6 @@ def api_user_add_address():
     return utils.complete_request(request, request.path)
 
 
-@user_app.route('/api/user/change_address')
-def api_user_change_address():
-    return utils.complete_request(request, request.path)
-
-
-@user_app.route('/api/user/remove_address')
-def api_user_remove_address():
-    return utils.complete_request(request, request.path)
-
-
 @user_app.route('/api/user/check_password')
 def api_user_check_password():
     return utils.complete_request(request, request.path)
@@ -132,14 +112,50 @@ def api_user_remove_avatar():
     return utils.complete_request(request, request.path)
 
 
-@user_app.route('/api/user/confirmed')
-def api_user_confirmed():
+@user_app.route('/api/user/change_address')
+def api_user_change_address():
+    return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/user/change_info')
+def api_user_change_info():
     params = {}
     for item in request.args:
         params[item] = request.args.get(item)
     if 'user_id' not in params.keys():
         if 'user_id' in session:
-            params = {'user_id': session['user_id']}
+            params['user_id'] = session['user_id']
         else:
             return 'error'
-    return utils.complete_request_with_parameters(params, request.path)
+    response = utils.complete_request_with_parameters(params, request.path)
+    return response
+
+
+@user_app.route('/api/user/change_password')
+def api_user_change_password():
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    if 'user_id' not in params.keys():
+        if 'user_id' in session:
+            params['user_id'] = session['user_id']
+        else:
+            return 'error'
+    response = utils.complete_request_with_parameters(params, request.path)
+    return response
+
+
+@user_app.route('/api/user/remove_address')
+def api_user_remove_address():
+    return utils.complete_request(request, request.path)
+
+
+@user_app.route('/api/history_deals/get_all')
+def get_all_deals_for_user():
+    params = {}
+    for item in request.args:
+        params[item] = request.args.get(item)
+    params['id'] = session['user_id']
+    response = utils.complete_request_with_parameters(params, request.path)
+    print(response, params)
+    return response

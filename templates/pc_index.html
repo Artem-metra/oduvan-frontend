@@ -110,20 +110,23 @@
     <div class="container">
         <div class="catalog_flex">
             <h2 class="catalog_zag">Популярное</h2>
-            <a class="all_catalog_href href_catalog" href="/catalog">
+            <a class="all_catalog_href href_catalog" href="/catalog?category_id=1">
                 Весь каталог
             </a>
         </div>
+    </div>
 
-        <!-- Слайдер -->
-        <div id="swiper_place">
-            <div class="row rw m-t-16" id="slider_place">
-                <!-- Slider Banners -->
-                <div class="col-xs-12">
+    <!-- Слайдер -->
+    <div id="swiper_place" style="display: none">
+        <div class="row rw m-t-16" id="slider_place" style="display: none">
+            <!-- Slider Banners -->
+            <div class="col-xs-12" style="position: relative">
+                <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>
+                <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>
+                <div class="container">
                     <div class="swiper-container">
                         <div class="swiper-wrapper"></div>
-                        <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>
-                        <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>
+
                         <!--                        <div class="pagination_place">-->
                         <!--                            <div class="swiper-pagination" style="position:static"></div>-->
                         <!--                        </div>-->
@@ -131,65 +134,67 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <div class="card_product" id="card_product" style="display: none;">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
+    <!-- Карточка товара -->
+    <div class="card_product" id="card_product" style="display: none;">
+        <div class="right_nav_place">
+            <div class="right_nav_item">
 
+            </div>
+        </div>
+        <div class="discount_place">
+            <div class="percent_place">
+                <span class="fa fa-percent"></span>
+            </div>
+            <div class="discount_text">
+                20% скидка
+            </div>
+        </div>
+        <a class="slider_item_card_img_place" href="">
+            <img src="../static/img/catalog_img.png" class="slider_img">
+        </a>
+        <div class="name_and_price">
+            <div class="catalog_flex" style="padding-bottom: 0px;">
+                <div class="slider_name_bucket">Букет "Индиго"</div>
+                <div class="price_basket slider_name_bucket" style="display: none;"></div>
+            </div>
+            <div class="catalog_flex_catalog for_basket"
+                 style="align-items: center;justify-content: space-between;padding: 0 15px;">
+                <div>
+                    <div class="price">
+                        5400 Р
+                    </div>
+                    <div class="disc_price_bucket">
+                        2 600 Р
+                    </div>
+                </div>
+                <div class="add_to_basket_card">
+                    <span class="fas fa-shopping-bag"></span>
                 </div>
             </div>
-            <div class="discount_place">
-                <div class="percent_place">
-                    <span class="fa fa-percent"></span>
+            <div class="price_hover">
+                <div>
+                    В корзину
                 </div>
-                <div class="discount_text">
-                    20% скидка
+                <div class="price_hover_price">
+                    5 400 ₽
                 </div>
             </div>
-            <a class="slider_item_card_img_place" href="">
-                <img src="../static/img/catalog_img.png" class="slider_img">
-            </a>
-            <div class="name_and_price">
-                <div class="catalog_flex" style="padding-bottom: 0px;">
-                    <div class="slider_name_bucket">Букет "Индиго"</div>
-                    <div class="price_basket slider_name_bucket" style="display: none;"></div>
+            <div class="added_product" style="display: none">
+                <div class="fa fa-minus minus_counter"></div>
+                <div>
+                    В корзине: <input type="number" class="product_counter_inp"/>
                 </div>
-                <div class="catalog_flex_catalog for_basket"
-                     style="align-items: center;justify-content: space-between;padding: 0 15px;">
-                    <div>
-                        <div class="price">
-                            5400 Р
-                        </div>
-                        <div class="disc_price_bucket">
-                            2 600 Р
-                        </div>
-                    </div>
-                    <div class="add_to_basket_card">
-                        <span class="fas fa-shopping-bag"></span>
-                    </div>
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-                <div class="added_product" style="display: none">
-                    <div class="fa fa-minus minus_counter"></div>
-                    <div>
-                        В корзине: <input type="number" class="product_counter_inp"/>
-                    </div>
-                    <div>
-                        <div class="fa fa-plus plus_counter"></div>
-                    </div>
+                <div>
+                    <div class="fa fa-plus plus_counter"></div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+
 </div>
 
 
@@ -227,62 +232,6 @@
                 Больше статей
             </a>
         </div>
-        <!--        <div>-->
-        <!--            <div class="blog_item">-->
-        <!--                <div class="blog_item_info">-->
-        <!--                    <img src="../static/img/blog_big_img.png">-->
-        <!--                    <div class="blog_item_text">-->
-        <!--                        <div class="blog_item_text_zag">-->
-        <!--                            Открыт <br>новый магазин-->
-        <!--                        </div>-->
-        <!--                        <div class="blog_item_text_preview">-->
-        <!--                            Открылся новый магазин по адресу Плехановская 15, мы рады представить...-->
-        <!--                        </div>-->
-        <!--                        <div class="blog_item_text_read">-->
-        <!--                            Прочитать-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-
-        <!--            <div class="blog_item">-->
-        <!--                <div class="blog_item_info">-->
-        <!--                    <img src="../static/img/blog_big_img.png">-->
-        <!--                    <div class="blog_item_text">-->
-        <!--                        <div class="blog_item_text_zag">-->
-        <!--                            Открыт <br>новый <br>магазин-->
-        <!--                        </div>-->
-        <!--                        <div class="blog_item_text_preview">-->
-        <!--                            Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание на-->
-        <!--                            дресскод-->
-        <!--                            и оформление...-->
-        <!--                        </div>-->
-        <!--                        <div class="blog_item_text_read">-->
-        <!--                            Прочитать-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--            <div class="blog_item">-->
-        <!--                <div class="blog_item_info">-->
-        <!--                    <img src="../static/img/blog_big_img.png">-->
-        <!--                    <div class="blog_item_text">-->
-        <!--                        <div class="blog_item_text_zag">-->
-        <!--                            Открыт <br>новый <br>магазин-->
-        <!--                        </div>-->
-        <!--                        <div class="blog_item_text_preview">-->
-        <!--                            Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание на-->
-        <!--                            дресскод-->
-        <!--                            и оформление...-->
-        <!--                        </div>-->
-        <!--                        <div class="blog_item_text_read">-->
-        <!--                            Прочитать-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
-
 
         <div>
             <div class="blog_item_main">
@@ -511,6 +460,22 @@
 
 {% include 'pc_utilites.html' %}
 <script>
+    let likeds = [];
+    getLikeds();
+
+    function getLikeds() {
+        $.ajax({
+            url: '/api/user/list_likes',
+            type: "GET",
+            success: function (msg) {
+                for (let i = 0; i < msg['message']['liked'].length; i++) {
+                    likeds.push(Number(msg['message']['liked'][i]));
+                }
+            }
+        })
+    }
+
+
     loadCategories();
 
     function loadCategories() {
@@ -563,21 +528,22 @@
     }
 
     function createSlider(products) {
-        let box = swiper_place.cloneNode(true);
+        let box = slider_place.cloneNode(true);
+        box.id = '';
+        box.style.display = 'block';
         let swiper = box.getElementsByClassName('swiper-container')[0];
         let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
         let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
         let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
-        let pagination_place = box.getElementsByClassName('pagination_place')[0];
-        let bullets = box.getElementsByClassName('swiper-pagination')[0];
         let sw = new Swiper(swiper, {
             slidesPerView: 4,
             slidesPerGroup: 4,
             spaceBetween: 30,
-            // pagination: {
-            //     el: '.swiper-pagination',
-            //     type: 'bullets',
-            // },
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'bullets',
+                clickable: true,
+            },
             grabCursor: true,
             navigation: {
                 nextEl: right_arrow,
@@ -585,44 +551,30 @@
             },
             autoplay: {
                 delay: 5000,
-                disableOnInteraction: false
+                disableOnInteraction: false,
             },
             parallax: {
-                enabled: true
+                enabled: true,
             },
-            loop: true
+            loop: true,
         });
+        let pagination_place = box.getElementsByClassName('pagination_place')[0];
         for (let i = 0; i < products.length; i++) {
+
             let slider = createProduct(products[i]);
             let swiper_slide = document.createElement('div');
             swiper_slide.className = 'swiper-slide';
-            swiper_slide.style.width = '25%';
+            swiper_slide.style.width = '24.47%';
             slider.style.display = 'block';
             slider.style.width = '100%';
             swiper_slide.style.marginRight = '10px';
             swiper_slide.append(slider);
             wrapper.append(swiper_slide);
-            document.getElementById('slider_place').append(box);
+            swiper_place.style.display = 'block';
+            document.getElementById('swiper_place').append(box);
         }
     }
 
-
-    // /* Якорь ( плавное перелистывание ) */
-    // anchor();
-    //
-    // function anchor() {
-    //     let nav_link_landing = document.querySelectorAll('.nav-link_landing[href*="#"]');
-    //     for (let anchor of nav_link_landing) {
-    //         anchor.onclick = function (e) {
-    //             e.preventDefault();
-    //             const id = anchor.getAttribute('href').substr(1);
-    //             document.getElementById(id).scrollIntoView({
-    //                 behavior: 'smooth',
-    //                 block: 'start',
-    //             })
-    //         }
-    //     }
-    // }
 </script>
 </body>
 </html>

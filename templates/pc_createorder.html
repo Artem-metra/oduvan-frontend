@@ -35,8 +35,6 @@
                 <input class="popup_input" type="email" placeholder="Электронная почта" id="email_user">
                 <input class="popup_input" type="text" placeholder="Адрес куда доставить" id="address_user">
                 <!-- Выбрать адреса из уже имеющихся -->
-
-
                 <div id="addresses_place">
                     <div class="add_address add_address_order" id="address_item"
                          style="display: none;height: auto;min-height: 300px;">
@@ -99,8 +97,6 @@
                         <label for="add_aquapack" class="lab_desc sub_zag">Добавить аквапак</label>
                     </div>
                 </div>
-
-
                 <div class="name_buckets">
                     Способ оплаты
                 </div>
@@ -120,7 +116,10 @@
                 <div class="all_catalog_href" id="oformit_zakaz"
                      style="float: none;width:100%;height:60px;justify-content: space-between;padding:0 10px">
                     <div class="pereiti_k_oform">Подтвердить заказ</div>
-                    <div style="float: right" class="price final_price">17200 Р</div>
+                    <div class="catalog_flex_catalog" style="align-items: center;width: auto">
+                        <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">9000 ₽</div>
+                        <div class="price final_price">10000 ₽</div>
+                    </div>
                 </div>
 
             </div>
@@ -166,8 +165,9 @@
                         <div class="price_price" style="color:#293048;opacity:0.6">
                             Сумма заказа
                         </div>
-                        <div class="price_price final_price" style="float: right">
-                            16200 Р
+                        <div class="catalog_flex_catalog" style="align-items: center; width: auto">
+                            <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">9000 ₽</div>
+                            <div class="price final_price">10000 ₽</div>
                         </div>
                     </div>
                     <div class="registr_indicator" style="background: #293048; margin:10px 0;"></div>
@@ -215,7 +215,7 @@
                                     <div class="bucket_na_zakaz">
                                         Букет "Индиго"
                                     </div>
-                                    <div class="catalog_flex_catalog" style="align-items: center">
+                                    <div class="catalog_flex_catalog" style="align-items: center;width: auto">
                                         <div class="disc_price_bucket" style="margin-right: 15px;">
                                             2 600 Р
                                         </div>
@@ -223,7 +223,7 @@
                                             5400 Р
                                         </div>
                                     </div>
-                                    <div class="add_to_basket_place" style="max-width:100%;">
+                                    <div class="add_to_basket_place" style="max-width:100%;width: 350px;">
                                         <div class="fa fa-minus minus_counter"></div>
                                         <div class="counter_place">
                                             <input type="number" class="product_counter_inp"
@@ -243,8 +243,9 @@
                         <div class="price_price" style="color:#293048;opacity:0.6">
                             Итого:
                         </div>
-                        <div class="price_price final_price" style="float: right">
-                            17200 Р
+                        <div class="catalog_flex_catalog" style="align-items: center;width: auto">
+                            <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">9000 ₽</div>
+                            <div class="price final_price">10000 ₽</div>
                         </div>
                     </div>
                     <div class="registr_indicator" style="background: #293048;margin:10px 0;"></div>
@@ -395,6 +396,7 @@
                     loadShops();
                     get_other_people_place.style.display = 'none';
                     address_user.style.display = 'none';
+                    addresses_place.style.display = 'none';
                 }
                 if (msg['message']['products'].length === 0) {
                     document.getElementsByClassName('createorder')[0].style.display = 'none';
@@ -403,8 +405,16 @@
                 }
                 $('.delete_card').remove();
                 let final_price = document.getElementsByClassName('final_price');
+                let disc_price_bucket = document.getElementsByClassName('final_dics_price');
                 for (let i = 0; i < final_price.length; i++) {
-                    final_price[i].innerText = msg['message']['basket']['discount_cost'] + ' ₽';
+                    if (msg['message']['basket']['promo_code'] > 0) {
+                        final_price[i].innerText = msg['message']['basket']['cost'] + ' ₽';
+                        final_price[i].classList.add('have_disc');
+                        disc_price_bucket[i].innerText = msg['message']['basket']['discount_cost'] + ' ₽';
+                    } else {
+                        final_price[i].innerText = msg['message']['basket']['cost'] + ' ₽';
+                        disc_price_bucket[i].style.display = 'none';
+                    }
                 }
                 drawBasketOrder(msg['message']['products']);
             }
@@ -461,22 +471,20 @@
             url: '/api/shops/get',
             type: "GET",
             success: function (msg) {
-                console.log(msg);
+                console.log('LoadShops', msg);
                 $('.delete_shop').remove();
                 // Если пользователь не выбрал магазин для доставки, то при ончейндж селекта, еррор пропадает
-                select_shops.onchange = function () {
-                    select_shops.classList.remove('error');
-                }
                 for (let i = 0; i < msg['message']['shops'].length; i++) {
                     let option = document.createElement('option');
                     option.value = msg['message']['shops'][i]['id'];
                     option.className = 'delete_shop';
-                    option.innerText = msg['message']['shops'][i]['name'];
+                    option.innerText = msg['message']['shops'][i]['address'];
                     select_shops.append(option);
                 }
                 select_shops.style.display = 'block';
                 select_shops.onchange = function () {
                     shop_id = select_shops.value;
+                    select_shops.classList.remove('error');
                 }
             }
         })
@@ -645,7 +653,7 @@
             'promo_code': promo_code_code.value,
         }
         $.ajax({
-            url: '/api/promo_code/get_promo_code',
+            url: '/api/promo_code/accept_promo_code',
             type: "GET",
             data: data,
             success: function (msg) {
@@ -655,7 +663,6 @@
                     loadBasketOrder();
                     notification('Промокод успешно использован', 2);
                 }
-                console.log(msg);
             }
         })
     }

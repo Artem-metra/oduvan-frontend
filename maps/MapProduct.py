@@ -36,9 +36,9 @@ def api_product_get():
     params = {}
     for item in request.args:
         params[item] = request.args.get(item)
-    params['user_id'] = session['user_id']
     params['basket_id'] = session['basket_id']
     response = utils.complete_request_with_parameters(params, request.path)
+    return response
 
 
 @product_app.route('/api/product/edit')
@@ -76,7 +76,6 @@ def site_products_smart():
     else:
         params['basket_id'] = 0
     resp = utils.complete_request_post_with_parameters({'info': params}, request.path)
-    # print('rest', resp)
     return resp
 
 
