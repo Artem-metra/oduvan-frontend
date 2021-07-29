@@ -155,7 +155,6 @@ def get_all_deals_for_user():
         params[item] = request.args.get(item)
     params['id'] = session['user_id']
     response = utils.complete_request_with_parameters(params, request.path)
-    print(response, params)
     return response
 
 
