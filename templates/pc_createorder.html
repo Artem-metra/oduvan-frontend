@@ -117,7 +117,9 @@
                      style="float: none;width:100%;height:60px;justify-content: space-between;padding:0 10px">
                     <div class="pereiti_k_oform">Подтвердить заказ</div>
                     <div class="catalog_flex_catalog" style="align-items: center;width: auto">
-                        <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">9000 ₽</div>
+                        <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">9000
+                            ₽
+                        </div>
                         <div class="price final_price">10000 ₽</div>
                     </div>
                 </div>
@@ -166,7 +168,9 @@
                             Сумма заказа
                         </div>
                         <div class="catalog_flex_catalog" style="align-items: center; width: auto">
-                            <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">9000 ₽</div>
+                            <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">
+                                9000 ₽
+                            </div>
                             <div class="price final_price">10000 ₽</div>
                         </div>
                     </div>
@@ -244,7 +248,9 @@
                             Итого:
                         </div>
                         <div class="catalog_flex_catalog" style="align-items: center;width: auto">
-                            <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">9000 ₽</div>
+                            <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">
+                                9000 ₽
+                            </div>
                             <div class="price final_price">10000 ₽</div>
                         </div>
                     </div>
@@ -353,8 +359,6 @@
         } else {
             notification('Все успешно', 2);
         }
-
-
         console.log(time_value);
     }
 
@@ -371,7 +375,6 @@
         if (data_value === day_now) {
             if (time_value <= inp_choose_time.min && time_value >= inp_choose_time.max) {
                 console.log('Сейчас заказать нельзя');
-
             }
         }
     }
@@ -381,6 +384,41 @@
     choose_time.onclick = function () {
         inp_time.classList.add('_active');
     }
+
+    drawUserInfo();
+    function drawUserInfo() {
+        name_user.value = user['name'] + ' ' + user['surname'];
+        phone_user.value = '+7' + user['phone'];
+        email_user.value = user['email'];
+        loadBasketOrder();
+        if (user['addresses'].length > 0 && purchase_type !== 1) {
+            addresses_place.style.display = 'block';
+            for (let i = 0; i < user['addresses'].length; i++) {
+                let address = address_item.cloneNode(true);
+                address.id = '';
+                address.style.display = 'inline-block';
+                let name = address.getElementsByClassName('name_address_user')[0];
+                let address_user_add = address.getElementsByClassName('address_address_user')[0];
+                let choose = address.getElementsByClassName('choose_address')[0];
+
+                name.innerText = user['addresses'][i]['name'];
+                address_user_add.innerText = user['addresses'][i]['address'];
+                choose.onclick = function () {
+                    address_user.value = user['addresses'][i]['address'];
+                }
+                if (user['addresses'].length === 1) {
+                    address.style.width = '100%';
+                    address.style.minHeight = '250px';
+                } else if (user['addresses'].length === 2) {
+                    address.style.width = '49.25%';
+                } else {
+                    address.style.width = '32.3%';
+                }
+                addresses_place.append(address);
+            }
+        }
+    }
+
 
     // Подгрузка товаров для оформления заказа
     function loadBasketOrder() {
@@ -423,49 +461,7 @@
 
     // РЕЖИМ РАБОТЫ С 8:00 ДО 20:00
 
-    /* Получение пользователя */
-    GetUser();
-
-    function GetUser() {
-        $.ajax({
-            url: '/api/user/get',
-            type: 'GET',
-            success: function (msg) {
-                user = msg['message']['user'];
-                name_user.value = user['name'] + ' ' + user['surname'];
-                phone_user.value = '+7' + user['phone'];
-                email_user.value = user['email'];
-                loadBasketOrder();
-                if (user['addresses'].length > 0 && purchase_type !== 1) {
-                    addresses_place.style.display = 'block';
-                    for (let i = 0; i < user['addresses'].length; i++) {
-                        let address = address_item.cloneNode(true);
-                        address.id = '';
-                        address.style.display = 'inline-block';
-                        let name = address.getElementsByClassName('name_address_user')[0];
-                        let address_user_add = address.getElementsByClassName('address_address_user')[0];
-                        let choose = address.getElementsByClassName('choose_address')[0];
-
-                        name.innerText = user['addresses'][i]['name'];
-                        address_user_add.innerText = user['addresses'][i]['address'];
-                        choose.onclick = function () {
-                            address_user.value = user['addresses'][i]['address'];
-                        }
-                        if (user['addresses'].length === 1) {
-                            address.style.width = '100%';
-                        } else if (user['addresses'].length === 2) {
-                            address.style.width = '49.25%';
-                        } else {
-                            address.style.width = '32.3%';
-                        }
-                        addresses_place.append(address);
-                    }
-                }
-            }
-        });
-    }
-
-
+    // Загрузка магазинов
     function loadShops() {
         $.ajax({
             url: '/api/shops/get',
@@ -490,21 +486,6 @@
         })
     }
 
-
-    // // Изменение количества товара
-    // function changeCounter(action) {
-    //     console.log(Number(counter_product.value));
-    //     if (action === 1) {
-    //         counter_product.value += 1;
-    //     } else {
-    //         if (counter_product.value === 1) {
-    //             minus_counter.classList.add('none_active');
-    //             return;
-    //         } else {
-    //             counter_product.value -= 1;
-    //         }
-    //     }
-    // }
 
     $('#address_user').suggestions({
         token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
@@ -598,8 +579,6 @@
                 additionally[3] = 0;
             }
         }
-
-
         comment_order.onchange = function () {
             if (comment_order.value === '') {
                 additionally[0] = '';
@@ -614,24 +593,6 @@
                 additionally[1] = text_order.value;
             }
         }
-
-        // // Добавляем в массив additionally при onchange
-        // let add_inputs = document.getElementsByClassName('additionally_input');
-        // for (let i = 0; i < add_inputs.length; i++) {
-        //     add_inputs[i].onchange = function () {
-        //         if (add_inputs[i].checked) {
-        //             additionally.push(Number(add_inputs[i].value));
-        //         } else {
-        //             additionally = removeItemAll(additionally, Number(add_inputs[i].value));
-        //         }
-        //         if (add_inputs[i].value === '') {
-        //             additionally.push(add_inputs[i].value);
-        //         } else {
-        //             additionally = removeItemAll(additionally, add_inputs[i].value);
-        //         }
-        //         console.log(additionally);
-        //     }
-        // }
     }
 
     function removeItemAll(arr, value) {

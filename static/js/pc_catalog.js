@@ -9,8 +9,21 @@ let page = 1;
 let paginations = 0;
 let sub_category = 0;
 
+function Preloader(status) {
+    if (status === 1) {
+        document.getElementById('preloader').style.display = 'block';
+        document.getElementById('content_catalog').style.display = 'none';
+    } else {
+        document.getElementById('preloader').style.display = 'none';
+        document.getElementById('content_catalog').style.display = 'block';
+    }
 
+}
 
+function EmptyProducts() {
+    message_for_empty.innerText = 'Товаров не найдено';
+    Preloader(1);
+}
 
 getCategories();
 
@@ -64,19 +77,17 @@ function drawCategories(msg) {
             $('.delete_subcat').remove();
             document.getElementsByClassName('_active')[0].classList.remove('_active');
             cat_name.classList.add('_active');
-
             if (category.classList.contains('all')) {
                 sub_category = 0;
                 page = 1;
                 $('.delete_cat').remove();
                 let breadcoast = BreadCoast(id);
-                place_bread.innerHTML += `<a href="/catalog?category_id=${id}" class="active_page">${breadcoast[0]}</a>`;
+                place_bread.innerHTML += `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
             } else {
                 sub_category = msg[i]['id'];
                 place_bread.innerHTML += `<span style="text-transform: uppercase;font-weight: 600;color:#F877AD" class="active_page catalog_category_card delete_subcat">
 <span style="color:#293048"> / </span>${msg[i]['name']}</span>`;
             }
-
             loadProducts();
         }
         catalog_category_place.append(category);
@@ -91,6 +102,7 @@ loadProducts();
 
 /* Правильная подгрузка продуктов */
 function loadProducts() {
+    Preloader(1);
     minPrice();
     maxPrice();
     console.log(cost_start, cost_end);
@@ -115,10 +127,14 @@ function loadProducts() {
         data: JSON.stringify(data),
         success: function (msg) {
             console.log('Продкуты каталога', msg);
-            $('.delete_paginations').remove();
-            paginations = Number(msg['message']['pages']);
-            page = Number(msg['message']['page']);
-            drawProducts(msg['message']['products']);
+            if (msg['message']['products'].length === 0) {
+                EmptyProducts();
+            } else {
+                $('.delete_paginations').remove();
+                paginations = Number(msg['message']['pages']);
+                page = Number(msg['message']['page']);
+                drawProducts(msg['message']['products']);
+            }
         }
     });
 
@@ -177,19 +193,6 @@ function outdoingListCatalog() {
 }
 
 
-let packages = document.getElementsByClassName('packages_inp');
-for (let i = 0; i < packages.length; i++) {
-    packages[i].onchange = function () {
-        if (packages[i].checked) {
-            packaging.push(Number(packages[i].value));
-        } else {
-            packaging = removeItemAll(packaging, Number(packages[i].value));
-        }
-        console.log(packaging);
-    }
-}
-
-
 loadFlowers();
 
 function loadFlowers() {
@@ -199,6 +202,10 @@ function loadFlowers() {
         success: function (msg) {
             console.log(msg);
             drawFlowers(msg['message']);
+            // Хлебные крошки
+            let breadcoast = BreadCoast(id);
+            console.log(breadcoast);
+            place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
         }
     })
 }
@@ -302,11 +309,6 @@ function drawProducts(msg) {
         box.style.display = 'inline-block';
         document.getElementById('item_card_place').append(box);
     }
-    // Хлебные крошки
-    let breadcoast = BreadCoast(id);
-    console.log(breadcoast);
-    place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
-
     for (let i = 1; i < paginations + 1; i++) {
         let pagination = pagination_item.cloneNode(true);
         pagination.id = '';
@@ -323,6 +325,7 @@ function drawProducts(msg) {
         }
         pag_place.append(pagination);
     }
+    Preloader(0);
 }
 
 

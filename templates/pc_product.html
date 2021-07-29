@@ -159,31 +159,6 @@
     let name = '';
     let category_id = 0;
 
-    let likeds = [];
-    getLikeds();
-
-    function getLikeds() {
-        $.ajax({
-            url: '/api/user/list_likes',
-            type: "GET",
-            success: function (msg) {
-                console.log('Favorites', msg);
-                if (msg['message']['liked'].length === 0) {
-                    basket_place.style.display = 'block';
-                    catalog.style.display = 'block';
-                } else {
-                    for (let i = 0; i < msg['message']['liked'].length; i++) {
-                        likeds.push(Number(msg['message']['liked'][i]));
-                    }
-                    loadFavorites();
-                }
-
-            }
-        })
-    }
-
-
-
     getProduct();
 
     /* Получить продукт */

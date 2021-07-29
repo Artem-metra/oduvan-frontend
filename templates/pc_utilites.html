@@ -469,6 +469,7 @@
     }
 
 
+    // Получает список избранного
     getLikeds();
 
     function getLikeds() {
@@ -479,10 +480,12 @@
             async: false,
             success: function (msg) {
                 for (let i = 0; i < msg['message']['products'].length; i++) {
-                    data.push(Number(msg['message']['products'][i]));
+                    if(msg['message']['products'][i] !== null) {
+                        data.push(Number(msg['message']['products'][i]['id']));
+                    }
                 }
             }
-        })
+        });
         likeds = data;
     }
 
