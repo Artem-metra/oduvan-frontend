@@ -80,56 +80,33 @@
 <!-- Поп ап регистрации / авторизации -->
 <div class="registrationpopup" id="registrationpopup">
     <div class="closepopupplace">
-        <div class="close_place" onclick="ClosePopup(registrationpopup)">
+        <div class="close_place" id="closepopup" onclick="ClosePopup(registrationpopup)">
             <span class="fa fa-times"></span> <span>Закрыть</span>
         </div>
     </div>
-    <div class="container">
-        <div class="catalog_flex_catalog" style="margin-bottom:40px;">
-            <div class="registr_item" id="registration_popup">
-                Регистрация
-                <div class="registr_indicator _active" id="registr_indic"></div>
-            </div>
-            <div class="registr_item" id="authorize_popup">
-                Вход в аккаунт
-                <div class="registr_indicator" id="authorize_indic"></div>
-            </div>
-        </div>
-        <!-- Попап регистрации -->
-        <div id="registration_block">
-
-            <div class="name_popup">
-                Регистрация
-            </div>
-            <div class="info_popup">
-                Заполните все поля, займёт не больше минуты
-            </div>
-            <input class="popup_input" placeholder="Ваше Имя" id="name_user_reg">
-            <input class="popup_input" placeholder="Ваша фамилия" id="surname_user_reg">
-            <input class="popup_input" type="tel" placeholder="+7 (__) __-__-_" id="phone_user_reg">
-            <input class="popup_input" type="password" placeholder="Придумайте пароль" id="password_user_reg">
-            <input class="popup_input" type="password" placeholder="Повторите пароль" id="repeatpas_user_reg">
-            <a href="#" class="all_catalog_href" style="float:none;width:100%;margin-top:30px;height: 90px;"
-               id="register_user">Подтвердить
-                регистрацию</a>
-
-        </div>
-    </div>
     <!-- Попап авторизации -->
-    <div id="authorization_block" style="display: none;text-align: center">
-        <div class="container">
-            <div class="name_popup">
-                Вход в аккаунт
-            </div>
-            <div class="info_popup">
-                Свежие букеты уже ждут вас
-            </div>
-            <input class="popup_input" type="tel" placeholder="+7 (__) __-__-_" id="phone_user_auth">
-            <input class="popup_input" type="password" placeholder="Пароль" id="password_user_auth">
-            <span class="forgot_pas">Забыли пароль?</span>
-            <a href="#" class="all_catalog_href" style="float:none;width:100%;margin-top:30px;height: 90px;"
-               id="authorize_user">Войти в аккаунт</a>
+    <div id="authorization_block" style="display: block">
+        <div class="name_popup" style="margin-top: 30px">
+            Вход в аккаунт
         </div>
+        <div class="info_popup">
+            Свежие букеты уже ждут вас
+        </div>
+        <div style="display: flex; justify-content: center; height: 100px;" >
+            <input class="popup_input authorization_input" type="tel" style="width: 90%" placeholder="+7 (__) __-__-_" id="phone_user_auth">
+        </div>
+        <!--        <input class="popup_input authorization_input" type="password" placeholder="Пароль" id="password_user_auth">-->
+        <!--        <div style="text-align: center">-->
+        <!--            <span class="forgot_pas">Забыли пароль?</span>-->
+        <!--        </div>-->
+        <input class="popup_input authorization_input" type="password" placeholder="•••••" id="password_user_auth"
+               style="display: none;">
+        <div class = "on_center" style="display: flex; justify-content: center">
+            <a href="#" class="all_catalog_href blur" style="width:90%; font-size: 45px; margin-top:15px;height:100px; text-align: center"
+           id="get_sms">Получить СМС код</a>
+        </div>
+        <a href="#" class="all_catalog_href" style="float:none;width:100%;margin-top:15px;height:50px;display: none"
+           id="authorize_user">Войти в аккаунт</a>
     </div>
 </div>
 
@@ -454,7 +431,7 @@
     let count = 1;
     let likeds = [];
 
-    function OpenPopup(popup, status) {
+   function OpenPopup(popup, status) {
         // status: 1 - регистрация с авторизацией, 2 - корзина, 3 - скидка
         blurpopup.style.display = 'block';
         blurpopup.onclick = function () {
@@ -463,17 +440,6 @@
         body.style.overflow = 'hidden';
         if (status === 1) {
             popup.classList.add('_active');
-            register_user.onclick = function () {
-                RegistrationUser();
-            }
-            let inputs = document.getElementsByClassName('registration_input');
-            for (let i = 0; i < inputs.length; i++) {
-                inputs[i].oninput = function () {
-                    if (inputs[i].value.length > 0) {
-                        inputs[i].classList.remove('error');
-                    }
-                }
-            }
             let inputs_auth = document.getElementsByClassName('authorization_input');
             for (let i = 0; i < inputs_auth.length; i++) {
                 inputs_auth[i].oninput = function () {
@@ -483,24 +449,26 @@
                 }
             }
             maskPhone(phone_user_auth);
-            maskPhone(phone_user_reg);
-            /* В попапе регистрации и авторизации менять блоки при нажатии на "Регистрация"/"Вход в аккаунт" */
-            authorize_user.onclick = function () {
-                AuthorizationUser();
+            phone_user_auth.oninput = function () {
+                if (phone_user_auth.value.length === 18) {
+                    get_sms.classList.remove('blur');
+                    get_sms.onclick = function () {
+                        sendCodeRegistr();
+                    }
+                } else {
+                    get_sms.classList.add('blur');
+                }
             }
-            registration_popup.onclick = function () {
-                registr_indic.classList.add('_active');
-                authorize_indic.classList.remove('_active');
-                registration_block.style.display = 'block';
-                authorization_block.style.display = 'none';
+            if (phone_user_auth.value.length === 18) {
+                get_sms.classList.remove('blur');
+                get_sms.onclick = function () {
+                    sendCodeRegistr();
+                }
             }
 
-            authorize_popup.onclick = function () {
-                registr_indic.classList.remove('_active');
-                authorize_indic.classList.add('_active');
-                authorization_block.style.display = 'block';
-                registration_block.style.display = 'none';
-            }
+
+            /* В попапе регистрации и авторизации менять блоки при нажатии на "Регистрация"/"Вход в аккаунт" */
+
         } else if (status === 3) {
             popup.classList.add('_active');
             ds_pop_place.classList.add('_active');
@@ -528,7 +496,6 @@
                     courier.checked = true;
                 }
             }
-
             go_to_createorder.onclick = function () {
                 if (pickup.checked || courier.checked) {
                     if (pickup.checked) {
@@ -545,7 +512,7 @@
                 }
             }
         }
-    }
+   }
 
 
      // Получает список избранного
@@ -601,41 +568,8 @@
     }
 
 
-    /* Регистрация пользователя */
-    function RegistrationUser() {
-        if (name_user_reg.value === '' || phone_user_reg.value === '' || email_user_reg.value === '' || password_user_reg.value === '' || password_user_reg.value === '' || repeatpas_user_reg.value === '') {
-            let inputs = document.getElementsByClassName('registration_input');
-            for (let i = 0; i < inputs.length; i++) {
-                if (inputs[i].value.length === 0) {
-                    console.log(inputs[i].value.length === 0);
-                    inputs[i].classList.add('error');
-                }
-            }
-            return;
-        }
-        else if (password_user_reg.value !== repeatpas_user_reg.value) {
-            notification('Повторный пароль введён неверно', 1);
-            return;
-        } else {
-            let phone_number = maskPhone(phone_user_reg);
-            console.log(phone_user_reg.value.toString());
-            let data = {
-                'name': name_user_reg.value,
-                'surname': surname_user_reg.value,
-                'phone': phone_user_reg.value,
-                'password': password_user_reg.value,
-            }
-            $.ajax({
-                url: '/api/user/registration',
-                type: 'GET',
-                data: data,
-                success: function (msg) {
-                    console.log(msg);
-                    /* Добавить проверку, что такой Email или Телефон уже зареган */
-                }
-            });
-        }
-    }
+
+
 
     // Кастомный блок для ошибок и успешных действий
     function notification(message, status) {
@@ -668,24 +602,25 @@
             });
     }
 
-    /* В попапе регистрации и авторизации менять блоки при нажатии на "Регистрация"/"Вход в аккаунт" */
-    registration_popup.onclick = function () {
-        registr_indic.classList.add('_active');
-        authorize_indic.classList.remove('_active');
-        registration_block.style.display = 'block';
-        authorization_block.style.display = 'none';
-    }
+    {#/* В попапе регистрации и авторизации менять блоки при нажатии на "Регистрация"/"Вход в аккаунт" */#}
+    {#registration_popup.onclick = function () {#}
+    {#    registr_indic.classList.add('_active');#}
+    {#    authorize_indic.classList.remove('_active');#}
+    {#    registration_block.style.display = 'block';#}
+    {#    authorization_block.style.display = 'none';#}
 
-    authorize_popup.onclick = function () {
-        registr_indic.classList.remove('_active');
-        authorize_indic.classList.add('_active');
-        authorization_block.style.display = 'block';
-        registration_block.style.display = 'none';
-    }
+    {##}
+    {#authorize_popup.onclick = function () {#}
+    {#    registr_indic.classList.remove('_active');#}
+    {#    authorize_indic.classList.add('_active');#}
+    {#    authorization_block.style.display = 'block';#}
+    {#    registration_block.style.display = 'none';#}
+
 
 
     /* Авторизация пользователя */
     function AuthorizationUser() {
+        console.log(phone_user_auth.value, password_user_auth.value);
         if (phone_user_auth.value === '' || password_user_auth.value === '') {
             let inputs = document.getElementsByClassName('authorization_input');
             for (let i = 0; i < inputs.length; i++) {
@@ -695,22 +630,47 @@
             }
             notification('Заполните все поля!', 1);
             return;
-        } else {
+        }
+        else if(phone_user_auth.value !== registration_number){
+            notification('Номера не совпадают!', 1);
+            return;
+        }
+        else {
             let data = {
-                'password': password_user_auth.value,
                 'phone': phone_user_auth.value,
+                'code': password_user_auth.value,
             }
             $.ajax({
-                url: '/api/user/auth',
+                url: '/api/user/confirmed',
                 type: 'GET',
                 data: data,
                 success: function (msg) {
-                    location.href = '/cabinet';
+                    {#if (msg['status'] === 'error') {#}
+                    {#    notification('Пароль введён неверно', 1);#}
+                    {#    return;#}
+                    {# else {#}
+                    {#    location.href = '/cabinet';#}
+                    {##}
+                    console.log('ConfirmedPhone', msg);
                 }
             })
         }
     }
 
+    // Проверка телефонного кода при регистрации
+    function checkedPhoneCode(code) {
+        let data = {
+            'code': code,
+        }
+        $.ajax({
+            url: '/api/user/confirmed',
+            data: data,
+            type: "GET",
+            success: function (msg) {
+                console.log(msg);
+            }
+        })
+    }
 
     /* Получение пользователя */
     GetUser();
@@ -722,40 +682,40 @@
             type: 'GET',
             async: false,
             success: function (msg) {
+                console.log(msg);
                 loadBasket();
                 let user_btn = document.getElementsByClassName('user_item');
-                let favorites_btn = document.getElementsByClassName('favorites');
                 let basket_btn = document.getElementsByClassName('basket');
-                for (let i = 0; i < user_btn.length; i++) {
-                    if (msg === 'error') {
+                for (let i = 0; i < basket_btn.length; i++) {
+                    basket_btn[i].onclick = function () {
+                        OpenPopup(basket_popup, 2);
+                    }
+                }
+                if (msg === 'error') {
+                    for (let i = 0; i < user_btn.length; i++) {
                         user_btn[i].onclick = function () {
                             OpenPopup(registrationpopup, 1);
                         }
-                        favorites_btn[i].href = '/favorites';
-                        basket_btn[i].onclick = function () {
-                            OpenPopup(basket_popup, 2);
-                        }
-                    } else {
-                        data = msg['message']['user'];
-                        favorites_btn[i].href = '/favorites';
-
-                        basket_btn[i].onclick = function () {
-                            OpenPopup(basket_popup, 2);
-                        }
-                        if (data['avatar'] !== "null") {
-                            let img = document.createElement('img');
-                            img.className = 'avatar_user';
-                            img.src = 'http://b-ws.ru:1001/get?uuid=' + data['avatar'];
+                    }
+                } else {
+                    for(let i = 0; i < user_btn.length; i++){
+                        user_btn[i].href = '/cabinet';
+                    }
+                    data = msg['message']['user'];
+                    if (data['avatar'] !== "") {
+                        let img = document.createElement('img');
+                        img.className = 'avatar_user';
+                        img.src = 'http://b-ws.ru:1001/get?uuid=' + data['avatar'];
+                        for (let i = 0; i < user_btn.length; i++) {
                             user_btn[i].innerHTML = '';
                             user_btn[i].append(img);
                         }
-                        user_btn[i].href = '/cabinet';
                     }
                 }
             }
         });
-       user = data;
-   }
+        user = data;
+    }
 
 
     go_to_basket.onclick = function () {
@@ -1107,20 +1067,42 @@
     }
 
     function sendCodeRegistr() {
+        registration_number = phone_user_auth.value;
         let data = {
-            'code': '',
+            'phone': phone_user_auth.value,
         }
         $.ajax({
-            url: '/api/user/confirmed',
+            url: '/api/user/registration',
             type: "GET",
             data: data,
             success: function (msg) {
-                console.log(msg);
+                console.log('GetCode', msg);
+                if (msg['status'] === 'ok') {
+                    password_user_auth.style.display = 'block';
+                    if(password_user_auth.value.length < 6){
+                        authorize_user.classList.add('blur');
+                    }
+                    password_user_auth.oninput = function (e) {
+                        if (password_user_auth.value.length < 6) {
+                            authorize_user.classList.add('blur');
+                        } else if (e.target.value.length > 6) {
+                            e.target.value = e.target.value.substring(0, 6);
+                        } else {
+                            authorize_user.classList.remove('blur');
+                        }
+                    }
+                    get_sms.style.display = 'none';
+                    authorize_user.style.display = 'flex';
+                    authorize_user.onclick = function () {
+                        if (password_user_auth.value.length < 6) {
+                            return;
+                        }
+                        AuthorizationUser();
+                    }
+                }
             }
         })
-
     }
-
 
 
 </script>
