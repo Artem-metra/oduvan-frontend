@@ -103,10 +103,14 @@
             url: '/api/user/list_likes',
             type: "GET",
             success: function (msg) {
-                console.log('Favorites', msg);
-                if (msg['message']['products'].length === 0) {
+                if (msg['status'] === 'error') {
                     basket_place.style.display = 'block';
-                    catalog.style.display = 'block';
+                    catalog.style.display = 'none';
+                    empty_basket_createorder.style.display = 'block';
+                } else if (msg['message']['products'].length === 0) {
+                    basket_place.style.display = 'block';
+                    empty_basket_createorder.style.display = 'block';
+                    catalog.style.display = 'none';
                 } else {
                     for (let i = 0; i < msg['message']['products'].length; i++) {
                         console.log(msg['message']['products'][i] !== null);
@@ -115,9 +119,10 @@
                             drawProducts(msg['message']['products'][i]);
                         }
                     }
+
                 }
             }
-        })
+            })
     }
 
 

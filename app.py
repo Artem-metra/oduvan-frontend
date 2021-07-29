@@ -37,7 +37,6 @@ app.register_blueprint(position_app)
 app.register_blueprint(package_app)
 
 
-
 # Index
 @app.route('/')
 def index():
@@ -51,10 +50,12 @@ def index():
 @app.route('/catalog')
 def catalog():
     id = request.values.get('category_id', 0, int)
+    sub_category = request.values.get('sub_category', 0, int)
+    page = request.values.get('page', 0, int)
     if utils.is_mobile(request.user_agent):
-        return render_template('catalog.html', id=id)
+        return render_template('catalog.html', id=id, page=page, sub_category=sub_category)
     else:
-        return render_template('pc_catalog.html', id=id)
+        return render_template('pc_catalog.html', id=id, page=page, sub_category=sub_category)
 
 
 # favorites
@@ -120,7 +121,6 @@ def get_nesting_by_id():
 # @app.before_request
 # def redirect_on_api():
 # print(request)
-
 
 
 if __name__ == '__main__':

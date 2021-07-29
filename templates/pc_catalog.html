@@ -13,7 +13,7 @@
             <!-- Сортировка в каталоге -->
             <div class="catalog_sorted">
                 <div class="place_breadcoast" id="place_bread">
-                    <a href="/">Главная</a> / <a href="/catalog">Каталог</a>
+                    <a href="/">Главная</a> / <a href="" id="bread_catalog">Каталог</a>
                 </div>
                 <div id="place_top_cats">
 
@@ -82,7 +82,7 @@
                     </div>
                 </div>
 
-                <div class="sorted_zag">
+                <div class="sorted_zag" id="dop_sortir">
                     Упаковка
                 </div>
                 <div id="packages_place">
@@ -113,9 +113,14 @@
             <div class="catalog_card_place">
                 <!-- Категории -->
                 <div id="catalog_category_place" style="padding-bottom: 25px;">
+                    <div class="catalog_category all" id="catalog_cat_vse" style="display: inline-block">
+                        <div class="catalog_category_item _active" id="vse">
+                            Все
+                        </div>
+                    </div>
                     <div class="catalog_category" id="catalog_category_card" style="display: none">
                         <div class="catalog_category_item">
-                            Все
+
                         </div>
                     </div>
                 </div>
@@ -199,9 +204,9 @@
                         </div>
                     </div>
                     <div class="pagination_place" id="pag_place">
-                        <div class="pagination_item" id="pagination_item" style="display: none">
+                        <a class="pagination_item" id="pagination_item" style="display: none">
                             <span class="pagination_num">1</span>
-                        </div>
+                        </a>
                     </div>
                 </div>
 
@@ -215,7 +220,15 @@
 {% include 'pc_utilites.html' %}
 <!-- Функции к каталогу -->
 <script>
-    let id = {{id}};
+    let id =
+    {{id}} ||
+    1;
+    let page =
+    {{ page }} ||
+    1;
+    let sub_category =
+    {{ sub_category }} ||
+    0;
 </script>
 <script src="../static/js/pc_catalog.js"></script>
 
