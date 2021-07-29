@@ -391,8 +391,8 @@
         let box = swiper_place.cloneNode(true);
         let swiper = box.getElementsByClassName('swiper-container')[0];
         let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
-        let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
-        let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
+        // let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
+        // let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
         let pagination_place = box.getElementsByClassName('pagination_place')[0];
         let bullets = box.getElementsByClassName('swiper-pagination')[0];
         let sw = new Swiper(swiper, {
@@ -408,9 +408,9 @@
                 delay: 5000,
                 disableOnInteraction: false
             },
-            parallax: {
-                enabled: true
-            },
+            // parallax: {
+            //     enabled: true
+            // },
             loop: true
         });
         for (let i = 0; i < products.length; i++) {

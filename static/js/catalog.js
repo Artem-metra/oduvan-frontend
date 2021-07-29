@@ -96,79 +96,35 @@ function loadProducts() {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success: function (msg) {
-            console.log(msg);
+            console.log('Продкуты каталога', msg);
             $('.delete_paginations').remove();
             paginations = Number(msg['message']['pages']);
             drawProducts(msg['message']['products']);
         }
     });
-    /* Рендж для регулировки цен */
-    price_controller.oninput = function () {
-        console.log(price_controller.value);
-        price_max.value = price_controller.value;
-    }
-    /* Проверки при изменении цены */
-    price_min.onchange = function () {
-        console.log(price_min.value);
-        if (price_min.value < 0) {
-            price_min.value = 0;
-        }
-        if (price_min.value > price_max.value) {
-            price_min.value = price_max.value - 1;
-        }
-    }
-    price_max.onchange = function () {
-        if (price_max.value < 0) {
-            price_max.value = price_min.value + 1;
-        }
-        if (price_max.value < price_min.value) {
-            price_max.value = price_min.value + 1;
-        }
-    }
 
-    // /* Выпадающий список с сортировками по названиям, по цене и т.д */
-    // chevron_for_list.onclick = function () {
-    //     if (chevron_list.classList.contains('_active')) {
-    //         sorted_select_items_list.className = '';
-    //         chevron_list.classList.remove('_active');
-    //     } else {
-    //         sorted_select_items_list.className = '_active';
-    //         chevron_list.classList.add('_active');
-    //         let sorted_list = sorted_select_items_list.cloneNode(true);
-    //         console.log(sorted_list);
-    //         let sorted_item = sorted_list.getElementsByClassName('sorted_select_item');
-    //         console.log(sorted_item);
-    //         for (let i = 0; i < sorted_item.length; i++) {
-    //             sorted_item[i].onclick = function () {
-    //                 console.log('O da', sorted_item[i]);
-    //                 alert(sorted_item[i].innerText);
-    //             }
-    //         }
-    //     }
+    // filter_place.onclick = function () {
+    //     outdoingListCatalog();
     // }
 
-    // throw_off.onclick = function () {
-    //     category_id = 0;
-    //     sorted_type = 0;
-    //     cost_end = 150000;
-    //     cost_start = 0;
-    //     flowers = [];
-    //     packaging = [];
-    //     discount_type = 0;
-    //     price_max.value = 100000;
-    //     price_min.value = 0;
-    //
-    //     // let checkboxes = document.getElementsByClassName('custom-checkbox');
-    //     let checkboxes = document.getElementsByClassName('checkbox_for_choose_flower');
-    //     for (let i = 0; i < checkboxes.length; i++) {
-    //         if (checkboxes[i].checked) {
-    //             checkboxes[i].checked = false;
-    //         }
-    //     }
-    //     loadProducts();
-    // }
+    throw_off.onclick = function () {
+        category_id = 0;
+        sorted_type = 1;
+        flowers = [];
+        packaging = [];
+        discount_type = 0;
+        price_max.value = cost_end;
+        price_min.value = cost_start;
 
-
+        // let checkboxes = document.getElementsByClassName('custom-checkbox');
+        let checkboxes = document.getElementsByClassName('checkbox_for_choose_flower');
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                checkboxes[i].checked = false;
+            }
+        }
+        loadProducts();
+    }
 }
 
 
@@ -195,6 +151,8 @@ function loadFlowers() {
         success: function (msg) {
             console.log(msg);
             drawFlowers(msg['message']);
+            minPrice();
+            maxPrice();
         }
     })
 }
@@ -269,6 +227,7 @@ function removeItemAll(arr, value) {
 
 function startSorting() {
     console.log('Дашло!');
+    console.log('тут должна быть сортировка')
     cost_start = Number(price_min.value);
     cost_end = Number(price_max.value);
 
@@ -303,7 +262,8 @@ function drawProducts(msg) {
 }
 
 
-appear_about_pressing.style.display = 'none'
+appear_about_pressing.style.display = 'none';
+sorted_select_items_list.style.display = 'none';
 filter_place.onclick = function (){
     let display = appear_about_pressing.style.display;
     if(display == 'none'){
@@ -315,28 +275,112 @@ filter_place.onclick = function (){
         my_class_img.style.transform = 'rotate(0deg)';
         my_class_img.style.transition = 'transform .3s';
     }
-}
-
-
-sorted_select_items_list.style.display = 'none';
-pressing_on_arrow_name.onclick = function() {
 
     if(sorted_select_items_list.style.display === 'none'){
         sorted_select_items_list.style.display = 'block';
-        sorted_select_items.style.top = '35px';
-        sorted_select_items.style.right = '10px';
+        // sorted_select_items.style.top = '35px';
+        // sorted_select_items.style.right = '10px';
         // height_increase.style.height = '180px';
         // my_privat_mar.style.marginTop = '-180px';
-        height_increase.style.width = '50%';
+        // height_increase.style.width = '50%';
         my_class_cher.style.transform = 'rotate(180deg)';
         my_class_cher.style.transition = 'transform .3s';
     }else {
         sorted_select_items_list.style.display = 'none';
         my_class_cher.style.transform = 'rotate(0deg)';
         my_class_cher.style.transition = 'transform .3s';
-        height_increase.style.height = '0';
+        // height_increase.style.height = '0';
         // height_increase.style.height = '180px';
         // my_privat_mar.style.marginTop = '-180px';
-        height_increase.style.width = '50%';
+        // height_increase.style.width = '50%';
     }
+}
+
+
+// sorted_select_items_list.style.display = 'none';
+// pressing_on_arrow_name.onclick = function() {
+//
+//     if(sorted_select_items_list.style.display === 'none'){
+//         sorted_select_items_list.style.display = 'block';
+//         sorted_select_items.style.top = '35px';
+//         sorted_select_items.style.right = '10px';
+//         // height_increase.style.height = '180px';
+//         // my_privat_mar.style.marginTop = '-180px';
+//         height_increase.style.width = '50%';
+//         my_class_cher.style.transform = 'rotate(180deg)';
+//         my_class_cher.style.transition = 'transform .3s';
+//     }else {
+//         sorted_select_items_list.style.display = 'none';
+//         my_class_cher.style.transform = 'rotate(0deg)';
+//         my_class_cher.style.transition = 'transform .3s';
+//         height_increase.style.height = '0';
+//         // height_increase.style.height = '180px';
+//         // my_privat_mar.style.marginTop = '-180px';
+//         height_increase.style.width = '50%';
+//     }
+// }
+
+
+
+// Хлебные крошки
+// let breadcoast = BreadCoast(id);
+// console.log(breadcoast);
+// place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
+
+// Получение миниальной цены товара в категории
+function minPrice() {
+    let data = {
+        'category_id': id,
+    }
+    $.ajax({
+        url: '/api/min_price_for_category',
+        type: "GET",
+        data: data,
+        success: function (msg) {
+            console.log(msg);
+            cost_start = msg['message']['min_cost'];
+            price_min.value = msg['message']['min_cost'];
+            price_controller.setAttribute('min', Number(msg['message']['min_cost']));
+
+            /* Рендж для регулировки цен */
+            price_controller.oninput = function () {
+                price_max.value = price_controller.value;
+            }
+            /* Проверки при изменении цены */
+            price_min.onchange = function () {
+                if (Number(price_min.value) < msg['message']['min_cost']) {
+                    price_min.value = Number(msg['message']['min_cost']);
+                }
+                if (Number(price_min.value) > Number(price_max.value)) {
+                    price_min.value = Number(msg['message']['min_cost']);
+                }
+            }
+        }
+    })
+}
+
+// Получение максимальной цены товара в категории
+function maxPrice() {
+    let data = {
+        'category_id': id,
+    }
+    $.ajax({
+        url: '/api/max_price_for_category',
+        type: "GET",
+        data: data,
+        success: function (msg) {
+            console.log(msg);
+            cost_end = msg['message']['max_cost'];
+            price_max.value = msg['message']['max_cost'];
+            price_controller.setAttribute('max', Number(msg['message']['max_cost']));
+            price_max.onchange = function () {
+                if (Number(price_max.value) < Number(price_min.value)) {
+                    price_max.value = Number(price_min.value + price_max.value++);
+                }
+                if (Number(price_max.value) > msg['message']['max_cost']) {
+                    price_max.value = msg['message']['max_cost'];
+                }
+            }
+        }
+    })
 }
