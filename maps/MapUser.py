@@ -43,7 +43,11 @@ def api_user_check():
 
 @user_app.route('/api/user/registration')
 def api_user_registration():
-    return utils.complete_request(request, request.path)
+    resp = utils.complete_request(request, request.path)
+    if 'user_id' not in session:
+        if 'user' in resp:
+            session['user_id'] = resp['user']
+    return resp
 
 
 @user_app.route('/api/user/auth')
@@ -71,10 +75,10 @@ def api_user_liked():
 
 @user_app.route('/api/user/list_likes')
 def api_user_list_likes():
-    # session.pop('liked', None)
-    # print(session)
     if 'liked' in session:
-        return utils.complete_request_with_parameters({'liked': json.dumps(session['liked'])},request.path)
+        resp = utils.complete_request_with_parameters({'liked': json.dumps(session['liked'])}, request.path)
+        print(resp)
+        return resp
     else:
         return utils.getError('error')
 
@@ -156,3 +160,8 @@ def get_all_deals_for_user():
     response = utils.complete_request_with_parameters(params, request.path)
     print(response, params)
     return response
+
+
+@user_app.route('/api/user/confirmed')
+def api_user_confirmed():
+    return utils.complete_request(request, request.path)
