@@ -9,6 +9,8 @@ let page = 1;
 let paginations = 0;
 let sub_category = 0;
 
+
+
 function Preloader(status) {
     if (status === 1) {
         document.getElementById('preloader').style.display = 'block';
@@ -86,7 +88,7 @@ function drawCategories(msg) {
             } else {
                 sub_category = msg[i]['id'];
                 place_bread.innerHTML += `<span style="text-transform: uppercase;font-weight: 600;color:#F877AD" class="active_page catalog_category_card delete_subcat">
-<span style="color:#293048"> / </span>${msg[i]['name']}</span>`;
+                <span style="color:#293048"> / </span>${msg[i]['name']}</span>`;
             }
             loadProducts();
         }
@@ -97,6 +99,7 @@ function drawCategories(msg) {
     }
 
 }
+
 
 loadProducts();
 

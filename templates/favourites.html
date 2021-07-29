@@ -7,61 +7,130 @@
 </head>
 <body id="body">
 
-<div class="catalog" style="background-color: #F4F5F6; ">
+<div class="catalog" style="background: #e9eaec">
     <div class="container">
         <div class="place_breadcoast">
-            <a href="">Главная</a> / <a href="">Оформление заказа</a>
+            <a href="/">Главная</a> / <a href="/favorites" class="active_page">Избранное</a>
         </div>
-        <div class="zag_favor">Избранное</div>
+        <h1 class="catalog_zag" style="text-align: center">Избранное</h1>
     </div>
 </div>
+
+<!-- В корзине пусто -->
+<div class="basket_place" id="basket_place" style="min-height: 63vh;display: none;">
+    <div class="empty_basket" id="empty_basket_createorder">
+        <div class="empty_basket_info" style="padding-top: 20%">
+            <div class="name_buckets">
+                В избранном нет товаров!
+                <a class="all_catalog_href" href="/catalog?category_id=1">
+                    Перейти в каталог
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="catalog" id="catalog">
+    <div class="container">
+        <div id="favorites_place">
+            <div id="card_product" style="display: none;">
+                <div class="right_nav_place">
+                    <div class="right_nav_item">
+
+                    </div>
+                </div>
+                <div class="discount_place">
+                    <div class="percent_place">
+                        <span class="fa fa-percent"></span>
+                    </div>
+                    <div class="discount_text">
+                        20% скидка
+                    </div>
+                </div>
+                <a class="slider_item_card_img_place" href="">
+                    <img src="../static/img/catalog_img.png" class="slider_img">
+                </a>
+                <div class="name_and_price">
+                    <div class="catalog_flex" style="padding-bottom: 0px;">
+                        <div class="slider_name_bucket">Букет "Индиго"</div>
+                        <div class="price_basket slider_name_bucket" style="display: none;"></div>
+                    </div>
+                    <div class="catalog_flex_catalog for_basket"
+                         style="align-items: center;justify-content: space-between;padding: 0 15px;">
+                        <div>
+                            <div class="price">
+                                5400 Р
+                            </div>
+                            <div class="disc_price_bucket">
+                                2 600 Р
+                            </div>
+                        </div>
+                        <div class="add_to_basket_card">
+                            <span class="fas fa-shopping-bag"></span>
+                        </div>
+                    </div>
+                    <div class="price_hover">
+                        <div>
+                            В корзину
+                        </div>
+                        <div class="price_hover_price">
+                            5 400 ₽
+                        </div>
+                    </div>
+                    <div class="added_product" style="display: none">
+                        <div class="fa fa-minus minus_counter"></div>
+                        <div>
+                            В корзине: <input type="number" class="product_counter_inp"/>
+                        </div>
+                        <div>
+                            <div class="fa fa-plus plus_counter"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% include 'utilites.html' %}
-
-</body>
-
-
 <script>
 
-    /* Получение пользователя */
-    GetUser();
+    loadFavorites()
 
-    function GetUser() {
-        $.ajax({
-            url: '/api/user/get',
-            type: 'GET',
-            success: function (msg) {
-                user = msg['user'];
-                loadFavorites();
-            }
-        });
-    }
-
-
+    /* Правильная подгрузка продуктов */
     function loadFavorites() {
-        console.log(user);
-        console.log('user', user['id']);
-        let data = {
-            'user_id': user['id'],
-        }
         $.ajax({
-            url: '/site/likeds/products',
+            url: '/api/user/list_likes',
             type: "GET",
-            data: data,
             success: function (msg) {
-                console.log(msg);
-                drawProducts(msg['message']['products']);
-                paginations = msg['message']['pages'];
+                console.log('Favorites', msg);
+                if (msg['message']['products'].length === 0) {
+                    basket_place.style.display = 'block';
+                    catalog.style.display = 'block';
+                } else {
+                    for (let i = 0; i < msg['message']['products'].length; i++) {
+                        console.log(msg['message']['products'][i] !== null);
+                        if (msg['message']['products'][i] !== null) {
+                            likeds.push(Number(msg['message']['products'][i]));
+                            drawProducts(msg['message']['products'][i]);
+                        }
+                    }
+                }
             }
         })
     }
 
 
-    function drawProducts(msg) {
-        for (let i = 0; i < msg.length; i++) {
-            let box = createProduct(msg[i]);
-            box.style.display = 'inline-block';
-            document.getElementById('favorites_place').append(box);
-        }
+    function drawProducts(product) {
+        let box = createProduct(product);
+        box.style.display = 'inline-block';
+        box.style.width = '47%';
+        box.style.height = '510px'
+        document.getElementById('favorites_place').append(box);
     }
+
+
 </script>
+</body>
 </html>

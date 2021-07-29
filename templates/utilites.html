@@ -12,8 +12,9 @@
         <div class="right_header_part">
             <div class="right_header_part_item">
                 <div class="right_nav_place">
-                    <a class="right_nav_item" id="favorites">
-                        <span class="fas fa-heart" ></span>
+                    <span class="num_likeds" id="num_likeds" style="display: none;"></span>
+                    <a class="right_nav_item favorites" href="/favorites">
+                        <span class="fas fa-heart"></span>
                     </a>
                 </div>
                 <div class="right_nav_place">
@@ -23,7 +24,7 @@
                     </a>
                 </div>
                 <div class="right_nav_place">
-                    <a class="right_nav_item" id="user_item">
+                    <a class="right_nav_item user_item" id="user_item">
                         <span class="fas fa-user"></span>
                     </a>
                 </div>
@@ -56,7 +57,7 @@
                     </div>
                     <div class="right_nav_place">
                         <span class="num_basket" style="font-size: 29px"></span>
-                        <a class="right_nav_item">
+                        <a class="right_nav_item basket">
                             <span class="fas fa-shopping-bag"></span>
                         </a>
                     </div>
@@ -73,6 +74,8 @@
         </div>
     </div>
 </header>
+
+
 <div class="blurpopup" id="blurpopup"></div>
 <!-- Поп ап регистрации / авторизации -->
 <div class="registrationpopup" id="registrationpopup">
@@ -162,7 +165,7 @@
                     </div>
                 </div>
             </div>
-            <div class="name_popup">
+            <div class="name_popup" style="margin-top: 40px;">
                 Ваша корзина
             </div>
             <div class="info_popup">
@@ -364,8 +367,9 @@
                 <div class="right_header_part">
                     <div class="right_header_part_item">
                         <div class="right_nav_place">
-                            <a class="right_nav_item">
-                                <span class="fas fa-heart"></span>
+                            <span class="num_likeds" style="display: none;"></span>
+                            <a class="right_nav_item favorites">
+                                <span class="fas fa-heart" style="color:#FFFFFF"></span>
                             </a>
                         </div>
                         <div class="right_nav_place">
@@ -446,6 +450,9 @@
 
 <script>
     let user = null;
+    let basket_id = 0;
+    let count = 1;
+    let likeds = [];
 
     function OpenPopup(popup, status) {
         // status: 1 - регистрация с авторизацией, 2 - корзина, 3 - скидка
@@ -540,6 +547,26 @@
         }
     }
 
+
+     // Получает список избранного
+    getLikeds();
+
+    function getLikeds() {
+        let data = [];
+        $.ajax({
+            url: '/api/user/list_likes',
+            type: "GET",
+            async: false,
+            success: function (msg) {
+                for (let i = 0; i < msg['message']['products'].length; i++) {
+                    if(msg['message']['products'][i] !== null) {
+                        data.push(Number(msg['message']['products'][i]['id']));
+                    }
+                }
+            }
+        });
+        likeds = data;
+    }
 
     // Отправляем тип доставки (курьером или самовывоз)
     function sendBasketInfo(type) {
@@ -688,41 +715,47 @@
     /* Получение пользователя */
     GetUser();
 
-    function GetUser() {
+   function GetUser() {
+        let data = '';
         $.ajax({
             url: '/api/user/get',
             type: 'GET',
+            async: false,
             success: function (msg) {
-                if (msg === 'error') {
-                    favorites.onclick = function () {
-                        OpenPopup(registrationpopup, 1);
-                    }
-                    go_to_basket.onclick = function () {
-                        OpenPopup(registrationpopup, 1);
-                    }
-                    user_item.onclick = function () {
-                        OpenPopup(registrationpopup, 1);
-                    }
-                } else {
-                    user = msg['message']['user'];
-                    console.log(user);
-                    if (user['q_products_count'] > 0) {
-                        let num_basket = document.getElementsByClassName('num_basket');
-                        for (let i = 0; i < num_basket.length; i++) {
-                            num_basket[i].innerText = user['q_products_count'];
-                            num_basket[i].style.display = 'flex';
+                loadBasket();
+                let user_btn = document.getElementsByClassName('user_item');
+                let favorites_btn = document.getElementsByClassName('favorites');
+                let basket_btn = document.getElementsByClassName('basket');
+                for (let i = 0; i < user_btn.length; i++) {
+                    if (msg === 'error') {
+                        user_btn[i].onclick = function () {
+                            OpenPopup(registrationpopup, 1);
                         }
+                        favorites_btn[i].href = '/favorites';
+                        basket_btn[i].onclick = function () {
+                            OpenPopup(basket_popup, 2);
+                        }
+                    } else {
+                        data = msg['message']['user'];
+                        favorites_btn[i].href = '/favorites';
+
+                        basket_btn[i].onclick = function () {
+                            OpenPopup(basket_popup, 2);
+                        }
+                        if (data['avatar'] !== "null") {
+                            let img = document.createElement('img');
+                            img.className = 'avatar_user';
+                            img.src = 'http://b-ws.ru:1001/get?uuid=' + data['avatar'];
+                            user_btn[i].innerHTML = '';
+                            user_btn[i].append(img);
+                        }
+                        user_btn[i].href = '/cabinet';
                     }
-                    // loadBasket();
-                    favorites.href = '/favorites';
-                    go_to_basket.onclick = function () {
-                        OpenPopup(basket_popup, 2);
-                    }
-                    user_item.href = '/cabinet';
                 }
             }
         });
-    }
+       user = data;
+   }
 
 
     go_to_basket.onclick = function () {
@@ -732,11 +765,9 @@
 
 
     /* Добавление в избранное */
-    function AddLikeds(product_id, user_id) {
-        console.log('Дашло');
+    function AddLikeds(product_id) {
         let data = {
             'product_id': product_id,
-            'user_id': user_id
         }
         $.ajax({
             url: 'api/user/liked',
@@ -744,14 +775,12 @@
             data: data,
             success: function (msg) {
                 console.log(msg);
-                loadProducts();
             }
         })
     }
 
     /* Удаление из избранного */
     function DeleteLikeds(product_id, user_id) {
-        console.log('Дашло');
         let data = {
             'product_id': product_id,
             'user_id': user_id
@@ -762,7 +791,6 @@
             data: data,
             success: function (msg) {
                 console.log(msg);
-                loadProducts();
             }
         })
     }
@@ -807,7 +835,8 @@
         href.href = 'product?id=' + product['id'];
 
         // Если продукт в избранном
-        if (product['q_is_liked'] === 1) {
+        // Если продукт в избранном
+        if (likeds.indexOf(product['id']) !== -1) {
             place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
             place_for_favor.onclick = function () {
                 DeleteLikeds(product['id'], user['id']);
@@ -816,7 +845,7 @@
         } else {
             place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
             place_for_favor.onclick = function () {
-                AddLikeds(product['id'], user['id']);
+                AddLikeds(product['id']);
                 place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
             }
         }
@@ -862,7 +891,7 @@
         } else {
             let add_to_basket_card = box.getElementsByClassName('add_to_basket_card')[0];
             add_to_basket_card.style.zIndex = 100;
-            add_to_basket_card.onclick = function (){
+            add_to_basket_card.onclick = function () {
                 console.log('asgasgdg')
                 addProduct(product['id'], 1);
                 box.classList.add('in_basket');
@@ -877,7 +906,7 @@
                         price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
                     }
                 }
-               minus_counter.onclick = function () {
+                minus_counter.onclick = function () {
                     if (Number(input.value) > 1) {
                         input.value--;
                         addProduct(product['id'], Number(-1));
@@ -893,44 +922,6 @@
                     }
                 }
             }
-            // for( let i = 0; i < add_to_basket_card.length; i++){
-            //     add_to_basket_card.onclick = function () {
-            //         console.log('good');
-            //         addProduct(product['id'], 1);
-            //         box.classList.add('in_basket');
-            //         added_product.style.display = 'flex';
-            //         for_basket.style.display = 'none';
-            //         input.value = 1;
-            //         price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
-            //         price_basket.style.display = 'block';
-            //         input.onchange = function () {
-            //             if (input.value > 1) {
-            //                 changeProduct(product['id'], Number(input.value));
-            //                 price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
-            //             }
-            //         }
-            //         if (Number(input.value) === 1) {
-            //             minus_counter.classList.add('disabled');
-            //         }
-            //         minus_counter.onclick = function () {
-            //             if (Number(input.value) > 1) {
-            //                 input.value--;
-            //                 addProduct(product['id'], Number(-1));
-            //                 price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
-            //             } else {
-            //                 minus_counter.className = 'disabled';
-            //             }
-            //         }
-            //         plus_counter.onclick = function () {
-            //             if (Number(input.value) >= 1) {
-            //                 minus_counter.classList.remove('disabled');
-            //                 input.value++;
-            //                 addProduct(product['id'], Number(1));
-            //                 price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
-            //             }
-            //         }
-            //     }
-            // }
         }
         return box;
     }
@@ -1001,6 +992,7 @@
     }
 
 
+    // Функция изменения количества товаров по inputу
     function changeProduct(id, count) {
         console.log(count);
         console.log(id, count);
@@ -1022,7 +1014,6 @@
             }
         })
     }
-
 
 
     function drawBasket(products) {
@@ -1101,6 +1092,7 @@
 
     function DeleteProductBasket(product_id) {
         let data = {
+            'basket_id': basket_id,
             'product_id': product_id,
         }
         $.ajax({
@@ -1113,6 +1105,22 @@
             }
         })
     }
+
+    function sendCodeRegistr() {
+        let data = {
+            'code': '',
+        }
+        $.ajax({
+            url: '/api/user/confirmed',
+            type: "GET",
+            data: data,
+            success: function (msg) {
+                console.log(msg);
+            }
+        })
+
+    }
+
 
 
 </script>

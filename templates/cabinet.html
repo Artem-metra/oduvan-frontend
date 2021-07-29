@@ -299,19 +299,7 @@
 <script>
     console.log("test");
 /* Получение пользователя */
-    GetUser();
-
-     function GetUser() {
-        $.ajax({
-            url: '/api/user/get',
-            type: 'GET',
-            success: function (msg) {
-                user = msg['message']['user'];
-                $('.delete_address').remove();
-                DrawInfoUser();
-            }
-        });
-     }
+    DrawInfoUser();
 
 
     mapingItem();
@@ -350,6 +338,7 @@
 
     function DrawInfoUser() {
         console.log(user);
+        $('.delete_address').remove();
         name_user.innerText = user['name'];
         your_name.value = user['name'];
         your_surname.value = user['surname'];

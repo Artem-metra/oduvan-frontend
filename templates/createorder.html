@@ -59,8 +59,6 @@
                 </div>
 
 
-
-
             </div>
             <div class="your_order_place">
                 <div class="your_order">
@@ -80,7 +78,8 @@
                         <div id="date_time_place">
                             <div class="catalog_flex" style="position: relative; margin-bottom: 32px">
                                 <div class="date_input" id="date_input_one">
-                                    <input type="date" class="popup_input" id="inp_choose_data" style="background-color: #293048; color: white"
+                                    <input type="date" class="popup_input" id="inp_choose_data"
+                                           style="background-color: #293048; color: white"
                                     >
                                 </div>
                                 <div class="address_info_zag" id="addres_info_date" style="font-size: 36px">
@@ -91,7 +90,8 @@
 
                             <div class="catalog_flex" style="position: relative; margin-bottom: 32px">
                                 <div class="date_input" id="date_input_two">
-                                    <input type="time" class="popup_input" id="inp_choose_time" style="background-color: #293048; color: white">
+                                    <input type="time" class="popup_input" id="inp_choose_time"
+                                           style="background-color: #293048; color: white">
                                 </div>
                                 <div class="address_info_zag" id="addres_info_time" style="font-size: 36px">
                                     <!--21:00-->
@@ -104,8 +104,10 @@
                         <div class="price_price" style="color:#293048;opacity:0.6">
                             Сумма заказа
                         </div>
-                       <div class="catalog_flex_catalog" style="align-items: center; width: auto">
-                            <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">9000 ₽</div>
+                        <div class="catalog_flex_catalog" style="align-items: center; width: auto">
+                            <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">
+                                9000 ₽
+                            </div>
                             <div class="price final_price">10000 ₽</div>
                         </div>
                     </div>
@@ -147,7 +149,8 @@
                             <div class="catalog_flex" style="justify-content: normal">
                                 <div class="small_product_card" style="margin-right:15px;">
                                     <a class="small_product_place">
-                                        <img src="../static/img/small_img_main.png" class="small_product_img" style="margin-bottom: 95px; padding-right: 35px; margin-top: 100px">
+                                        <img src="../static/img/small_img_main.png" class="small_product_img"
+                                             style="margin-bottom: 95px; padding-right: 35px; margin-top: 100px">
                                     </a>
                                 </div>
                                 <div class="basket_info_for_order">
@@ -162,7 +165,8 @@
                                             5400 Р
                                         </div>
                                     </div>
-                                    <div class="fa fa-times" style="float: right; position: absolute; top: 135px; right: 0; font-size: 25px"></div>
+                                    <div class="fa fa-times"
+                                         style="float: right; position: absolute; top: 135px; right: 0; font-size: 25px"></div>
                                     <div class="add_to_basket_place" style="max-width:100%;">
                                         <div class="fa fa-minus minus_counter"></div>
                                         <div class="counter_place">
@@ -182,13 +186,16 @@
                         <div class="price_price" style="color:#293048;opacity:0.6">
                             Итого:
                         </div>
-                         <div class="catalog_flex_catalog" style="align-items: center;width: auto">
-                            <div class="disc_price_bucket final_dics_price " style="margin-right: 15px; display: block;">9000 ₽</div>
+                        <div class="catalog_flex_catalog" style="align-items: center;width: auto">
+                            <div class="disc_price_bucket final_dics_price "
+                                 style="margin-right: 15px; display: block;">9000 ₽
+                            </div>
                             <div class="price final_price">10000 ₽</div>
                         </div>
                     </div>
                     <div class="registr_indicator" style="background: #293048;margin:10px 0;"></div>
-                    <input class="popup_input" placeholder="Введите промокод" id="promo_code_code" style="margin-top: 50px">
+                    <input class="popup_input" placeholder="Введите промокод" id="promo_code_code"
+                           style="margin-top: 50px">
                     <div class="all_catalog_href" style="float: none;width:100%;height:90px;" id="promo_code">
                         Применить промокод
                     </div>
@@ -196,7 +203,8 @@
                     <div style="width:100%; display: flex; flex-direction: row; justify-content: space-between">
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/mastercard.png" class="small_product_img" style="padding-top: 10px;">
+                                <img src="../static/img/mastercard.png" class="small_product_img"
+                                     style="padding-top: 10px;">
                             </div>
                         </div>
                         <div class="system_item">
@@ -235,7 +243,9 @@
                          style="float: none;width:100%;height:90px;justify-content: space-between;padding:0 10px">
                         <div class="pereiti_k_oform">Подтвердить заказ</div>
                         <div class="catalog_flex_catalog" style="align-items: center;width: auto">
-                            <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">9000 ₽</div>
+                            <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">
+                                9000 ₽
+                            </div>
                             <div class="price final_price">10000 ₽</div>
                         </div>
                     </div>
@@ -244,7 +254,6 @@
         </div>
     </div>
 </div>
-
 
 
 {% include 'utilites.html' %}
@@ -327,7 +336,7 @@
         let data_value = inp_choose_data.value;
         inp_data.classList.remove('_active');
         addres_info_date.innerText = data_value.split('-').reverse().join('.');
-         console.log(data_value);
+        console.log(data_value);
         console.log(day_now);
 
         // ПРОВЕРКА НА СОВПАДЕНИЕ ДАТЫ
@@ -349,30 +358,18 @@
 
     // РЕЖИМ РАБОТЫ С 8:00 ДО 20:00
 
-    /* Получение пользователя */
-     GetUser();
-
-    function GetUser() {
-        $.ajax({
-            url: '/api/user/get',
-            type: 'GET',
-            success: function (msg) {
-                user = msg['message']['user'];
-                name_user.value = user['name'] + ' ' + user['surname'];
-                phone_user.value = '+7' + user['phone'];
-                email_user.value = user['email'];
-                loadBasketOrder();
-            }
-        });
-    }
 
     // Подгрузка товаров для оформления заказа
-     // Подгрузка товаров для оформления заказа
+    // Подгрузка товаров для оформления заказа
     function loadBasketOrder() {
         $.ajax({
             url: '/api/basket/get_by_basket_id',
             type: 'GET',
             success: function (msg) {
+                name_user.value = user['name'] + ' ' + user['surname'];
+                phone_user.value = '+7' + user['phone'];
+                email_user.value = user['email'];
+                loadBasketOrder();
                 console.log('Корзина в оформлении заказа', msg)
                 purchase_type = msg['message']['basket']['purchase_type'];
                 if (purchase_type === 1) {
@@ -451,23 +448,22 @@
     // }
 
     $('#address_user').suggestions({
-            token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
-            type: "ADDRESS",
-            /* Вызывается, когда пользователь выбирает одну из подсказок */
-            onSelect: function (suggestion) {
-                console.log('Дашло 2');
-                if (Number(suggestion['data']['fias_level']) < 8) {
-                    notification('Укажите точный адрес', 1);
-                    return;
-                }
-                // address_data = suggestion['value'];
+        token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
+        type: "ADDRESS",
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function (suggestion) {
+            console.log('Дашло 2');
+            if (Number(suggestion['data']['fias_level']) < 8) {
+                notification('Укажите точный адрес', 1);
+                return;
             }
-        })
-
+            // address_data = suggestion['value'];
+        }
+    })
 
 
     // Отрисовка товаров
-     function drawBasketOrder(products) {
+    function drawBasketOrder(products) {
         for (let i = 0; i < products.length; i++) {
             let box = createProductBasket(products[i]);
             box.style.display = 'block';
@@ -673,8 +669,6 @@
 
 
 </script>
-
-
 
 
 </body>
