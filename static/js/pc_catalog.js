@@ -63,31 +63,33 @@ function drawCategories(msg) {
         let category = catalog_category_card.cloneNode(true);
         category.id = '';
         category.style.display = 'block';
-
         let cat_name = category.getElementsByClassName('catalog_category_item')[0];
         cat_name.innerText = msg[i]['name'];
-        if (i === 0) {
+        if (sub_category === msg[i]['id']) {
             cat_name.classList.add('_active');
-            category.classList.add('all');
+            vse.classList.remove('_active');
         }
+        console.log(sub_category, msg[i]['id']);
         category.style.display = 'inline-block';
+        vse.onclick = function () {
+            document.getElementsByClassName('_active')[0].classList.remove('_active');
+            vse.classList.add('_active');
+            sub_category = 0;
+            page = 1;
+            $('.delete_cat').remove();
+            $('.delete_subcat').remove();
+            place_bread.innerHTML += `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
+            loadProducts();
+        }
         category.onclick = function () {
             document.getElementsByClassName('active_page')[0].classList.remove('active_page');
             $('.delete_subcat').remove();
             document.getElementsByClassName('_active')[0].classList.remove('_active');
             cat_name.classList.add('_active');
-            if (category.classList.contains('all')) {
-                sub_category = 0;
-                page = 1;
-                $('.delete_cat').remove();
-                let breadcoast = BreadCoast(id);
-                place_bread.innerHTML += `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
-            } else {
-                page = 1;
-                sub_category = msg[i]['id'];
-                place_bread.innerHTML += `<span style="text-transform: uppercase;font-weight: 600;color:#F877AD" class="active_page catalog_category_card delete_subcat">
+            page = 1;
+            sub_category = msg[i]['id'];
+            place_bread.innerHTML += `<span style="text-transform: uppercase;font-weight: 600;color:#F877AD" class="active_page catalog_category_card delete_subcat">
 <span style="color:#293048"> / </span>${msg[i]['name']}</span>`;
-            }
             loadProducts();
         }
         catalog_category_place.append(category);
@@ -96,12 +98,14 @@ function drawCategories(msg) {
         place_top_cats.style.paddingBottom = '30px';
     }
 
+
 }
 
 loadProducts();
 
 /* Правильная подгрузка продуктов */
 function loadProducts() {
+    console.log('Sub_cat', sub_category);
     bread_catalog.href = location.href;
     Preloader(1);
     minPrice();
@@ -238,7 +242,13 @@ function drawFlowers(flower) {
     }
 }
 
-loadPackages();
+if (id === 1) {
+    loadPackages();
+}
+else{
+    dop_sortir.style.display = 'none';
+}
+
 
 function loadPackages() {
     $.ajax({

@@ -28,8 +28,8 @@
             </a>
         </div>
         <!-- Наш каталог - карточки -->
-        <div class="card_on_main">
-            <div class="card_main_item" style="width:49%;margin-right:1.7%">
+        <div class="card_on_main" id="card_on_main">
+            <div class="card_main_item" id="card_main_item" style="display: none">
                 <div class="card_main_bg"></div>
                 <div style="z-index:10">
                     <span class="buckets">Букеты</span>
@@ -38,70 +38,70 @@
                     </strong>
 
                     <div class="to_choose_href">
-                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>
+                        <a href="" class="go_to_cat">Выбрать <span class="fa fa-chevron-right"></span></a>
                     </div>
                 </div>
-                <img src="../static/img/big_img_main.png">
+                <img src="../static/img/big_img_main.png" class="main_cat_img">
             </div>
-            <div class="card_main_item" style="width:48.5%;">
-                <div class="card_main_bg"></div>
-                <div style="z-index:10">
-                    <span class="buckets">Букеты</span>
-                    <strong class="name_buckets">
-                        Монобукеты
-                    </strong>
-
-                    <div class="to_choose_href">
-                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>
-                    </div>
-                </div>
-                <img src="../static/img/big_img_main.png">
-            </div>
-
-            <div class="card_main_item" style="width:32%;margin-right:2%">
-                <div class="card_main_bg"></div>
-                <div style="z-index:10">
-                    <span class="buckets">Букеты</span>
-                    <strong class="name_buckets">
-                        Монобукеты
-                    </strong>
-
-                    <div class="to_choose_href">
-                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>
-                    </div>
-                </div>
-                <img src="../static/img/small_img_main.png">
-            </div>
-
-            <div class="card_main_item" style="width:32%;margin-right:1.45%">
-                <div class="card_main_bg"></div>
-                <div style="z-index:10">
-                    <span class="buckets">Букеты</span>
-                    <strong class="name_buckets">
-                        Монобукеты
-                    </strong>
-
-                    <div class="to_choose_href">
-                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>
-                    </div>
-                </div>
-                <img src="../static/img/small_img_main.png">
-            </div>
-
-            <div class="card_main_item" style="width:31.5%;">
-                <div class="card_main_bg"></div>
-                <div style="z-index:10">
-                    <span class="buckets">Букеты</span>
-                    <strong class="name_buckets">
-                        Монобукеты
-                    </strong>
-
-                    <div class="to_choose_href">
-                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>
-                    </div>
-                </div>
-                <img src="../static/img/small_img_main.png">
-            </div>
+            {#            <div class="card_main_item" style="width:48.5%;">#}
+            {#                <div class="card_main_bg"></div>#}
+            {#                <div style="z-index:10">#}
+            {#                    <span class="buckets">Букеты</span>#}
+            {#                    <strong class="name_buckets">#}
+            {#                        Монобукеты#}
+            {#                    </strong>#}
+            {##}
+            {#                    <div class="to_choose_href">#}
+            {#                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#                <img src="../static/img/big_img_main.png">#}
+            {#            </div>#}
+            {##}
+            {#            <div class="card_main_item" style="width:32%;margin-right:2%">#}
+            {#                <div class="card_main_bg"></div>#}
+            {#                <div style="z-index:10">#}
+            {#                    <span class="buckets">Букеты</span>#}
+            {#                    <strong class="name_buckets">#}
+            {#                        Монобукеты#}
+            {#                    </strong>#}
+            {##}
+            {#                    <div class="to_choose_href">#}
+            {#                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#                <img src="../static/img/small_img_main.png">#}
+            {#            </div>#}
+            {##}
+            {#            <div class="card_main_item" style="width:32%;margin-right:1.45%">#}
+            {#                <div class="card_main_bg"></div>#}
+            {#                <div style="z-index:10">#}
+            {#                    <span class="buckets">Букеты</span>#}
+            {#                    <strong class="name_buckets">#}
+            {#                        Монобукеты#}
+            {#                    </strong>#}
+            {##}
+            {#                    <div class="to_choose_href">#}
+            {#                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#                <img src="../static/img/small_img_main.png">#}
+            {#            </div>#}
+            {##}
+            {#            <div class="card_main_item" style="width:31.5%;">#}
+            {#                <div class="card_main_bg"></div>#}
+            {#                <div style="z-index:10">#}
+            {#                    <span class="buckets">Букеты</span>#}
+            {#                    <strong class="name_buckets">#}
+            {#                        Монобукеты#}
+            {#                    </strong>#}
+            {##}
+            {#                    <div class="to_choose_href">#}
+            {#                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#                <img src="../static/img/small_img_main.png">#}
+            {#            </div>#}
         </div>
     </div>
 </div>
@@ -479,6 +479,37 @@
                 }
             }
         });
+    }
+
+    loadMainCategory();
+
+    function loadMainCategory() {
+        $.ajax({
+            url: '/api/categories/get_for_main',
+            type: "GET",
+            success: function (msg) {
+                console.log('Category on Main', msg);
+                drawMainCategory(msg['message']['categories']);
+            }
+        })
+    }
+
+    function drawMainCategory(categories) {
+        for (let i = 0; i < categories.length; i++) {
+            let box = card_main_item.cloneNode(true);
+            box.id = '';
+            let name_cat = box.getElementsByClassName('buckets')[0];
+            let name_buckets = box.getElementsByClassName('name_buckets')[0];
+            let href = box.getElementsByClassName('go_to_cat')[0];
+            let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
+
+            name_cat.innerText = categories[i]['parent_name'];
+            name_buckets.innerText = categories[i]['name'];
+            href.href = `/catalog?category_id=${categories[i]['parent_id']}&sub_category=${categories[i]['id']}`;
+            main_cat_img.src = '';
+            box.style.display = 'inline-block';
+            card_on_main.append(box);
+        }
     }
 
 
