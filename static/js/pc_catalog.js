@@ -84,6 +84,7 @@ function drawCategories(msg) {
                 let breadcoast = BreadCoast(id);
                 place_bread.innerHTML += `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
             } else {
+                page = 1;
                 sub_category = msg[i]['id'];
                 place_bread.innerHTML += `<span style="text-transform: uppercase;font-weight: 600;color:#F877AD" class="active_page catalog_category_card delete_subcat">
 <span style="color:#293048"> / </span>${msg[i]['name']}</span>`;

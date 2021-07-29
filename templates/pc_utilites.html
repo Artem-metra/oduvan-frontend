@@ -417,10 +417,20 @@
                 if (phone_user_auth.value.length === 18) {
                     get_sms.classList.remove('blur');
                     get_sms.onclick = function () {
-                        AuthorizationUser();
+                        sendCodeRegistr();
                     }
+                } else {
+                    get_sms.classList.add('blur');
                 }
             }
+            if (phone_user_auth.value.length === 18) {
+                get_sms.classList.remove('blur');
+                get_sms.onclick = function () {
+                    sendCodeRegistr();
+                }
+            }
+
+
             /* В попапе регистрации и авторизации менять блоки при нажатии на "Регистрация"/"Вход в аккаунт" */
 
         } else if (status === 3) {
@@ -479,11 +489,15 @@
             type: "GET",
             async: false,
             success: function (msg) {
-                for (let i = 0; i < msg['message']['products'].length; i++) {
-                    if(msg['message']['products'][i] !== null) {
-                        data.push(Number(msg['message']['products'][i]['id']));
+                console.log('likeds', msg);
+                if (msg['status'] !== 'error') {
+                    for (let i = 0; i < msg['message']['products'].length; i++) {
+                        if (msg['message']['products'][i] !== null) {
+                            data.push(Number(msg['message']['products'][i]['id']));
+                        }
                     }
                 }
+
             }
         });
         likeds = data;
@@ -539,21 +553,20 @@
             return;
         } else {
             let data = {
-                'password': password_user_auth.value,
-                'phone': phone_user_auth.value,
+                'code': password_user_auth.value,
             }
             $.ajax({
-                url: '/api/user/auth',
+                url: '/api/user/confirmed',
                 type: 'GET',
                 data: data,
                 success: function (msg) {
-                    if (msg['status'] === 'error') {
-                        notification('Пароль введён неверно', 1);
-                        return;
-                    } else {
-                        location.href = '/cabinet';
-                    }
-                    console.log(msg);
+                    {#if (msg['status'] === 'error') {#}
+                    {#    notification('Пароль введён неверно', 1);#}
+                    {#    return;#}
+                    {# else {#}
+                    {#    location.href = '/cabinet';#}
+                    {##}
+                    console.log('ConfirmedPhone', msg);
                 }
             })
         }
@@ -688,7 +701,6 @@
         hover_price.innerText = product['discount_cost'] + ' ₽';
         price.innerText = product['cost'] + ' ₽';
         href.href = 'product?id=' + product['id'];
-        console.log('Likeds', likeds);
         // Если продукт в избранном
         if (likeds.indexOf(product['id']) !== -1) {
             place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
@@ -1022,17 +1034,35 @@
 
     function sendCodeRegistr() {
         let data = {
-            'code': '',
+            'phone': phone_user_auth.value,
         }
         $.ajax({
-            url: '/api/user/confirmed',
+            url: '/api/user/registration',
             type: "GET",
             data: data,
             success: function (msg) {
-                console.log(msg);
+                console.log('GetCode', msg);
+                if (msg['status'] === 'ok') {
+                    password_user_auth.style.display = 'block';
+                    password_user_auth.oninput = function (e) {
+                        if (password_user_auth.value.length < 5) {
+                            authorize_user.classList.add('blur');
+                        }
+                        if (e.target.value.length > 5) {
+                            e.target.value = e.target.value.substring(0, 5);
+                        }
+                    }
+                    get_sms.style.display = 'none';
+                    authorize_user.style.display = 'flex';
+                    authorize_user.onclick = function () {
+                        if (password_user_auth.value.length < 5) {
+                            return;
+                        }
+                        AuthorizationUser();
+                    }
+                }
             }
         })
-
     }
 
 
