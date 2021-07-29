@@ -5,9 +5,8 @@ let cost_start = 0;
 let flowers = [];
 let packaging = [];
 let discount_type = 0;
-let page = 1;
 let paginations = 0;
-let sub_category = 0;
+
 
 function Preloader(status) {
     if (status === 1) {
@@ -103,6 +102,7 @@ loadProducts();
 
 /* Правильная подгрузка продуктов */
 function loadProducts() {
+    bread_catalog.href = location.href;
     Preloader(1);
     minPrice();
     maxPrice();

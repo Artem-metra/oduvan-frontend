@@ -13,7 +13,7 @@
             <!-- Сортировка в каталоге -->
             <div class="catalog_sorted">
                 <div class="place_breadcoast" id="place_bread">
-                    <a href="/">Главная</a> / <a href="/catalog">Каталог</a>
+                    <a href="/">Главная</a> / <a href="" id="bread_catalog">Каталог</a>
                 </div>
                 <div id="place_top_cats">
 
@@ -214,6 +214,8 @@
 <!-- Функции к каталогу -->
 <script>
     let id = {{id}};
+    let page = {{ page }} || 1;
+    let sub_category = {{ sub_category }} || 0;
 </script>
 <script src="../static/js/pc_catalog.js"></script>
 
