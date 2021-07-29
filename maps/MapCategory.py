@@ -36,3 +36,9 @@ def api_category_edit():
 def api_category_remove():
     pass
     return utils.complete_request(request, request.path)
+
+
+
+@category_app.route('/api/categories/get_for_main')
+def api_categories_get_for_main():
+    return utils.complete_request(request, request.path)
