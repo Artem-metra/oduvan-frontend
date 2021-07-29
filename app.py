@@ -37,7 +37,6 @@ app.register_blueprint(position_app)
 app.register_blueprint(package_app)
 
 
-
 # Index
 @app.route('/')
 def index():
@@ -120,7 +119,6 @@ def get_nesting_by_id():
 # @app.before_request
 # def redirect_on_api():
 # print(request)
-
 
 
 if __name__ == '__main__':

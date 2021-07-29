@@ -44,19 +44,8 @@ def api_user_check():
 @user_app.route('/api/user/registration')
 def api_user_registration():
     resp = utils.complete_request(request, request.path)
-    if 'user_id' not in session:
-        if 'user' in resp:
-            session['user_id'] = resp['user']
     return resp
 
-
-@user_app.route('/api/user/auth')
-def api_user_auth():
-    resp = utils.complete_request(request, request.path)
-    if 'user_id' not in session:
-        if 'user' in resp:
-            session['user_id'] = resp['user']
-    return resp
 
 
 @user_app.route('/api/user/liked')
@@ -164,4 +153,7 @@ def get_all_deals_for_user():
 
 @user_app.route('/api/user/confirmed')
 def api_user_confirmed():
-    return utils.complete_request(request, request.path)
+    resp = utils.complete_request(request, request.path)
+    if 'user_id' not in session:
+        session['user_id'] = resp['user_id']
+    return resp
