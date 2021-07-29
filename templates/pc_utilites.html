@@ -21,7 +21,7 @@
                     <a href="tel:88005553535" style="margin-right: 40px">8 800 555 35 35</a>
                     <div class="right_nav_place">
                         <span class="num_likeds" id="num_likeds" style="display: none;"></span>
-                        <a class="right_nav_item favorites">
+                        <a class="right_nav_item favorites" href="/favorites">
                             <span class="fas fa-heart"></span>
                         </a>
                     </div>
@@ -314,7 +314,7 @@
                         <a href="tel:88005553535" style="margin-right: 40px;color:#FFFFFF">8 800 555 35 35</a>
                         <div class="right_nav_place">
                             <span class="num_likeds" style="display: none;"></span>
-                            <a class="right_nav_item favorites">
+                            <a class="right_nav_item favorites" href="/favorites">
                                 <span class="fas fa-heart" style="color:#FFFFFF"></span>
                             </a>
                         </div>
@@ -393,6 +393,7 @@
     let basket_id = 0;
     let count = 1;
     let likeds = [];
+    let registration_number = '';
 
     /* Открытие попапа */
     function OpenPopup(popup, status) {
@@ -417,10 +418,20 @@
                 if (phone_user_auth.value.length === 18) {
                     get_sms.classList.remove('blur');
                     get_sms.onclick = function () {
-                        AuthorizationUser();
+                        sendCodeRegistr();
                     }
+                } else {
+                    get_sms.classList.add('blur');
                 }
             }
+            if (phone_user_auth.value.length === 18) {
+                get_sms.classList.remove('blur');
+                get_sms.onclick = function () {
+                    sendCodeRegistr();
+                }
+            }
+
+
             /* В попапе регистрации и авторизации менять блоки при нажатии на "Регистрация"/"Вход в аккаунт" */
 
         } else if (status === 3) {
@@ -479,11 +490,15 @@
             type: "GET",
             async: false,
             success: function (msg) {
-                for (let i = 0; i < msg['message']['products'].length; i++) {
-                    if(msg['message']['products'][i] !== null) {
-                        data.push(Number(msg['message']['products'][i]['id']));
+                console.log('likeds', msg);
+                if (msg['status'] !== 'error') {
+                    for (let i = 0; i < msg['message']['products'].length; i++) {
+                        if (msg['message']['products'][i] !== null) {
+                            data.push(Number(msg['message']['products'][i]['id']));
+                        }
                     }
                 }
+
             }
         });
         likeds = data;
@@ -523,11 +538,16 @@
         blurpopup.style.display = 'none';
         popup.classList.remove('_active');
         body.style.overflow = 'inherit';
+        console.log('popup', popup.id);
+        if(popup.id === 'basket_popup' && location.pathname === '/catalog'){
+            loadProducts();
+        }
     }
 
 
     /* Авторизация пользователя */
     function AuthorizationUser() {
+        console.log(phone_user_auth.value, password_user_auth.value);
         if (phone_user_auth.value === '' || password_user_auth.value === '') {
             let inputs = document.getElementsByClassName('authorization_input');
             for (let i = 0; i < inputs.length; i++) {
@@ -537,23 +557,28 @@
             }
             notification('Заполните все поля!', 1);
             return;
-        } else {
+        }
+        else if(phone_user_auth.value !== registration_number){
+            notification('Номера не совпадают!', 1);
+            return;
+        }
+        else {
             let data = {
-                'password': password_user_auth.value,
                 'phone': phone_user_auth.value,
+                'code': password_user_auth.value,
             }
             $.ajax({
-                url: '/api/user/auth',
+                url: '/api/user/confirmed',
                 type: 'GET',
                 data: data,
                 success: function (msg) {
-                    if (msg['status'] === 'error') {
-                        notification('Пароль введён неверно', 1);
-                        return;
-                    } else {
-                        location.href = '/cabinet';
-                    }
-                    console.log(msg);
+                    {#if (msg['status'] === 'error') {#}
+                    {#    notification('Пароль введён неверно', 1);#}
+                    {#    return;#}
+                    {# else {#}
+                    {#    location.href = '/cabinet';#}
+                    {##}
+                    console.log('ConfirmedPhone', msg);
                 }
             })
         }
@@ -585,34 +610,34 @@
             type: 'GET',
             async: false,
             success: function (msg) {
+                console.log(msg);
                 loadBasket();
                 let user_btn = document.getElementsByClassName('user_item');
-                let favorites_btn = document.getElementsByClassName('favorites');
                 let basket_btn = document.getElementsByClassName('basket');
-                for (let i = 0; i < user_btn.length; i++) {
-                    if (msg === 'error') {
+                for (let i = 0; i < basket_btn.length; i++) {
+                    basket_btn[i].onclick = function () {
+                        OpenPopup(basket_popup, 2);
+                    }
+                }
+                if (msg === 'error') {
+                    for (let i = 0; i < user_btn.length; i++) {
                         user_btn[i].onclick = function () {
                             OpenPopup(registrationpopup, 1);
                         }
-                        favorites_btn[i].href = '/favorites';
-                        basket_btn[i].onclick = function () {
-                            OpenPopup(basket_popup, 2);
-                        }
-                    } else {
-                        data = msg['message']['user'];
-                        favorites_btn[i].href = '/favorites';
-
-                        basket_btn[i].onclick = function () {
-                            OpenPopup(basket_popup, 2);
-                        }
-                        if (data['avatar'] !== "null") {
-                            let img = document.createElement('img');
-                            img.className = 'avatar_user';
-                            img.src = 'http://b-ws.ru:1001/get?uuid=' + data['avatar'];
+                    }
+                } else {
+                    for(let i = 0; i < user_btn.length; i++){
+                        user_btn[i].href = '/cabinet';
+                    }
+                    data = msg['message']['user'];
+                    if (data['avatar'] !== "") {
+                        let img = document.createElement('img');
+                        img.className = 'avatar_user';
+                        img.src = 'http://b-ws.ru:1001/get?uuid=' + data['avatar'];
+                        for (let i = 0; i < user_btn.length; i++) {
                             user_btn[i].innerHTML = '';
                             user_btn[i].append(img);
                         }
-                        user_btn[i].href = '/cabinet';
                     }
                 }
             }
@@ -688,7 +713,6 @@
         hover_price.innerText = product['discount_cost'] + ' ₽';
         price.innerText = product['cost'] + ' ₽';
         href.href = 'product?id=' + product['id'];
-        console.log('Likeds', likeds);
         // Если продукт в избранном
         if (likeds.indexOf(product['id']) !== -1) {
             place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
@@ -1021,18 +1045,41 @@
 
 
     function sendCodeRegistr() {
+        registration_number = phone_user_auth.value;
         let data = {
-            'code': '',
+            'phone': phone_user_auth.value,
         }
         $.ajax({
-            url: '/api/user/confirmed',
+            url: '/api/user/registration',
             type: "GET",
             data: data,
             success: function (msg) {
-                console.log(msg);
+                console.log('GetCode', msg);
+                if (msg['status'] === 'ok') {
+                    password_user_auth.style.display = 'block';
+                    if(password_user_auth.value.length < 6){
+                        authorize_user.classList.add('blur');
+                    }
+                    password_user_auth.oninput = function (e) {
+                        if (password_user_auth.value.length < 6) {
+                            authorize_user.classList.add('blur');
+                        } else if (e.target.value.length > 6) {
+                            e.target.value = e.target.value.substring(0, 6);
+                        } else {
+                            authorize_user.classList.remove('blur');
+                        }
+                    }
+                    get_sms.style.display = 'none';
+                    authorize_user.style.display = 'flex';
+                    authorize_user.onclick = function () {
+                        if (password_user_auth.value.length < 6) {
+                            return;
+                        }
+                        AuthorizationUser();
+                    }
+                }
             }
         })
-
     }
 
 
