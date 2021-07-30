@@ -426,12 +426,14 @@
 
 
 <script>
-    let user = null;
+   let user = null;
     let basket_id = 0;
     let count = 1;
     let likeds = [];
+    let registration_number = '';
 
-   function OpenPopup(popup, status) {
+    /* Открытие попапа */
+    function OpenPopup(popup, status) {
         // status: 1 - регистрация с авторизацией, 2 - корзина, 3 - скидка
         blurpopup.style.display = 'block';
         blurpopup.onclick = function () {
@@ -497,6 +499,7 @@
                 }
             }
             go_to_createorder.onclick = function () {
+                console.log('hello')
                 if (pickup.checked || courier.checked) {
                     if (pickup.checked) {
                         sendBasketInfo(1);
@@ -512,43 +515,6 @@
                 }
             }
         }
-   }
-
-
-     // Получает список избранного
-    getLikeds();
-
-    function getLikeds() {
-        let data = [];
-        $.ajax({
-            url: '/api/user/list_likes',
-            type: "GET",
-            async: false,
-            success: function (msg) {
-                for (let i = 0; i < msg['message']['products'].length; i++) {
-                    if(msg['message']['products'][i] !== null) {
-                        data.push(Number(msg['message']['products'][i]['id']));
-                    }
-                }
-            }
-        });
-        likeds = data;
-    }
-
-    // Отправляем тип доставки (курьером или самовывоз)
-    function sendBasketInfo(type) {
-        let data = {
-            'basket_id': basket_id,
-            'purchase_type': type,
-        }
-        $.ajax({
-            url: '/api/basket/choice_purchase_type',
-            data: data,
-            type: "GET",
-            success: function (msg) {
-                console.log(msg);
-            }
-        })
     }
 
 

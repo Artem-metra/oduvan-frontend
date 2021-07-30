@@ -194,10 +194,10 @@ function loadFlowers() {
         success: function (msg) {
             console.log(msg);
             drawFlowers(msg['message']);
-            // Хлебные крошки
-            let breadcoast = BreadCoast(id);
-            console.log(breadcoast);
-            place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
+            // // Хлебные крошки
+            // let breadcoast = BreadCoast(id);
+            // console.log(breadcoast);
+            // place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
         }
     })
 }

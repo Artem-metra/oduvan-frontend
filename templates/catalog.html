@@ -156,23 +156,35 @@
                 <div class="sorted_zag" style="font-size: 50px; margin-top: 20px; margin-bottom: 20px">
                     Упаковка
                 </div>
-                <div class="choose_flower" style="font-size: 36px">
-                    <input type="checkbox" id="choose_flow-one" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="1" style="margin-top: 20px;">
-                    <label for="choose_flow-one" class="lab_desc name_flower" style="font-size: 37px">Плёнка</label>
-                    <!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="1">-->
-                    <!--            <span>Плёнка</span>-->
-                </div>
-                <div class="choose_flower" style="font-size: 36px">
-                    <input type="checkbox" id="choose_flow-two" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="2" style="margin-top: 20px;">
-                    <label for="choose_flow-two" class="lab_desc name_flower" style="font-size: 37px">Крафт.плёнка</label>
-                    <!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="2">-->
-                    <!--            <span>Крафт.плёнка</span>-->
-                </div>
-                <div class="choose_flower" style="font-size: 36px">
-                    <input type="checkbox" id="choose_flow-three" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="3" style="margin-top: 20px;">
-                    <label for="choose_flow-three" class="lab_desc name_flower" style="font-size: 37px">Ленты</label>
-                    <!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="3">-->
-                    <!--            <span>Ленты</span>-->
+{#                <div class="choose_flower" style="font-size: 36px">#}
+{#                    <input type="checkbox" id="choose_flow-one" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="1" style="margin-top: 20px;">#}
+{#                    <label for="choose_flow-one" class="lab_desc name_flower" style="font-size: 37px">Плёнка</label>#}
+{#                    <!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="1">-->#}
+{#                    <!--            <span>Плёнка</span>-->#}
+{#                </div>#}
+{#                <div class="choose_flower" style="font-size: 36px">#}
+{#                    <input type="checkbox" id="choose_flow-two" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="2" style="margin-top: 20px;">#}
+{#                    <label for="choose_flow-two" class="lab_desc name_flower" style="font-size: 37px">Крафт.плёнка</label>#}
+{#                    <!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="2">-->#}
+{#                    <!--            <span>Крафт.плёнка</span>-->#}
+{#                </div>#}
+{#                <div class="choose_flower" style="font-size: 36px">#}
+{#                    <input type="checkbox" id="choose_flow-three" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="3" style="margin-top: 20px;">#}
+{#                    <label for="choose_flow-three" class="lab_desc name_flower" style="font-size: 37px">Ленты</label>#}
+{#                    <!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="3">-->#}
+{#                    <!--            <span>Ленты</span>-->#}
+{#                </div>#}
+                <div id="packages_place">
+                    <div class="choose_flower" id="choose_pack" style="display: none">
+                        <div class="checkbox" style="margin-left:5px;">
+                            <input type="checkbox" id="choose_flow_one"
+                                   class="scal_chek checkbox_for_choose_flower custom-checkbox"
+                                   style="margin-top: 20px;">
+                            <label for="choose_flow_one" class="lab_desc">
+                                <span class="name_flower"></span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -247,10 +259,6 @@
 
 
         <div class="catalog_card_place">
-
-
-
-
             <div class="preloader" id="preloader">
                 <div class="preloader_text">
                     <span id="message_for_empty">Подождите, товары загружаются!</span>
