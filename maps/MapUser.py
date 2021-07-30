@@ -165,3 +165,14 @@ def api_user_confirmed():
         if 'user_id' in resp:
             session['user_id'] = resp['user_id']
     return resp
+
+
+@user_app.route('/logout')
+def logout():
+    print(session)
+    if 'user_id' in session:
+        session.modified = True
+        for key in list(session.keys()):
+            session.pop(key)
+        session.modified = True
+        return utils.getAnswer('')
