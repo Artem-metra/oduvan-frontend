@@ -1416,8 +1416,8 @@ input[type="checkbox"] {
 
 #empty_basket_createorder {
     width: 100%;
-    height: 100vh;
-    min-height: 90vh;
+    height: 100%;
+    min-height: 40vh;
 }
 
 .empty_basket {
@@ -1447,6 +1447,7 @@ input[type="checkbox"] {
     align-items: center;
     width: 100%;
     height: 100%;
+    padding-top: 15%;
 }
 
 .basket_info {
@@ -1526,8 +1527,6 @@ input[type="checkbox"] {
 .basket_place {
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
     position: relative;
 }
 
@@ -1655,7 +1654,9 @@ input[type="checkbox"] {
     font-weight: 600;
     font-size: 24px;
 }
-
+.place_breadcoast{
+    z-index: 500;
+}
 .place_breadcoast a {
     text-transform: uppercase;
     font-weight: 600;

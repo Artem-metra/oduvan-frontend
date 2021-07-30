@@ -504,7 +504,8 @@
             let name_buckets = box.getElementsByClassName('name_buckets')[0];
             let href = box.getElementsByClassName('go_to_cat')[0];
             let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
-
+            console.log(categories[i]['image']);
+            main_cat_img.src = 'http://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
             name_cat.innerText = categories[i]['parent_name'];
             name_buckets.innerText = categories[i]['name'];
             href.href = `/catalog?category_id=${categories[i]['parent_id']}&sub_category=${categories[i]['id']}`;

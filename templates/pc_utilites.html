@@ -549,6 +549,7 @@
 
     /* Авторизация пользователя */
     function AuthorizationUser() {
+        console.log('Дашло!');
         console.log(phone_user_auth.value, password_user_auth.value);
         if (phone_user_auth.value === '' || password_user_auth.value === '') {
             let inputs = document.getElementsByClassName('authorization_input');
@@ -574,31 +575,18 @@
                 type: 'GET',
                 data: data,
                 success: function (msg) {
-                    {#if (msg['status'] === 'error') {#}
-                    {#    notification('Пароль введён неверно', 1);#}
-                    {#    return;#}
-                    {# else {#}
-                    {#    location.href = '/cabinet';#}
-                    {##}
-                    console.log('ConfirmedPhone', msg);
+                    if(msg['status'] === 'error'){
+                        notification('Код введён неверно!', 1);
+                        return;
+                    }
+                    else{
+                        notification('Вы успешно авторизованы!', 2);
+                        GetUser();
+                        ClosePopup(registrationpopup);
+                    }
                 }
-            })
+            });
         }
-    }
-
-    // Проверка телефонного кода при регистрации
-    function checkedPhoneCode(code) {
-        let data = {
-            'code': code,
-        }
-        $.ajax({
-            url: '/api/user/confirmed',
-            data: data,
-            type: "GET",
-            success: function (msg) {
-                console.log(msg);
-            }
-        })
     }
 
 

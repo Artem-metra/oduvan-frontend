@@ -166,6 +166,19 @@
 
 
         <div class="catalog_flex createorder" style="padding:0;display: none" id="personal_history">
+            <!-- Если история заказов пуста -->
+            <div class="basket_place" id="basket_place" style="min-height: 63vh;display: none;">
+                <div class="empty_basket" id="empty_basket_createorder">
+                    <div class="empty_basket_info" style="padding-top: 20%">
+                        <div class="name_buckets">
+                            Вы ещё ничего не заказывали!
+                            <a class="all_catalog_href" href="/catalog?category_id=1">
+                                Перейти в каталог
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- История заказов -->
             <div class="one_order_place" id="one_order_place" style="display: none">
                 <div class="catalog_flex" style="justify-content: normal;margin-bottom:15px;">
@@ -553,9 +566,14 @@
             type: "GET",
             success: function (msg) {
                 console.log(msg);
-                $('.delete_history').remove();
-                for (let i = 0; i < msg['message']['deals_list'].length; i++) {
-                    drawHistory(msg['message']['deals_list'][i]);
+                if (msg['message']['deals_list'].length === 0) {
+                    basket_place.style.display = 'block';
+                    empty_basket_createorder.style.display = 'flex';
+                } else {
+                    $('.delete_history').remove();
+                    for (let i = 0; i < msg['message']['deals_list'].length; i++) {
+                        drawHistory(msg['message']['deals_list'][i]);
+                    }
                 }
             }
 
