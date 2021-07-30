@@ -113,6 +113,78 @@ def article():
         return render_template('pc_article.html')
 
 
+# delivery
+@app.route('/delivery')
+def delivery():
+    if utils.is_mobile(request.user_agent):
+        return render_template('delivery.html')
+    else:
+        return render_template('pc_delivery.html')
+
+# payment
+@app.route('/payment')
+def payment():
+    if utils.is_mobile(request.user_agent):
+        return render_template('payment.html')
+    else:
+        return render_template('pc_payment.html')
+
+
+# loyaltyprogram
+@app.route('/loyaltyprogram')
+def loyaltyprogram():
+    if utils.is_mobile(request.user_agent):
+        return render_template('loyaltyprogram.html')
+    else:
+        return render_template('pc_loyaltyprogram.html')
+
+
+# weddingfloristry
+@app.route('/weddingfloristry')
+def weddingfloristry():
+    if utils.is_mobile(request.user_agent):
+        return render_template('weddingfloristry.html')
+    else:
+        return render_template('pc_weddingfloristry.html')
+
+
+# freshnessinstruction
+@app.route('/freshnessinstruction')
+def freshnessinstruction():
+    if utils.is_mobile(request.user_agent):
+        return render_template('freshnessinstruction.html')
+    else:
+        return render_template('pc_freshnessinstruction.html')
+
+
+# vacancies
+@app.route('/vacancies')
+def vacancies():
+    if utils.is_mobile(request.user_agent):
+        return render_template('vacancies.html')
+    else:
+        return render_template('pc_vacancies.html')
+
+
+# legalinformation
+@app.route('/legalinformation')
+def legalinformation():
+    if utils.is_mobile(request.user_agent):
+        return render_template('legalinformation.html')
+    else:
+        return render_template('pc_legalinformation.html')
+
+
+# returnproduct
+@app.route('/returnproduct')
+def returnproduct():
+    if utils.is_mobile(request.user_agent):
+        return render_template('returnproduct.html')
+    else:
+        return render_template('pc_returnproduct.html')
+
+
+
 @app.route('/api/get_nesting_by_id')
 def get_nesting_by_id():
     return utils.complete_request(request, request.path)

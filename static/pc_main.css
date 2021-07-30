@@ -2463,9 +2463,16 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 
+/*====== Оплата ========*/
 
+.payment_item{
+    margin-bottom: 5px;
+}
+/*====== Свадебная флористика ========*/
 
-
+.wedding_item{
+    margin-bottom: 5px;
+}
 
 
 

@@ -2802,5 +2802,28 @@ pagination_place {
 }
 
 
+/*====== Оплата ========*/
+
+.payment_item{
+    margin-bottom: 15px;
+}
+
+/*====== Свадебная флористика ========*/
+
+.wedding_item{
+    margin-bottom: 25px;
+    list-style-type: circle;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
