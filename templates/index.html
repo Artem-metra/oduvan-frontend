@@ -15,7 +15,7 @@
             ДОСТАВКА <br> БУКЕТОВ <br> в Воронеже
         </h1>
         <strong class="main_sub_zag">Закажи свой идеальный букет</strong>
-        <span class="fa fa-chevron-down"></span>
+       <div id="down_to_catalog"><span class="fa fa-chevron-down"></span></div>
     </div>
 </div>
 
@@ -25,36 +25,30 @@
         <h2 class="catalog_zag" style="margin-bottom: 40px;">Наш каталог</h2>
         <!-- Наш каталог - карточки -->
 
-        <div class="cont_on_horizontscroll" style="height: 734px;">
+        <div class="cont_on_horizontscroll" style="height: 600px;">
 
-            <div class="card_on_main">
-                <div class="card_main_item">
-                    <span class="buckets bockets_mob">Букеты</span>
-                    <strong class="name_buckets">
-                        Монобукеты
-                    </strong>
-                    <img src="../static/img/big_img_main.png">
-                    <a href="" class="to_choose_href" style="font-size: 35px;">Выбрать <span class="fa fa-chevron-right" style="margin-left: 20px"></span></a>
+            <div class="card_on_main" id="card_on_main" style="display: flex">
+                <div class="card_main_item" id="card_main_item" style="display: none; width: 600px; margin-right: 45px">
+                    <div class="card_main_bg"></div>
+                    <div style="z-index:10">
+                        <span class="buckets">Букеты</span>
+                        <strong class="name_buckets">
+                            Монобукеты
+                        </strong>
+
+                        <div class="to_choose_href">
+                            <a href="" class="go_to_cat">Выбрать <span style="margin-left: 20px" class="fa fa-chevron-right"></span></a>
+                        </div>
+                    </div>
+                    <img src="../static/img/big_img_main.png" class="main_cat_img">
                 </div>
             </div>
-
-            <div class="card_on_main">
-                <div class="card_main_item">
-                    <span class="buckets bockets_mob">Букеты</span>
-                    <strong class="name_buckets">
-                        Монобукеты
-                    </strong>
-                    <img src="../static/img/big_img_main.png">
-                    <a href="" class="to_choose_href" style="font-size: 35px;">Выбрать <span class="fa fa-chevron-right" style="margin-left: 20px"></span></a>
-                </div>
-            </div>
-
         </div>
-
 
         <a class="all_catalog_href" href="/catalog" style="margin-top: 30px; width: 400px; height: 100px; font-size: 40px">
             Весь каталог
         </a>
+
     </div>
 </div>
 
@@ -337,34 +331,25 @@
 
 <script>
 
-    // loadCategories();
-    //
-    // function loadCategories() {
-    //     let data = {
-    //         'category_id': 0,
-    //     }
-    //     $.ajax({
-    //         url: '/api/categories/get',
-    //         data: data,
-    //         type: 'GET',
-    //         success: function (msg) {
-    //             console.log('categoris', msg);
-    //             let inputs = document.getElementsByClassName('href_catalog');
-    //             for (let i = 0; i < inputs.length; i++) {
-    //                 inputs[i].href = 'catalog?category_id=' + msg['message']['top_categories'][0]['id'];
-    //             }
-    //         }
-    //     });
-    // }
-    //
-    //
-    // down_to_catalog.onclick = function (e) {
-    //     e.preventDefault();
-    //     document.getElementById('our_catalog').scrollIntoView({
-    //         behavior: 'smooth',
-    //         block: 'start',
-    //     })
-    // }
+   loadCategories();
+
+    function loadCategories() {
+        let data = {
+            'category_id': 0,
+        }
+        $.ajax({
+            url: '/api/categories/get',
+            data: data,
+            type: 'GET',
+            success: function (msg) {
+                console.log('categoris', msg);
+                let inputs = document.getElementsByClassName('href_catalog');
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].href = 'catalog?category_id=' + msg['message']['top_categories'][0]['id'];
+                }
+            }
+        });
+    }
 
     loadProducts();
 
@@ -386,6 +371,48 @@
             }
         });
     }
+
+
+    loadMainCategory();
+
+    function loadMainCategory() {
+        $.ajax({
+            url: '/api/categories/get_for_main',
+            type: "GET",
+            success: function (msg) {
+                console.log('Category on Main', msg);
+                drawMainCategory(msg['message']['categories']);
+            }
+        })
+    }
+
+    function drawMainCategory(categories) {
+        for (let i = 0; i < categories.length; i++) {
+            let box = card_main_item.cloneNode(true);
+            box.id = '';
+            let name_cat = box.getElementsByClassName('buckets')[0];
+            let name_buckets = box.getElementsByClassName('name_buckets')[0];
+            let href = box.getElementsByClassName('go_to_cat')[0];
+            let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
+
+            name_cat.innerText = categories[i]['parent_name'];
+            name_buckets.innerText = categories[i]['name'];
+            href.href = `/catalog?category_id=${categories[i]['parent_id']}&sub_category=${categories[i]['id']}`;
+            main_cat_img.src = '';
+            box.style.display = 'inline-block';
+            card_on_main.append(box);
+        }
+    }
+
+    down_to_catalog.onclick = function (e) {
+        e.preventDefault();
+        document.getElementById('our_catalog').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        })
+    }
+
+
 
     function createSlider(products) {
         let box = swiper_place.cloneNode(true);

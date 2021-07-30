@@ -9,7 +9,7 @@
 
 <div class="catalog" style="background: #e9eaec">
     <div class="container">
-        <div class="place_breadcoast" style="margin-bottom: 50px">
+        <div class="place_breadcoast" id="place_bread" style="margin-bottom: 50px; font-size: 28px" >
             <a href="">Главная</a> / <a href="">Каталог</a> / <a href="">Букеты</a>
         </div>
         <div id="place_top_cats">
@@ -26,14 +26,14 @@
 
         <div class="catalog_flex_catalog sorted_and_filters" style="display: flex;">
             <div class="filters_place" id="filter_place" style="margin-bottom: 25px">
-                Фильтры <span class="fa fa-chevron-down my_class_img" id="my_class_img"></span>
+                Фильтры и сортрировка<span class="fa fa-chevron-down my_class_img" id="my_class_img"></span>
             </div>
-            <div class="sorted_place" style="display: inherit">
-                Сортировка:
-                <div class="pressing_on_arrow_name" id="pressing_on_arrow_name" style="margin-left: 15px">
-                    <span class="active_sort">Название</span><span class="fa fa-chevron-down" id="my_class_cher"></span>
-                </div>
-            </div>
+{#            <div class="sorted_place" style="display: inherit">#}
+{#                Сортировка:#}
+{#                <div class="pressing_on_arrow_name" id="pressing_on_arrow_name" style="margin-left: 15px">#}
+{#                    <span class="active_sort">Название</span><span class="fa fa-chevron-down" id="my_class_cher"></span>#}
+{#                </div>#}
+{#            </div>#}
         </div>
 
         <div id="sorted_select_items_list">
@@ -176,9 +176,7 @@
                 </div>
             </div>
 
-
-
-
+            <!-- Кнопки дейстивя -->
             <div class="all_catalog_href" style="float: none;margin: 20px 0 15px;height: 110px;width: 100%"
                  id="startsorting">
                 Применить
@@ -188,6 +186,7 @@
                     Сбросить
                 </div>
             </div>
+
         </div>
 
 
@@ -249,8 +248,27 @@
 
         <div class="catalog_card_place">
 
+
+
+
+            <div class="preloader" id="preloader">
+                <div class="preloader_text">
+                    <span id="message_for_empty">Подождите, товары загружаются!</span>
+                    <div class="lds-roller">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
             <!-- Карточка товара -->
-            <div id="item_card_place" style="display: block;padding-top: 35px;">
+            <div id="content_catalog">
+                <div id="item_card_place" style="display: block;padding-top: 35px;">
                 <div id="card_product" style="display: none;">
                     <div class="right_nav_place">
                         <div class="right_nav_item">
@@ -307,11 +325,13 @@
                     </div>
                 </div>
             </div>
+            </div>
             <div class="pagination_place" id="pag_place" style="text-align: center">
                 <div class="pagination_item" id="pagination_item" style="display: none">
                     <span class="pagination_num">1</span>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

@@ -1,14 +1,38 @@
 let category_id = 0;
-let sorted_type = 0;
+let sorted_type = 1;
 let cost_end = 150000;
 let cost_start = 0;
 let flowers = [];
 let packaging = [];
 let discount_type = 0;
-let page = 0;
+let page = 1;
 let paginations = 0;
+let sub_category = 0;
+
+
+
+function Preloader(status) {
+    if (status === 1) {
+        document.getElementById('preloader').style.display = 'block';
+        document.getElementById('content_catalog').style.display = 'none';
+    } else {
+        document.getElementById('preloader').style.display = 'none';
+        document.getElementById('content_catalog').style.display = 'block';
+    }
+
+}
+
+function EmptyProducts() {
+    message_for_empty.innerText = 'Товаров не найдено';
+    Preloader(1);
+}
+
+
+
+
 
 getCategories();
+
 
 function getCategories() {
     let data = {
@@ -31,7 +55,6 @@ function getCategories() {
                 } else {
                     item.className = 'catalog_zag';
                 }
-
                 item.innerText = msg['message']['top_categories'][i]['name'];
                 div.append(item);
                 place_top_cats.append(div);
@@ -40,6 +63,8 @@ function getCategories() {
         }
     });
 }
+
+
 
 function drawCategories(msg) {
     for (let i = 0; i < msg.length; i++) {
@@ -55,15 +80,22 @@ function drawCategories(msg) {
         }
         category.style.display = 'inline-block';
         category.onclick = function () {
+            // document.getElementsByClassName('active_page')[0].classList.remove('active_page');
+            $('.delete_subcat').remove();
             document.getElementsByClassName('_active')[0].classList.remove('_active');
             cat_name.classList.add('_active');
             if (category.classList.contains('all')) {
-                category_id = 0;
+                sub_category = 0;
+                page = 1;
+                $('.delete_cat').remove();
+                let breadcoast = BreadCoast(id);
+                place_bread.innerHTML += `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
             } else {
-                category_id = msg[i]['id'];
+                sub_category = msg[i]['id'];
+                place_bread.innerHTML += `<span style="text-transform: uppercase;font-weight: 600;color:#F877AD" class="active_page catalog_category_card delete_subcat">
+                <span style="color:#293048"> / </span>${msg[i]['name']}</span>`;
             }
             loadProducts();
-            console.log('category_id:', category_id);
         }
         catalog_category_place.append(category);
         console.log('Высота', catalog_category_place.offsetHeight);
@@ -73,14 +105,20 @@ function drawCategories(msg) {
 
 }
 
+
 loadProducts();
 
 /* Правильная подгрузка продуктов */
 function loadProducts() {
+    Preloader(1);
+    minPrice();
+    maxPrice();
     console.log(cost_start, cost_end);
     $('.delete_card').remove();
+    console.log('sub_category, category, page', sub_category, id, page);
     let data = {
-        'category_id': category_id,
+        'category_id': id,
+        'sub_category': sub_category,
         'sorted_type': sorted_type,
         'discount_type': discount_type,
         'cost_start': cost_start,
@@ -97,9 +135,14 @@ function loadProducts() {
         data: JSON.stringify(data),
         success: function (msg) {
             console.log('Продкуты каталога', msg);
-            $('.delete_paginations').remove();
-            paginations = Number(msg['message']['pages']);
-            drawProducts(msg['message']['products']);
+            if (msg['message']['products'].length === 0) {
+                EmptyProducts();
+            } else {
+                $('.delete_paginations').remove();
+                paginations = Number(msg['message']['pages']);
+                page = Number(msg['message']['page']);
+                drawProducts(msg['message']['products']);
+            }
         }
     });
 
@@ -123,7 +166,7 @@ function loadProducts() {
                 checkboxes[i].checked = false;
             }
         }
-        loadProducts();
+        location.reload();
     }
 }
 
@@ -151,37 +194,17 @@ function loadFlowers() {
         success: function (msg) {
             console.log(msg);
             drawFlowers(msg['message']);
-            minPrice();
-            maxPrice();
+            // Хлебные крошки
+            let breadcoast = BreadCoast(id);
+            console.log(breadcoast);
+            place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
         }
     })
 }
 
+
 function drawFlowers(flower) {
     for (let i = 0; i < flower.length; i++) {
-        // let fl = choose_flower.cloneNode(true);
-        // fl.id = '';
-        // let name = fl.getElementsByClassName('name_flower')[0];
-        // let checkbox = fl.getElementsByClassName('checkbox_for_choose_flower')[0];
-        // // выбор на чекбоксы
-        // checkbox.id = '';
-        // checkbox.id = 'flowers-' + i;
-        // let name_flower = fl.getElementsByClassName('name_flower')[0];
-        // let newId =  'flowers-' + i;
-        // name_flower.setAttribute('for', newId);
-        // checkbox.onchange = function () {
-        //     if (checkbox.checked) {
-        //         flowers.push(checkbox.value);
-        //     } else {
-        //         flowers = removeItemAll(flowers, checkbox.value);
-        //     }
-        //     console.log(flowers);
-        // }
-        // name.innerText = flower[i]['name'];
-        // checkbox.value = flower[i]['name'];
-        // fl.style.display = 'flex';
-        // flowers_place.append(fl);
-
         let fl = choose_flower.cloneNode(true);
         fl.id = '';
         let name = fl.getElementsByClassName('name_flower')[0];
@@ -208,6 +231,49 @@ function drawFlowers(flower) {
 }
 
 
+loadPackages();
+
+function loadPackages() {
+    $.ajax({
+        url: '/api/packages/get',
+        type: "GET",
+        success: function (msg) {
+            console.log('packages', msg);
+            drawPackages(msg['message']['packages']);
+        }
+    })
+}
+
+
+function drawPackages(packages) {
+    for (let i = 0; i < packages.length; i++) {
+        let box = choose_pack.cloneNode(true);
+        box.id = '';
+        let name = box.getElementsByClassName('name_flower')[0];
+        let checkbox = box.getElementsByClassName('checkbox_for_choose_flower')[0];
+        checkbox.id = '';
+        let name_flower = box.getElementsByClassName('lab_desc')[0];
+        let newId = 'packaging-' + i;
+        name_flower.setAttribute('for', newId);
+        checkbox.id = 'packaging-' + i;
+        checkbox.onchange = function () {
+            if (checkbox.checked) {
+                packaging.push(Number(checkbox.value));
+            } else {
+                packaging = removeItemAll(packaging, Number(checkbox.value));
+            }
+            console.log('packages', packaging);
+        }
+        name.innerText = packages[i]['name'];
+        checkbox.value = packages[i]['id'];
+        box.style.display = 'flex';
+        packages_place.append(box);
+    }
+}
+
+
+
+
 startsorting.onclick = function () {
     startSorting();
 }
@@ -227,12 +293,12 @@ function removeItemAll(arr, value) {
 
 function startSorting() {
     console.log('Дашло!');
-    console.log('тут должна быть сортировка')
     cost_start = Number(price_min.value);
     cost_end = Number(price_max.value);
-
     loadProducts();
 }
+
+
 
 function drawProducts(msg) {
     for (let i = 0; i < msg.length; i++) {
@@ -240,8 +306,6 @@ function drawProducts(msg) {
         box.style.display = 'inline-block';
         document.getElementById('item_card_place').append(box);
     }
-    console.log(paginations);
-
     for (let i = 1; i < paginations + 1; i++) {
         let pagination = pagination_item.cloneNode(true);
         pagination.id = '';
@@ -258,8 +322,88 @@ function drawProducts(msg) {
         }
         pag_place.append(pagination);
     }
-
+    Preloader(0);
 }
+
+
+
+
+// Хлебные крошки
+// let breadcoast = BreadCoast(id);
+// console.log(breadcoast);
+// place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
+
+
+// Получение миниальной цены товара в категории
+function minPrice() {
+    let start_cost = 0;
+    let data = {
+        'sub_category': sub_category,
+        'category_id': id,
+    }
+    $.ajax({
+        url: '/api/min_price_for_category',
+        type: "GET",
+        data: data,
+        async: false,
+        success: function (msg) {
+            console.log(msg);
+            start_cost = msg['message']['min_cost'];
+            price_min.value = start_cost;
+            price_controller.setAttribute('min', start_cost);
+            /* Рендж для регулировки цен */
+            price_controller.oninput = function () {
+                price_max.value = price_controller.value;
+            }
+            /* Проверки при изменении цены */
+            price_min.onchange = function () {
+                if (Number(price_min.value) < start_cost) {
+                    price_min.value = start_cost;
+                }
+                if (Number(price_min.value) > Number(price_max.value)) {
+                    price_min.value = start_cost;
+                }
+            }
+        }
+    })
+    cost_start = start_cost;
+}
+
+
+// Получение максимальной цены товара в категории
+function maxPrice() {
+    console.log('cat_id', id);
+    let endcost = 0;
+    let data = {
+        'sub_category': sub_category,
+        'category_id': id,
+    }
+    $.ajax({
+        url: '/api/max_price_for_category',
+        type: "GET",
+        data: data,
+        async: false,
+        success: function (msg) {
+            console.log(msg);
+            endcost = msg['message']['max_cost'];
+            price_max.value = endcost;
+            price_controller.setAttribute('max', Number(msg['message']['max_cost']));
+            price_controller.value = endcost;
+            price_max.onchange = function () {
+                if (Number(price_max.value) < Number(price_min.value)) {
+                    price_max.value = Number(price_min.value + price_max.value++);
+                }
+                if (Number(price_max.value) > msg['message']['max_cost']) {
+                    price_max.value = msg['message']['max_cost'];
+                }
+            }
+        }
+    })
+    cost_end = endcost;
+}
+
+
+
 
 
 appear_about_pressing.style.display = 'none';
@@ -283,104 +427,12 @@ filter_place.onclick = function (){
         // height_increase.style.height = '180px';
         // my_privat_mar.style.marginTop = '-180px';
         // height_increase.style.width = '50%';
-        my_class_cher.style.transform = 'rotate(180deg)';
-        my_class_cher.style.transition = 'transform .3s';
+
     }else {
         sorted_select_items_list.style.display = 'none';
-        my_class_cher.style.transform = 'rotate(0deg)';
-        my_class_cher.style.transition = 'transform .3s';
         // height_increase.style.height = '0';
         // height_increase.style.height = '180px';
         // my_privat_mar.style.marginTop = '-180px';
         // height_increase.style.width = '50%';
     }
-}
-
-
-// sorted_select_items_list.style.display = 'none';
-// pressing_on_arrow_name.onclick = function() {
-//
-//     if(sorted_select_items_list.style.display === 'none'){
-//         sorted_select_items_list.style.display = 'block';
-//         sorted_select_items.style.top = '35px';
-//         sorted_select_items.style.right = '10px';
-//         // height_increase.style.height = '180px';
-//         // my_privat_mar.style.marginTop = '-180px';
-//         height_increase.style.width = '50%';
-//         my_class_cher.style.transform = 'rotate(180deg)';
-//         my_class_cher.style.transition = 'transform .3s';
-//     }else {
-//         sorted_select_items_list.style.display = 'none';
-//         my_class_cher.style.transform = 'rotate(0deg)';
-//         my_class_cher.style.transition = 'transform .3s';
-//         height_increase.style.height = '0';
-//         // height_increase.style.height = '180px';
-//         // my_privat_mar.style.marginTop = '-180px';
-//         height_increase.style.width = '50%';
-//     }
-// }
-
-
-
-// Хлебные крошки
-// let breadcoast = BreadCoast(id);
-// console.log(breadcoast);
-// place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
-
-// Получение миниальной цены товара в категории
-function minPrice() {
-    let data = {
-        'category_id': id,
-    }
-    $.ajax({
-        url: '/api/min_price_for_category',
-        type: "GET",
-        data: data,
-        success: function (msg) {
-            console.log(msg);
-            cost_start = msg['message']['min_cost'];
-            price_min.value = msg['message']['min_cost'];
-            price_controller.setAttribute('min', Number(msg['message']['min_cost']));
-
-            /* Рендж для регулировки цен */
-            price_controller.oninput = function () {
-                price_max.value = price_controller.value;
-            }
-            /* Проверки при изменении цены */
-            price_min.onchange = function () {
-                if (Number(price_min.value) < msg['message']['min_cost']) {
-                    price_min.value = Number(msg['message']['min_cost']);
-                }
-                if (Number(price_min.value) > Number(price_max.value)) {
-                    price_min.value = Number(msg['message']['min_cost']);
-                }
-            }
-        }
-    })
-}
-
-// Получение максимальной цены товара в категории
-function maxPrice() {
-    let data = {
-        'category_id': id,
-    }
-    $.ajax({
-        url: '/api/max_price_for_category',
-        type: "GET",
-        data: data,
-        success: function (msg) {
-            console.log(msg);
-            cost_end = msg['message']['max_cost'];
-            price_max.value = msg['message']['max_cost'];
-            price_controller.setAttribute('max', Number(msg['message']['max_cost']));
-            price_max.onchange = function () {
-                if (Number(price_max.value) < Number(price_min.value)) {
-                    price_max.value = Number(price_min.value + price_max.value++);
-                }
-                if (Number(price_max.value) > msg['message']['max_cost']) {
-                    price_max.value = msg['message']['max_cost'];
-                }
-            }
-        }
-    })
 }
