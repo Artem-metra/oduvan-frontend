@@ -18,7 +18,7 @@
             </div>
             <div class="right_header_part">
                 <div class="right_header_part_item">
-                    <a href="tel:88005553535" style="margin-right: 40px">8 800 555 35 35</a>
+                    <a href="tel:+7 (930) 424-00-30" style="margin-right: 40px">+7 (930) 424-00-30</a>
                     <div class="right_nav_place">
                         <span class="num_likeds" id="num_likeds" style="display: none;"></span>
                         <a class="right_nav_item favorites" href="/favorites">
@@ -32,8 +32,13 @@
                         </a>
                     </div>
                     <div class="right_nav_place">
-                        <a class="right_nav_item user_item" id="user_item">
+                        <a class="right_nav_item user_item">
                             <span class="fas fa-user"></span>
+                        </a>
+                    </div>
+                    <div class="right_nav_place logout_place" style="display: none">
+                        <a class="right_nav_item logout">
+                            <span class="fa fa-sign-out"></span>
                         </a>
                     </div>
                 </div>
@@ -84,7 +89,7 @@
             </div>
         </div>
         <!-- В корзине пусто -->
-        <div class="empty_basket" id="empty_basket">
+        <div class="empty_basket" id="empty_basket" style="padding-top: 35%;">
             <div class="empty_basket_info">
                 <div class="name_buckets">
                     В корзине пусто!
@@ -313,7 +318,7 @@
                 </div>
                 <div class="right_header_part">
                     <div class="right_header_part_item" style="margin-right:0">
-                        <a href="tel:88005553535" style="margin-right: 40px;color:#FFFFFF">8 800 555 35 35</a>
+                        <a href="tel:+7 (930) 424-00-30" style="margin-right: 40px;color:#FFFFFF">+7 (930) 424-00-30</a>
                         <div class="right_nav_place">
                             <span class="num_likeds" style="display: none;"></span>
                             <a class="right_nav_item favorites" href="/favorites">
@@ -329,6 +334,11 @@
                         <div class="right_nav_place">
                             <a class="right_nav_item user_item">
                                 <span class="fas fa-user" style="color:#FFFFFF"></span>
+                            </a>
+                        </div>
+                        <div class="right_nav_place logout_place" style="display: none">
+                            <a class="right_nav_item logout">
+                                <span class="fa fa-sign-out"></span>
                             </a>
                         </div>
                     </div>
@@ -464,18 +474,25 @@
                 }
             }
             go_to_createorder.onclick = function () {
-                if (pickup.checked || courier.checked) {
-                    if (pickup.checked) {
-                        sendBasketInfo(1);
+                console.log(user);
+                if (user !== null) {
+                    if (pickup.checked || courier.checked) {
+                        if (pickup.checked) {
+                            sendBasketInfo(1);
+                        } else {
+                            sendBasketInfo(2);
+                        }
+                        location.href = '/createorder';
                     } else {
-                        sendBasketInfo(2);
+                        choose_delivery_list.className = '_active';
+                        chevron_for_delivery.classList.add('_active');
+                        basket_items_place.className = 'move_up';
+                        notification('Выберите способ доставки', 1);
                     }
-                    location.href = '/createorder';
                 } else {
-                    choose_delivery_list.className = '_active';
-                    chevron_for_delivery.classList.add('_active');
-                    basket_items_place.className = 'move_up';
-                    notification('Выберите способ доставки', 1);
+                    notification('Для оформления заказа, пожалуйста, авторизуйтесь', 1);
+                    ClosePopup(basket_popup);
+                    OpenPopup(registrationpopup, 1);
                 }
             }
         }
@@ -541,7 +558,7 @@
         popup.classList.remove('_active');
         body.style.overflow = 'inherit';
         console.log('popup', popup.id);
-        if(popup.id === 'basket_popup' && location.pathname === '/catalog'){
+        if (popup.id === 'basket_popup' && location.pathname === '/catalog') {
             loadProducts();
         }
     }
@@ -560,12 +577,10 @@
             }
             notification('Заполните все поля!', 1);
             return;
-        }
-        else if(phone_user_auth.value !== registration_number){
+        } else if (phone_user_auth.value !== registration_number) {
             notification('Номера не совпадают!', 1);
             return;
-        }
-        else {
+        } else {
             let data = {
                 'phone': phone_user_auth.value,
                 'code': password_user_auth.value,
@@ -575,11 +590,10 @@
                 type: 'GET',
                 data: data,
                 success: function (msg) {
-                    if(msg['status'] === 'error'){
+                    if (msg['status'] === 'error') {
                         notification('Код введён неверно!', 1);
                         return;
-                    }
-                    else{
+                    } else {
                         notification('Вы успешно авторизованы!', 2);
                         GetUser();
                         ClosePopup(registrationpopup);
@@ -615,9 +629,23 @@
                             OpenPopup(registrationpopup, 1);
                         }
                     }
+                    data = null;
+                    let logout_place = document.getElementsByClassName('logout_place');
+                    for (let i = 0; i < logout_place.length; i++) {
+                        logout_place[i].style.display = 'none';
+                    }
                 } else {
-                    for(let i = 0; i < user_btn.length; i++){
+                    for (let i = 0; i < user_btn.length; i++) {
                         user_btn[i].href = '/cabinet';
+                    }
+
+                    let logout_place = document.getElementsByClassName('logout_place');
+                    let logout = document.getElementsByClassName('logout');
+                    for (let i = 0; i < logout_place.length; i++) {
+                        logout_place[i].style.display = 'flex';
+                        logout[i].onclick = function () {
+                            Logout();
+                        }
                     }
                     data = msg['message']['user'];
                     if (data['avatar'] !== "") {
@@ -634,6 +662,23 @@
         });
         user = data;
     }
+
+    // Выйти из аккаунта
+    function Logout() {
+        $.ajax({
+            url: '/logout',
+            type: "GET",
+            success: function (msg) {
+                console.log(msg);
+                notification('Вы успешно вышли из аккаунта', 2);
+                GetUser();
+                if(location.pathname === '/createorder' || location.pathname === '/cabinet'){
+                    location.href = '/';
+                }
+            }
+        })
+    }
+
 
     /* Добавление в избранное */
     function AddLikeds(product_id) {
@@ -1047,7 +1092,7 @@
                 console.log('GetCode', msg);
                 if (msg['status'] === 'ok') {
                     password_user_auth.style.display = 'block';
-                    if(password_user_auth.value.length < 6){
+                    if (password_user_auth.value.length < 6) {
                         authorize_user.classList.add('blur');
                     }
                     password_user_auth.oninput = function (e) {
@@ -1071,8 +1116,6 @@
             }
         })
     }
-
-
 
 
 </script>

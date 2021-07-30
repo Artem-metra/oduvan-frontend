@@ -379,7 +379,7 @@
                 name_cat_bucket.innerText = msg['category']['name'];
                 let breadcoast = BreadCoast(category_id);
                 console.log('hleb', breadcoast);
-                place_breadcoast.innerHTML += ' / ' + `<a href="catalog?category_id=${msg['category']['parent_id']}">${breadcoast[0]}</a>` + ' / ' + `<span style="font-weight: 600; text-transform: uppercase">${msg['category']['name']}</span>` + ' / ' +
+                place_breadcoast.innerHTML += ' / ' + `<a href="/catalog?category_id=${msg['category']['parent_id']}">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${msg['category']['parent_id']}&sub_category=${msg['category']['id']}">${msg['category']['name']}</a>` + ' / ' +
                     `<a href="/product?id=${id}" class="active_page">${name}</a>`;
             }
         })

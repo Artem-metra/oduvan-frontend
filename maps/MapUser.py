@@ -177,3 +177,4 @@ def logout():
             session.pop(key)
         session.modified = True
         return utils.getAnswer('')
+
