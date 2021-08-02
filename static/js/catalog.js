@@ -410,7 +410,7 @@ appear_about_pressing.style.display = 'none';
 sorted_select_items_list.style.display = 'none';
 filter_place.onclick = function (){
     let display = appear_about_pressing.style.display;
-    if(display == 'none'){
+    if(display === 'none'){
         appear_about_pressing.style.display = 'block';
         my_class_img.style.transform = 'rotate(180deg)';
         my_class_img.style.transition = 'transform .3s';

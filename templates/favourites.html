@@ -16,13 +16,13 @@
     </div>
 </div>
 
-<!-- В корзине пусто -->
+<!-- В избранном пусто -->
 <div class="basket_place" id="basket_place" style="min-height: 63vh;display: none;">
     <div class="empty_basket" id="empty_basket_createorder">
-        <div class="empty_basket_info" style="padding-top: 20%">
-            <div class="name_buckets">
+        <div class="empty_basket_info">
+            <div class="name_buckets" style="color: #F54343; margin-top: 20px;">
                 В избранном нет товаров!
-                <a class="all_catalog_href" href="/catalog?category_id=1">
+                <a class="all_catalog_href" href="/catalog?category_id=1" style="margin: 0 auto; width: 90%; height: 100px; font-size: 46px; margin-top: 40px;">
                     Перейти в каталог
                 </a>
             </div>
@@ -104,10 +104,14 @@
             url: '/api/user/list_likes',
             type: "GET",
             success: function (msg) {
-                console.log('Favorites', msg);
-                if (msg['message']['products'].length === 0) {
+                if (msg['status'] === 'error') {
                     basket_place.style.display = 'block';
-                    catalog.style.display = 'block';
+                    catalog.style.display = 'none';
+                    empty_basket_createorder.style.display = 'block';
+                } else if (msg['message']['products'].length === 0) {
+                    basket_place.style.display = 'block';
+                    empty_basket_createorder.style.display = 'block';
+                    catalog.style.display = 'none';
                 } else {
                     for (let i = 0; i < msg['message']['products'].length; i++) {
                         console.log(msg['message']['products'][i] !== null);
@@ -116,6 +120,7 @@
                             drawProducts(msg['message']['products'][i]);
                         }
                     }
+
                 }
             }
         })
@@ -129,6 +134,8 @@
         box.style.height = '510px'
         document.getElementById('favorites_place').append(box);
     }
+
+
 
 
 </script>
