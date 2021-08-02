@@ -1490,6 +1490,72 @@ input[type="checkbox"] {
     z-index: 10;
 }
 
+#all_text_one{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translate(0, -14px);
+    opacity: 0;
+    transition: all .4s;
+    z-index: -10;
+}
+
+
+#all_text_one._active{
+    position: relative;
+    transform: translate(0, 10px);
+    opacity: 1;
+    transition: all .4s;
+    z-index: 10;
+    padding-bottom: 10px;
+}
+
+
+
+#all_text_two{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translate(0, -14px);
+    opacity: 0;
+    transition: all .4s;
+    z-index: -10;
+}
+
+
+#all_text_two._active{
+    position: relative;
+    transform: translate(0, 10px);
+    opacity: 1;
+    transition: all .4s;
+    z-index: 10;
+    padding-bottom: 10px;
+}
+
+.flex_for_explanations_product .fa-chevron-down {
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform .2s;
+}
+
+#chevron_list_one._active {
+    transform: rotate(180deg);
+    transition: transform .2s;
+}
+
+#chevron_list_two._active {
+    transform: rotate(180deg);
+    transition: transform .2s;
+}
+
+
+
+
+
+
+
 #choose_delivery_list .catalog_flex {
     border-bottom: 0;
     padding: 0;
@@ -1540,6 +1606,7 @@ input[type="checkbox"] {
     padding-top: 50px;
     transition: padding-top .3s;
 }
+
 
 .basket_item {
     width: 100%;
@@ -2460,9 +2527,16 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 
+/*====== Оплата ========*/
 
+.payment_item{
+    margin-bottom: 5px;
+}
+/*====== Свадебная флористика ========*/
 
-
+.wedding_item{
+    margin-bottom: 5px;
+}
 
 
 

@@ -2802,5 +2802,73 @@ pagination_place {
 }
 
 
+#all_text_one{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translate(0, -14px);
+    opacity: 0;
+    transition: all .4s;
+    z-index: -10;
+}
+
+
+#all_text_one._active{
+    position: relative;
+    transform: translate(0, 10px);
+    opacity: 1;
+    transition: all .4s;
+    z-index: 10;
+    padding-bottom: 10px;
+}
+
+
+
+#all_text_two{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translate(0, -14px);
+    opacity: 0;
+    transition: all .4s;
+    z-index: -10;
+}
+
+
+#all_text_two._active{
+    position: relative;
+    transform: translate(0, 10px);
+    opacity: 1;
+    transition: all .4s;
+    z-index: 10;
+    padding-bottom: 10px;
+}
+
+
+/*====== Оплата ========*/
+
+.payment_item{
+    margin-bottom: 15px;
+}
+
+/*====== Свадебная флористика ========*/
+
+.wedding_item{
+    margin-bottom: 25px;
+    list-style-type: circle;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
