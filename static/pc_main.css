@@ -1078,7 +1078,7 @@ input[type="checkbox"] {
 }
 
 .item_num {
-    background: #F877AD;
+    /*background: #F877AD;*/
     border-radius: 50%;
     width: 70px;
     height: 70px;
@@ -1090,7 +1090,7 @@ input[type="checkbox"] {
 .question_place {
     position: absolute;
     top: 0;
-    right: -5px;
+    left: -5px;
     width: 21px;
     height: 21px;
     background: #293048;
@@ -1098,6 +1098,12 @@ input[type="checkbox"] {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.line_bottom{
+    position: absolute;
+    top: 177px;
+    left: 215px;
 }
 
 .question_place .fa-question {

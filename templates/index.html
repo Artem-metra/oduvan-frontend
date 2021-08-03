@@ -108,7 +108,7 @@
 <div class="catalog" style="background: rgba(41, 48, 72, 0.1);">
     <div class="container">
         <h2 class="catalog_zag" style="margin-bottom: 40px">Скидки</h2>
-        <div id="swiper_place">
+        <div id="swiper_place_disk">
             <div class="row rw m-t-16 generelSlide" id="disc_swiper_place">
                 <!-- Slider Banners -->
                 <div class="col-xs-12">
@@ -190,12 +190,13 @@
     <div class="container" style="text-align: center">
         <h3 class="catalog_zag" style="padding-bottom: 25px;">Почему мы</h3>
         <div class="why_me_flex">
-            <div class="why_me_flex_item">
+
+            <div class="why_me_flex_item" style="position: relative">
                 <div class="item_num">
                     <div class="question_place">
                         <span class="fa fa-question"></span>
                     </div>
-                    1
+                    <img src="../static/img/bouquet.svg" style="width: 150px; height: auto;" alt="Букет"/>
                 </div>
                 <div class="item_zag">
                     Заказ
@@ -203,13 +204,15 @@
                 <div class="sub_zag">
                     Выберите букет из каталога и оформите заказ
                 </div>
+                <img src="../static/img/lineleft_mob.svg" style="position: absolute; top: 50px; left: -25px; width: 106px;"/>
             </div>
-            <div class="why_me_flex_item">
+
+            <div class="why_me_flex_item" style="position: relative">
                 <div class="item_num">
                     <div class="question_place">
                         <span class="fa fa-question"></span>
                     </div>
-                    2
+                    <img src="../static/img/structural.svg" style="width: 150px; height: auto;" alt="Струкртура"/>
                 </div>
                 <div class="item_zag">
                     Детали
@@ -217,13 +220,15 @@
                 <div class="sub_zag">
                     Мы перезвоним в течение 15 минут и уточним детали
                 </div>
+                <img src="../static/img/lineright_mob.svg" style="position: absolute; top: 50px; right: -25px; width: 106px;"/>
             </div>
-            <div class="why_me_flex_item">
+
+            <div class="why_me_flex_item" style="position: relative">
                 <div class="item_num">
                     <div class="question_place">
                         <span class="fa fa-question"></span>
                     </div>
-                    3
+                     <img src="../static/img/payment.svg" style="width: 150px; height: auto;" alt="Оплата"/>
                 </div>
                 <div class="item_zag">
                     Оплата
@@ -231,13 +236,15 @@
                 <div class="sub_zag">
                     Оплатите заказ онлайн или при получении
                 </div>
+                <img src="../static/img/lineleft_mob.svg" style="position: absolute; top: 50px; left: -25px; width: 106px;"/>
             </div>
-            <div class="why_me_flex_item">
+
+            <div class="why_me_flex_item" style="position: relative">
                 <div class="item_num">
                     <div class="question_place">
                         <span class="fa fa-question"></span>
                     </div>
-                    4
+                    <img src="../static/img/assemblywomen.svg" style="width: 150px; height: auto;" alt="Сборка"/>
                 </div>
                 <div class="item_zag">
                     Сборка
@@ -245,13 +252,15 @@
                 <div class="sub_zag">
                     Учтем пожелания и соберем идельный букет
                 </div>
+                <img src="../static/img/lineright_mob.svg" style="position: absolute; top: 50px; right: -25px; width: 106px;"/>
             </div>
+
             <div class="why_me_flex_item">
                 <div class="item_num">
                     <div class="question_place">
                         <span class="fa fa-question"></span>
                     </div>
-                    5
+                    <img src="../static/img/deliverycar.svg" style="width: 150px; height: auto;" alt="Доставка"/>
                 </div>
                 <div class="item_zag">
                     Доставка
@@ -260,6 +269,7 @@
                     Курьер позвонит за 1 час и привезет вовремя
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -447,6 +457,7 @@
                 delay: 5000,
                 disableOnInteraction: false
             },
+            resistance: true,
             // parallax: {
             //     enabled: true
             // },

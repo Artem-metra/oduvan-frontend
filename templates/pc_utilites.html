@@ -565,11 +565,9 @@
                     inputs[i].classList.add('error');
                 }
             }
-            notification('Заполните все поля!', 1);
-            return;
+            return notification('Заполните все поля!', 1);
         } else if (phone_user_auth.value !== registration_number) {
-            notification('Номера не совпадают!', 1);
-            return;
+            return notification('Номера не совпадают!', 1);
         } else {
             let data = {
                 'phone': phone_user_auth.value,
@@ -581,8 +579,8 @@
                 data: data,
                 success: function (msg) {
                     if (msg['status'] === 'error') {
-                        notification('Код введён неверно!', 1);
-                        return;
+                        return notification('Код введён неверно!', 1);
+
                     } else {
                         notification('Вы успешно авторизованы!', 2);
                         GetUser();

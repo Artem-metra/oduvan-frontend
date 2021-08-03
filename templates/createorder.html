@@ -280,7 +280,7 @@
 
                     <div class="all_catalog_href" id="oformit_zakaz"
                          style="float: none;width:100%;height:90px;justify-content: space-between;padding:0 10px">
-                        <div class="pereiti_k_oform">Подтвердить заказ</div>
+                        <div class="pereiti_k_oform" id="pereiti_k_oform">Подтвердить заказ</div>
                         <div class="catalog_flex_catalog" style="align-items: center;width: auto">
                             <div class="disc_price_bucket final_dics_price" style="margin-right: 15px; display: block;">
                                 9000 ₽
@@ -288,6 +288,7 @@
                             <div class="price final_price">10000 ₽</div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -298,6 +299,7 @@
 {% include 'utilites.html' %}
 
 <script>
+
     // Переменные для запроса об отправке заявки
     let shop_id = 0;
     let payment_type = 0;
@@ -395,6 +397,7 @@
     }
 
 
+
     drawUserInfo();
     function drawUserInfo() {
         name_user.value = user['name'] + ' ' + user['surname'];
@@ -428,6 +431,8 @@
             }
         }
     }
+
+
 
 
 
@@ -471,6 +476,10 @@
     }
 
 
+
+
+
+
    // Загрузка магазинов
     function loadShops() {
         $.ajax({
@@ -512,6 +521,9 @@
     //     }
     // }
 
+
+
+
      $('#address_user').suggestions({
         token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
         type: "ADDRESS",
@@ -525,6 +537,7 @@
             // address_data = suggestion['value'];
         }
     })
+
 
 
        // Отрисовка товаров
@@ -620,17 +633,18 @@
         }
     }
 
-    function removeItemAll(arr, value) {
-        var i = 0;
-        while (i < arr.length) {
-            if (arr[i] === value) {
-                arr.splice(i, 1);
-            } else {
-                ++i;
-            }
-        }
-        return arr;
-    }
+    // function removeItemAll(arr, value) {
+    //     var i = 0;
+    //     while (i < arr.length) {
+    //         if (arr[i] === value) {
+    //             arr.splice(i, 1);
+    //         } else {
+    //             ++i;
+    //         }
+    //     }
+    //     return arr;
+    // }
+
 
 
    // Функция проверки промокода
@@ -653,12 +667,14 @@
         })
     }
 
+
     // При нажатии на кнопку "Оформить заказ" вызываем функцию
-    oformit_zakaz.onclick = function () {
+    pereiti_k_oform.onclick = function () {
+        console.log('hello');
         placeOrder();
     }
 
-   // Проверки перед заказом
+    // Проверки перед заказом
     function placeOrder() {
         // Если чекбокс "Отправить другому человеку" checked, то проверяем все ли поля получателя заполнены
         if (get_other_people.checked) {
@@ -693,7 +709,7 @@
         createDeal();
     }
 
-  // Функция оформления заказа отправляется в банк
+    // Функция оформления заказа отправляется в банк
     function createDeal() {
         let data = {
             'shop_id': shop_id,
@@ -711,9 +727,8 @@
     }
 
 
+
+
 </script>
-
-
 </body>
-
 </html>
