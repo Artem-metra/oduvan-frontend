@@ -194,10 +194,10 @@ function loadFlowers() {
         success: function (msg) {
             console.log(msg);
             drawFlowers(msg['message']);
-            // Хлебные крошки
-            let breadcoast = BreadCoast(id);
-            console.log(breadcoast);
-            place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
+            // // Хлебные крошки
+            // let breadcoast = BreadCoast(id);
+            // console.log(breadcoast);
+            // place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
         }
     })
 }
@@ -410,7 +410,7 @@ appear_about_pressing.style.display = 'none';
 sorted_select_items_list.style.display = 'none';
 filter_place.onclick = function (){
     let display = appear_about_pressing.style.display;
-    if(display == 'none'){
+    if(display === 'none'){
         appear_about_pressing.style.display = 'block';
         my_class_img.style.transform = 'rotate(180deg)';
         my_class_img.style.transition = 'transform .3s';

@@ -24,7 +24,7 @@
                 </div>
             </div>
             <!-- Главная картинка -->
-            <div class="main_pictures_product_place">
+            <div class="main_pictures_product_place" id="main_pictures_product_place">
                 <div class="big_product_card">
                     <div class="small_product_place">
                         <img src="../static/img/slider_img.png" class="small_product_img" id="main_photo">
@@ -33,18 +33,29 @@
 
                 <div class="flex_for_explanations_product">
                     <div class="explanations_product">Инструкция свежести</div>
-                    <span class="fa fa-chevron-down"></span>
+                    <span class="fa fa-chevron-down" id="chevron_list_one"></span>
+                </div>
+                <div id="all_text_one" class="all_text">
+                    Поместите букет в вазу, Поставьте вазу в прохладном месте без сквозняка, вдали от прямых солнечных лучей и фруктов.
+                    Ежедневно мойте вазу, обновляйте воду и подрезайте стебли.
+                    Наслаждайтесь своим букетом. Покажите его друзьям в инстаграм и не забудьте отметить нас @одуван.
                 </div>
                 <div class="razdelitel_indicator"></div>
 
                 <div class="flex_for_explanations_product">
                     <div class="explanations_product">Подробнее о доставке</div>
-                    <span class="fa fa-chevron-down"></span>
+                    <span class="fa fa-chevron-down"  id="chevron_list_two"></span>
                 </div>
+                <div id="all_text_two" class="all_text">
+                    Поместите букет в вазу, Поставьте вазу в прохладном месте без сквозняка, вдали от прямых солнечных лучей и фруктов.
+                    Ежедневно мойте вазу, обновляйте воду и подрезайте стебли.
+                    Наслаждайтесь своим букетом. Покажите его друзьям в инстаграм и не забудьте отметить нас @одуван.
+                </div>
+
                 <div class="razdelitel_indicator"></div>
             </div>
             <!-- Описание товара -->
-            <div class="description_product_place">
+            <div class="description_product_place" id="description_product_place">
                 <strong class="bucket_na_zakaz" id="name_cat_bucket">Монобукет</strong>
                 <div class="name_buckets" id="name_bucket" style="padding-top:8px">"Индиго"</div>
                 <div class="disc_price_bucket" id="disc_price_bucket"
@@ -290,6 +301,19 @@
         }
         height_product.innerText += ' ' + msg['product']['height'] + ' см';
         diameter_product.innerText += ' ' + msg['product']['diameter'] + ' см';
+
+
+
+        chevron_list_one.onclick = function (){
+            actionList(all_text_one);
+            positionArrow(chevron_list_one)
+        }
+
+
+        chevron_list_two.onclick = function(){
+            actionList(all_text_two);
+            positionArrow(chevron_list_two)
+        }
     }
 
 
@@ -379,10 +403,30 @@
                 name_cat_bucket.innerText = msg['category']['name'];
                 let breadcoast = BreadCoast(category_id);
                 console.log('hleb', breadcoast);
-                place_breadcoast.innerHTML += ' / ' + `<a href="catalog?category_id=${msg['category']['parent_id']}">${breadcoast[0]}</a>` + ' / ' + `<span style="font-weight: 600; text-transform: uppercase">${msg['category']['name']}</span>` + ' / ' +
+                place_breadcoast.innerHTML += ' / ' + `<a href="/catalog?category_id=${msg['category']['parent_id']}">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${msg['category']['parent_id']}&sub_category=${msg['category']['id']}">${msg['category']['name']}</a>` + ' / ' +
                     `<a href="/product?id=${id}" class="active_page">${name}</a>`;
             }
         })
+    }
+
+
+
+    function actionList(place) {
+        if(place.classList.contains('_active')){
+            place.classList.remove('_active');
+        }else {
+            place.classList.add('_active');
+        }
+    }
+
+    function positionArrow(position){
+        if(position.style.transform === 'rotate(180deg)'){
+            position.style.transform = 'rotate(0deg)';
+            position.style.transition = 'transform .3s';
+        }else {
+            position.style.transform = 'rotate(180deg)';
+            position.style.transition = 'transform .3s';
+        }
     }
 
 

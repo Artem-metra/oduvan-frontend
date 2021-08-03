@@ -169,7 +169,7 @@
             <!-- Если история заказов пуста -->
             <div class="basket_place" id="basket_place" style="min-height: 63vh;display: none;">
                 <div class="empty_basket" id="empty_basket_createorder">
-                    <div class="empty_basket_info" style="padding-top: 20%">
+                    <div class="empty_basket_info">
                         <div class="name_buckets">
                             Вы ещё ничего не заказывали!
                             <a class="all_catalog_href" href="/catalog?category_id=1">
@@ -491,7 +491,7 @@
 
     }
 
-    // функция удаления адреса
+    // функция добавления адреса
     function addAddress(name, address) {
         if (address === '') {
             notification('Укажите точный адрес', 1);

@@ -31,14 +31,24 @@
                 </div>
 
                 <div class="flex_for_explanations_product">
-                    <div class="explanations_product">Инструкция свежести</div>
-                    <span class="fa fa-chevron-down"></span>
+                    <div class="explanations_product" style="font-size: 48px">Инструкция свежести</div>
+                    <span class="fa fa-chevron-down" style="font-size: 34px" id="chevron_list_one"></span>
+                </div>
+                <div id="all_text_one" class="all_text" style="font-size: 11px">
+                    Поместите букет в вазу, Поставьте вазу в прохладном месте без сквозняка, вдали от прямых солнечных лучей и фруктов.
+                    Ежедневно мойте вазу, обновляйте воду и подрезайте стебли.
+                    Наслаждайтесь своим букетом. Покажите его друзьям в инстаграм и не забудьте отметить нас @одуван.
                 </div>
                 <div class="razdelitel_indicator"></div>
 
                 <div class="flex_for_explanations_product">
-                    <div class="explanations_product">Подробнее о доставке</div>
-                    <span class="fa fa-chevron-down"></span>
+                    <div class="explanations_product" style="font-size: 48px">Подробнее о доставке</div>
+                    <span class="fa fa-chevron-down" style="font-size: 34px"  id="chevron_list_two"></span>
+                </div>
+                <div id="all_text_two" class="all_text" style="font-size: 11px">
+                    Поместите букет в вазу, Поставьте вазу в прохладном месте без сквозняка, вдали от прямых солнечных лучей и фруктов.
+                    Ежедневно мойте вазу, обновляйте воду и подрезайте стебли.
+                    Наслаждайтесь своим букетом. Покажите его друзьям в инстаграм и не забудьте отметить нас @одуван.
                 </div>
                 <div class="razdelitel_indicator"></div>
             </div>
@@ -152,7 +162,7 @@
 <script>
 
 
-      let id = {{id}};
+    let id = {{id}};
     let name = '';
     let category_id = 0;
 
@@ -178,6 +188,7 @@
 
 
     /* Отрисовать продукт */
+     /* Отрисовать продукт */
     function drawProduct(msg) {
         console.log(msg);
         description_product.innerText = msg['product']['description'];
@@ -283,6 +294,19 @@
         }
         height_product.innerText += ' ' + msg['product']['height'] + ' см';
         diameter_product.innerText += ' ' + msg['product']['diameter'] + ' см';
+
+
+
+        chevron_list_one.onclick = function (){
+            actionList(all_text_one);
+            positionArrow(chevron_list_one)
+        }
+
+
+        chevron_list_two.onclick = function(){
+            actionList(all_text_two);
+            positionArrow(chevron_list_two)
+        }
     }
 
 
@@ -385,6 +409,25 @@
                     `<a href="/product?id=${id}" class="active_page">${name}</a>`;
             }
         })
+    }
+
+
+    function actionList(place) {
+        if(place.classList.contains('_active')){
+            place.classList.remove('_active');
+        }else {
+            place.classList.add('_active');
+        }
+    }
+
+    function positionArrow(position){
+        if(position.style.transform === 'rotate(180deg)'){
+            position.style.transform = 'rotate(0deg)';
+            position.style.transition = 'transform .3s';
+        }else {
+            position.style.transform = 'rotate(180deg)';
+            position.style.transition = 'transform .3s';
+        }
     }
 
 

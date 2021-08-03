@@ -12,7 +12,19 @@
         <div class="place_breadcoast">
             <a href="/">Главная</a> / <a href="/createorder" class="active_page">Оформление заказа</a>
         </div>
-
+         <!-- В корзине пусто -->
+        <div class="basket_place" id="basket_place" style="min-height: 90vh;display: none;">
+            <div class="empty_basket" id="empty_basket_createorder">
+                <div class="empty_basket_info">
+                    <div class="name_buckets" style="color: #F54343">
+                        В корзине пусто!
+                        <a class="all_catalog_href" href="/catalog?category_id=1" style="width: 80%; margin: 70px auto;">
+                            Перейти в каталог
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="catalog_flex createorder" style="display: block">
             <div class="requisites_place">
                 <div class="name_buckets">
@@ -24,7 +36,34 @@
                 <input class="popup_input" type="text" placeholder="Адрес куда доставить" id="address_user">
 
                 <div id="addresses_place">
+                    <div class="add_address add_address_order" id="address_item"
+                         style="display: none;height: auto;min-height: 300px;">
+                        <div class="data_address address_info">
 
+                            <div class="catalog_flex info">
+                                <div class="address_info_zag">
+                                    Название:
+                                </div>
+                                <div class="address_info_zag name_address_user">
+                                    г.Воронеж, ул.Урыского, 2В
+                                </div>
+                            </div>
+                            <div class="catalog_flex info">
+                                <div class="address_info_zag">
+                                    Адрес:
+                                </div>
+                                <div class="address_info_zag address_address_user" style="width: 65%">
+                                    г.Воронеж, ул.Урыского, 2В
+                                </div>
+                            </div>
+                            <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0;">
+                                <div class="all_catalog_href choose_address">
+                                    Выбрать
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
                 <div class="checkbox" id="get_other_people_place" style="margin-left:5px;">
                     <input type="checkbox" id="get_other_people"
@@ -264,7 +303,7 @@
     let payment_type = 0;
     let address = '';
     let additionally = []; // Текс комментария, текст открытки, переноска, аквапак
-    // let purchase_type = 0;
+    let purchase_type = 0;
     let date_delivery_come = '00:00';
 
 
@@ -356,20 +395,48 @@
     }
 
 
-    // РЕЖИМ РАБОТЫ С 8:00 ДО 20:00
+    drawUserInfo();
+    function drawUserInfo() {
+        name_user.value = user['name'] + ' ' + user['surname'];
+        phone_user.value = '+7' + user['phone'];
+        email_user.value = user['email'];
+        loadBasketOrder();
+        if (user['addresses'].length > 0 && purchase_type !== 1) {
+            addresses_place.style.display = 'block';
+            for (let i = 0; i < user['addresses'].length; i++) {
+                let address = address_item.cloneNode(true);
+                address.id = '';
+                address.style.display = 'inline-block';
+                let name = address.getElementsByClassName('name_address_user')[0];
+                let address_user_add = address.getElementsByClassName('address_address_user')[0];
+                let choose = address.getElementsByClassName('choose_address')[0];
+
+                name.innerText = user['addresses'][i]['name'];
+                address_user_add.innerText = user['addresses'][i]['address'];
+                choose.onclick = function () {
+                    address_user.value = user['addresses'][i]['address'];
+                }
+                if (user['addresses'].length === 1) {
+                    address.style.width = '100%';
+                    address.style.minHeight = '250px';
+                } else if (user['addresses'].length === 2) {
+                    address.style.width = '49.25%';
+                } else {
+                    address.style.width = '32.3%';
+                }
+                addresses_place.append(address);
+            }
+        }
+    }
 
 
-    // Подгрузка товаров для оформления заказа
-    // Подгрузка товаров для оформления заказа
+
+     // Подгрузка товаров для оформления заказа
     function loadBasketOrder() {
         $.ajax({
             url: '/api/basket/get_by_basket_id',
             type: 'GET',
             success: function (msg) {
-                name_user.value = user['name'] + ' ' + user['surname'];
-                phone_user.value = '+7' + user['phone'];
-                email_user.value = user['email'];
-                loadBasketOrder();
                 console.log('Корзина в оформлении заказа', msg)
                 purchase_type = msg['message']['basket']['purchase_type'];
                 if (purchase_type === 1) {
@@ -404,28 +471,26 @@
     }
 
 
+   // Загрузка магазинов
     function loadShops() {
         $.ajax({
             url: '/api/shops/get',
             type: "GET",
             success: function (msg) {
-                console.log(msg);
+                console.log('LoadShops', msg);
                 $('.delete_shop').remove();
                 // Если пользователь не выбрал магазин для доставки, то при ончейндж селекта, еррор пропадает
-                select_shops.onchange = function () {
-                    select_shops.classList.remove('error');
-                }
                 for (let i = 0; i < msg['message']['shops'].length; i++) {
                     let option = document.createElement('option');
                     option.value = msg['message']['shops'][i]['id'];
                     option.className = 'delete_shop';
-                    option.innerText = msg['message']['shops'][i]['name'];
-                    option.style.fontSize = '16px'
+                    option.innerText = msg['message']['shops'][i]['address'];
                     select_shops.append(option);
                 }
                 select_shops.style.display = 'block';
                 select_shops.onchange = function () {
                     shop_id = select_shops.value;
+                    select_shops.classList.remove('error');
                 }
             }
         })
@@ -447,7 +512,7 @@
     //     }
     // }
 
-    $('#address_user').suggestions({
+     $('#address_user').suggestions({
         token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
         type: "ADDRESS",
         /* Вызывается, когда пользователь выбирает одну из подсказок */
@@ -462,8 +527,9 @@
     })
 
 
-    // Отрисовка товаров
+       // Отрисовка товаров
     function drawBasketOrder(products) {
+        console.log(products, basket_id);
         for (let i = 0; i < products.length; i++) {
             let box = createProductBasket(products[i]);
             box.style.display = 'block';
@@ -538,8 +604,6 @@
                 additionally[3] = 0;
             }
         }
-
-
         comment_order.onchange = function () {
             if (comment_order.value === '') {
                 additionally[0] = '';
@@ -554,24 +618,6 @@
                 additionally[1] = text_order.value;
             }
         }
-
-        // // Добавляем в массив additionally при onchange
-        // let add_inputs = document.getElementsByClassName('additionally_input');
-        // for (let i = 0; i < add_inputs.length; i++) {
-        //     add_inputs[i].onchange = function () {
-        //         if (add_inputs[i].checked) {
-        //             additionally.push(Number(add_inputs[i].value));
-        //         } else {
-        //             additionally = removeItemAll(additionally, Number(add_inputs[i].value));
-        //         }
-        //         if (add_inputs[i].value === '') {
-        //             additionally.push(add_inputs[i].value);
-        //         } else {
-        //             additionally = removeItemAll(additionally, add_inputs[i].value);
-        //         }
-        //         console.log(additionally);
-        //     }
-        // }
     }
 
     function removeItemAll(arr, value) {
@@ -587,22 +633,22 @@
     }
 
 
-    // Функция проверки промокода
+   // Функция проверки промокода
     function checkPromoCode() {
         let data = {
             'promo_code': promo_code_code.value,
         }
         $.ajax({
-            url: '/api/promo_code/get_promo_code',
+            url: '/api/promo_code/accept_promo_code',
             type: "GET",
             data: data,
             success: function (msg) {
                 if (msg['status'] === 'error') {
                     notification('Такого промокода не существует', 1);
                 } else {
+                    loadBasketOrder();
                     notification('Промокод успешно использован', 2);
                 }
-                console.log(msg);
             }
         })
     }
@@ -612,7 +658,7 @@
         placeOrder();
     }
 
-    // Проверки перед заказом
+   // Проверки перед заказом
     function placeOrder() {
         // Если чекбокс "Отправить другому человеку" checked, то проверяем все ли поля получателя заполнены
         if (get_other_people.checked) {
@@ -625,7 +671,6 @@
                             notification('Заполните обязательные поля', 1);
                         }
                     }
-
                 }
             }
             return;
@@ -644,13 +689,11 @@
             address_user.classList.add('error');
             return;
         }
-        if (day_now === data_value) {
 
-        }
         createDeal();
     }
 
-    // Функция оформления заказа отправляется в банк
+  // Функция оформления заказа отправляется в банк
     function createDeal() {
         let data = {
             'shop_id': shop_id,

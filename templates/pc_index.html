@@ -120,7 +120,7 @@
 
     <!-- Слайдер -->
     <div id="swiper_place" style="display: none">
-        <div class="row rw m-t-16" id="slider_place" style="display: none">
+        <div class="row rw m-t-16 generelSlide" id="pop_slider_place" style="display: none">
             <!-- Slider Banners -->
             <div class="col-xs-12" style="position: relative">
                 <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>
@@ -222,6 +222,100 @@
             </div>
         </div>
     </div>
+</div>
+
+
+
+<!-- Скидки -->
+<div class="catalog" style="background: rgba(41, 48, 72, 0.1);">
+    <div class="container">
+        <div class="catalog_flex">
+            <h2 class="catalog_zag">Скидки</h2>
+            <a class="all_catalog_href href_catalog" href="/catalog?category_id=1">
+                Все скидки
+            </a>
+        </div>
+    </div>
+
+    <!-- Слайдер -->
+    <div id="disc_swiper_place" style="display: none">
+        <div class="row rw m-t-16 generelSlide" id="disc_slider_place" style="display: none">
+            <!-- Slider Banners -->
+            <div class="col-xs-12" style="position: relative">
+                <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>
+                <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>
+                <div class="container">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper"></div>
+
+                        <!--                        <div class="pagination_place">-->
+                        <!--                            <div class="swiper-pagination" style="position:static"></div>-->
+                        <!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Карточка товара -->
+    <div class="card_product" id="card_product" style="display: none;">
+        <div class="right_nav_place">
+            <div class="right_nav_item">
+
+            </div>
+        </div>
+        <div class="discount_place">
+            <div class="percent_place">
+                <span class="fa fa-percent"></span>
+            </div>
+            <div class="discount_text">
+                20% скидка
+            </div>
+        </div>
+        <a class="slider_item_card_img_place" href="">
+            <img src="../static/img/catalog_img.png" class="slider_img">
+        </a>
+        <div class="name_and_price">
+            <div class="catalog_flex" style="padding-bottom: 0px;">
+                <div class="slider_name_bucket">Букет "Индиго"</div>
+                <div class="price_basket slider_name_bucket" style="display: none;"></div>
+            </div>
+            <div class="catalog_flex_catalog for_basket"
+                 style="align-items: center;justify-content: space-between;padding: 0 15px;">
+                <div>
+                    <div class="price">
+                        5400 Р
+                    </div>
+                    <div class="disc_price_bucket">
+                        2 600 Р
+                    </div>
+                </div>
+                <div class="add_to_basket_card">
+                    <span class="fas fa-shopping-bag"></span>
+                </div>
+            </div>
+            <div class="price_hover">
+                <div>
+                    В корзину
+                </div>
+                <div class="price_hover_price">
+                    5 400 ₽
+                </div>
+            </div>
+            <div class="added_product" style="display: none">
+                <div class="fa fa-minus minus_counter"></div>
+                <div>
+                    В корзине: <input type="number" class="product_counter_inp"/>
+                </div>
+                <div>
+                    <div class="fa fa-plus plus_counter"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 
@@ -423,7 +517,7 @@
                 </div>
                 <div class="info_pered_footer">
                     <div style="width:50%">
-                        <img src="../static/img/img_pered_footer.png" class="info_pered_footer_img">
+                        <img src="../static/img/img_pered_footer2.png" class="info_pered_footer_img">
                     </div>
                     <div class="info_pered_footer_text">
                         <div class="blog_item_text_zag">
@@ -440,7 +534,7 @@
             <div class="info_pered_footer_ryad">
                 <div class="info_pered_footer">
                     <div style="width:50%">
-                        <img src="../static/img/img_pered_footer.png" class="info_pered_footer_img">
+                        <img src="../static/img/img_pered_footer3.png" class="info_pered_footer_img">
                     </div>
                     <div class="info_pered_footer_text">
                         <div class="blog_item_text_zag">
@@ -509,7 +603,6 @@
             name_cat.innerText = categories[i]['parent_name'];
             name_buckets.innerText = categories[i]['name'];
             href.href = `/catalog?category_id=${categories[i]['parent_id']}&sub_category=${categories[i]['id']}`;
-            main_cat_img.src = '';
             box.style.display = 'inline-block';
             card_on_main.append(box);
         }
@@ -541,13 +634,35 @@
             data: JSON.stringify(data),
             success: function (msg) {
                 console.log('loadProducts', msg);
-                createSlider(msg['message']['products']);
+                createSlider(msg['message']['products'], 'swiper_place');
             }
         });
     }
 
-    function createSlider(products) {
-        let box = slider_place.cloneNode(true);
+    loadDiscProduct();
+
+    function loadDiscProduct() {
+         $('.delete_card').remove();
+        let data = {
+            'sorted_type': 4,
+            'page_count': 16,
+        }
+        $.ajax({
+            url: '/site/products/smart',
+            type: 'POST',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            success: function (msg) {
+                console.log('loadProducts', msg);
+                createSlider(msg['message']['products'], 'disc_swiper_place');
+            }
+        });
+    }
+
+    function createSlider(products, place) {
+        let generalBox = document.getElementsByClassName('generelSlide')[0];
+        let box = generalBox.cloneNode(true);
         box.id = '';
         box.style.display = 'block';
         let swiper = box.getElementsByClassName('swiper-container')[0];
@@ -590,7 +705,8 @@
             swiper_slide.append(slider);
             wrapper.append(swiper_slide);
             swiper_place.style.display = 'block';
-            document.getElementById('swiper_place').append(box);
+            disc_swiper_place.style.display = 'block';
+            document.getElementById(place).append(box);
         }
     }
 
