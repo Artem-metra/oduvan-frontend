@@ -40,7 +40,7 @@
                             <a href="" class="go_to_cat">Выбрать <span style="margin-left: 20px" class="fa fa-chevron-right"></span></a>
                         </div>
                     </div>
-                    <img src="../static/img/big_img_main.png" class="main_cat_img">
+                    <img src="../static/img/big_img_main.png" class="main_cat_img" style="position: absolute; right: 0; top: 215px; z-index: 1">
                 </div>
             </div>
         </div>
@@ -409,7 +409,7 @@
             name_cat.innerText = categories[i]['parent_name'];
             name_buckets.innerText = categories[i]['name'];
             href.href = `/catalog?category_id=${categories[i]['parent_id']}&sub_category=${categories[i]['id']}`;
-            main_cat_img.src = '';
+            main_cat_img.src = 'http://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
             box.style.display = 'inline-block';
             card_on_main.append(box);
         }

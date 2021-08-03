@@ -90,7 +90,7 @@ function drawCategories(msg) {
             page = 1;
             sub_category = msg[i]['id'];
             place_bread.innerHTML += `<a href="/catalog?category_id=${id}&sub_category=${msg[i]['id']}" class="active_page catalog_category_card delete_subcat">
-<span style="color:#293048"> / </span>${msg[i]['name']}</a>`;
+            <span style="color:#293048"> / </span>${msg[i]['name']}</a>`;
             loadProducts();
         }
         catalog_category_place.append(category);

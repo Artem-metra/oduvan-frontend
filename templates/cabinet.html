@@ -14,7 +14,7 @@
 				<p class="head_block__title--3">Личный кабинет</p>
 			</div>
 			<h1 class="head_title">Личный кабинет</h1>
-			<p class="head_desc">Добрый день, <span id="name_user"></span>. В личном кабинете вы можете проверить ход выполнения ваших заказов, просмотреть или изменить личную информацию.</p>
+			<p class="head_desc"> В личном кабинете вы можете проверить ход выполнения ваших заказов, просмотреть или изменить личную информацию.</p>
 		</div>
     </section>
 
@@ -231,6 +231,20 @@
 <!--	</section>-->
 
     <div class="catalog_flex createorder" style="padding:0;display: none" id="personal_history">
+          <!-- Если история заказов пуста -->
+            <div class="basket_place" id="basket_place" style="min-height: 15vh;display: none;">
+                <div class="empty_basket" id="empty_basket_createorder">
+                    <div class="empty_basket_info" style="margin: 0 auto">
+                        <div class="name_buckets" style="color: #F54343; text-align: center;">
+                            Вы ещё ничего не заказывали!
+                            <a class="all_catalog_href" href="/catalog?category_id=1" style="width: 100%; height: 100px; font-size: 36px; margin-top:
+                            30px;">
+                                Перейти в каталог
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- История заказов -->
             <div class="one_order_place" id="one_order_place" style="display: none">
                 <div class="catalog_flex" style="justify-content: normal;margin-bottom:15px;">
@@ -337,24 +351,24 @@
 
 
     function DrawInfoUser() {
-        console.log(user);
-        $('.delete_address').remove();
-        name_user.innerText = user['name'];
         your_name.value = user['name'];
         your_surname.value = user['surname'];
         your_mobile.value = '+7' + user['phone'];
         your_email_address.value = user['email'];
         avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
-        day_datepicker.value = user['birthday'];
+        day_datepicker.value = user['birthday'].split(' ')[0];
         let inputs = document.getElementsByClassName('new_data');
         for (let i = 0; i < inputs.length; i++) {
             inputs[i].oninput = function () {
                 inputs[i].classList.remove('error');
             }
         }
+        save_changes.onclick = function () {
+            EditUser();
+        }
+        $('.delete_address').remove();
         // Если у пользователя уже есть адреса в ЛК, то выводим блок с адресами
         if (user['addresses'].length !== 0) {
-            console.log(user['addresses'].length);
             for (let i = 0; i < user['addresses'].length; i++) {
                 let box = address_item.cloneNode(true);
                 let inputs_ad = box.getElementsByClassName('popup_input');
@@ -381,6 +395,19 @@
                     let name_address = box.getElementsByClassName('name_address')[0];
                     address.value = user['addresses'][i]['address'];
                     name_address.value = user['addresses'][i]['name'];
+                    let address_data = '';
+                    $(address).suggestions({
+                        token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
+                        type: "ADDRESS",
+                        /* Вызывается, когда пользователь выбирает одну из подсказок */
+                        onSelect: function (suggestion) {
+                            if (Number(suggestion['data']['fias_level']) < 8) {
+                                notification('Укажите точный адрес', 1);
+                                return;
+                            }
+                            address_data = suggestion['value'];
+                        }
+                    });
                     btn_save.onclick = function () {
                         if (address.value === '' || name_address.value === '') {
                             let inputs = box.getElementsByClassName('popup_input');
@@ -394,23 +421,8 @@
                             notification('Вы ничего не поменяли', 1);
                             return;
                         }
-                        let address_data = '';
-                        $(address).suggestions({
-                            token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
-                            type: "ADDRESS",
-                            /* Вызывается, когда пользователь выбирает одну из подсказок */
-                            onSelect: function (suggestion) {
-                                if (Number(suggestion['data']['fias_level']) < 8) {
-                                    notification('Укажите точный адрес', 1);
-                                    return;
-                                }
-                                address_data = suggestion['value'];
-                            }
-                        })
-                        changeAddress(name_address.value, address.value, user['addresses'][i]['id'])
+                        changeAddress(name_address.value, address_data, user['addresses'][i]['id'])
                     }
-
-
                 }
                 btn_delete.onclick = function () {
                     deleteAddress(user['addresses'][i]['id'], user['addresses'][i]['name']);
@@ -422,7 +434,6 @@
         }
 
         // Вывод адресов или, если ещё нет адресов, то вывод блоков с возможностью добавлять адреса
-
         for (let i = 0; i < 3 - user['addresses'].length; i++) {
             let box = address_item.cloneNode(true);
             let inputs_ad = box.getElementsByClassName('popup_input');
@@ -459,11 +470,7 @@
                     }
                     address_data = suggestion['value'];
                 }
-            })
-
-            old_password.oninput = function () {
-                old_password.classList.remove('error');
-            }
+            });
 
             btn_save.onclick = function () {
                 if (name_address.value === '' || address.value === '') {
@@ -474,17 +481,12 @@
                     notification('Заполните обязательные поля', 1);
                     return;
                 }
-                address_data = address.value;
                 addAddress(name_address.value, address_data);
 
             }
             box.style.display = 'inline-block';
             address_place.append(box);
         }
-
-        // if (user['addresses'].length === 0) {
-
-
     }
 
 
@@ -527,7 +529,7 @@
     }
 
 
-    function comment_getBase64(file) {
+   function comment_getBase64(file) {
         var filename = file.name.split('.')[0];
         let type = file.type.replace('image/', '');
         let reader = new FileReader();
@@ -553,12 +555,13 @@
                     let uuid = msg['message']['avatar'];
                     console.log(uuid);
                     avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + uuid;
+                    GetUser();
                 }
             });
         };
         reader.onerror = function (error) {
         };
-    }
+   }
 
 
     // Редактировать пользователя
@@ -621,13 +624,12 @@
         }
     }
 
-    // функция добавление адреса
+     // функция добавления адреса
     function addAddress(name, address) {
         if (address === '') {
             notification('Укажите точный адрес', 1);
             return;
         }
-
         let data = {
             'id': user['id'],
             'address': address,
@@ -641,6 +643,7 @@
                 console.log(msg);
                 notification('Адрес успешно сохранён!', 2);
                 GetUser();
+                DrawInfoUser();
             }
         })
     }
@@ -648,6 +651,7 @@
 
     // функция изменения адреса
     function changeAddress(name, address, address_id) {
+        console.log('changeName', name, address, address_id);
         let data = {
             'id': user['id'],
             'name': name,
@@ -662,12 +666,13 @@
                 console.log(msg);
                 notification('Ваши данные обновлены!', 2);
                 GetUser();
+                DrawInfoUser();
             }
         })
     }
 
 
-   // Функция удаления адреса
+    // Функция удаления адреса
     function deleteAddress(address_id, add_name) {
         let data = {
             'id': user['id'],
@@ -682,23 +687,27 @@
                 console.log(msg);
                 notification('Адрес успешно удалён!', 2);
                 GetUser();
+                DrawInfoUser();
             }
         })
     }
 
+
     // Загрузка истории заказов
     function loadHistory() {
-        let data = {
-            'id': user['id'],
-        }
         $.ajax({
             url: '/api/history_deals/get_all',
-            data: data,
             type: "GET",
             success: function (msg) {
                 console.log(msg);
-                for (let i = 0; i < msg['message']['deals_list'].length; i++) {
-                    drawHistory(msg['message']['deals_list'][i]);
+                if (msg['message']['deals_list'].length === 0) {
+                    basket_place.style.display = 'block';
+                    empty_basket_createorder.style.display = 'flex';
+                } else {
+                    $('.delete_history').remove();
+                    for (let i = 0; i < msg['message']['deals_list'].length; i++) {
+                        drawHistory(msg['message']['deals_list'][i]);
+                    }
                 }
             }
 

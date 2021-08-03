@@ -4,8 +4,8 @@
         <div class="flex_menu">
             <nav class="nav">
                 <a class="nav-link" href="/catalog?category_id=1">Каталог</a>
-                <a class="nav-link" onclick="OpenPopup(ds_popup ,3)">Доставка</a>
-                <a class="nav-link">Оплата</a>
+                <a class="nav-link" href="/delivery" onclick="OpenPopup(ds_popup ,3)">Доставка</a>
+                <a class="nav-link" href="/payment">Оплата</a>
                 <a class="nav-link" href="/blog">Блог</a>
             </nav>
             <div class="logo_place">
@@ -350,15 +350,15 @@
         <div class="container">
             <div class="flex_menu">
                 <ul class="footer_list">
-                    <li>
-                        <a class="nav-link" href="">Программа лояльности</a>
-                    </li>
+{#                    <li>#}
+{#                        <a class="nav-link" href="">Программа лояльности</a>#}
+{#                    </li>#}
                     <li>
                         <a class="nav-link" href="/weddingfloristry">корпоративным клиентам</a>
                     </li>
                 </ul>
                 <ul class="footer_list">
-                    <li><a class="nav-link" href="/freshnnesinstruction">Инструкция свежести</a></li>
+                    <li><a class="nav-link" href="/freshnessinstruction">Инструкция свежести</a></li>
                     <li><a class="nav-link" href="/vacancies">Вакансии</a></li>
                 </ul>
                 <ul class="footer_list">
@@ -524,16 +524,6 @@
     }
 
 
-    // function sendCode(){
-    //     let data = {
-    //         'code': phone_user_auth.value,
-    //     }
-    //     $.ajax({
-    //
-    //
-    //     })
-    // }
-
 
     // Отправляем тип доставки (курьером или самовывоз)
     function sendBasketInfo(type) {
@@ -696,10 +686,9 @@
     }
 
     /* Удаление из избранного */
-    function DeleteLikeds(product_id, user_id) {
+    function DeleteLikeds(product_id) {
         let data = {
-            'product_id': product_id,
-            'user_id': user_id
+            'product_id': product_id
         }
         $.ajax({
             url: 'api/user/disliked',
@@ -752,7 +741,7 @@
         if (likeds.indexOf(product['id']) !== -1) {
             place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
             place_for_favor.onclick = function () {
-                DeleteLikeds(product['id'], user['id']);
+                DeleteLikeds(product['id']);
                 place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
             }
         } else {
