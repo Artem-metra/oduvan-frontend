@@ -10,10 +10,27 @@
 <div class="catalog">
     <div class="container">
         <div class="place_breadcoast" id="place_breadcoast">
-            <a href="/">Главная</a>
+            <a href="/">Главная</a> / <a href="/payment" class="active_page" id="active_page">Товар</a>
         </div>
 
-        <div class="catalog_flex_catalog" style="margin-top:50px; display: block">
+         <!-- Preloader -->
+        <div class="preloader" id="preloader">
+            <div class="preloader_text">
+                <span id="message_for_empty"></span>
+                <div class="lds-roller" style="margin-left: 30px; position: absolute; top: 100px; left: 44%">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="catalog_flex_catalog" id="content_catalog" style="margin-top:50px; display: block">
             <!-- Картинки слева. Все картинки букета -->
             <div class="all_pictures_product_place" id="all_pictures_product_place">
                 <div class="small_product_card" id="small_product_card" style="display: none;">
@@ -34,7 +51,7 @@
                     <div class="explanations_product" style="font-size: 48px">Инструкция свежести</div>
                     <span class="fa fa-chevron-down" style="font-size: 34px" id="chevron_list_one"></span>
                 </div>
-                <div id="all_text_one" class="all_text" style="font-size: 11px">
+                <div id="all_text_one" class="all_text" style="font-size: 12px">
                     Поместите букет в вазу, Поставьте вазу в прохладном месте без сквозняка, вдали от прямых солнечных лучей и фруктов.
                     Ежедневно мойте вазу, обновляйте воду и подрезайте стебли.
                     Наслаждайтесь своим букетом. Покажите его друзьям в инстаграм и не забудьте отметить нас @одуван.
@@ -45,7 +62,7 @@
                     <div class="explanations_product" style="font-size: 48px">Подробнее о доставке</div>
                     <span class="fa fa-chevron-down" style="font-size: 34px"  id="chevron_list_two"></span>
                 </div>
-                <div id="all_text_two" class="all_text" style="font-size: 11px">
+                <div id="all_text_two" class="all_text" style="font-size: 12px">
                     Поместите букет в вазу, Поставьте вазу в прохладном месте без сквозняка, вдали от прямых солнечных лучей и фруктов.
                     Ежедневно мойте вазу, обновляйте воду и подрезайте стебли.
                     Наслаждайтесь своим букетом. Покажите его друзьям в инстаграм и не забудьте отметить нас @одуван.
@@ -166,6 +183,26 @@
     let name = '';
     let category_id = 0;
 
+
+    function Preloader(status) {
+        if (status === 1) {
+            document.getElementById('preloader').style.display = 'block';
+            document.getElementById('content_catalog').style.display = 'none';
+            body.style.overflowY = 'hidden';
+        } else {
+            document.getElementById('preloader').style.display = 'none';
+            document.getElementById('content_catalog').style.display = 'block';
+            body.style.overflowY = 'auto';
+        }
+
+    }
+
+    function EmptyProducts() {
+        message_for_empty.innerText = 'Товаров не найдено';
+        Preloader(1);
+    }
+
+
     getProduct();
 
     /* Получить продукт */
@@ -173,6 +210,7 @@
         let data = {
             'id': id
         }
+        Preloader(1);
         $.ajax({
             url: 'api/product/get',
             type: 'GET',
@@ -307,6 +345,7 @@
             actionList(all_text_two);
             positionArrow(chevron_list_two)
         }
+        Preloader(0);
     }
 
 

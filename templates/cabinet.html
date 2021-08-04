@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Личный кабинет</title>
+    <link rel="stylesheet" href="../static/libs/datepicker/css/datepicker.min.css">
 	{% include 'headers.html' %}
 </head>
 <body id="body">
@@ -81,23 +82,23 @@
                     </div>
                 </div>
 
-                <div class="name_buckets">
-                    Пароль
-                </div>
-                 <div id="place_for_old_pas">
-                    <input class="popup_input" placeholder="Старый пароль" type="password" id="old_password">
-                    <div class="all_catalog_href" style="float: none;width:100%;height:100px;" id="send_old_pas">
-                        Проверить
-                    </div>
-                </div>
-                <div id="enter_new_pas" style="display: none;">
-                    <input class="popup_input" placeholder="Новый пароль" type="password" id="new_pass">
-                    <input class="popup_input" placeholder="Повторите новый пароль" type="password"
-                           id="new_pass_repeat">
-                    <div class="all_catalog_href" style="float: none;width:100%;height:100px;" id="save_new_pas">
-                        Сохранить изменения
-                    </div>
-                </div>
+{#                <div class="name_buckets">#}
+{#                    Пароль#}
+{#                </div>#}
+{#                 <div id="place_for_old_pas">#}
+{#                    <input class="popup_input" placeholder="Старый пароль" type="password" id="old_password">#}
+{#                    <div class="all_catalog_href" style="float: none;width:100%;height:100px;" id="send_old_pas">#}
+{#                        Проверить#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div id="enter_new_pas" style="display: none;">#}
+{#                    <input class="popup_input" placeholder="Новый пароль" type="password" id="new_pass">#}
+{#                    <input class="popup_input" placeholder="Повторите новый пароль" type="password"#}
+{#                           id="new_pass_repeat">#}
+{#                    <div class="all_catalog_href" style="float: none;width:100%;height:100px;" id="save_new_pas">#}
+{#                        Сохранить изменения#}
+{#                    </div>#}
+{#                </div>#}
             </div>
         </div>
     </section>
@@ -342,15 +343,8 @@
         }
     }
 
-    send_old_pas.onclick = function () {
-        checkingOldPassword();
-    }
-    save_changes.onclick = function () {
-        EditUser(1);
-    }
 
-
-    function DrawInfoUser() {
+     function DrawInfoUser() {
         your_name.value = user['name'];
         your_surname.value = user['surname'];
         your_mobile.value = '+7' + user['phone'];
@@ -565,63 +559,37 @@
 
 
     // Редактировать пользователя
-    function EditUser(status) {
-        // status = 1 - изменение основных данных, 2 - пароля
-        if (status === 1) {
-            if (your_name.value === '' || your_mobile.value === '') {
-                let inputs = document.getElementsByClassName('new_data');
-                for (let i = 0; i < inputs.length; i++) {
-                    if (inputs[i].value === '') {
-                        inputs[i].classList.add('error');
-                    }
+    function EditUser() {
+        if (your_name.value === '' || your_mobile.value === '') {
+            let inputs = document.getElementsByClassName('new_data');
+            for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i].value === '') {
+                    inputs[i].classList.add('error');
                 }
-                notification('Заполните обязательные поля!', 1);
-                return;
             }
-            let data = {
-                'id': user['id'],
-                'name': your_name.value,
-                'surname': your_surname.value,
-                'phone': your_mobile.value,
-                'birthday': day_datepicker.value,
-            }
-            $.ajax({
-                url: '/api/user/edit',
-                data: data,
-                type: "GET",
-                success: function (msg) {
-                    console.log(msg);
-                    if(msg['status'] === 'ok'){
-                      notification('Ваши данные успешно изменены!', 2);
-                    }
-                }
-            })
-        } else {
-            if (new_pass.value === '') {
-                new_pass.classList.add('error');
-                return;
-            } else if (new_pass.value.length < 7) {
-                new_pass.classList.add('error');
-                notification('Пароль должен содержать более 6 символов', 1);
-                return;
-            } else if (new_pass.value !== new_pass_repeat.value) {
-                notification('Пароли не совпадают', 1);
-                return;
-            } else {
-                let data = {
-                    'id': user['id'],
-                    'password': new_pass.value,
-                }
-                $.ajax({
-                    url: '/api/user/edit',
-                    data: data,
-                    type: "GET",
-                    success: function (msg) {
-                        notification('Ваш пароль успешно изменён', 2);
-                    }
-                })
-            }
+            notification('Заполните обязательные поля!', 1);
+            return;
         }
+        let data = {
+            'id': user['id'],
+            'name': your_name.value,
+            'email': your_email_address.value,
+            'surname': your_surname.value,
+            'phone': your_mobile.value,
+            'birthday': day_datepicker.value,
+        }
+        $.ajax({
+            url: '/api/user/change_info',
+            data: data,
+            type: "GET",
+            success: function (msg) {
+                console.log(msg);
+                if (msg['status'] === 'ok') {
+                    notification('Ваши данные успешно изменены!', 2);
+                }
+            }
+        })
+
     }
 
      // функция добавления адреса
@@ -755,5 +723,6 @@
     });
 
 </script>
+<script src="../static/libs/datepicker/js/datepicker.min.js"></script>
 </body>
 </html>

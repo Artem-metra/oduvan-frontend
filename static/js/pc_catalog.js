@@ -21,8 +21,9 @@ function Preloader(status) {
 }
 
 function EmptyProducts() {
-    message_for_empty.innerText = 'Товаров не найдено';
-    Preloader(1);
+        message_for_empty.innerText = 'Товаров не найдено';
+        Preloader(1);
+        document.getElementById('lds-roller').style.display = 'none';
 }
 
 getCategories();
@@ -135,6 +136,8 @@ function loadProducts() {
             if (msg['message']['products'].length === 0) {
                 EmptyProducts();
             } else {
+                document.getElementById('lds-roller').style.display = 'block';
+                message_for_empty.innerText = ' ';
                 $('.delete_paginations').remove();
                 paginations = Number(msg['message']['pages']);
                 page = Number(msg['message']['page']);
@@ -197,10 +200,10 @@ function outdoingListCatalog() {
 
 }
 
-
-loadFlowers();
+if (id === 1) loadFlowers();
 
 function loadFlowers() {
+    flowers_zag.style.display = 'block';
     $.ajax({
         url: '/api/flowers/get',
         type: 'GET',
@@ -242,9 +245,10 @@ function drawFlowers(flower) {
     }
 }
 
-loadPackages();
+if(id === 1) loadPackages();
 
 function loadPackages() {
+    dop_sortir.style.display = 'block';
     $.ajax({
         url: '/api/packages/get',
         type: "GET",

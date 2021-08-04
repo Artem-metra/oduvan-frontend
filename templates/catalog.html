@@ -30,7 +30,7 @@
                 </div>
 
         <div class="catalog_flex_catalog sorted_and_filters" style="display: flex;">
-            <div class="filters_place" id="filter_place" style="margin-bottom: 25px">
+            <div class="filters_place" id="filter_place" style="margin-bottom: 25px; display: none">
                 Фильтры и сортрировка<span class="fa fa-chevron-down my_class_img" id="my_class_img"></span>
             </div>
 <!--            <div class="sorted_place" style="display: inherit">-->
@@ -265,8 +265,8 @@
         <div class="catalog_card_place">
             <div class="preloader" id="preloader">
                 <div class="preloader_text">
-                    <span id="message_for_empty">Подождите, товары загружаются!</span>
-                    <div class="lds-roller" style="margin-bottom: 60px;">
+                    <span id="message_for_empty"></span>
+                    <div class="lds-roller"  id="lds-roller"  style="margin-bottom: 60px;">
                         <div></div>
                         <div></div>
                         <div></div>

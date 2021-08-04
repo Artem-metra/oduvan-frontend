@@ -21,12 +21,25 @@
 }
 
 /* Preloader */
+
+
+.preloader {
+    width: 100%;
+    padding: 35px 0;
+    height: 100vh;
+    background: transparent;
+    /*box-shadow: 0 4px 16px rgba(41, 48, 72, 0.15);*/
+    display: none;
+    position: relative;
+}
+
+
 .lds-roller {
     display: inline-block;
     position: relative;
     width: 100px;
     height: 100px;
-    left: 46%;
+    left: 50%;
     top: 50px;
 }
 
@@ -574,6 +587,7 @@ input[type="checkbox"] {
     display: block;
     padding: 15px 0;
     font-size: 32px;
+    width: 170px;
 }
 
 .footer_list {
@@ -798,12 +812,17 @@ input[type="checkbox"] {
     font-weight: 600;
 }
 
+.delete_shop{
+    font-size: 18px;
+}
+
 .basket_place {
     width: 100%;
-    height: 100%;
+    height: 2000px;
     top: 0;
     left: 0;
     position: relative;
+    overflow: auto;
 }
 
 .basket_info_for_order {
@@ -2773,7 +2792,7 @@ pagination_place {
 
 
 #message_for_empty{
-    font-size: 40px;
+    font-size: 60px;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -2863,8 +2882,27 @@ pagination_place {
     list-style-type: circle;
 }
 
+/*====== Настройки datepicker ========*/
 
 
+.datepicker{
+    width: 500px;
+    height: 550px;
+}
+
+.datepicker--nav{
+    font-size: 40px;
+}
+
+.datepicker--content{
+    font-size: 30px;
+    padding: 12px;
+}
+
+.datepicker--cell-day{
+    padding: 12px;
+    height: 14%;
+}
 
 
 

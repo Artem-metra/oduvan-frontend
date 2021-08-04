@@ -354,9 +354,9 @@
                 <div class="right_header_part">
                     <div class="right_header_part_item">
                         <div class="right_nav_place">
-                            <span class="num_likeds" style="display: none;"></span>
-                            <a class="right_nav_item favorites">
-                                <span class="fas fa-heart" style="color:#FFFFFF"></span>
+                            <span class="num_likeds" id="num_likeds" style="display: none;"></span>
+                            <a class="right_nav_item favorites" href="/favorites">
+                                <span class="fas fa-heart"></span>
                             </a>
                         </div>
                         <div class="right_nav_place">
@@ -399,7 +399,7 @@
 {#                    <a class="nav-link" href="">Программа лояльности</a>#}
 {#                </li>#}
                 <li>
-                    <a class="nav-link" href="/weddingfloristry">корпоративным клиентам</a>
+                    <a class="nav-link" href="/weddingfloristry">Свадебная флористика</a>
                 </li>
                 <li><a class="nav-link" href="/freshnessinstruction">Инструкция свежести</a></li>
                 <li><a class="nav-link" href="/vacancies">Вакансии</a></li>
@@ -538,6 +538,7 @@
    }
 
    go_to_basket.onclick = function () {
+       body.style.overflow = 'hidden';
        blurpopup.style.display = 'block';
        basket_popup.classList.add('_active');
        loadBasket();
