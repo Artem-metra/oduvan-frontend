@@ -161,7 +161,6 @@ def get_all_deals_for_user():
 @user_app.route('/api/user/confirmed')
 def api_user_confirmed():
     resp = utils.complete_request(request, request.path)
-    print(resp)
     if 'user_id' not in session:
         if 'user_id' in resp:
             session['user_id'] = resp['user_id']
@@ -170,7 +169,6 @@ def api_user_confirmed():
 
 @user_app.route('/logout')
 def logout():
-    print(session)
     if 'user_id' in session:
         session.modified = True
         for key in list(session.keys()):

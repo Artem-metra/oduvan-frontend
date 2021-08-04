@@ -121,6 +121,7 @@ def delivery():
     else:
         return render_template('pc_delivery.html')
 
+
 # payment
 @app.route('/payment')
 def payment():
@@ -184,10 +185,14 @@ def returnproduct():
         return render_template('pc_returnproduct.html')
 
 
-
 @app.route('/api/get_nesting_by_id')
 def get_nesting_by_id():
     return utils.complete_request(request, request.path)
+
+
+@app.route('/api/get_uuid', methods=['POST'])
+def get_uuid():
+    return utils.complete_request_post(json.loads(request.data), request.path)
 
 
 # @app.before_request
@@ -196,4 +201,4 @@ def get_nesting_by_id():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
