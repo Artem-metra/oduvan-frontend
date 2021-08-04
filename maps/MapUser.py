@@ -27,8 +27,9 @@ def api_user_get():
             params = {'user_id': session['user_id']}
         else:
             return 'error'
-
-    return utils.complete_request_with_parameters(params, request.path)
+    res = utils.complete_request_with_parameters(params, request.path)
+    res['message']['user']['liked'] = session['liked']
+    return res
 
 
 @user_app.route('/api/user/remove')
@@ -74,7 +75,6 @@ def api_user_liked():
 def api_user_list_likes():
     if 'liked' in session:
         resp = utils.complete_request_with_parameters({'liked': json.dumps(session['liked'])}, request.path)
-        print(resp)
         return resp
     else:
         return utils.getError('error')
