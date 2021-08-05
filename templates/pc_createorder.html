@@ -293,36 +293,27 @@
 <script>
 
     // Переменные для запроса об отправке заявки
-    let shop_id = 0;
-    let payment_type = 0;
-    let address = '';
-    let additionally = ['', '', 0, 0]; // Текс комментария, текст открытки, переноска, аквапак
-    let purchase_type = 0;
-    let date_delivery_come = '00:00';
-
+    let shop_id = 0, address = '', additionally = ['', '', 0, 0], purchase_type = 0, time_value = '', my_full_time, my_null = 0;
 
     // Создание динамического времени и даты
     let timeElapsed = Date.now();
     let today = new Date(timeElapsed);
     let day_now = today.toLocaleDateString().split('.').reverse().join('-');
     addres_info_date.innerText = day_now.split('-').reverse().join('.');
-    // console.log(day_now);
 
-    let time_value = '';
-    let my_full_time
+
+
     let todayy = new Date;
     let my_hours = todayy.getHours();
     let my_min = todayy.getMinutes();
-    let my_null = 0;
     if (my_min < 10) {
         let gab = my_null + '' + my_min
         my_full_time = my_hours + ':' + gab;
     } else {
         my_full_time = my_hours + ':' + my_min;
     }
-    // let my_full_time = my_hours + ':' + my_min;
     addres_info_time.innerText = my_full_time;
-    console.log(my_full_time);
+
 
 
     const options = {
