@@ -27,8 +27,9 @@ def api_user_get():
             params = {'user_id': session['user_id']}
         else:
             return 'error'
-
-    return utils.complete_request_with_parameters(params, request.path)
+    res = utils.complete_request_with_parameters(params, request.path)
+    res['message']['user']['liked'] = session['liked']
+    return res
 
 
 @user_app.route('/api/user/remove')
@@ -74,7 +75,6 @@ def api_user_liked():
 def api_user_list_likes():
     if 'liked' in session:
         resp = utils.complete_request_with_parameters({'liked': json.dumps(session['liked'])}, request.path)
-        print(resp)
         return resp
     else:
         return utils.getError('error')
@@ -161,7 +161,6 @@ def get_all_deals_for_user():
 @user_app.route('/api/user/confirmed')
 def api_user_confirmed():
     resp = utils.complete_request(request, request.path)
-    print(resp)
     if 'user_id' not in session:
         if 'user_id' in resp:
             session['user_id'] = resp['user_id']
@@ -170,7 +169,6 @@ def api_user_confirmed():
 
 @user_app.route('/logout')
 def logout():
-    print(session)
     if 'user_id' in session:
         session.modified = True
         for key in list(session.keys()):
