@@ -1723,6 +1723,7 @@ input[type="checkbox"] {
 #message_for_empty {
     font-weight: 600;
     font-size: 24px;
+    color: #ff0000b8;
 }
 .place_breadcoast{
     z-index: 500;

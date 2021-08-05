@@ -28,7 +28,8 @@ def api_user_get():
         else:
             return 'error'
     res = utils.complete_request_with_parameters(params, request.path)
-    res['message']['user']['liked'] = session['liked']
+    if 'liked' in session:
+        res['message']['user']['liked'] = session['liked']
     return res
 
 

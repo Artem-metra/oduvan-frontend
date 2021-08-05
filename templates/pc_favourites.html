@@ -15,6 +15,26 @@
         <h1 class="catalog_zag" style="text-align: center">Избранное</h1>
     </div>
 </div>
+
+
+<!-- Preloader -->
+<div class="preloader" id="preloader" style="box-shadow: none; height: 500px">
+    <div class="preloader_text" style="height: 0">
+        <span id="message_for_empty"></span>
+        <div class="lds-roller" id="lds-roller" style="margin-left: 30px; position: absolute; top: 40px; left: 200px">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+
 <!-- В избранном пусто -->
 <div class="basket_place" id="basket_place" style="min-height: 63vh;display: none;">
     <div class="empty_basket" id="empty_basket_createorder">
@@ -95,10 +115,28 @@
 {% include 'pc_utilites.html' %}
 <script>
 
+
+
+    function Preloader(status) {
+        if (status === 1) {
+            document.getElementById('preloader').style.display = 'block';
+            document.getElementById('catalog').style.display = 'none';
+        } else {
+            document.getElementById('preloader').style.display = 'none';
+            document.getElementById('catalog').style.display = 'block';
+        }
+
+    }
+
+
+
+
+
     loadFavorites()
 
     /* Правильная подгрузка продуктов */
     function loadFavorites() {
+        Preloader(1);
         $.ajax({
             url: '/api/user/list_likes',
             type: "GET",
@@ -117,9 +155,9 @@
                         if (msg['message']['products'][i] !== null) {
                             likeds.push(Number(msg['message']['products'][i]));
                             drawProducts(msg['message']['products'][i]);
+                            Preloader(0)
                         }
                     }
-
                 }
             }
         })

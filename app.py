@@ -1,7 +1,7 @@
 # from backend_app import *
 from datetime import timedelta
 
-from flask import Flask, request, abort, session, json, render_template
+from flask import Flask, request, abort, session, json, render_template, redirect
 import utils, traceback
 from maps.MapArticle import article_app
 from maps.MapBasket import basket_app
@@ -80,6 +80,8 @@ def product():
 # createorder
 @app.route('/createorder')
 def createorder():
+    if 'user_id' not in session:
+        return redirect('/', code=302)
     if utils.is_mobile(request.user_agent):
         return render_template('createorder.html')
     else:
@@ -89,6 +91,8 @@ def createorder():
 # cabinet
 @app.route('/cabinet')
 def cabinet():
+    if 'user_id' not in session:
+        return redirect('/', code=302)
     if utils.is_mobile(request.user_agent):
         return render_template('cabinet.html')
     else:

@@ -104,6 +104,24 @@
 </div>
 
 
+<!--<div id="swiper_place_disk">-->
+<!--    <div class="generelSlide" id="disc_swiper_place">-->
+<!--        &lt;!&ndash; Slider Banners &ndash;&gt;-->
+<!--        <div class="swiper-container mySwiper swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">-->
+<!--            <div class="swiper-wrapper">-->
+<!--                <div class="swiper-slide">-->
+
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
+
+
 <!-- Скидки -->
 <div class="catalog" style="background: rgba(41, 48, 72, 0.1);">
     <div class="container">
@@ -114,11 +132,6 @@
                 <div class="col-xs-12">
                     <div class="swiper-container">
                         <div class="swiper-wrapper"></div>
-<!--                        <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>-->
-<!--                        <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>-->
-                        <!--                        <div class="pagination_place">-->
-                        <!--                            <div class="swiper-pagination" style="position:static"></div>-->
-                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -128,6 +141,8 @@
         </a>
     </div>
 </div>
+
+
 
 
 <!-- Блог -->
@@ -442,8 +457,8 @@
         let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
         // let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
         // let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
-        let pagination_place = box.getElementsByClassName('pagination_place')[0];
-        let bullets = box.getElementsByClassName('swiper-pagination')[0];
+        // let pagination_place = box.getElementsByClassName('pagination_place')[0];
+        // let bullets = box.getElementsByClassName('swiper-pagination')[0];
         let sw = new Swiper(swiper, {
             slidesPerView: 2,
             slidesPerGroup: 2,
@@ -471,11 +486,18 @@
             slider.style.display = 'block';
             slider.style.width = '100%';
             swiper_slide.style.marginRight = '20px';
-            swiper_slide.append(slider);
             wrapper.append(swiper_slide);
+            swiper_slide.append(slider);
             document.getElementById(place).append(box);
+
         }
+
+        // if(wrapper.style.transform === 'translate3d(-100px, 0px, 0px)'){
+        //         console.log('hello')
+        // }
+
     }
+
 </script>
 
 </body>
