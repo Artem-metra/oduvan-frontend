@@ -1,14 +1,13 @@
-# from backend_app import *
-from datetime import timedelta
+from flask import Flask, request, json, render_template
 
-from flask import Flask, request, abort, session, json, render_template
-import utils, traceback
+import utils
 from maps.MapArticle import article_app
 from maps.MapBasket import basket_app
 from maps.MapCategory import category_app
 from maps.MapDeal import deal_app
 from maps.MapDelivery import delivery_app
 from maps.MapFlower import flower_app
+from maps.MapPackage import package_app
 from maps.MapPayment import payment_app
 from maps.MapPosition import position_app
 from maps.MapProduct import product_app
@@ -16,10 +15,9 @@ from maps.MapPromoCode import promo_code_app
 from maps.MapShop import shop_app
 from maps.MapStaff import staff_app
 from maps.MapUser import user_app
-from maps.MapPackage import package_app
 
 app = Flask(__name__)
-app.secret_key = 'super super secret key, her vzlomaesh'
+app.secret_key = 'testing secret key'
 
 app.register_blueprint(promo_code_app)
 app.register_blueprint(category_app)
