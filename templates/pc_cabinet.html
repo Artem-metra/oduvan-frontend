@@ -14,6 +14,9 @@
         <div class="place_breadcoast">
             <a href="/">Главная</a> / <a href="/cabinet" class="active_page">Личный кабинет</a>
         </div>
+
+
+
         <h1 class="catalog_zag" style="text-align: center">Личный кабинет</h1>
         <div class="price_hover_price" style="text-align: center">
             В личном кабинете вы можете проверить
@@ -123,7 +126,7 @@
                                            style="height: 35px;width: 100%;">
                                 </div>
                             </div>
-                            <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0;">
+                            <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0; position: absolute; bottom: 0; width: 95%">
                                 <div class="all_catalog_href"
                                      style="float: none;width: 100%;height: 50px;background: #FFFFFF;color:#293048">
                                     Сохранить
@@ -148,7 +151,7 @@
                                     г.Воронеж, ул.Урыского, 2В
                                 </div>
                             </div>
-                            <div class="catalog_flex info" style="border-bottom: 0;margin-top:10px;">
+                            <div class="catalog_flex info" style="border-bottom: 0;margin-top:10px; position: absolute; bottom: 0; width: 95%">
                                 <div class="all_catalog_href btn_change_address"
                                      style="background: #FFFFFF; color:#293048;height:70px;margin-right:10px;">
                                     Изменить
@@ -243,6 +246,11 @@
 {% include 'pc_utilites.html' %}
 <script>
 
+
+
+
+
+
     /* Получение пользователя */
 
     DrawInfoUser();
@@ -290,6 +298,7 @@
         save_changes.onclick = function () {
             EditUser();
         }
+
         $('.delete_address').remove();
         // Если у пользователя уже есть адреса в ЛК, то выводим блок с адресами
         if (user['addresses'].length !== 0) {
@@ -411,6 +420,7 @@
             box.style.display = 'inline-block';
             address_place.append(box);
         }
+
     }
 
 
@@ -468,7 +478,6 @@
             notification('Заполните обязательные поля!', 1);
             return;
         }
-        console.log(day_datepicker.value);
         let data = {
             'id': user['id'],
             'name': your_name.value,

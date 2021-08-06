@@ -143,8 +143,8 @@ body {
     width: 100%;
     height: 100%;
     background: #ffffff;
-    box-sizing: border-box;
-    overflow-x: hidden;
+    /*box-sizing: border-box;*/
+    /*overflow-x: hidden;*/
 }
 
 #body {
@@ -182,6 +182,7 @@ input:focus, textarea:focus, select:focus, button:focus {
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 input[type="checkbox"] {
@@ -203,9 +204,29 @@ input[type="checkbox"] {
         width: 100%;
         display: block;
         margin: 0 auto;
-        padding: 0 15px;
+        padding: 0 50px;
     }
+
+    .telephon{
+        width: 165px;
+        margin-right: 20px;
+    }
+
+    .nav{
+        width: 26%;
+    }
+
+    .swiper-slide{
+        width: 282px;
+
+    }
+
+    .my_container{
+        padding: 0 100px;
+    }
+
 }
+
 
 /* Уведомления об ошибке или успешности действия */
 .notification {
@@ -1078,7 +1099,7 @@ input[type="checkbox"] {
 }
 
 .item_num {
-    background: #F877AD;
+    /*background: #F877AD;*/
     border-radius: 50%;
     width: 70px;
     height: 70px;
@@ -1090,7 +1111,7 @@ input[type="checkbox"] {
 .question_place {
     position: absolute;
     top: 0;
-    right: -5px;
+    left: -5px;
     width: 21px;
     height: 21px;
     background: #293048;
@@ -1098,6 +1119,12 @@ input[type="checkbox"] {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.line_bottom{
+    position: absolute;
+    top: 177px;
+    left: 215px;
 }
 
 .question_place .fa-question {
@@ -1698,9 +1725,9 @@ input[type="checkbox"] {
 .preloader {
     width: 100%;
     padding: 35px 0;
-    height: 350px;
+    height: 100vh;
     background: transparent;
-    box-shadow: 0 4px 16px rgba(41, 48, 72, 0.15);
+    /*box-shadow: 0 4px 16px rgba(41, 48, 72, 0.15);*/
     display: none;
     position: relative;
 }
@@ -1716,6 +1743,7 @@ input[type="checkbox"] {
 #message_for_empty {
     font-weight: 600;
     font-size: 24px;
+    color: #ff0000b8;
 }
 .place_breadcoast{
     z-index: 500;

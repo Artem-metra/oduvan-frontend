@@ -21,6 +21,19 @@
 }
 
 /* Preloader */
+
+
+.preloader {
+    width: 100%;
+    padding: 35px 0;
+    height: 100vh;
+    background: transparent;
+    /*box-shadow: 0 4px 16px rgba(41, 48, 72, 0.15);*/
+    display: none;
+    position: relative;
+}
+
+
 .lds-roller {
     display: inline-block;
     position: relative;
@@ -202,8 +215,8 @@ input[type="checkbox"] {
 /* Уведомления об ошибке или успешности действия */
 .notification {
     position: fixed;
-    width: 400px;
-    height: 150px;
+    width: 500px;
+    height: 200px;
     border-radius: 8px;
     bottom: 20px;
     right: 20px;
@@ -216,14 +229,14 @@ input[type="checkbox"] {
 
 .notification_zag {
     padding: 4px 0;
-    font-size: 30px;
+    font-size: 38px;
     font-weight: bold;
     text-align: center;
     border-bottom: 1px solid #FFFFFF;
 }
 
 .notification_message {
-    font-size: 30px;
+    font-size: 38px;
     padding: 5px 10px;
 }
 
@@ -574,6 +587,7 @@ input[type="checkbox"] {
     display: block;
     padding: 15px 0;
     font-size: 32px;
+    width: 170px;
 }
 
 .footer_list {
@@ -798,12 +812,17 @@ input[type="checkbox"] {
     font-weight: 600;
 }
 
+.delete_shop{
+    font-size: 18px;
+}
+
 .basket_place {
     width: 100%;
-    height: 100%;
+    height: 2000px;
     top: 0;
     left: 0;
     position: relative;
+    overflow: auto;
 }
 
 .basket_info_for_order {
@@ -1047,7 +1066,6 @@ input[type="checkbox"] {
 }
 
 .item_num {
-    background: #F877AD;
     border-radius: 50%;
     width: 120px;
     height: 120px;
@@ -1063,7 +1081,7 @@ input[type="checkbox"] {
 .question_place {
     position: absolute;
     top: 0;
-    right: -5px;
+    left: -10px;
     width: 41px;
     height: 41px;
     background: #293048;
@@ -1206,7 +1224,7 @@ input[type="checkbox"] {
     align-items: center;
     justify-content: center;
     text-transform: uppercase;
-    font-size: 27px;
+    font-size: 36px;
     background: #29304833;
     width: 100%;
     height: 100%;
@@ -2063,13 +2081,17 @@ input[type="checkbox"] {
 }
 
 
+.swiper_slide.slider_item_card{
+    height: 530px;
+}
+
 
 
 .slider_item_card {
     width: 48%;
     display: inline-block;
     overflow: hidden;
-    height: 480px;
+    height: 530px;
     margin-bottom: 15px;
     background: #FFFFFF;
     box-shadow: 0 2px 7px rgba(41, 48, 72, 0.15);
@@ -2731,9 +2753,8 @@ pagination_place {
     font-size: 46px;
     margin-left: 30px;
     position: absolute;
-    top: 340px;
+    top: 366px;
     right: 15px;
-
 }
 
 
@@ -2771,11 +2792,11 @@ pagination_place {
 
 
 #message_for_empty{
-    font-size: 40px;
+    font-size: 60px;
     text-align: center;
     display: flex;
     justify-content: center;
-    color: red;
+    color: #ff0000b8;
 }
 
 
@@ -2861,8 +2882,27 @@ pagination_place {
     list-style-type: circle;
 }
 
+/*====== Настройки datepicker ========*/
 
 
+.datepicker{
+    width: 500px;
+    height: 550px;
+}
+
+.datepicker--nav{
+    font-size: 40px;
+}
+
+.datepicker--content{
+    font-size: 30px;
+    padding: 12px;
+}
+
+.datepicker--cell-day{
+    padding: 12px;
+    height: 14%;
+}
 
 
 

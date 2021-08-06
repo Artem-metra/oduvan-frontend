@@ -11,10 +11,30 @@
 <div class="catalog">
     <div class="container">
         <div class="place_breadcoast" id="place_breadcoast">
-            <a href="/">Главная</a>
+            <a href="/">Главная</a> / <a href="/payment" class="active_page" id="active_page">Товар</a>
         </div>
 
-        <div class="catalog_flex_catalog" style="margin-top:50px;">
+
+        <!-- Preloader -->
+        <div class="preloader" id="preloader">
+            <div class="preloader_text">
+                <span id="message_for_empty"></span>
+                <div class="lds-roller" style="margin-left: 30px; position: absolute; top: 100px; left: 50%">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="catalog_flex_catalog" id="content_catalog" style="margin-top:50px;">
             <!-- Картинки слева. Все картинки букета -->
             <div class="all_pictures_product_place" id="all_pictures_product_place">
                 <div class="small_product_card" id="small_product_card" style="display: none;">
@@ -47,9 +67,13 @@
                     <span class="fa fa-chevron-down"  id="chevron_list_two"></span>
                 </div>
                 <div id="all_text_two" class="all_text">
-                    Поместите букет в вазу, Поставьте вазу в прохладном месте без сквозняка, вдали от прямых солнечных лучей и фруктов.
-                    Ежедневно мойте вазу, обновляйте воду и подрезайте стебли.
-                    Наслаждайтесь своим букетом. Покажите его друзьям в инстаграм и не забудьте отметить нас @одуван.
+                    При заказе от 2 000 руб. доставка БЕСПЛАТНО* в любую точку г. Воронежа.
+                    При заказе до 2 000 руб. стоимость доставки рассчитывается индивидуально
+                    в зависимости от удаленности района доставки.<br>
+                    *не распространяется на праздничные дни, в том числе с 5 по 8 марта стоимость доставки
+                    рассчитывается из удаленности вашего района.
+                    Возможны задержки до 2,5 часов ввиду загруженности наших курьеров! Просим учитывать это при заказе.
+                    Доставка осуществляется с 08.00 до 20.00
                 </div>
 
                 <div class="razdelitel_indicator"></div>
@@ -170,9 +194,27 @@
 
 {% include 'pc_utilites.html' %}
 <script>
-    let id = {{id}};
-    let name = '';
-    let category_id = 0;
+    let id = {{id}}, name = '', category_id = 0;
+
+
+
+    function Preloader(status) {
+        if (status === 1) {
+            document.getElementById('preloader').style.display = 'block';
+            document.getElementById('content_catalog').style.display = 'none';
+            body.style.overflowY = 'hidden';
+        } else {
+            document.getElementById('preloader').style.display = 'none';
+            document.getElementById('content_catalog').style.display = 'flex';
+            body.style.overflowY = 'auto';
+        }
+
+    }
+
+    function EmptyProducts() {
+        message_for_empty.innerText = 'Товаров не найдено';
+        Preloader(1);
+    }
 
     getProduct();
 
@@ -181,6 +223,7 @@
         let data = {
             'id': id
         }
+        Preloader(1);
         $.ajax({
             url: 'api/product/get',
             type: 'GET',
@@ -314,6 +357,7 @@
             actionList(all_text_two);
             positionArrow(chevron_list_two)
         }
+        Preloader(0);
     }
 
 

@@ -104,21 +104,34 @@
 </div>
 
 
+<!--<div id="swiper_place_disk">-->
+<!--    <div class="generelSlide" id="disc_swiper_place">-->
+<!--        &lt;!&ndash; Slider Banners &ndash;&gt;-->
+<!--        <div class="swiper-container mySwiper swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">-->
+<!--            <div class="swiper-wrapper">-->
+<!--                <div class="swiper-slide">-->
+
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
+
+
 <!-- Скидки -->
 <div class="catalog" style="background: rgba(41, 48, 72, 0.1);">
     <div class="container">
         <h2 class="catalog_zag" style="margin-bottom: 40px">Скидки</h2>
-        <div id="swiper_place">
+        <div id="swiper_place_disk">
             <div class="row rw m-t-16 generelSlide" id="disc_swiper_place">
                 <!-- Slider Banners -->
                 <div class="col-xs-12">
                     <div class="swiper-container">
                         <div class="swiper-wrapper"></div>
-<!--                        <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>-->
-<!--                        <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>-->
-                        <!--                        <div class="pagination_place">-->
-                        <!--                            <div class="swiper-pagination" style="position:static"></div>-->
-                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -128,6 +141,8 @@
         </a>
     </div>
 </div>
+
+
 
 
 <!-- Блог -->
@@ -190,12 +205,13 @@
     <div class="container" style="text-align: center">
         <h3 class="catalog_zag" style="padding-bottom: 25px;">Почему мы</h3>
         <div class="why_me_flex">
-            <div class="why_me_flex_item">
+
+            <div class="why_me_flex_item" style="position: relative">
                 <div class="item_num">
                     <div class="question_place">
                         <span class="fa fa-question"></span>
                     </div>
-                    1
+                    <img src="../static/img/bouquet.svg" style="width: 150px; height: auto;" alt="Букет"/>
                 </div>
                 <div class="item_zag">
                     Заказ
@@ -203,13 +219,15 @@
                 <div class="sub_zag">
                     Выберите букет из каталога и оформите заказ
                 </div>
+                <img src="../static/img/lineleft_mob.svg" style="position: absolute; top: 50px; left: -25px; width: 106px;"/>
             </div>
-            <div class="why_me_flex_item">
+
+            <div class="why_me_flex_item" style="position: relative">
                 <div class="item_num">
                     <div class="question_place">
                         <span class="fa fa-question"></span>
                     </div>
-                    2
+                    <img src="../static/img/structural.svg" style="width: 150px; height: auto;" alt="Струкртура"/>
                 </div>
                 <div class="item_zag">
                     Детали
@@ -217,13 +235,15 @@
                 <div class="sub_zag">
                     Мы перезвоним в течение 15 минут и уточним детали
                 </div>
+                <img src="../static/img/lineright_mob.svg" style="position: absolute; top: 50px; right: -25px; width: 106px;"/>
             </div>
-            <div class="why_me_flex_item">
+
+            <div class="why_me_flex_item" style="position: relative">
                 <div class="item_num">
                     <div class="question_place">
                         <span class="fa fa-question"></span>
                     </div>
-                    3
+                     <img src="../static/img/payment.svg" style="width: 150px; height: auto;" alt="Оплата"/>
                 </div>
                 <div class="item_zag">
                     Оплата
@@ -231,13 +251,15 @@
                 <div class="sub_zag">
                     Оплатите заказ онлайн или при получении
                 </div>
+                <img src="../static/img/lineleft_mob.svg" style="position: absolute; top: 50px; left: -25px; width: 106px;"/>
             </div>
-            <div class="why_me_flex_item">
+
+            <div class="why_me_flex_item" style="position: relative">
                 <div class="item_num">
                     <div class="question_place">
                         <span class="fa fa-question"></span>
                     </div>
-                    4
+                    <img src="../static/img/assemblywomen.svg" style="width: 150px; height: auto;" alt="Сборка"/>
                 </div>
                 <div class="item_zag">
                     Сборка
@@ -245,13 +267,15 @@
                 <div class="sub_zag">
                     Учтем пожелания и соберем идельный букет
                 </div>
+                <img src="../static/img/lineright_mob.svg" style="position: absolute; top: 50px; right: -25px; width: 106px;"/>
             </div>
+
             <div class="why_me_flex_item">
                 <div class="item_num">
                     <div class="question_place">
                         <span class="fa fa-question"></span>
                     </div>
-                    5
+                    <img src="../static/img/deliverycar.svg" style="width: 150px; height: auto;" alt="Доставка"/>
                 </div>
                 <div class="item_zag">
                     Доставка
@@ -260,6 +284,7 @@
                     Курьер позвонит за 1 час и привезет вовремя
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -432,8 +457,8 @@
         let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
         // let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
         // let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
-        let pagination_place = box.getElementsByClassName('pagination_place')[0];
-        let bullets = box.getElementsByClassName('swiper-pagination')[0];
+        // let pagination_place = box.getElementsByClassName('pagination_place')[0];
+        // let bullets = box.getElementsByClassName('swiper-pagination')[0];
         let sw = new Swiper(swiper, {
             slidesPerView: 2,
             slidesPerGroup: 2,
@@ -447,6 +472,7 @@
                 delay: 5000,
                 disableOnInteraction: false
             },
+            resistance: true,
             // parallax: {
             //     enabled: true
             // },
@@ -460,11 +486,18 @@
             slider.style.display = 'block';
             slider.style.width = '100%';
             swiper_slide.style.marginRight = '20px';
-            swiper_slide.append(slider);
             wrapper.append(swiper_slide);
+            swiper_slide.append(slider);
             document.getElementById(place).append(box);
+
         }
+
+        // if(wrapper.style.transform === 'translate3d(-100px, 0px, 0px)'){
+        //         console.log('hello')
+        // }
+
     }
+
 </script>
 
 </body>

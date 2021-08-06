@@ -12,7 +12,7 @@
         <div class="right_header_part">
             <div class="right_header_part_item">
                 <div class="right_nav_place">
-                    <span class="num_likeds" id="num_likeds" style="display: none;"></span>
+                    <span class="num_likeds" id="num_likeds_one" style="display: none;"></span>
                     <a class="right_nav_item favorites" href="/favorites">
                         <span class="fas fa-heart"></span>
                     </a>
@@ -267,7 +267,7 @@
 <!-- Карточка товара -->
 
 <div id="item_card_place" style="padding-top: 35px;display: none">
-    <div class="slider_item_card" id="card_product" style="display: none">
+    <div class="slider_item_card" id="card_product" style=" display: none; height: 530px;">
         <div class="right_nav_place">
             <div class="right_nav_item">
 
@@ -354,9 +354,9 @@
                 <div class="right_header_part">
                     <div class="right_header_part_item">
                         <div class="right_nav_place">
-                            <span class="num_likeds" style="display: none;"></span>
-                            <a class="right_nav_item favorites">
-                                <span class="fas fa-heart" style="color:#FFFFFF"></span>
+                            <span class="num_likeds" id="num_likeds_two" style="display: none;"></span>
+                            <a class="right_nav_item favorites" href="/favorites">
+                                <span class="fas fa-heart"></span>
                             </a>
                         </div>
                         <div class="right_nav_place">
@@ -399,7 +399,7 @@
 {#                    <a class="nav-link" href="">Программа лояльности</a>#}
 {#                </li>#}
                 <li>
-                    <a class="nav-link" href="/weddingfloristry">корпоративным клиентам</a>
+                    <a class="nav-link" href="/weddingfloristry">Свадебная флористика</a>
                 </li>
                 <li><a class="nav-link" href="/freshnessinstruction">Инструкция свежести</a></li>
                 <li><a class="nav-link" href="/vacancies">Вакансии</a></li>
@@ -441,11 +441,8 @@
 
 
 <script>
-   let user = null;
-    let basket_id = 0;
-    {#let count = 1;#}
-    let likeds = [];
-    let registration_number = '';
+    let user = null, basket_id = 0, likeds = [], registration_number = '';
+    // {#let count = 1;#}
 
 
 
@@ -538,10 +535,11 @@
    }
 
    go_to_basket.onclick = function () {
+       body.style.overflow = 'hidden';
        blurpopup.style.display = 'block';
        basket_popup.classList.add('_active');
        loadBasket();
-       {#popup.classList.add('_active');#}
+       // {#popup.classList.add('_active');#}
        pickup.onchange = function () {
            if (courier.checked) {
                courier.checked = false;
@@ -630,8 +628,13 @@
         popup.classList.remove('_active');
         body.style.overflow = 'inherit';
         console.log('popup', popup.id);
-        if (popup.id === 'basket_popup' && location.pathname === '/catalog') {
-            loadProducts();
+        if (popup.id === 'basket_popup') {
+            if(location.pathname === '/catalog' || location.pathname === '/product') return  loadProducts();
+            if( location.pathname === '/' ) {
+                loadProducts();
+               return loadDiscProduct();
+            }
+
         }
     }
 
@@ -1037,9 +1040,9 @@
                     if (msg['message']['basket']['promo_code'] > 0) {
                         final_price.innerText = msg['message']['basket']['cost'] + ' ₽';
                         final_price.classList.add('have_disc');
-                        {#disc_price.innerText = msg['message']['basket']['discount_cost'] + ' ₽';#}
+                        // {#disc_price.innerText = msg['message']['basket']['discount_cost'] + ' ₽';#}
                     } else {
-                        {#disc_price.style.display = 'none';#}
+                        // {#disc_price.style.display = 'none';#}
                         final_price.innerText = msg['message']['basket']['discount_cost'] + ' ₽';
                     }
                     basket_id = msg['message']['basket']['id'];
@@ -1192,14 +1195,6 @@
             }
         })
     }
-
-
-
-
-
-
-
-
 
 
 

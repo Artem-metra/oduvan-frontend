@@ -10,31 +10,34 @@
 <div class="catalog" style="background: #e9eaec">
     <div class="container">
         <div class="place_breadcoast" id="place_bread" style="margin-bottom: 50px; font-size: 28px" >
-            <a href="/">Главная</a> / <a href="">Каталог</a> / <a href="">Букеты</a>
+            <a href="/">Главная</a> / <a class="active_page" href="">Каталог</a> / <a class="active_page" href="">Букеты</a>
         </div>
         <div id="place_top_cats">
 
         </div>
         <!-- Категории -->
-        <div id="catalog_category_place" style="padding-bottom: 25px;">
+         <div id="catalog_category_place" style="padding-bottom: 25px;">
+                    <div class="catalog_category all" id="catalog_cat_vse" style="display: inline-block">
+                        <div class="catalog_category_item _active" id="vse">
+                            Все
+                        </div>
+                    </div>
+                    <div class="catalog_category" id="catalog_category_card" style="display: none">
+                        <div class="catalog_category_item">
 
-            <div class="catalog_category" id="catalog_category_card" style="display: none">
-                <div class="catalog_category_item" style="font-size: 36px">
-
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
         <div class="catalog_flex_catalog sorted_and_filters" style="display: flex;">
-            <div class="filters_place" id="filter_place" style="margin-bottom: 25px">
+            <div class="filters_place" id="filter_place" style="margin-bottom: 25px; display: none">
                 Фильтры и сортрировка<span class="fa fa-chevron-down my_class_img" id="my_class_img"></span>
             </div>
-{#            <div class="sorted_place" style="display: inherit">#}
-{#                Сортировка:#}
-{#                <div class="pressing_on_arrow_name" id="pressing_on_arrow_name" style="margin-left: 15px">#}
-{#                    <span class="active_sort">Название</span><span class="fa fa-chevron-down" id="my_class_cher"></span>#}
-{#                </div>#}
-{#            </div>#}
+<!--            <div class="sorted_place" style="display: inherit">-->
+<!--                Сортировка:#}-->
+<!--                <div class="pressing_on_arrow_name" id="pressing_on_arrow_name" style="margin-left: 15px">-->
+<!--                    <span class="active_sort">Название</span><span class="fa fa-chevron-down" id="my_class_cher"></span>#}</div>#}-->
+<!--            </div>-->
         </div>
 
         <div id="sorted_select_items_list">
@@ -262,8 +265,8 @@
         <div class="catalog_card_place">
             <div class="preloader" id="preloader">
                 <div class="preloader_text">
-                    <span id="message_for_empty">Подождите, товары загружаются!</span>
-                    <div class="lds-roller">
+                    <span id="message_for_empty"></span>
+                    <div class="lds-roller"  id="lds-roller"  style="margin-bottom: 60px;">
                         <div></div>
                         <div></div>
                         <div></div>
@@ -314,14 +317,6 @@
                                 <span class="fas fa-shopping-bag"></span>
                             </div>
                         </div>
-                        <div class="price_hover">
-                            <div>
-                                В корзину
-                            </div>
-                            <div class="price_hover_price">
-                                5 400 ₽
-                            </div>
-                        </div>
                         <div class="added_product" style="display: none">
                             <div class="fa fa-minus minus_counter"></div>
                             <div style="font-size: 40px">
@@ -345,12 +340,14 @@
     </div>
 </div>
 
+
+{% include 'utilites.html' %}
 <!-- Функции к каталогу -->
 <script>
-    let id  ={{id}};
+    let id = {{id}} || 1, page = {{ page }} || 1, sub_category = {{ sub_category }} ||0;
+
 </script>
 <script src="../static/js/catalog.js"></script>
-{% include 'utilites.html' %}
 </body>
 
 </html>

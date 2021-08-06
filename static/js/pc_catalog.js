@@ -21,8 +21,9 @@ function Preloader(status) {
 }
 
 function EmptyProducts() {
-    message_for_empty.innerText = 'Товаров не найдено';
-    Preloader(1);
+        message_for_empty.innerText = 'Товаров не найдено';
+        Preloader(1);
+        document.getElementById('lds-roller').style.display = 'none';
 }
 
 getCategories();
@@ -107,6 +108,7 @@ loadProducts();
 
 /* Правильная подгрузка продуктов */
 function loadProducts() {
+    console.log('id', id, sub_category, page);
     Preloader(1);
     minPrice();
     maxPrice();
@@ -135,6 +137,8 @@ function loadProducts() {
             if (msg['message']['products'].length === 0) {
                 EmptyProducts();
             } else {
+                document.getElementById('lds-roller').style.display = 'block';
+                message_for_empty.innerText = ' ';
                 $('.delete_paginations').remove();
                 paginations = Number(msg['message']['pages']);
                 page = Number(msg['message']['page']);
@@ -142,11 +146,9 @@ function loadProducts() {
             }
         }
     });
-
     chevron_for_list.onclick = function () {
         outdoingListCatalog();
     }
-
     throw_off.onclick = function () {
         category_id = 0;
         sorted_type = 1;
@@ -197,10 +199,10 @@ function outdoingListCatalog() {
 
 }
 
-
-loadFlowers();
+if (id === 1) loadFlowers();
 
 function loadFlowers() {
+    flowers_zag.style.display = 'block';
     $.ajax({
         url: '/api/flowers/get',
         type: 'GET',
@@ -242,9 +244,10 @@ function drawFlowers(flower) {
     }
 }
 
-loadPackages();
+if(id === 1) loadPackages();
 
 function loadPackages() {
+    dop_sortir.style.display = 'block';
     $.ajax({
         url: '/api/packages/get',
         type: "GET",
@@ -313,6 +316,7 @@ function drawProducts(msg) {
         let box = createProduct(msg[i]);
         box.style.display = 'inline-block';
         document.getElementById('item_card_place').append(box);
+        Preloader(0);
     }
     for (let i = 1; i < paginations + 1; i++) {
         let pagination = pagination_item.cloneNode(true);
@@ -330,7 +334,7 @@ function drawProducts(msg) {
         }
         pag_place.append(pagination);
     }
-    Preloader(0);
+
 }
 
 

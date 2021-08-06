@@ -13,7 +13,7 @@
             <!-- Сортировка в каталоге -->
             <div class="catalog_sorted">
                 <div class="place_breadcoast" id="place_bread">
-                    <a href="/">Главная</a> / <a href="" id="bread_catalog">Каталог</a>
+                    <a href="/">Главная</a> / <a class="active_page" href="" id="bread_catalog">Каталог</a>
                 </div>
                 <div id="place_top_cats">
 
@@ -65,7 +65,7 @@
                 </div>
                 <input type="range" id="price_controller" min="0" max="100000">
 
-                <div class="sorted_zag">
+                <div class="sorted_zag" id="flowers_zag" style="display: none">
                     Цветы
                 </div>
                 <div id="flowers_place">
@@ -82,16 +82,16 @@
                     </div>
                 </div>
 
-                <div class="sorted_zag" id="dop_sortir">
+                <div class="sorted_zag" id="dop_sortir" style="display: none">
                     Упаковка
                 </div>
                 <div id="packages_place">
                     <div class="choose_flower" id="choose_pack" style="display: none">
                         <div class="checkbox" style="margin-left:5px;">
-                            <input type="checkbox" id="choose_flow_one"
+                            <input type="checkbox" id="choose_flow_two"
                                    class="scal_chek checkbox_for_choose_flower custom-checkbox"
                                    style="margin-top: 20px;">
-                            <label for="choose_flow_one" class="lab_desc">
+                            <label for="choose_flow_two" class="lab_desc">
                                 <span class="name_flower"></span>
                             </label>
                         </div>
@@ -127,10 +127,10 @@
 
 
                 <!-- Preloader -->
-                <div class="preloader" id="preloader">
-                    <div class="preloader_text">
-                        <span id="message_for_empty">Подождите, товары загружаются!</span>
-                        <div class="lds-roller">
+                <div class="preloader" id="preloader" style="box-shadow: none">
+                    <div class="preloader_text" style="height: 0">
+                        <span id="message_for_empty"></span>
+                        <div class="lds-roller" id="lds-roller" style="margin-left: 30px; position: absolute; top: 40px; left: 0">
                             <div></div>
                             <div></div>
                             <div></div>
@@ -142,6 +142,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div id="content_catalog">
                     <!-- Место для карточек товаров -->
                     <div id="item_card_place" style="display: block;padding-top: 35px;">
@@ -220,9 +221,10 @@
 {% include 'pc_utilites.html' %}
 <!-- Функции к каталогу -->
 <script>
-    let id = {{id}} || 1;
-    let page = {{ page }} || 1;
-    let sub_category = {{ sub_category }} ||0;
+    let id = {{id}} || 1,
+        page = {{page}} || 1,
+        sub_category = {{ sub_category }} ||0;
+
 </script>
 <script src="../static/js/pc_catalog.js"></script>
 

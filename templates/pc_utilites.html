@@ -4,7 +4,7 @@
         <div class="flex_menu">
             <nav class="nav">
                 <a class="nav-link" href="/catalog?category_id=1">Каталог</a>
-                <a class="nav-link" href="/delivery" onclick="OpenPopup(ds_popup ,3)">Доставка</a>
+                <a class="nav-link" href="/delivery">Доставка</a>
                 <a class="nav-link" href="/payment">Оплата</a>
                 <a class="nav-link" href="/blog">Блог</a>
             </nav>
@@ -20,7 +20,7 @@
                 <div class="right_header_part_item">
                     <a href="tel:+7 (930) 424-00-30" style="margin-right: 40px">+7 (930) 424-00-30</a>
                     <div class="right_nav_place">
-                        <span class="num_likeds" id="num_likeds" style="display: none;"></span>
+                        <span class="num_likeds" style="display: none;"></span>
                         <a class="right_nav_item favorites" href="/favorites">
                             <span class="fas fa-heart"></span>
                         </a>
@@ -318,7 +318,7 @@
                 </div>
                 <div class="right_header_part">
                     <div class="right_header_part_item" style="margin-right:0">
-                        <a href="tel:+7 (930) 424-00-30" style="margin-right: 40px;color:#FFFFFF">+7 (930) 424-00-30</a>
+                        <a href="tel:+7 (930) 424-00-30" class="telephon" style="margin-right: 40px;color:#FFFFFF">+7 (930) 424-00-30</a>
                         <div class="right_nav_place">
                             <span class="num_likeds" style="display: none;"></span>
                             <a class="right_nav_item favorites" href="/favorites">
@@ -350,11 +350,11 @@
         <div class="container">
             <div class="flex_menu">
                 <ul class="footer_list">
-{#                    <li>#}
-{#                        <a class="nav-link" href="">Программа лояльности</a>#}
-{#                    </li>#}
+<!--                    <li>-->
+<!--                        <a class="nav-link" href="">Программа лояльности</a>#}-->
+<!--                    </li>-->
                     <li>
-                        <a class="nav-link" href="/weddingfloristry">корпоративным клиентам</a>
+                        <a class="nav-link" href="/weddingfloristry">Свадебная флористика</a>
                     </li>
                 </ul>
                 <ul class="footer_list">
@@ -401,11 +401,10 @@
 
 
 <script>
-    let user = null;
-    let basket_id = 0;
-    let count = 1;
-    let likeds = [];
-    let registration_number = '';
+    let user = null,
+        basket_id = 0,
+        count = 1, likeds = [],
+        registration_number = '';
 
     /* Открытие попапа */
     function OpenPopup(popup, status) {
@@ -548,8 +547,13 @@
         popup.classList.remove('_active');
         body.style.overflow = 'inherit';
         console.log('popup', popup.id);
-        if (popup.id === 'basket_popup' && location.pathname === '/catalog') {
-            loadProducts();
+        if (popup.id === 'basket_popup') {
+            if(location.pathname === '/catalog' || location.pathname === '/product') return  loadProducts();
+            if( location.pathname === '/' ) {
+                loadProducts();
+               return loadDiscProduct();
+            }
+
         }
     }
 
@@ -565,11 +569,9 @@
                     inputs[i].classList.add('error');
                 }
             }
-            notification('Заполните все поля!', 1);
-            return;
+            return notification('Заполните все поля!', 1);
         } else if (phone_user_auth.value !== registration_number) {
-            notification('Номера не совпадают!', 1);
-            return;
+            return notification('Номера не совпадают!', 1);
         } else {
             let data = {
                 'phone': phone_user_auth.value,
@@ -581,8 +583,8 @@
                 data: data,
                 success: function (msg) {
                     if (msg['status'] === 'error') {
-                        notification('Код введён неверно!', 1);
-                        return;
+                        return notification('Код введён неверно!', 1);
+
                     } else {
                         notification('Вы успешно авторизованы!', 2);
                         GetUser();

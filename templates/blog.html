@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Блог</title>
+    {% include 'headers.html' %}
 </head>
-<body>
+<body id="body">
+<!-- Страница статьи -->
+<div class="catalog">
+    <div class="container">
+        <div class="place_breadcoast">
+            <a href="/">Главная</a> / <a href="/blog" class="active_page" id="active_page">Блог</a>
+        </div>
+    </div>
+</div>
 
+
+
+{% include 'utilites.html' %}
+
+<script>
+    {#let id = {{ id }};#}
+    active_page.href = location.href;
+</script>
 </body>
 </html>
