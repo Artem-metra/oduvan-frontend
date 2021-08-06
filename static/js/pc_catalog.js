@@ -108,6 +108,7 @@ loadProducts();
 
 /* Правильная подгрузка продуктов */
 function loadProducts() {
+    console.log('id', id, sub_category, page);
     Preloader(1);
     minPrice();
     maxPrice();
@@ -145,11 +146,9 @@ function loadProducts() {
             }
         }
     });
-
     chevron_for_list.onclick = function () {
         outdoingListCatalog();
     }
-
     throw_off.onclick = function () {
         category_id = 0;
         sorted_type = 1;
@@ -317,6 +316,7 @@ function drawProducts(msg) {
         let box = createProduct(msg[i]);
         box.style.display = 'inline-block';
         document.getElementById('item_card_place').append(box);
+        Preloader(0);
     }
     for (let i = 1; i < paginations + 1; i++) {
         let pagination = pagination_item.cloneNode(true);
@@ -334,7 +334,7 @@ function drawProducts(msg) {
         }
         pag_place.append(pagination);
     }
-    Preloader(0);
+
 }
 
 

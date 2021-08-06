@@ -37,27 +37,27 @@
 
                 <div id="addresses_place">
                     <div class="add_address add_address_order" id="address_item"
-                         style="display: none;height: auto;min-height: 300px;">
+                         style="display: none;height: auto;min-height: 310px; margin-bottom: 40px;">
                         <div class="data_address address_info">
 
                             <div class="catalog_flex info">
-                                <div class="address_info_zag">
+                                <div class="address_info_zag"  style="font-size: 35px">
                                     Название:
                                 </div>
-                                <div class="address_info_zag name_address_user">
+                                <div class="address_info_zag name_address_user"  style="font-size: 35px">
                                     г.Воронеж, ул.Урыского, 2В
                                 </div>
                             </div>
                             <div class="catalog_flex info">
-                                <div class="address_info_zag">
+                                <div class="address_info_zag"  style="font-size: 35px">
                                     Адрес:
                                 </div>
-                                <div class="address_info_zag address_address_user" style="width: 65%">
+                                <div class="address_info_zag address_address_user" style="font-size: 35px">
                                     г.Воронеж, ул.Урыского, 2В
                                 </div>
                             </div>
                             <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0;">
-                                <div class="all_catalog_href choose_address">
+                                <div class="all_catalog_href choose_address" style="background: white; color: black; width: 100%; margin-top: 40px;">
                                     Выбрать
                                 </div>
                             </div>
@@ -301,7 +301,16 @@
 <script>
 
     // Переменные для запроса об отправке заявки
-    let shop_id = 0, address = '', additionally = [], purchase_type = 0, time_value = '', my_full_time, my_null = 0;
+    let shop_id = 0,
+        address = '',
+        additionally = [],
+        purchase_type = 0,
+        time_value = '',
+        my_full_time,
+        my_null = 0,
+        promo_code_id = 0,
+        payment_type = 0
+    ;
 
 
 
@@ -398,7 +407,8 @@
         email_user.value = user['email'];
         loadBasketOrder();
         if (user['addresses'].length > 0 && purchase_type !== 1) {
-            addresses_place.style.display = 'block';
+            addresses_place.style.display = 'flex';
+            addresses_place.style.flexDirection = 'column';
             for (let i = 0; i < user['addresses'].length; i++) {
                 let address = address_item.cloneNode(true);
                 address.id = '';
@@ -414,11 +424,11 @@
                 }
                 if (user['addresses'].length === 1) {
                     address.style.width = '100%';
-                    address.style.minHeight = '250px';
+                    address.style.minHeight = '310px';
                 } else if (user['addresses'].length === 2) {
-                    address.style.width = '49.25%';
+                    address.style.width = '100%';
                 } else {
-                    address.style.width = '32.3%';
+                    address.style.width = '100%';
                 }
                 addresses_place.append(address);
             }
@@ -524,8 +534,7 @@
         onSelect: function (suggestion) {
             console.log('Дашло 2');
             if (Number(suggestion['data']['fias_level']) < 8) {
-                notification('Укажите точный адрес', 1);
-                return;
+                return notification('Укажите точный адрес', 1);
             }
             // address_data = suggestion['value'];
         }

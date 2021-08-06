@@ -37,7 +37,7 @@
                 <!-- Выбрать адреса из уже имеющихся -->
                 <div id="addresses_place">
                     <div class="add_address add_address_order" id="address_item"
-                         style="display: none;height: auto;min-height: 300px;">
+                         style="display: none;height: auto;min-height: 250px;">
                         <div class="data_address address_info">
 
                             <div class="catalog_flex info">
@@ -52,11 +52,11 @@
                                 <div class="address_info_zag">
                                     Адрес:
                                 </div>
-                                <div class="address_info_zag address_address_user" style="width: 65%">
+                                <div class="address_info_zag address_address_user">
                                     г.Воронеж, ул.Урыского, 2В
                                 </div>
                             </div>
-                            <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0;">
+                            <div class="catalog_flex info" style="margin-top:15px; position: absolute; bottom: 0; width: 97%; border-bottom: 0">
                                 <div class="all_catalog_href choose_address">
                                     Выбрать
                                 </div>
@@ -263,7 +263,7 @@
                     <div style="width:100%;">
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/mastercard.png" class="small_product_img">
+                                <img src="../static/img/mastercard.png" class="small_product_img" style="width: 57px; height: 38px;">
                             </div>
                         </div>
                         <div class="system_item">
@@ -293,7 +293,15 @@
 <script>
 
     // Переменные для запроса об отправке заявки
-    let shop_id = 0, address = '', additionally = ['', '', 0, 0], purchase_type = 0, time_value = '', my_full_time, my_null = 0;
+    let shop_id = 0,
+        address = '',
+        additionally = ['', '', 0, 0],
+        purchase_type = 0, time_value = '',
+        my_full_time,
+        my_null = 0,
+        promo_code_id = 0,
+        payment_type = 0
+    ;
 
     // Создание динамического времени и даты
     let timeElapsed = Date.now();
@@ -348,7 +356,7 @@
             notification('Наш график работы с 8:00 до 20:00', 1);
             console.log(time_value)
         } else {
-            notification('Все успешно', 2);
+            notification('Время выбрано', 2);
         }
         console.log(time_value);
     }
@@ -385,7 +393,8 @@
         email_user.value = user['email'];
         loadBasketOrder();
         if (user['addresses'].length > 0 && purchase_type !== 1) {
-            addresses_place.style.display = 'block';
+            addresses_place.style.display = 'flex';
+            addresses_place.style.flexDirection = 'column';
             for (let i = 0; i < user['addresses'].length; i++) {
                 let address = address_item.cloneNode(true);
                 address.id = '';
@@ -403,9 +412,11 @@
                     address.style.width = '100%';
                     address.style.minHeight = '250px';
                 } else if (user['addresses'].length === 2) {
-                    address.style.width = '49.25%';
+                    address.style.width = '100%';
+                    address.style.marginBottom = '20px';
                 } else {
-                    address.style.width = '32.3%';
+                    address.style.width = '100%';
+                    address.style.marginBottom = '30px';
                 }
                 addresses_place.append(address);
             }
@@ -486,8 +497,7 @@
         onSelect: function (suggestion) {
             console.log('Дашло 2');
             if (Number(suggestion['data']['fias_level']) < 8) {
-                notification('Укажите точный адрес', 1);
-                return;
+                return notification('Укажите точный адрес', 1);
             }
             // address_data = suggestion['value'];
         }
@@ -643,18 +653,15 @@
             return;
         }
         if (!money_payment.checked && !card_payment.checked) {
-            notification('Выберите способ оплаты', 1);
-            return;
+            return notification('Выберите способ оплаты', 1);
         }
         if (shop_id === -1) {
             notification('Выберите магазин, в котором получите товар', 1);
-            select_shops.classList.add('error');
-            return;
+            return select_shops.classList.add('error');
         }
         if (purchase_type === 2 && address_user.value === '') {
             notification('Заполните адрес доставки', 1);
-            address_user.classList.add('error');
-            return;
+            return address_user.classList.add('error');
         }
 
         createDeal();
@@ -664,6 +671,9 @@
     function createDeal() {
         let data = {
             'shop_id': shop_id,
+            'additionally': additionally,
+            'promo_code_id': promo_code_id,
+            'payment_type': payment_type,
         }
         $.ajax({
             url: 'api/deal/create',
@@ -675,6 +685,7 @@
                 console.log(msg);
             }
         })
+
     }
 
 
