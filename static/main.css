@@ -984,7 +984,7 @@ input[type="checkbox"] {
 .individual_order {
     background: linear-gradient(81.1deg, #FFF0EF 0%, #FAEFFF 100%);
     width: 100%;
-    height: auto;
+    height: 1650px;
     padding: 60px 0;
     display: flex;
     justify-content: center;
@@ -993,7 +993,7 @@ input[type="checkbox"] {
 
 .individual_order_info {
     width: 90%;
-    height: 1100px;
+    height: 1533px;
     background: #ffffff;
     box-shadow: 0 4px 16px rgba(41, 48, 72, 0.15);
 }
@@ -1039,7 +1039,7 @@ input[type="checkbox"] {
     font-size: 70px;
     line-height: 110%;
     text-transform: uppercase;
-    margin: 45px 0;
+    margin: 40px 0;
 }
 
 .individual_info {

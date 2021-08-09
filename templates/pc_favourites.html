@@ -131,7 +131,6 @@
 
 
 
-
     loadFavorites()
 
     /* Правильная подгрузка продуктов */
@@ -155,7 +154,9 @@
                         if (msg['message']['products'][i] !== null) {
                             likeds.push(Number(msg['message']['products'][i]));
                             drawProducts(msg['message']['products'][i]);
-                            Preloader(0)
+                        } else {
+                            Preloader(0);
+                            document.getElementById('lds-roller').style.display = 'none';
                         }
                     }
                 }
