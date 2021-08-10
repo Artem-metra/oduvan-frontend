@@ -51,10 +51,11 @@ def catalog():
     id = request.values.get('category_id', 0, int)
     sub_category = request.values.get('sub_category', 0, int)
     page = request.values.get('page', 0, int)
+    sorted_type = request.values.get('sorted_type', 0, int)
     if utils.is_mobile(request.user_agent):
-        return render_template('catalog.html', id=id, page=page, sub_category=sub_category)
+        return render_template('catalog.html', id=id, page=page, sub_category=sub_category, sorted_type=sorted_type)
     else:
-        return render_template('pc_catalog.html', id=id, page=page, sub_category=sub_category)
+        return render_template('pc_catalog.html', id=id, page=page, sub_category=sub_category, sorted_type=sorted_type)
 
 
 # favorites
