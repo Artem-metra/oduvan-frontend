@@ -199,33 +199,7 @@ input[type="checkbox"] {
     }
 }
 
-@media (max-width: 1400px) {
-    .container {
-        width: 100%;
-        display: block;
-        margin: 0 auto;
-        padding: 0 50px;
-    }
 
-    .telephon{
-        width: 165px;
-        margin-right: 20px;
-    }
-
-    .nav{
-        width: 26%;
-    }
-
-    .swiper-slide{
-        width: 282px;
-
-    }
-
-    .my_container{
-        padding: 0 100px;
-    }
-
-}
 
 
 /* Уведомления об ошибке или успешности действия */
@@ -2564,6 +2538,61 @@ input[type=range]:focus::-ms-fill-upper {
 
 .wedding_item{
     margin-bottom: 5px;
+}
+
+
+
+
+
+@media (max-width: 1400px) {
+    .container {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+        padding: 0 50px;
+    }
+
+    .telephon{
+        width: 165px;
+        margin-right: 20px;
+    }
+
+    .nav{
+        width: 26%;
+    }
+
+    .swiper-slide{
+        width: 282px;
+
+    }
+
+    /*.my_container{*/
+    /*    padding: 0 100px;*/
+    /*}*/
+
+    #swiper_place{
+        padding: 0 50px;
+    }
+
+    #disc_swiper_place{
+        padding: 0 75px;
+    }
+
+    .col-xs-12{
+        position: relative;
+    }
+
+    .swip_left_arrow{
+        left: 0;
+        position: absolute;
+        top: 50%;
+    }
+
+    .swip_right_arrow{
+        right: 0;
+        position: absolute;
+        top: 50%;
+    }
 }
 
 

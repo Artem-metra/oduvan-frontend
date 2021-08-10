@@ -641,7 +641,7 @@
         if (get_other_people.checked) {
             let inputs = document.getElementsByClassName('input_sender');
             for (let i = 0; i < inputs.length; i++) {
-                if (name_sender.value === '' || phone_sender.value === '' || address_sender.value === '') {
+                if (name_sender.value === '' || phone_sender.value === '' || address_user.value === '') {
                     for (let i = 0; i < inputs.length; i++) {
                         if (inputs[i].value === '') {
                             inputs[i].classList.add('error');

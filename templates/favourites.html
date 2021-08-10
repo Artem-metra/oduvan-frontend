@@ -152,7 +152,9 @@
                         if (msg['message']['products'][i] !== null) {
                             likeds.push(Number(msg['message']['products'][i]));
                             drawProducts(msg['message']['products'][i]);
+                        }else {
                             Preloader(0);
+                            document.getElementById('lds-roller').style.display = 'none';
                         }
                     }
 
