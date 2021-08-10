@@ -42,14 +42,14 @@
 
         <div class="mobile_navigation" id="mobile_navigation">
             <div class="closepopupplace">
-                <div class="close_place" id="closepopup" onclick="ClosePopup(mobile_navigation)">
+                <div class="close_place" onclick="ClosePopup(mobile_navigation)">
                     <span class="fa fa-times"></span> <span>Закрыть</span>
                 </div>
             </div>
 
             <div class="mobile_list">
                 <div class="nav_list">
-                    <a class="nav-link" href="/catalog?category_id=1">Каталог</a>
+                    <a class="nav-link" href="/catalog">Каталог</a>
                     <a class="nav-link" href="/blog">Блог</a>
                     <a class="nav-link" href="/delivery">Доставка</a>
                     <a class="nav-link" href="/payment">Оплата</a>
@@ -135,7 +135,7 @@
             <div class="empty_basket_info">
                 <div class="name_buckets" style="color: #F54343">
                     В корзине пусто!
-                    <a class="all_catalog_href" href="/catalog?category_id=1" style="width: 80%; margin: 70px auto;">
+                    <a class="all_catalog_href" href="/catalog" style="width: 80%; margin: 70px auto;">
                         Перейти в каталог
                     </a>
                 </div>
@@ -386,7 +386,7 @@
 
             <div class="catalog_flex" style="padding:25px 0">
                 <div style="width: 50%">
-                    <a class="nav-link" href="/catalog?category_id=1">Каталог</a>
+                    <a class="nav-link" href="/catalog">Каталог</a>
                     <a class="nav-link" href="/blog">Блог</a>
                 </div>
                 <div style="width: 50%">
@@ -650,11 +650,10 @@
                     inputs[i].classList.add('error');
                 }
             }
-            notification('Заполните все поля!', 1);
-            return;
+            return notification('Заполните все поля!', 1);
+
         } else if (phone_user_auth.value !== registration_number) {
-            notification('Номера не совпадают!', 1);
-            return;
+            return notification('Номера не совпадают!', 1);
         } else {
             let data = {
                 'phone': phone_user_auth.value,
@@ -666,8 +665,7 @@
                 data: data,
                 success: function (msg) {
                     if (msg['status'] === 'error') {
-                        notification('Код введён неверно!', 1);
-                        return;
+                        return notification('Код введён неверно!', 1);
                     } else {
                         notification('Вы успешно авторизованы!', 2);
                         GetUser();

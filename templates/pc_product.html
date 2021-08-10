@@ -11,7 +11,7 @@
 <div class="catalog">
     <div class="container">
         <div class="place_breadcoast" id="place_breadcoast">
-            <a href="/">Главная</a> / <a href="/payment" class="active_page" id="active_page">Товар</a>
+            <a href="/">Главная</a>
         </div>
 
 
@@ -139,7 +139,7 @@
     <div class="container">
         <div class="catalog_flex">
             <h2 class="catalog_zag">Похожее</h2>
-            <a class="all_catalog_href" href="/catalog?category_id=1">
+            <a class="all_catalog_href" href="/catalog">
                 Весь каталог
             </a>
         </div>
@@ -444,10 +444,10 @@
             data: data,
             success: function (msg) {
                 console.log(msg);
-                name_cat_bucket.innerText = msg['category']['name'];
+                name_cat_bucket.innerText = msg['message']['category']['name'];
                 let breadcoast = BreadCoast(category_id);
                 console.log('hleb', breadcoast);
-                place_breadcoast.innerHTML += ' / ' + `<a href="/catalog?category_id=${msg['category']['parent_id']}">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${msg['category']['parent_id']}&sub_category=${msg['category']['id']}">${msg['category']['name']}</a>` + ' / ' +
+                place_breadcoast.innerHTML += ' / ' + `<a href="/catalog?category_id=${msg['message']['category']['parent_id']}">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${msg['message']['category']['parent_id']}&sub_category=${msg['message']['category']['id']}">${msg['message']['category']['name']}</a>` + ' / ' +
                     `<a href="/product?id=${id}" class="active_page">${name}</a>`;
             }
         })
