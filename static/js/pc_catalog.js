@@ -81,18 +81,18 @@ function drawCategories(msg) {
             page = 1;
             $('.delete_cat').remove();
             $('.delete_subcat').remove();
-            place_bread.innerHTML +=  `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
+            // place_bread.innerHTML +=  `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
             loadProducts();
         }
         category.onclick = function () {
-            document.getElementsByClassName('active_page')[0].classList.remove('active_page');
+            // document.getElementsByClassName('active_page')[0].classList.remove('active_page');
             $('.delete_subcat').remove();
             document.getElementsByClassName('_active')[0].classList.remove('_active');
             cat_name.classList.add('_active');
             page = 1;
             sub_category = msg[i]['id'];
             place_bread.innerHTML += `<a href="/catalog?category_id=${id}&sub_category=${msg[i]['id']}" class="active_page catalog_category_card delete_subcat">
-            <span style="color:#293048"> / </span>${msg[i]['name']}</a>`;
+            <span style="color:#293048"> </span>${msg[i]['name']}</a>`;
             loadProducts();
         }
         catalog_category_place.append(category);
