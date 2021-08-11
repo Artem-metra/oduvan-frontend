@@ -20,7 +20,7 @@
 </div>
 
 <!-- Наш каталог -->
-<div class="catalog">
+<div class="catalog" id='our_catalog'>
     <div class="container">
         <h2 class="catalog_zag" style="margin-bottom: 40px;">Наш каталог</h2>
         <!-- Наш каталог - карточки -->
@@ -348,7 +348,7 @@
 
 <script>
 
-   loadCategories();
+    loadCategories();
 
     function loadCategories() {
         let data = {
@@ -366,6 +366,47 @@
                 }
             }
         });
+    }
+
+    loadMainCategory();
+
+    function loadMainCategory() {
+        $.ajax({
+            url: '/api/categories/get_for_main',
+            type: "GET",
+            success: function (msg) {
+                console.log('Category on Main', msg);
+                drawMainCategory(msg['message']['categories']);
+            }
+        })
+    }
+
+
+
+    function drawMainCategory(categories) {
+        for (let i = 0; i < categories.length; i++) {
+            let box = card_main_item.cloneNode(true);
+            box.id = '';
+            let name_cat = box.getElementsByClassName('buckets')[0];
+            let name_buckets = box.getElementsByClassName('name_buckets')[0];
+            let href = box.getElementsByClassName('go_to_cat')[0];
+            let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
+            console.log(categories[i]['image']);
+            main_cat_img.src = 'http://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
+            name_cat.innerText = categories[i]['parent_name'];
+            name_buckets.innerText = categories[i]['name'];
+            href.href = `/catalog?category_id=${categories[i]['parent_id']}&sub_category=${categories[i]['id']}`;
+            box.style.display = 'inline-block';
+            card_on_main.append(box);
+        }
+    }
+
+    down_to_catalog.onclick = function (e) {
+        e.preventDefault();
+        document.getElementById('our_catalog').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        })
     }
 
     loadProducts();
@@ -410,45 +451,6 @@
         });
     }
 
-
-    loadMainCategory();
-
-    function loadMainCategory() {
-        $.ajax({
-            url: '/api/categories/get_for_main',
-            type: "GET",
-            success: function (msg) {
-                console.log('Category on Main', msg);
-                drawMainCategory(msg['message']['categories']);
-            }
-        })
-    }
-
-    function drawMainCategory(categories) {
-        for (let i = 0; i < categories.length; i++) {
-            let box = card_main_item.cloneNode(true);
-            box.id = '';
-            let name_cat = box.getElementsByClassName('buckets')[0];
-            let name_buckets = box.getElementsByClassName('name_buckets')[0];
-            let href = box.getElementsByClassName('go_to_cat')[0];
-            let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
-
-            name_cat.innerText = categories[i]['parent_name'];
-            name_buckets.innerText = categories[i]['name'];
-            href.href = `/catalog?category_id=${categories[i]['parent_id']}&sub_category=${categories[i]['id']}`;
-            main_cat_img.src = 'http://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
-            box.style.display = 'inline-block';
-            card_on_main.append(box);
-        }
-    }
-
-    down_to_catalog.onclick = function (e) {
-        e.preventDefault();
-        document.getElementById('our_catalog').scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-        })
-    }
 
 
 

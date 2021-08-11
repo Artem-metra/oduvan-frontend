@@ -495,7 +495,7 @@ input[type="checkbox"] {
     cursor: pointer;
     position: absolute;
     font-size: 48px;
-    bottom: 400px;
+    bottom: 250px;
 
 }
 
@@ -2879,7 +2879,16 @@ pagination_place {
 
 .wedding_item{
     margin-bottom: 25px;
-    list-style-type: circle;
+    display: flex;
+    align-items: center;
+}
+
+.list_style{
+    width: 9px;
+    height: 9px;
+    background-color: #F877AD;
+    margin-right: 7px;
+    border-radius: 50%;
 }
 
 /*====== Настройки datepicker ========*/

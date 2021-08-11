@@ -64,6 +64,7 @@ function drawCategories(msg) {
         let category = catalog_category_card.cloneNode(true);
         category.id = '';
         category.style.display = 'block';
+
         let cat_name = category.getElementsByClassName('catalog_category_item')[0];
         cat_name.innerText = msg[i]['name'];
         if (sub_category === msg[i]['id']) {
