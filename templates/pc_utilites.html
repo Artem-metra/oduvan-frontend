@@ -816,15 +816,18 @@
                 }
 
                 minus_counter.onclick = function () {
+
                     if(Number(input.value) === 1) {
                         minus_counter.onclick = function () {
                             box.classList.remove('in_basket');
-                            for_basket.style.display = 'flex';
+                            for_basket.classList.remove('my_flex');
                             added_product.style.display = 'none';
                             price_basket.style.display = 'none';
                             DeleteProductBasket(product['id']);
                         }
+
                     }
+
 
 
                     if (Number(input.value) > 1) {

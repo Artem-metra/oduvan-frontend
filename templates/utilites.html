@@ -360,13 +360,13 @@
                             </a>
                         </div>
                         <div class="right_nav_place">
-                            <span class="name_buckets"></span>
-                            <a class="right_nav_item">
-                                <span class="fas fa-shopping-bag "></span>
+                            <span class="num_basket" style="font-size: 29px"></span>
+                            <a class="right_nav_item" id="go_to_basket_footer">
+                                <span class="fas fa-shopping-bag"></span>
                             </a>
                         </div>
                         <div class="right_nav_place">
-                            <a class="right_nav_item">
+                            <a class="right_nav_item user_item" >
                                 <span class="fas fa-user"></span>
                             </a>
                         </div>
@@ -534,7 +534,7 @@
         }
    }
 
-   go_to_basket.onclick = function () {
+   function goToBasket() {
        body.style.overflow = 'hidden';
        blurpopup.style.display = 'block';
        basket_popup.classList.add('_active');
@@ -576,6 +576,15 @@
                OpenPopup(registrationpopup, 1);
            }
        }
+   }
+
+
+   go_to_basket_footer.onclick = function () {
+       goToBasket();
+   }
+
+   go_to_basket.onclick = function () {
+       goToBasket()
    }
 
 

@@ -2539,6 +2539,10 @@ input[type=range]:focus::-ms-fill-upper {
     border-radius: 50%;
 }
 
+.my_flex{
+    display: flex;
+}
+
 /* Container */
 @media (max-width: 3000px) {
     .container {
