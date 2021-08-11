@@ -236,7 +236,7 @@ function drawFlowers(flower) {
 }
 
 
-loadPackages();
+if(id === 1) loadPackages();
 
 function loadPackages() {
     $.ajax({

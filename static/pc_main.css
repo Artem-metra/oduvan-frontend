@@ -2526,6 +2526,16 @@ input[type=range]:focus::-ms-fill-upper {
 
 .wedding_item{
     margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.list_style{
+    width: 9px;
+    height: 9px;
+    background-color: #F877AD;
+    margin-right: 7px;
+    border-radius: 50%;
 }
 
 /* Container */
