@@ -778,6 +778,12 @@
                     price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
                     console.log('InputValue', Number(input.value));
                 }
+
+                if(Number(input.value) === 1){
+                   // minus_counter.onclick = function () {
+                   //      DeleteProductBasket(product['id']);
+                   // }
+                }
             }
             plus_counter.onclick = function () {
                 if (Number(input.value) >= 1) {
@@ -811,6 +817,12 @@
                         addProduct(product['id'], Number(-1));
                         price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
                         console.log('InputValue', Number(input.value));
+                    }
+
+                    if(Number(input.value) === 1){
+                        minus_counter.onclick = function () {
+                            DeleteProductBasket(product['id']);
+                        }
                     }
                 }
                 plus_counter.onclick = function () {
@@ -1027,6 +1039,12 @@
                 input.value--;
                 addProduct(product['id'], Number(-1));
             }
+
+            if(Number(input.value) === 1){
+                minus_counter.onclick = function () {
+                    DeleteProductСounter(product['id']);
+                }
+            }
         }
         plus_counter.onclick = function () {
             if (Number(input.value) >= 1) {
@@ -1051,6 +1069,21 @@
         return box;
     }
 
+
+    // Удалить товар при нажатие на минус в счетчике
+    function DeleteProductСounter(product_id){
+         let data = {
+            'product_id': product_id,
+        }
+        $.ajax({
+            url: '/api/basket/remove_product_key',
+            data: data,
+            type: "GET",
+            success: function (msg) {
+                loadBasket();
+            }
+        })
+    }
 
     // Удалить товар из корзины
     function DeleteProductBasket(product_id) {

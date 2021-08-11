@@ -80,12 +80,13 @@ function drawCategories(msg) {
         category.style.display = 'inline-block';
         vse.onclick = function () {
             document.getElementsByClassName('_active')[0].classList.remove('_active');
+            document.getElementsByClassName('active_page')[0].classList.remove('active_page');
             vse.classList.add('_active');
             sub_category = 0;
             page = 1;
             $('.delete_cat').remove();
             $('.delete_subcat').remove();
-            place_bread.innerHTML += `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
+           place_bread.innerHTML +=  `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
             loadProducts();
         }
         category.onclick = function () {
@@ -188,7 +189,7 @@ function loadProducts() {
 //     }
 // }
 
-if (id === 1) loadFlowers();
+if (id === 28) loadFlowers();
 
 function loadFlowers() {
     filter_place.style.display = 'block';
@@ -201,7 +202,7 @@ function loadFlowers() {
             // Хлебные крошки
             let breadcoast = BreadCoast(id);
             console.log(breadcoast);
-            place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
+           place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
         }
     })
 }

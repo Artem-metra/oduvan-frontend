@@ -135,7 +135,7 @@
 
 
 <!-- Похожее -->
-<div class="catalog" style="background: #f5f5f6;">
+<div class="catalog my_container" style="background: #f5f5f6;">
     <div class="container">
         <div class="catalog_flex">
             <h2 class="catalog_zag">Похожее</h2>
@@ -143,45 +143,42 @@
                 Весь каталог
             </a>
         </div>
-        <!-- Слайдер "Популярное" -->
+    </div>
+    <!-- Слайдер -->
+    <div id="swiper_place" style="display: none">
+        <div class="row rw m-t-16 generelSlide" id="slider_place" style="display: none; ">
+            <!-- Slider Banners -->
+            <div class="col-xs-12" style="position: relative">
+                <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>
+                <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>
+                <div class="container">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper"></div>
 
-        <!-- Слайдер -->
-        <div id="swiper_place" style="display: none">
-            <div class="row rw m-t-16" id="slider_place" style="display: none">
-                <!-- Slider Banners -->
-                <div class="col-xs-12" style="position: relative">
-                    <div class="swip_left_arrow"><span class="fa fa-chevron-left swip_arrow"></span></div>
-                    <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>
-                    <div class="container">
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper"></div>
-
-                            <!--                        <div class="pagination_place">-->
-                            <!--                            <div class="swiper-pagination" style="position:static"></div>-->
-                            <!--                        </div>-->
-                        </div>
+                        <!--                        <div class="pagination_place">-->
+                        <!--                            <div class="swiper-pagination" style="position:static"></div>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
-
 <!-- Индивидуальный заказ букета -->
 <div class="individual_order">
     <div class="individual_order_info">
         <div class="individual_order_info_text">
             <div class="individual_order_info_text_info">
-                <span class="bucket_na_zakaz">Букет на заказ</span>
+                <span class="bucket_na_zakaz" style="margin-top: 20px;">Букет на заказ</span>
                 <h3 class="individual_zakaz">Индивидуальный заказ букета</h3>
                 <div class="individual_info">
                     Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
                     и
                     упаковке
                 </div>
-                <a class="all_catalog_href" style="float: none">
+                <input type="name" class="popup_input" placeholder="Введите свое имя" style="width: 70%; height: 80px">
+                <input type="surname" class="popup_input" placeholder="Номер телефона" style="width: 70%; height: 80px">
+                <a class="all_catalog_href" style="float: none; margin-bottom: 13px;width: 70%; height: 95px">
                     Сделать заказ
                 </a>
             </div>

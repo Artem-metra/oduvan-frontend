@@ -189,18 +189,6 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-/* Container */
-@media (max-width: 3000px) {
-    .container {
-        width: 100%;
-        display: block;
-        margin: 0 auto;
-        max-width: 1400px;
-    }
-}
-
-
-
 
 /* Уведомления об ошибке или успешности действия */
 .notification {
@@ -416,7 +404,7 @@ input[type="checkbox"] {
 /* Первый блок на главной  */
 .main_background {
     width: 100%;
-    height: 600px;
+    height: 95vh;
     color: #ffffff;
     position: relative;
 }
@@ -2540,7 +2528,111 @@ input[type=range]:focus::-ms-fill-upper {
     margin-bottom: 5px;
 }
 
+/* Container */
+@media (max-width: 3000px) {
+    .container {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+        max-width: 1400px;
+    }
+}
 
+
+@media (max-width: 1700px){
+     .swiper-slide{
+        width: 282px;
+    }
+
+     #swiper_place{
+        padding: 0 75px;
+    }
+
+    #disc_swiper_place{
+        padding: 0 75px;
+    }
+
+    .col-xs-12{
+        position: relative;
+    }
+
+    .swip_left_arrow{
+        left: -2%;
+        position: absolute;
+        top: 50%;
+    }
+
+    .swip_right_arrow{
+        right: -2%;
+        position: absolute;
+        top: 50%;
+    }
+}
+
+
+@media (max-width: 1600px){
+     .swiper-slide{
+        width: 282px;
+    }
+
+     #swiper_place{
+        padding: 0 100px;
+    }
+
+    #disc_swiper_place{
+        padding: 0 100px;
+    }
+
+    .col-xs-12{
+        position: relative;
+    }
+
+    .swip_left_arrow{
+        left: -6%;
+        position: absolute;
+        top: 50%;
+    }
+
+    .swip_right_arrow{
+        right: -6%;
+        position: absolute;
+        top: 50%;
+    }
+}
+
+
+
+
+
+@media (max-width: 1500px){
+     .swiper-slide{
+        width: 282px;
+    }
+
+     #swiper_place{
+        padding: 0 75px;
+    }
+
+    #disc_swiper_place{
+        padding: 0 75px;
+    }
+
+    .col-xs-12{
+        position: relative;
+    }
+
+    .swip_left_arrow{
+        left: -4%;
+        position: absolute;
+        top: 50%;
+    }
+
+    .swip_right_arrow{
+        right: -4%;
+        position: absolute;
+        top: 50%;
+    }
+}
 
 
 
@@ -2563,7 +2655,6 @@ input[type=range]:focus::-ms-fill-upper {
 
     .swiper-slide{
         width: 282px;
-
     }
 
     /*.my_container{*/
@@ -2571,7 +2662,7 @@ input[type=range]:focus::-ms-fill-upper {
     /*}*/
 
     #swiper_place{
-        padding: 0 50px;
+        padding: 0 75px;
     }
 
     #disc_swiper_place{
@@ -2594,7 +2685,6 @@ input[type=range]:focus::-ms-fill-upper {
         top: 50%;
     }
 }
-
 
 
 
