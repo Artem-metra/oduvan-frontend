@@ -552,6 +552,7 @@ input[type="checkbox"] {
     font-size: 48px;
     line-height: 110%;
     font-weight: 600;
+    display: block;
 }
 
 
