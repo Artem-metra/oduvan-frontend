@@ -41,7 +41,7 @@
         <div class="empty_basket_info">
             <div class="name_buckets">
                 В избранном нет товаров!
-                <a class="all_catalog_href" href="/catalog?category_id=1">
+                <a class="all_catalog_href" href="/catalog">
                     Перейти в каталог
                 </a>
             </div>
@@ -144,6 +144,7 @@
                     basket_place.style.display = 'block';
                     catalog.style.display = 'none';
                     empty_basket_createorder.style.display = 'block';
+                    Preloader(0);
                 } else if (msg['message']['products'].length === 0) {
                     basket_place.style.display = 'block';
                     empty_basket_createorder.style.display = 'block';

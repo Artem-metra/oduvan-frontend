@@ -41,3 +41,8 @@ def api_category_remove():
 @category_app.route('/api/categories/get_for_main')
 def api_categories_get_for_main():
     return utils.complete_request(request, request.path)
+
+
+@category_app.route('/api/category/top_category_products_count')
+def api_get_top_category():
+    return utils.complete_request(request, request.path)

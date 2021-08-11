@@ -13,7 +13,7 @@
             <!-- Сортировка в каталоге -->
             <div class="catalog_sorted">
                 <div class="place_breadcoast" id="place_bread">
-                    <a href="/">Главная</a> / <a class="active_page" href="" id="bread_catalog">Каталог</a>
+                    <a href="/">Главная</a> / <a href="" id="bread_catalog">Каталог</a>
                 </div>
                 <div id="place_top_cats">
 
@@ -59,7 +59,7 @@
                     <div class="price_place">
                         <span>До</span>
                         <div id="price_do" class="price_price">
-                            <input type="number" value="100000" id="price_max"> ₽
+                            <input type="number" value="100000" id="price_max" style="width: 78%"> ₽
                         </div>
                     </div>
                 </div>
@@ -221,13 +221,26 @@
 {% include 'pc_utilites.html' %}
 <!-- Функции к каталогу -->
 <script>
-    let id = {{id}} || 1,
-        page = {{page}} || 1,
-        sub_category = {{ sub_category }} ||0;
+    let page = {{page}} || 1,
+    sub_category = {{sub_category}} || 0,
+    sorted_type = {{sorted_type}} || 1;
 
+        loadTopCategory();
+
+    function loadTopCategory(){
+        let categor = 0;
+        $.ajax({
+            url: '/api/category/top_category_products_count',
+            type: "GET",
+            async: false,
+            success: function(msg){
+                console.log('TopCategory', msg);
+                categor = msg['message']['top_categories'][0]['id'];
+            }
+        });
+        id = {{id}} || categor;
+    }
 </script>
 <script src="../static/js/pc_catalog.js"></script>
-
-
 </body>
 </html>

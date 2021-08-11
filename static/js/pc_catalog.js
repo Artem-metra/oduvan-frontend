@@ -1,5 +1,4 @@
 let category_id = 0;
-let sorted_type = 1;
 let cost_end = 150000;
 let cost_start = 0;
 let flowers = [];
@@ -75,12 +74,13 @@ function drawCategories(msg) {
         category.style.display = 'inline-block';
         vse.onclick = function () {
             document.getElementsByClassName('_active')[0].classList.remove('_active');
+            document.getElementsByClassName('active_page')[0].classList.remove('active_page');
             vse.classList.add('_active');
             sub_category = 0;
             page = 1;
             $('.delete_cat').remove();
             $('.delete_subcat').remove();
-            place_bread.innerHTML += `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
+            place_bread.innerHTML +=  `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
             loadProducts();
         }
         category.onclick = function () {
@@ -135,6 +135,7 @@ function loadProducts() {
         success: function (msg) {
             console.log('Продкуты каталога', msg);
             if (msg['message']['products'].length === 0) {
+                Preloader(0);
                 EmptyProducts();
             } else {
                 document.getElementById('lds-roller').style.display = 'block';
@@ -199,7 +200,7 @@ function outdoingListCatalog() {
 
 }
 
-if (id === 1) loadFlowers();
+if (id === 28) loadFlowers();
 
 function loadFlowers() {
     flowers_zag.style.display = 'block';
@@ -316,8 +317,8 @@ function drawProducts(msg) {
         let box = createProduct(msg[i]);
         box.style.display = 'inline-block';
         document.getElementById('item_card_place').append(box);
-        Preloader(0);
     }
+    Preloader(0);
     for (let i = 1; i < paginations + 1; i++) {
         let pagination = pagination_item.cloneNode(true);
         pagination.id = '';
