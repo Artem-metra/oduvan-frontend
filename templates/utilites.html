@@ -1134,12 +1134,19 @@
                 changeProduct(product['id'], Number(input.value));
             }
         }
+        minus_counter.addEventListener("mousedown", ()=>{
+            if(Number(input.value) === 1) {
+                DeleteProductBasket(product['id']);
+            }
+        })
+
 
         minus_counter.onclick = function () {
             if (Number(input.value) > 1) {
                 input.value--;
                 addProduct(product['id'], Number(-1));
             }
+
         }
         plus_counter.onclick = function () {
             if (Number(input.value) >= 1) {
