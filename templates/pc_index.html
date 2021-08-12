@@ -677,7 +677,7 @@
             let href = box.getElementsByClassName('go_to_cat')[0];
             let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
             main_cat_img.alt = categories[i]['name'];
-            main_cat_img.src = 'https://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
+            main_cat_img.src = 'http://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
             if(categories[i]['parent_id'] !== 0) name_cat.innerText = categories[i]['parent_name'];
             else {
                 name_buckets.style.marginTop = '55px';
