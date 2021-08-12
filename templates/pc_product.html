@@ -176,14 +176,14 @@
                     и
                     упаковке
                 </div>
-                <input type="name" class="popup_input" placeholder="Введите свое имя" style="width: 70%; height: 80px">
-                <input type="surname" class="popup_input" placeholder="Номер телефона" style="width: 70%; height: 80px">
+                <input type="name" class="popup_input" placeholder="Введите свое имя" style="width: 70%; height: 80px" />
+                <input type="surname" class="popup_input" placeholder="Номер телефона" style="width: 70%; height: 80px" />
                 <a class="all_catalog_href" style="float: none; margin-bottom: 13px;width: 70%; height: 95px">
                     Сделать заказ
                 </a>
             </div>
             <div class="individual_order_info_text_img">
-                <img src="../static/img/individual_img.png">
+                <img src="../static/img/individual_img.png" />
             </div>
         </div>
     </div>
@@ -191,7 +191,9 @@
 
 {% include 'pc_utilites.html' %}
 <script>
-    let id = {{id}}, name = '', category_id = 0;
+    let id = {{id}},
+        name = '',
+        category_id = 0;
 
 
 
@@ -264,6 +266,7 @@
         let count = document.getElementById('counter_product');
         if (msg['product']['discount_type'] > 0) {
             price.classList.add('have_disc');
+            disc_price_bucket.innerText = msg['product']['discount_cost'];
         } else {
             disc_price_bucket.style.display = 'none';
         }
@@ -341,22 +344,16 @@
         }
         height_product.innerText += ' ' + msg['product']['height'] + ' см';
         diameter_product.innerText += ' ' + msg['product']['diameter'] + ' см';
-
-
-
         chevron_list_one.onclick = function (){
             actionList(all_text_one);
             positionArrow(chevron_list_one)
         }
-
-
         chevron_list_two.onclick = function(){
             actionList(all_text_two);
             positionArrow(chevron_list_two)
         }
         Preloader(0);
     }
-
 
     /// Слайдер популярное
     loadProducts();
