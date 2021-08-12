@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Статья</title>
-    {% include 'pc_headers.html' %}
+    {% include 'headers.html' %}
 </head>
 <body id="body">
 <!-- Страница статьи -->
@@ -13,7 +13,7 @@
             <a href="">Главная</a> / <a class="active_page" id="active_page href=">Блог</a> / <a class="active_page" id="active_page href=">Заголовок статьи</a>
         </div>
         <h1 class="catalog_zag" style="margin-bottom: 30px">Заголовок статьи</h1>
-        <div class="description_explanations" style="max-width: 75%">
+        <div class="description_explanations" style="font-size: 22px">
             Таким образом новая модель организационной деятельности способствует подготовки и реализации новых
             предложений. Значимость этих проблем настолько очевидна, что постоянный количественный рост и сфера нашей
             активности способствует подготовки и реализации дальнейших направлений развития. Повседневная практика
@@ -31,11 +31,11 @@
 
 <div class="catalog">
     <div class="container">
-        <div class="catalog_flex_catalog">
+        <div class="catalog_flex_catalog" style="display: block">
             <div class="blog_art_img">
-                <img src="../static/img/blog_big_img.png">
+                <img src="../static/img/blog_big_img.png" width="100%">
             </div>
-            <div class="blog_art_text description_explanations">
+            <div class="blog_art_text description_explanations" style="font-size: 22px">
                 Таким образом новая модель организационной деятельности способствует подготовки и реализации новых
                 предложений. Значимость этих проблем настолько очевидна, что постоянный количественный рост и сфера
                 нашей активности способствует подготовки и реализации дальнейших направлений развития. Повседневная
@@ -160,7 +160,7 @@
     </div>
 </div>
 
-{% include 'pc_utilites.html' %}
+{% include 'utilites.html' %}
 
 <script>
     let id = {{ id }};

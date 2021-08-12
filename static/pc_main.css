@@ -308,7 +308,6 @@ input[type="checkbox"] {
 
 .right_header_part_item {
     display: flex;
-    margin-right: 30px;
     font-weight: 600;
     font-size: 16px;
     line-height: 150%;
