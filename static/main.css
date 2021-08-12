@@ -973,6 +973,13 @@ input[type="checkbox"] {
     font-size: 36px;
 }
 
+
+.all_catalog_href.blur {
+    opacity: 0.5;
+    transition: opacity .3s;
+    cursor: default;
+}
+
 .catalog_zag {
     font-size: 56px;
     line-height: 110%;
