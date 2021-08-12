@@ -234,7 +234,7 @@
     }
 
 
-    /* Отрисовать продукт */
+
      /* Отрисовать продукт */
     function drawProduct(msg) {
         console.log(msg);
@@ -264,11 +264,12 @@
         let count = document.getElementById('counter_product');
         if (msg['product']['discount_type'] > 0) {
             price.classList.add('have_disc');
+            disc_price_bucket.innerText = msg['product']['discount_cost'];
         } else {
             disc_price_bucket.style.display = 'none';
         }
 
-        if (msg['product']['q_count'] > 0) {
+         if (msg['product']['q_count'] > 0) {
             disc_price_bucket.innerText = Number(msg['product']['discount_cost'] * msg['product']['q_count']) + ' ₽';
             price.innerText = Number(msg['product']['cost'] * msg['product']['q_count']) + ' ₽';
             add_to_basket.style.display = 'none';

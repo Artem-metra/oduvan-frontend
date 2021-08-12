@@ -40,7 +40,7 @@
                             <a href="" class="go_to_cat">Выбрать <span style="margin-left: 20px" class="fa fa-chevron-right"></span></a>
                         </div>
                     </div>
-                    <img src="../static/img/big_img_main.png" class="main_cat_img" style="position: absolute; right: 0; top: 215px; z-index: 1">
+                    <img src="" class="main_cat_img" style="position: absolute; right: 0; top: 215px; z-index: 1">
                 </div>
             </div>
         </div>
@@ -392,7 +392,7 @@
             let href = box.getElementsByClassName('go_to_cat')[0];
             let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
             main_cat_img.alt = categories[i]['name'];
-            main_cat_img.src = 'https://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
+            main_cat_img.src = 'http://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
             if(categories[i]['parent_id'] !== 0) name_cat.innerText = categories[i]['parent_name'];
             else {
                 name_buckets.style.marginTop = '55px';
