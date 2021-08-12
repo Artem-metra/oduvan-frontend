@@ -86,7 +86,7 @@ function drawCategories(msg) {
             loadProducts();
         }
         category.onclick = function () {
-            // document.getElementsByClassName('active_page')[0].classList.remove('active_page');
+            document.getElementsByClassName('active_page')[0].classList.add('active_page');
             $('.delete_subcat').remove();
             document.getElementsByClassName('_active')[0].classList.remove('_active');
             cat_name.classList.add('_active');

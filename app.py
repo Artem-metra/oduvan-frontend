@@ -111,10 +111,11 @@ def blog():
 # article blog
 @app.route('/article')
 def article():
+    id = request.values.get('id', 0, int)
     if utils.is_mobile(request.user_agent):
-        return render_template('article.html')
+        return render_template('article.html', id=id)
     else:
-        return render_template('pc_article.html')
+        return render_template('pc_article.html', id=id)
 
 
 # delivery

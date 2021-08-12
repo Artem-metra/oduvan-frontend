@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Одуван</title>
+    <title id="title"></title>
     {% include 'pc_headers.html' %}
 </head>
 <body id="body">
@@ -39,7 +39,7 @@
             <div class="all_pictures_product_place" id="all_pictures_product_place">
                 <div class="small_product_card" id="small_product_card" style="display: none;">
                     <div class="small_product_place">
-                        <img src="../static/img/slider_img.png" class="small_product_img">
+                        <img src="" class="small_product_img">
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
             <div class="main_pictures_product_place" id="main_pictures_product_place">
                 <div class="big_product_card">
                     <div class="small_product_place">
-                        <img src="../static/img/slider_img.png" class="small_product_img" id="main_photo">
+                        <img src="" class="small_product_img" id="main_photo">
                     </div>
                 </div>
 
@@ -239,30 +239,32 @@
 
     /* Отрисовать продукт */
     function drawProduct(msg) {
+        title.innerText = msg['product']['name'];
         console.log(msg);
         description_product.innerText = msg['product']['description'];
         name_bucket.innerText = msg['product']['name'];
         name = msg['product']['name'];
-        // main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][0][0];
+        main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][0];
 
-        if (msg['product']['photos'] > 0) {
+        if (msg['product']['photos'].length) {
             for (let i = 0; i < msg['product']['photos'].length; i++) {
                 let images = small_product_card.cloneNode(true);
-                images.id = '';
+                images.removeAttribute('id');
                 if (i === 0) {
                     images.classList.add('_active_photo');
                 }
                 let img = images.getElementsByClassName('small_product_img')[0];
-                img.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i][i];
+                img.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i];
                 images.style.display = 'block';
                 images.onclick = function () {
                     document.getElementsByClassName('_active_photo')[0].classList.remove('_active_photo');
                     images.classList.add('_active_photo');
-                    main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i][i];
+                    main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i];
                 }
                 all_pictures_product_place.append(images);
             }
         }
+
         let count = document.getElementById('counter_product');
         if (msg['product']['discount_type'] > 0) {
             price.classList.add('have_disc');
@@ -305,6 +307,17 @@
         let plus = document.getElementById('plus_counter');
 
         // Счетчик товаров
+
+
+        minus.addEventListener("mousedown", ()=> {
+            if (Number(count.value) === 1) {
+                DeleteProductBasket(msg['product']['id']);
+                add_to_basket.style.display = 'flex';
+                basket_place.style.display = 'none';
+            }
+        })
+
+
         minus.onclick = function () {
             if (Number(count.value) > 1) {
                 count.value--;
@@ -312,6 +325,7 @@
                 disc_price_bucket.innerText = Number(count.value * msg['product']['discount_cost']) + ' ₽';
                 price.innerText = Number(count.value * msg['product']['cost']) + ' ₽';
             }
+
         }
         plus.onclick = function () {
             if (Number(count.value) >= 1) {
