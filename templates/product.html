@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Оформление заказа</title>
+    <title id="title"></title>
+    <meta id="meta_keywords" name="keywords" content="Одуван, Весёлый одуван, цветы, букеты">
     {% include 'headers.html' %}
 </head>
 <body id="body">
@@ -31,19 +32,21 @@
         </div>
 
         <div class="catalog_flex_catalog" id="content_catalog" style="margin-top:50px; display: block">
-            <!-- Картинки слева. Все картинки букета -->
-            <div class="all_pictures_product_place" id="all_pictures_product_place">
-                <div class="small_product_card" id="small_product_card" style="display: none;">
-                    <div class="small_product_place">
-                        <img src="../static/img/slider_img.png" class="small_product_img">
-                    </div>
-                </div>
-            </div>
+
             <!-- Главная картинка -->
             <div class="main_pictures_product_place">
                 <div class="big_product_card">
                     <div class="small_product_place">
-                        <img src="../static/img/slider_img.png" class="small_product_img" id="main_photo">
+                        <img src="" class="product_img" id="main_photo">
+                    </div>
+                </div>
+
+                <!-- Картинки снизу. Все картинки букета -->
+                <div class="all_pictures_product_place" id="all_pictures_product_place">
+                    <div class="small_product_card" id="small_product_card" style="display: none;">
+                        <div class="">
+                            <img src="" class="small_product_img">
+                        </div>
                     </div>
                 </div>
 
@@ -51,7 +54,7 @@
                     <div class="explanations_product" style="font-size: 48px">Инструкция свежести</div>
                     <span class="fa fa-chevron-down" style="font-size: 34px" id="chevron_list_one"></span>
                 </div>
-                <div id="all_text_one" class="all_text" style="font-size: 12px">
+                <div id="all_text_one" class="all_text" style="font-size: 16px">
                     Поместите букет в вазу, Поставьте вазу в прохладном месте без сквозняка, вдали от прямых солнечных лучей и фруктов.
                     Ежедневно мойте вазу, обновляйте воду и подрезайте стебли.
                     Наслаждайтесь своим букетом. Покажите его друзьям в инстаграм и не забудьте отметить нас @одуван.
@@ -62,7 +65,7 @@
                     <div class="explanations_product" style="font-size: 48px">Подробнее о доставке</div>
                     <span class="fa fa-chevron-down" style="font-size: 34px"  id="chevron_list_two"></span>
                 </div>
-                <div id="all_text_two" class="all_text" style="font-size: 12px">
+                <div id="all_text_two" class="all_text" style="font-size: 16px">
                     При заказе от 2 000 руб. доставка БЕСПЛАТНО* в любую точку г. Воронежа.
                     При заказе до 2 000 руб. стоимость доставки рассчитывается индивидуально
                     в зависимости от удаленности района доставки.<br>
@@ -237,30 +240,33 @@
 
      /* Отрисовать продукт */
     function drawProduct(msg) {
+        title.innerText = msg['product']['name'];
+        meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + msg['product']['name'])
         console.log(msg);
         description_product.innerText = msg['product']['description'];
         name_bucket.innerText = msg['product']['name'];
         name = msg['product']['name'];
-        // main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][0][0];
+        main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][0];
 
-        if (msg['product']['photos'] > 0) {
+        if (msg['product']['photos'].length) {
             for (let i = 0; i < msg['product']['photos'].length; i++) {
                 let images = small_product_card.cloneNode(true);
-                images.id = '';
+                images.removeAttribute('id');
                 if (i === 0) {
                     images.classList.add('_active_photo');
                 }
                 let img = images.getElementsByClassName('small_product_img')[0];
-                img.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i][i];
+                img.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i];
                 images.style.display = 'block';
                 images.onclick = function () {
                     document.getElementsByClassName('_active_photo')[0].classList.remove('_active_photo');
                     images.classList.add('_active_photo');
-                    main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i][i];
+                    main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i];
                 }
                 all_pictures_product_place.append(images);
             }
         }
+
         let count = document.getElementById('counter_product');
         if (msg['product']['discount_type'] > 0) {
             price.classList.add('have_disc');
@@ -288,10 +294,10 @@
         count.onchange = function () {
             if (count.value === '') {
                 count.value = 1;
-                minus.className = 'disabled';
+
             } else if (count.value < 1) {
                 count.value = 1;
-                minus.className = 'disabled';
+
             } else {
                 changeProduct(msg['product']['id'], Number(count.value));
             }
@@ -303,6 +309,17 @@
         let plus = document.getElementById('plus_counter');
 
         // Счетчик товаров
+
+
+        minus.addEventListener("mousedown", ()=> {
+            if (Number(count.value) === 1) {
+                DeleteProductBasket(msg['product']['id']);
+                add_to_basket.style.display = 'flex';
+                basket_place.style.display = 'none';
+            }
+        })
+
+
         minus.onclick = function () {
             if (Number(count.value) > 1) {
                 count.value--;
@@ -361,23 +378,7 @@
 
 
 
-    let count = document.getElementById('counter_product')
-    let minus = document.getElementById('minus_counter');
 
-    minus.onclick = function (){
-         if(count.value > 1){
-            count.value--;
-        }
-
-    }
-
-    plus_counter.onclick = function (){
-        if(count.value >= 1){
-            count.value++;
-            console.log('test');
-        }
-
-    }
 
     loadProducts();
 
