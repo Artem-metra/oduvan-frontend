@@ -40,7 +40,7 @@
                             <a href="" class="go_to_cat">Выбрать <span style="margin-left: 20px" class="fa fa-chevron-right"></span></a>
                         </div>
                     </div>
-                    <img src="../static/img/big_img_main.png" class="main_cat_img" style="position: absolute; right: 0; top: 215px; z-index: 1">
+                    <img src="" class="main_cat_img" style="position: absolute; right: 0; top: 215px; z-index: 1">
                 </div>
             </div>
         </div>
@@ -391,11 +391,16 @@
             let name_buckets = box.getElementsByClassName('name_buckets')[0];
             let href = box.getElementsByClassName('go_to_cat')[0];
             let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
-            console.log(categories[i]['image']);
+            main_cat_img.alt = categories[i]['name'];
             main_cat_img.src = 'http://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
-            name_cat.innerText = categories[i]['parent_name'];
+            if(categories[i]['parent_id'] !== 0) name_cat.innerText = categories[i]['parent_name'];
+            else {
+                name_buckets.style.marginTop = '55px';
+                name_cat.style.display = 'none';
+            }
             name_buckets.innerText = categories[i]['name'];
-            href.href = `/catalog?category_id=${categories[i]['parent_id']}&sub_category=${categories[i]['id']}`;
+            if(categories[i]['parent_id'] === 0) href.href = `/catalog?category_id=${categories[i]['id']}`;
+            else href.href = `/catalog?category_id=${categories[i]['parent_id']}&sub_category=${categories[i]['id']}`;
             box.style.display = 'inline-block';
             card_on_main.append(box);
         }

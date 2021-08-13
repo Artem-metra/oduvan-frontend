@@ -63,8 +63,6 @@ function drawCategories(msg) {
     for (let i = 0; i < msg.length; i++) {
         let category = catalog_category_card.cloneNode(true);
         category.id = '';
-        category.style.display = 'block';
-
         let cat_name = category.getElementsByClassName('catalog_category_item')[0];
         cat_name.innerText = msg[i]['name'];
         if (sub_category === msg[i]['id']) {
@@ -73,6 +71,7 @@ function drawCategories(msg) {
         }
         console.log(sub_category, msg[i]['id']);
         category.style.display = 'inline-block';
+        let breadcoast = BreadCoast(id);
         vse.onclick = function () {
             document.getElementsByClassName('_active')[0].classList.remove('_active');
             document.getElementsByClassName('active_page')[0].classList.remove('active_page');
@@ -81,18 +80,21 @@ function drawCategories(msg) {
             page = 1;
             $('.delete_cat').remove();
             $('.delete_subcat').remove();
+            $('.delete_slash').remove();
+            place_bread.innerHTML += `<a href="/catalog?category_id=${id}" class="active_page catalog_category_card delete_subcat">${breadcoast[0]}</a>`
             // place_bread.innerHTML +=  `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
             loadProducts();
         }
         category.onclick = function () {
-            // document.getElementsByClassName('active_page')[0].classList.remove('active_page');
+            document.getElementsByClassName('active_page')[0].classList.add('active_page');
             $('.delete_subcat').remove();
             document.getElementsByClassName('_active')[0].classList.remove('_active');
             cat_name.classList.add('_active');
             page = 1;
             sub_category = msg[i]['id'];
-            place_bread.innerHTML += `<a href="/catalog?category_id=${id}&sub_category=${msg[i]['id']}" class="active_page catalog_category_card delete_subcat">
-            <span style="color:#293048"> </span>${msg[i]['name']}</a>`;
+            document.getElementsByClassName('active_page')[0].classList.remove('active_page');
+            place_bread.innerHTML += '<span class="delete_slash"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${msg[i]['id']}" class="active_page catalog_category_card delete_subcat">
+            ${msg[i]['name']}</a>`;
             loadProducts();
         }
         catalog_category_place.append(category);
@@ -113,9 +115,7 @@ function loadProducts() {
     Preloader(1);
     minPrice();
     maxPrice();
-    console.log(cost_start, cost_end);
     $('.delete_card').remove();
-    console.log('sub_category, category, page', sub_category, id, page);
     let data = {
         'category_id': id,
         'sub_category': sub_category,
@@ -314,6 +314,7 @@ function startSorting() {
 }
 
 function drawProducts(msg) {
+    console.log('drawProducts', msg);
     for (let i = 0; i < msg.length; i++) {
         let box = createProduct(msg[i]);
         box.style.display = 'inline-block';

@@ -725,7 +725,7 @@
         let input = box.getElementsByClassName('product_counter_inp')[0];
         let minus_counter = box.getElementsByClassName('minus_counter')[0];
         input.value = Number(product['q_count']);
-        img.src = product['photos'][0];
+        img.src = 'http://b-ws.ru:1001/get?uuid=' + product['photos'][0];
         name.innerText = product['name'];
         // Если продукт имеет скидку
         if (product['discount_type'] > 0) {
@@ -771,6 +771,8 @@
                 }
             }
 
+
+
             minus_counter.onclick = function () {
                 if (Number(input.value) > 1) {
                     input.value--;
@@ -779,15 +781,7 @@
                     console.log('InputValue', Number(input.value));
                 }
 
-                if(Number(input.value) === 1){
-                    minus_counter.onclick = function () {
-                        DeleteProductBasket(product['id']);
-                        {#box.classList.remove('in_basket');#}
-                        {#for_basket.style.display = 'flex';#}
-                        {#added_product.style.display = 'none';#}
-                        {#price_basket.style.display = 'none';#}
-                    }
-                }
+
             }
             plus_counter.onclick = function () {
                 if (Number(input.value) >= 1) {
@@ -815,17 +809,31 @@
                     }
                 }
 
-                minus_counter.onclick = function () {
-                    if(Number(input.value) === 1) {
-                        minus_counter.onclick = function () {
-                            box.classList.remove('in_basket');
-                            for_basket.style.display = 'flex';
-                            added_product.style.display = 'none';
-                            price_basket.style.display = 'none';
-                            DeleteProductBasket(product['id']);
-                        }
-                    }
+                {#if(Number(input.value) === 1) {#}
+                {#    minus_counter.onclick = function () {#}
+                {#        box.classList.remove('in_basket');#}
+                {#        for_basket.style.display = '';#}
+                {#        added_product.style.display = 'none';#}
+                {#        price_basket.style.display = 'none';#}
+                {#        DeleteProductBasket(product['id']);#}
+                {##}
+                {#    }#}
+                /* } */
 
+
+                minus_counter.addEventListener("mousedown", ()=>{
+                    if(Number(input.value) === 1) {
+                        box.classList.remove('in_basket');
+                        for_basket.style.display = '';
+                        added_product.style.display = 'none';
+                        price_basket.style.display = 'none';
+                        DeleteProductBasket(product['id']);
+                    }
+                })
+
+
+
+                minus_counter.onclick = function () {
 
                     if (Number(input.value) > 1) {
                         input.value--;
@@ -833,7 +841,6 @@
                         price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
                         console.log('InputValue', Number(input.value));
                     }
-
                 }
 
                 plus_counter.onclick = function () {
@@ -1045,16 +1052,16 @@
             }
         }
 
+        minus_counter.addEventListener("mousedown", ()=>{
+            if(Number(input.value) === 1) {
+                DeleteProductBasket(product['id']);
+            }
+        })
+
         minus_counter.onclick = function () {
             if (Number(input.value) > 1) {
                 input.value--;
                 addProduct(product['id'], Number(-1));
-            }
-
-            if(Number(input.value) === 1){
-                minus_counter.onclick = function () {
-                    DeleteProductBasket(product['id']);
-                }
             }
         }
         plus_counter.onclick = function () {
@@ -1108,7 +1115,9 @@
             type: "GET",
             success: function (msg) {
                 loadBasket();
-                loadBasketOrder();
+                if (location.pathname === '/createorder') {
+                    loadBasketOrder();
+                }
             }
         })
     }
