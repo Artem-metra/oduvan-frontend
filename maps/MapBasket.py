@@ -30,9 +30,7 @@ def api_basket_edit():
 def api_basket_add_product():
     params = dict(request.args)
     params['basket_id'] = session['basket_id']
-    print(params)
     resp = utils.complete_request_with_parameters(params, request.path)
-    print(resp)
     return resp
 
 
@@ -98,7 +96,6 @@ def api_basket_get_by_basket_id():
         else:
             return 'error'
     response = utils.complete_request_with_parameters(params, request.path)
-    print(response)
     return response
 
 
@@ -140,5 +137,4 @@ def api_change_cost():
     params['user_id'] = session['user_id']
     params['basket_id'] = session['basket_id']
     response = utils.complete_request_with_parameters(params, request.path)
-    print(response)
     return response
