@@ -1,11 +1,11 @@
 let category_id = 0;
+let name_sub_category = '';
 let cost_end = 150000;
 let cost_start = 0;
 let flowers = [];
 let packaging = [];
 let discount_type = 0;
 let paginations = 0;
-
 
 
 function Preloader(status) {
@@ -20,15 +20,17 @@ function Preloader(status) {
 }
 
 function EmptyProducts() {
-        message_for_empty.innerText = 'Товаров не найдено';
-        Preloader(1);
-        document.getElementById('lds-roller').style.display = 'none';
+    message_for_empty.innerText = 'Товаров не найдено';
+    Preloader(1);
+    document.getElementById('lds-roller').style.display = 'none';
 }
 
 getCategories();
 
 // Получим категории
 function getCategories() {
+    minPrice();
+    maxPrice();
     let data = {
         'category_id': id,
     }
@@ -60,18 +62,21 @@ function getCategories() {
 
 // Отрисовка категорий
 function drawCategories(msg) {
+    let breadcoast = BreadCoast(id);
+
     for (let i = 0; i < msg.length; i++) {
         let category = catalog_category_card.cloneNode(true);
-        category.id = '';
+        category.removeAttribute('id');
         let cat_name = category.getElementsByClassName('catalog_category_item')[0];
         cat_name.innerText = msg[i]['name'];
         if (sub_category === msg[i]['id']) {
+            name_sub_category = msg[i]['name'];
             cat_name.classList.add('_active');
             vse.classList.remove('_active');
         }
         console.log(sub_category, msg[i]['id']);
         category.style.display = 'inline-block';
-        let breadcoast = BreadCoast(id);
+
         vse.onclick = function () {
             document.getElementsByClassName('_active')[0].classList.remove('_active');
             document.getElementsByClassName('active_page')[0].classList.remove('active_page');
@@ -81,18 +86,24 @@ function drawCategories(msg) {
             $('.delete_cat').remove();
             $('.delete_subcat').remove();
             $('.delete_slash').remove();
-            place_bread.innerHTML += `<a href="/catalog?category_id=${id}" class="active_page catalog_category_card delete_subcat">${breadcoast[0]}</a>`
+
+            place_bread.innerHTML += `<a href="/catalog?category_id=${id}" class="active_page catalog_category_card delete_cat">${breadcoast[0]}</a>`
             // place_bread.innerHTML +=  `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
             loadProducts();
         }
         category.onclick = function () {
-            document.getElementsByClassName('active_page')[0].classList.add('active_page');
+            if (sub_category === msg[i]['id']) return
+            sub_category = msg[i]['id'];
+            document.getElementsByClassName('active_page')[0].classList.remove('active_page');
+            // document.getElementsByClassName('active_page')[0].classList.add('active_page');
             $('.delete_subcat').remove();
+            $('.delete_slash').remove();
             document.getElementsByClassName('_active')[0].classList.remove('_active');
             cat_name.classList.add('_active');
             page = 1;
-            sub_category = msg[i]['id'];
-            document.getElementsByClassName('active_page')[0].classList.remove('active_page');
+
+            // document.getElementsByClassName('active_page')[0].classList.add('active_page');
+
             place_bread.innerHTML += '<span class="delete_slash"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${msg[i]['id']}" class="active_page catalog_category_card delete_subcat">
             ${msg[i]['name']}</a>`;
             loadProducts();
@@ -113,8 +124,7 @@ loadProducts();
 function loadProducts() {
     console.log('id', id, sub_category, page);
     Preloader(1);
-    minPrice();
-    maxPrice();
+
     $('.delete_card').remove();
     let data = {
         'category_id': id,
@@ -127,6 +137,7 @@ function loadProducts() {
         'packaging': packaging,
         'page': page,
     }
+    console.log('data', data);
     $.ajax({
         url: '/site/products/smart',
         type: 'POST',
@@ -214,7 +225,10 @@ function loadFlowers() {
             // Хлебные крошки
             let breadcoast = BreadCoast(id);
             console.log(breadcoast);
-            place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
+            if (sub_category === 0) place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
+            else place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="delete_cat">${breadcoast[0]}</a>`
+                + '<span class="delete_slash"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${sub_category}" class="active_page delete_subcat">${name_sub_category}</a>`;
+
         }
     })
 }
@@ -222,7 +236,7 @@ function loadFlowers() {
 function drawFlowers(flower) {
     for (let i = 0; i < flower.length; i++) {
         let fl = choose_flower.cloneNode(true);
-        fl.id = '';
+        fl.removeAttribute('id');
         let name = fl.getElementsByClassName('name_flower')[0];
         let checkbox = fl.getElementsByClassName('checkbox_for_choose_flower')[0];
         checkbox.id = '';
@@ -246,7 +260,7 @@ function drawFlowers(flower) {
     }
 }
 
-if(id === 1) loadPackages();
+if (id === 1) loadPackages();
 
 function loadPackages() {
     dop_sortir.style.display = 'block';
@@ -310,6 +324,7 @@ function startSorting() {
     console.log('Дашло!');
     cost_start = Number(price_min.value);
     cost_end = Number(price_max.value);
+    console.log(cost_end);
     loadProducts();
 }
 
@@ -395,6 +410,7 @@ function maxPrice() {
             price_max.value = endcost;
             price_controller.setAttribute('max', Number(msg['message']['max_cost']));
             price_controller.value = endcost;
+            /* Проверки при изменении цены */
             price_max.onchange = function () {
                 if (Number(price_max.value) < Number(price_min.value)) {
                     price_max.value = Number(price_min.value + price_max.value++);
@@ -405,6 +421,7 @@ function maxPrice() {
             }
         }
     })
+    console.log(cost_end);
     cost_end = endcost;
 }
 
