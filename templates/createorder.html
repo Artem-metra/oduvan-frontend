@@ -16,9 +16,9 @@
         <div class="basket_place" id="basket_place" style="min-height: 90vh;display: none;">
             <div class="empty_basket" id="empty_basket_createorder">
                 <div class="empty_basket_info">
-                    <div class="name_buckets" style="color: #F54343">
+                    <div class="name_buckets" style="color: #F54343; margin-top: 90px;">
                         В корзине пусто!
-                        <a class="all_catalog_href" href="/catalog?category_id=1" style="width: 80%; margin: 70px auto;">
+                        <a class="all_catalog_href" href="/catalog" style="width: 80%; margin: 70px auto;">
                             Перейти в каталог
                         </a>
                     </div>
@@ -189,7 +189,7 @@
                                 <div class="small_product_card" style="margin-right:15px;">
                                     <a class="small_product_place">
                                         <img src="../static/img/small_img_main.png" class="small_product_img"
-                                             style="margin-bottom: 95px; padding-right: 35px; margin-top: 100px">
+                                             style="margin-bottom: 95px;">
                                     </a>
                                 </div>
                                 <div class="basket_info_for_order">
@@ -205,7 +205,7 @@
                                         </div>
                                     </div>
                                     <div class="fa fa-times"
-                                         style="float: right; position: absolute; top: 135px; right: 0; font-size: 25px"></div>
+                                         style="float: right; position: absolute; top: 70px; right: 0; font-size: 25px"></div>
                                     <div class="add_to_basket_place" style="max-width:100%;">
                                         <div class="fa fa-minus minus_counter"></div>
                                         <div class="counter_place">
@@ -243,22 +243,22 @@
                         <div class="system_item">
                             <div class="small_product_place">
                                 <img src="../static/img/mastercard.png" class="small_product_img"
-                                     style="padding-top: 10px;">
+                                     style="padding-top: 10px; width: auto; height: 70px;">
                             </div>
                         </div>
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/visa.png" class="small_product_img">
+                                <img src="../static/img/visa.png" class="small_product_img" style="width: auto; height: 70px;">
                             </div>
                         </div>
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/mir.png" class="small_product_img">
+                                <img src="../static/img/mir.png" class="small_product_img"  style="width: auto; height: 70px;">
                             </div>
                         </div>
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/applepay.png" class="small_product_img">
+                                <img src="../static/img/applepay.png" class="small_product_img"  style="width: auto; height: 70px;">
                             </div>
                         </div>
                     </div>
@@ -682,30 +682,24 @@
         if (get_other_people.checked) {
             let inputs = document.getElementsByClassName('input_sender');
             for (let i = 0; i < inputs.length; i++) {
-                if (name_sender.value === '' || phone_sender.value === '' || address_user.value === '') {
-                    for (let i = 0; i < inputs.length; i++) {
-                        if (inputs[i].value === '') {
-                            inputs[i].classList.add('error');
-                            notification('Заполните обязательные поля', 1);
-                        }
-                    }
+                if (inputs[i].value === '') {
+                    inputs[i].classList.add('error');
+                    notification('Заполните обязательные поля', 1);
                 }
             }
-            return;
+            if(document.getElementsByClassName('error').length) return notification('Заполните обязательные поля!', 1);
         }
+
         if (!money_payment.checked && !card_payment.checked) {
-            notification('Выберите способ оплаты', 1);
-            return;
+            return notification('Выберите способ оплаты', 1);
         }
         if (shop_id === -1) {
             notification('Выберите магазин, в котором получите товар', 1);
-            select_shops.classList.add('error');
-            return;
+            return select_shops.classList.add('error');
         }
         if (purchase_type === 2 && address_user.value === '') {
             notification('Заполните адрес доставки', 1);
-            address_user.classList.add('error');
-            return;
+            return address_user.classList.add('error');
         }
 
         createDeal();

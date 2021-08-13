@@ -18,7 +18,7 @@
                 <div class="empty_basket_info">
                     <div class="name_buckets">
                         В корзине пусто!
-                        <a class="all_catalog_href" href="/catalog?category_id=1">
+                        <a class="all_catalog_href" href="/catalog">
                             Перейти в каталог
                         </a>
                     </div>
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="catalog_flex info">
-                                <div class="address_info_zag">
+                                <div class="address_info_zag" style="margin-right: 22px;">
                                     Адрес:
                                 </div>
                                 <div class="address_info_zag address_address_user">
@@ -641,17 +641,14 @@
         if (get_other_people.checked) {
             let inputs = document.getElementsByClassName('input_sender');
             for (let i = 0; i < inputs.length; i++) {
-                if (name_sender.value === '' || phone_sender.value === '' || address_user.value === '') {
-                    for (let i = 0; i < inputs.length; i++) {
-                        if (inputs[i].value === '') {
-                            inputs[i].classList.add('error');
-                            notification('Заполните обязательные поля', 1);
-                        }
-                    }
+                if (inputs[i].value === '') {
+                    inputs[i].classList.add('error');
+                    notification('Заполните обязательные поля', 1);
                 }
             }
-            return;
+            if(document.getElementsByClassName('error').length) return notification('Заполните обязательные поля!', 1);
         }
+
         if (!money_payment.checked && !card_payment.checked) {
             return notification('Выберите способ оплаты', 1);
         }

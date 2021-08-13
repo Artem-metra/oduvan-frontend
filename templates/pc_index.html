@@ -332,9 +332,9 @@
                             <div class="blog_item_text_preview">
                                 Открылся новый магазин по адресу Плехановская 15, мы рады представить...
                             </div>
-                            <div class="blog_item_text_read">
-                                Прочитать
-                            </div>
+                            <a href="/article" class="blog_item_text_read" >
+                            Прочитать
+                        </a>
                         </div>
                     </div>
                 </div>
@@ -353,9 +353,9 @@
                                 дресскод
                                 и оформление...
                             </div>
-                            <div class="blog_item_text_read">
-                                Прочитать
-                            </div>
+                             <a href="/article" class="blog_item_text_read" >
+                            Прочитать
+                        </a>
                         </div>
                     </div>
                 </div>
@@ -372,9 +372,9 @@
                                 дресскод
                                 и оформление...
                             </div>
-                            <div class="blog_item_text_read">
-                                Прочитать
-                            </div>
+                             <a href="/article" class="blog_item_text_read" >
+                            Прочитать
+                        </a>
                         </div>
                     </div>
                 </div>
@@ -391,9 +391,9 @@
                                 дресскод
                                 и оформление...
                             </div>
-                            <div class="blog_item_text_read">
-                                Прочитать
-                            </div>
+                             <a href="/article" class="blog_item_text_read" >
+                            Прочитать
+                        </a>
                         </div>
                     </div>
                 </div>
@@ -635,25 +635,25 @@
 {% include 'pc_utilites.html' %}
 <script>
 
-    loadCategories();
-
-    function loadCategories() {
-        let data = {
-            'category_id': 0,
-        }
-        $.ajax({
-            url: '/api/categories/get',
-            data: data,
-            type: 'GET',
-            success: function (msg) {
-                console.log('categoris', msg);
-                let inputs = document.getElementsByClassName('href_catalog');
-                for (let i = 0; i < inputs.length; i++) {
-                    inputs[i].href = 'catalog?category_id=' + msg['message']['top_categories'][0]['id'];
-                }
-            }
-        });
-    }
+    {#loadCategories();#}
+    {##}
+    {#function loadCategories() {#}
+    {#    let data = {#}
+    {#        'category_id': 0,#}
+    {#    }#}
+    {#    $.ajax({#}
+    {#        url: '/api/categories/get',#}
+    {#        data: data,#}
+    {#        type: 'GET',#}
+    {#        success: function (msg) {#}
+    {#            console.log('categoris', msg);#}
+    {#            let inputs = document.getElementsByClassName('href_catalog');#}
+    {#            for (let i = 0; i < inputs.length; i++) {#}
+    {#                inputs[i].href = 'catalog?category_id=' + msg['message']['top_categories'][0]['id'];#}
+    {#            }#}
+    {#        }#}
+    {#    });#}
+    {##}
 
     loadMainCategory();
 
@@ -668,6 +668,7 @@
         })
     }
 
+
     function drawMainCategory(categories) {
         for (let i = 0; i < categories.length; i++) {
             let box = card_main_item.cloneNode(true);
@@ -678,18 +679,19 @@
             let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
             main_cat_img.alt = categories[i]['name'];
             main_cat_img.src = 'http://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
-            if(categories[i]['parent_id'] !== 0) name_cat.innerText = categories[i]['parent_name'];
+            if (categories[i]['parent_id'] !== 0) name_cat.innerText = categories[i]['parent_name'];
             else {
                 name_buckets.style.marginTop = '55px';
                 name_cat.style.display = 'none';
             }
             name_buckets.innerText = categories[i]['name'];
-            if(categories[i]['parent_id'] === 0) href.href = `/catalog?category_id=${categories[i]['id']}`;
+            if (categories[i]['parent_id'] === 0) href.href = `/catalog?category_id=${categories[i]['id']}`;
             else href.href = `/catalog?category_id=${categories[i]['parent_id']}&sub_category=${categories[i]['id']}`;
             box.style.display = 'inline-block';
             card_on_main.append(box);
         }
     }
+
 
 
     down_to_catalog.onclick = function (e) {
