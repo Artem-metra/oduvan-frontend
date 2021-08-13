@@ -1,5 +1,5 @@
 let category_id = 0;
-let sorted_type = 1;
+let name_sub_category = '';
 let cost_end = 150000;
 let cost_start = 0;
 let flowers = [];
@@ -33,6 +33,8 @@ getCategories();
 
 
 function getCategories() {
+    minPrice();
+    maxPrice();
     let data = {
         'category_id': id,
     }
@@ -65,46 +67,58 @@ function getCategories() {
 
 
 function drawCategories(msg) {
+    let breadcoast = BreadCoast(id);
+
     for (let i = 0; i < msg.length; i++) {
         let category = catalog_category_card.cloneNode(true);
-        category.id = '';
-        category.style.display = 'block';
-
+        category.removeAttribute('id');
         let cat_name = category.getElementsByClassName('catalog_category_item')[0];
         cat_name.innerText = msg[i]['name'];
         if (sub_category === msg[i]['id']) {
+            name_sub_category = msg[i]['name'];
             cat_name.classList.add('_active');
             vse.classList.remove('_active');
         }
         console.log(sub_category, msg[i]['id']);
         category.style.display = 'inline-block';
+
         vse.onclick = function () {
             document.getElementsByClassName('_active')[0].classList.remove('_active');
-            // document.getElementsByClassName('active_page')[0].classList.remove('active_page');
+            document.getElementsByClassName('active_page')[0].classList.remove('active_page');
             vse.classList.add('_active');
             sub_category = 0;
             page = 1;
             $('.delete_cat').remove();
             $('.delete_subcat').remove();
-           // place_bread.innerHTML +=  `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
+            $('.delete_slash').remove();
+
+            place_bread.innerHTML += `<a href="/catalog?category_id=${id}" class="active_page catalog_category_card delete_cat">${breadcoast[0]}</a>`
+            // place_bread.innerHTML +=  `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
             loadProducts();
         }
         category.onclick = function () {
+            if (sub_category === msg[i]['id']) return
+            sub_category = msg[i]['id'];
             document.getElementsByClassName('active_page')[0].classList.remove('active_page');
+            // document.getElementsByClassName('active_page')[0].classList.add('active_page');
             $('.delete_subcat').remove();
+            $('.delete_slash').remove();
             document.getElementsByClassName('_active')[0].classList.remove('_active');
             cat_name.classList.add('_active');
             page = 1;
-            sub_category = msg[i]['id'];
-            place_bread.innerHTML += `<a href="/catalog?category_id=${id}&sub_category=${msg[i]['id']}" class="active_page catalog_category_card delete_subcat">
-            <span style="color:#293048"> / </span>${msg[i]['name']}</a>`;
+
+            // document.getElementsByClassName('active_page')[0].classList.add('active_page');
+
+            place_bread.innerHTML +=  '<span class="delete_slash" style="font-size: 35px"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${msg[i]['id']}" class="active_page catalog_category_card delete_subcat">
+            ${msg[i]['name']}</a>`;
             loadProducts();
         }
         catalog_category_place.append(category);
         console.log('Высота', catalog_category_place.offsetHeight);
-        // place_top_cats.style.paddingTop = catalog_category_place.offsetHeight + 5 + 'px';
-        place_top_cats.style.paddingBottom = '40px';
+        place_top_cats.style.paddingTop = catalog_category_place.offsetHeight + 5 + 'px';
+        place_top_cats.style.paddingBottom = '30px';
     }
+
 
 
 }
@@ -114,8 +128,6 @@ loadProducts();
 
 function loadProducts() {
     Preloader(1);
-    minPrice();
-    maxPrice();
     console.log(cost_start, cost_end);
     $('.delete_card').remove();
     console.log('sub_category, category, page', sub_category, id, page);
@@ -202,7 +214,10 @@ function loadFlowers() {
             // Хлебные крошки
             let breadcoast = BreadCoast(id);
             console.log(breadcoast);
-           place_bread.innerHTML += `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
+            if(sub_category === 0)  place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
+            else place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="delete_cat">${breadcoast[0]}</a>`
+                + '<span class="delete_slash" style="font-size: 35px"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${sub_category}" class="active_page delete_subcat">${name_sub_category}</a>`;
+
         }
     })
 }

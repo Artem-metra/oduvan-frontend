@@ -818,7 +818,7 @@ input[type="checkbox"] {
 
 .basket_place {
     width: 100%;
-    height: 2000px;
+    height: 100%;
     top: 0;
     left: 0;
     position: relative;
@@ -945,6 +945,7 @@ input[type="checkbox"] {
 .catalog_flex_catalog {
     width: 100%;
     display: flex;
+    margin-top: 8px;
 }
 
 .name_and_price .for_basket{
@@ -2493,21 +2494,19 @@ input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   height: 12.8px;
   cursor: pointer;
-  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-  background: black;
+  background: #293048;
   border-radius: 25px;
-  border: 0px solid #000101;
+
 }
 input[type=range]::-webkit-slider-thumb {
-  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-  border: 0px solid #000000;
-  height: 30px;
-  width: 39px;
-  border-radius: 7px;
-  background: #c6929d;
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: -6.6px;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    background: #F877AD;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -9px;
+    border: 1px solid #F877AD;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
   background: #ac51b5;
@@ -2786,7 +2785,7 @@ pagination_place {
     font-size: 46px;
     margin-left: 30px;
     position: absolute;
-    top: 366px;
+    top: 390px;
     right: 15px;
 }
 

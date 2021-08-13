@@ -16,9 +16,9 @@
         <div class="basket_place" id="basket_place" style="min-height: 90vh;display: none;">
             <div class="empty_basket" id="empty_basket_createorder">
                 <div class="empty_basket_info">
-                    <div class="name_buckets" style="color: #F54343">
+                    <div class="name_buckets" style="color: #F54343; margin-top: 90px;">
                         В корзине пусто!
-                        <a class="all_catalog_href" href="/catalog?category_id=1" style="width: 80%; margin: 70px auto;">
+                        <a class="all_catalog_href" href="/catalog" style="width: 80%; margin: 70px auto;">
                             Перейти в каталог
                         </a>
                     </div>
@@ -682,30 +682,24 @@
         if (get_other_people.checked) {
             let inputs = document.getElementsByClassName('input_sender');
             for (let i = 0; i < inputs.length; i++) {
-                if (name_sender.value === '' || phone_sender.value === '' || address_user.value === '') {
-                    for (let i = 0; i < inputs.length; i++) {
-                        if (inputs[i].value === '') {
-                            inputs[i].classList.add('error');
-                            notification('Заполните обязательные поля', 1);
-                        }
-                    }
+                if (inputs[i].value === '') {
+                    inputs[i].classList.add('error');
+                    notification('Заполните обязательные поля', 1);
                 }
             }
-            return;
+            if(document.getElementsByClassName('error').length) return notification('Заполните обязательные поля!', 1);
         }
+
         if (!money_payment.checked && !card_payment.checked) {
-            notification('Выберите способ оплаты', 1);
-            return;
+            return notification('Выберите способ оплаты', 1);
         }
         if (shop_id === -1) {
             notification('Выберите магазин, в котором получите товар', 1);
-            select_shops.classList.add('error');
-            return;
+            return select_shops.classList.add('error');
         }
         if (purchase_type === 2 && address_user.value === '') {
             notification('Заполните адрес доставки', 1);
-            address_user.classList.add('error');
-            return;
+            return address_user.classList.add('error');
         }
 
         createDeal();

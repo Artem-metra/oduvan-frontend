@@ -234,7 +234,7 @@ input[type="checkbox"] {
     top: 0;
     left: 0;
     z-index: 500;
-    width: 100%;
+    width: 102%;
 }
 
 .flex_menu {
@@ -584,7 +584,7 @@ input[type="checkbox"] {
     width: 32%;
     margin: 0 9px 10px 0;
     box-shadow: 0 4px 16px rgba(41, 48, 72, 0.15);
-    height: 400px;
+    height: 440px;
     transition: transform .6s;
     display: inline-block;
     overflow: hidden;
@@ -743,6 +743,7 @@ input[type="checkbox"] {
     font-weight: 550;
     padding: 0 15px;
     font-size: 18px;
+    margin-top: 10px;
 }
 
 .price {
@@ -1672,6 +1673,7 @@ input[type="checkbox"] {
 .catalog_flex_catalog {
     display: flex;
     width: 100%;
+
 }
 
 .catalog_sorted {

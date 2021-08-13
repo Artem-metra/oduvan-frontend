@@ -2,42 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Оформление заказа</title>
+    <title>Каталог</title>
     {% include 'headers.html' %}
 </head>
 <body id="body">
 
 <div class="catalog" style="background: #e9eaec">
     <div class="container">
-        <div class="place_breadcoast" id="place_bread" style="margin-bottom: 50px;" >
+        <div class="place_breadcoast" id="place_bread" style="margin-bottom: 50px; font-size: 35px">
             <a href="/">Главная</a> / <a href="" id="bread_catalog">Каталог</a>
         </div>
         <div id="place_top_cats">
 
         </div>
         <!-- Категории -->
-         <div id="catalog_category_place" style="padding-bottom: 25px;">
-                    <div class="catalog_category all" id="catalog_cat_vse" style="display: inline-block">
-                        <div class="catalog_category_item _active" id="vse">
-                            Все
-                        </div>
-                    </div>
-                    <div class="catalog_category" id="catalog_category_card" style="display: none">
-                        <div class="catalog_category_item">
-
-                        </div>
-                    </div>
+        <div id="catalog_category_place" style="padding-bottom: 25px;">
+            <div class="catalog_category all" id="catalog_cat_vse" style="display: inline-block">
+                <div class="catalog_category_item _active" id="vse">
+                    Все
                 </div>
+            </div>
+            <div class="catalog_category" id="catalog_category_card" style="display: none">
+                <div class="catalog_category_item">
+
+                </div>
+            </div>
+        </div>
 
         <div class="catalog_flex_catalog sorted_and_filters" style="display: flex;">
             <div class="filters_place" id="filter_place" style="margin-bottom: 25px; display: none">
-                Фильтры и сортрировка<span class="fa fa-chevron-down my_class_img" id="my_class_img"></span>
+                Фильтры и сортировка<span class="fa fa-chevron-down my_class_img" id="my_class_img"></span>
             </div>
-<!--            <div class="sorted_place" style="display: inherit">-->
-<!--                Сортировка:#}-->
-<!--                <div class="pressing_on_arrow_name" id="pressing_on_arrow_name" style="margin-left: 15px">-->
-<!--                    <span class="active_sort">Название</span><span class="fa fa-chevron-down" id="my_class_cher"></span>#}</div>#}-->
-<!--            </div>-->
+            <!--            <div class="sorted_place" style="display: inherit">-->
+            <!--                Сортировка:#}-->
+            <!--                <div class="pressing_on_arrow_name" id="pressing_on_arrow_name" style="margin-left: 15px">-->
+            <!--                    <span class="active_sort">Название</span><span class="fa fa-chevron-down" id="my_class_cher"></span>#}</div>#}-->
+            <!--            </div>-->
         </div>
 
         <div id="sorted_select_items_list">
@@ -67,8 +67,6 @@
         <!--                </div>-->
         <!--            </div>-->
         <!--        </div>-->
-
-
 
 
         <!-- Место для вывода карточек -->
@@ -145,11 +143,13 @@
                         </div>
                     </div>
                 </div>
-                <input type="range" id="price_controller" min="0" max="100000" style="width: 73%; margin-top: 25px;margin-bottom: 25px">
+                <input type="range" id="price_controller" min="0" max="100000"
+                       style="width: 73%; margin-top: 25px;margin-bottom: 25px">
                 <div id="flowers_place">
                     <div class="choose_flower" id="choose_flower" style="display: none; font-size: 40px">
 
-                        <input type="checkbox" id="choose_flow_one" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" style="margin-top: 20px;">
+                        <input type="checkbox" id="choose_flow_one" name="get_other_people"
+                               class="scal_chek checkbox_for_choose_flower custom-checkbox" style="margin-top: 20px;">
                         <label for="choose_flow_one" class="lab_desc name_flower" style="font-size: 37px"></label>
 
                         <!--                <input type="checkbox" class="checkbox_for_choose_flower">-->
@@ -160,24 +160,24 @@
                 <div class="sorted_zag" style="font-size: 50px; margin-top: 20px; margin-bottom: 20px">
                     Упаковка
                 </div>
-{#                <div class="choose_flower" style="font-size: 36px">#}
-{#                    <input type="checkbox" id="choose_flow-one" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="1" style="margin-top: 20px;">#}
-{#                    <label for="choose_flow-one" class="lab_desc name_flower" style="font-size: 37px">Плёнка</label>#}
-{#                    <!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="1">-->#}
-{#                    <!--            <span>Плёнка</span>-->#}
-{#                </div>#}
-{#                <div class="choose_flower" style="font-size: 36px">#}
-{#                    <input type="checkbox" id="choose_flow-two" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="2" style="margin-top: 20px;">#}
-{#                    <label for="choose_flow-two" class="lab_desc name_flower" style="font-size: 37px">Крафт.плёнка</label>#}
-{#                    <!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="2">-->#}
-{#                    <!--            <span>Крафт.плёнка</span>-->#}
-{#                </div>#}
-{#                <div class="choose_flower" style="font-size: 36px">#}
-{#                    <input type="checkbox" id="choose_flow-three" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="3" style="margin-top: 20px;">#}
-{#                    <label for="choose_flow-three" class="lab_desc name_flower" style="font-size: 37px">Ленты</label>#}
-{#                    <!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="3">-->#}
-{#                    <!--            <span>Ленты</span>-->#}
-{#                </div>#}
+                {#                <div class="choose_flower" style="font-size: 36px">#}
+                {#                    <input type="checkbox" id="choose_flow-one" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="1" style="margin-top: 20px;">#}
+                {#                    <label for="choose_flow-one" class="lab_desc name_flower" style="font-size: 37px">Плёнка</label>#}
+                {#                    <!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="1">-->#}
+                {#                    <!--            <span>Плёнка</span>-->#}
+                {#                </div>#}
+                {#                <div class="choose_flower" style="font-size: 36px">#}
+                {#                    <input type="checkbox" id="choose_flow-two" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="2" style="margin-top: 20px;">#}
+                {#                    <label for="choose_flow-two" class="lab_desc name_flower" style="font-size: 37px">Крафт.плёнка</label>#}
+                {#                    <!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="2">-->#}
+                {#                    <!--            <span>Крафт.плёнка</span>-->#}
+                {#                </div>#}
+                {#                <div class="choose_flower" style="font-size: 36px">#}
+                {#                    <input type="checkbox" id="choose_flow-three" name="get_other_people" class="scal_chek checkbox_for_choose_flower custom-checkbox" value="3" style="margin-top: 20px;">#}
+                {#                    <label for="choose_flow-three" class="lab_desc name_flower" style="font-size: 37px">Ленты</label>#}
+                {#                    <!--            <input type="checkbox" class="checkbox_for_choose_flower packages_inp" value="3">-->#}
+                {#                    <!--            <span>Ленты</span>-->#}
+                {#                </div>#}
                 <div id="packages_place">
                     <div class="choose_flower" id="choose_pack" style="display: none">
                         <div class="checkbox" style="margin-left:5px;">
@@ -198,15 +198,13 @@
                 Применить
             </div>
             <div style="text-align: center">
-                <div class="bucket_na_zakaz" style="text-align: center;cursor: pointer;display: contents" id="throw_off">
+                <div class="bucket_na_zakaz" style="text-align: center;cursor: pointer;display: contents"
+                     id="throw_off">
                     Сбросить
                 </div>
             </div>
 
         </div>
-
-
-
 
 
         <!-- Место для вывода карточек -->
@@ -266,7 +264,7 @@
             <div class="preloader" id="preloader">
                 <div class="preloader_text">
                     <span id="message_for_empty"></span>
-                    <div class="lds-roller"  id="lds-roller"  style="margin-bottom: 60px;">
+                    <div class="lds-roller" id="lds-roller" style="margin-bottom: 60px;">
                         <div></div>
                         <div></div>
                         <div></div>
@@ -281,54 +279,54 @@
             <!-- Карточка товара -->
             <div id="content_catalog">
                 <div id="item_card_place" style="display: block;padding-top: 35px;">
-                <div id="card_product" style="display: none;">
-                    <div class="right_nav_place">
-                        <div class="right_nav_item">
+                    <div id="card_product" style="display: none;">
+                        <div class="right_nav_place">
+                            <div class="right_nav_item">
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="discount_place">
-                        <div class="percent_place">
-                            <span class="fa fa-percent"></span>
+                        <div class="discount_place">
+                            <div class="percent_place">
+                                <span class="fa fa-percent"></span>
+                            </div>
+                            <div class="discount_text">
+                                20% скидка
+                            </div>
                         </div>
-                        <div class="discount_text">
-                            20% скидка
-                        </div>
-                    </div>
-                    <a class="slider_item_card_img_place" href="">
-                        <img src="../static/img/catalog_img.png" class="slider_img">
-                    </a>
-                    <div class="name_and_price">
-                        <div class="catalog_flex" style="padding-bottom: 0px;">
-                            <div class="slider_name_bucket">Букет "Индиго"</div>
-                            <div class="price_basket slider_name_bucket" style="display: none;"></div>
-                        </div>
-                        <div class="catalog_flex_catalog for_basket"
-                             style="align-items: center;justify-content: space-between;padding: 0 15px;">
-                            <div>
-                                <div class="price">
-                                    5400 Р
+                        <a class="slider_item_card_img_place" href="">
+                            <img src="../static/img/catalog_img.png" class="slider_img">
+                        </a>
+                        <div class="name_and_price">
+                            <div class="catalog_flex" style="padding-bottom: 0px;">
+                                <div class="slider_name_bucket">Букет "Индиго"</div>
+                                <div class="price_basket slider_name_bucket" style="display: none;"></div>
+                            </div>
+                            <div class="catalog_flex_catalog for_basket"
+                                 style="align-items: center;justify-content: space-between;padding: 0 15px;">
+                                <div>
+                                    <div class="price">
+                                        5400 Р
+                                    </div>
+                                    <div class="disc_price_bucket">
+                                        2 600 Р
+                                    </div>
                                 </div>
-                                <div class="disc_price_bucket">
-                                    2 600 Р
+                                <div class="add_to_basket_card">
+                                    <span class="fas fa-shopping-bag"></span>
                                 </div>
                             </div>
-                            <div class="add_to_basket_card">
-                                <span class="fas fa-shopping-bag"></span>
-                            </div>
-                        </div>
-                        <div class="added_product" style="display: none">
-                            <div class="fa fa-minus minus_counter"></div>
-                            <div style="font-size: 40px">
-                                В корзине: <input type="number" class="product_counter_inp"/>
-                            </div>
-                            <div>
-                                <div class="fa fa-plus plus_counter"></div>
+                            <div class="added_product" style="display: none">
+                                <div class="fa fa-minus minus_counter"></div>
+                                <div style="font-size: 40px">
+                                    В корзине: <input type="number" class="product_counter_inp"/>
+                                </div>
+                                <div>
+                                    <div class="fa fa-plus plus_counter"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
             <div class="pagination_place" id="pag_place" style="text-align: center">
                 <div class="pagination_item" id="pagination_item" style="display: none">
@@ -344,8 +342,27 @@
 {% include 'utilites.html' %}
 <!-- Функции к каталогу -->
 <script>
-    let id = {{id}} || 1, page = {{ page }} || 1, sub_category = {{ sub_category }} ||0;
 
+
+    let page = {{page}} || 1,
+        sub_category = {{sub_category}} || 0,
+        sorted_type = {{sorted_type}} || 1;
+
+    loadTopCategory();
+
+    function loadTopCategory() {
+        let categor = 0;
+        $.ajax({
+            url: '/api/category/top_category_products_count',
+            type: "GET",
+            async: false,
+            success: function (msg) {
+                console.log('TopCategory', msg);
+                categor = msg['message']['top_categories'][0]['id'];
+            }
+        });
+        id = {{id}} || categor;
+    }
 </script>
 <script src="../static/js/catalog.js"></script>
 </body>
