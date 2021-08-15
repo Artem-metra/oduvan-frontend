@@ -1,3 +1,4 @@
+import requests
 from flask import Flask, request, json, render_template
 
 from flask import Flask, request, abort, session, json, render_template, redirect
@@ -198,6 +199,13 @@ def get_nesting_by_id():
 @app.route('/api/get_uuid', methods=['POST'])
 def get_uuid():
     return utils.complete_request_post(json.loads(request.data), request.path)
+
+
+@app.route('/api/get_photo')
+def get_photo():
+    uuid = request.values.get('uuid')
+    resp = requests.get('http://b-ws.ru:1001/get', params={'uuid': uuid})
+    return utils.getAnswer(resp.text)
 
 
 # @app.before_request
