@@ -3,14 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title id="title"></title>
-    <meta id="meta_keywords" name="keywords" content="Одуван, Весёлый одуван, цветы, букеты, букеты из роз, открытки, деревья, купить цветы Воронеж, купить цветы Воронеж недорого,
-горшки, деревья, деревья в горшках, роза, доставка цветов Воронеж, купить цветы жене, цветы одуван, цветы Воронеж, лушчие букеты, лучшие цветы, праздник, цветы на 8 марта,
-открытки, шарики, купить цветы и открытки быстро, купить цветы дёшево, купить цветы маме, заказ цветов Воронеж, доставить букет, служба доставки цветов, интернет досатвка цветов,
-служба доставки цветов, букет невесты недорого, доставка цветов на дом, свежие цветы, свадебный букет из роз, купить цветы в интернете, где можно купить цветы, доставка букетов,
-цветы Воронеж, купить свадебный букет, букет цветов в коробке, букет цветов с доставкой, недорогие букеты с доставкой, заказ букетов Воронеж, доставка цветов в Воронеже онлайн,
-заказать цветы с доставкой, свадебный букет цена, купить цветы недорого, магазин достави цветов, стоимость цветов, заказать цветы, заказ цветов, где купить цветы,
-букет в корзинке, купить цветы в Воронеже недорого">
-
+    <meta id="title_meta" name="title" content="Купить по отличной цене букет -">
+    <meta name="description" content="Цветы и цветочная продукция всегда свежие и по отличной цене. Быстрая и качественная доставка по всему Воронежу.">
     {% include 'headers.html' %}
 </head>
 <body id="body">
@@ -44,7 +38,7 @@
             <div class="main_pictures_product_place">
                 <div class="big_product_card">
                     <div class="small_product_place">
-                        <img src="" class="product_img" id="main_photo">
+                        <img src="" class="product_img" id="main_photo" alt="Картинка товара">
                     </div>
                 </div>
 
@@ -52,7 +46,7 @@
                 <div class="all_pictures_product_place" id="all_pictures_product_place">
                     <div class="small_product_card" id="small_product_card" style="display: none;">
                         <div class="">
-                            <img src="" class="small_product_img">
+                            <img src="" class="small_product_img" alt="Маленькая картинка товара">
                         </div>
                     </div>
                 </div>
@@ -86,7 +80,7 @@
             <!-- Описание товара -->
             <div class="description_product_place">
                 <strong class="bucket_na_zakaz" id="name_cat_bucket">Монобукет</strong>
-                <div class="name_buckets" id="name_bucket" style="padding-top:8px; margin-top: 30px; margin-bottom: 30px;">"Индиго"</div>
+                <h1 class="name_buckets" id="name_bucket" style="padding-top:8px; margin-top: 30px; margin-bottom: 30px;">"Индиго"</h1>
                 <div class="disc_price_bucket" id="disc_price_bucket"
                      style="padding:20px 0 15px 0;display: inline-block; font-size: 65px">5 400 ₽
                 </div>
@@ -169,7 +163,7 @@
 <div class="individual_order" style="height: 1800px">
     <div class="individual_order_info" style="height: 1700px;">
         <div class="individual_order_info_text_img">
-                <img src="../static/img/individual_img.png" style="height: 700px;">
+                <img src="../static/img/individual_img.png" style="height: 700px;" alt="Индивидуальный заказ букетов">
         </div>
         <div class="individual_order_info_text" style="display: block" >
             <div class="individual_order_info_text_info" style="padding: 80px 0">
@@ -247,9 +241,9 @@
 
      /* Отрисовать продукт */
     function drawProduct(msg) {
+        title_meta.setAttribute('content', title_meta.getAttribute('content') + ' ' + msg['product']['name']);
         title.innerText = msg['product']['name'];
-        meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ' ' +  msg['product']['name'] + '' + msg['product']['description'] + ' ' + msg['product']['discount_cost']
-        + ' ' + msg['product']['cost'] + ' ' + msg['product']['id'] + ' ' + msg['packages']);
+        meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg['product']['name'] + ',' + msg['product']['description']);
         console.log(msg);
         description_product.innerText = msg['product']['description'];
         name_bucket.innerText = msg['product']['name'];
