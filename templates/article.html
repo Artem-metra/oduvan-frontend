@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Статья</title>
+    <title id="title"></title>
     {% include 'headers.html' %}
 </head>
 <body id="body">
@@ -10,10 +10,10 @@
 <div class="catalog">
     <div class="container">
         <div class="place_breadcoast" style="margin-bottom: 50px">
-            <a href="">Главная</a> / <a class="active_page" id="active_page href=">Блог</a> / <a class="active_page" id="active_page href=">Заголовок статьи</a>
+            <a href="">Главная</a> / <a class=""  href="/blog">Блог</a> / <a class="active_page" id="active_page" href="/">Заголовок статьи</a>
         </div>
-        <h1 class="catalog_zag" style="margin-bottom: 30px">Заголовок статьи</h1>
-        <div class="description_explanations" style="font-size: 22px">
+        <h1 class="catalog_zag article_data" style="margin-bottom: 30px">Заголовок статьи</h1>
+        <div class="description_explanations article_data" id="description_explanations" style="font-size: 22px">
             Таким образом новая модель организационной деятельности способствует подготовки и реализации новых
             предложений. Значимость этих проблем настолько очевидна, что постоянный количественный рост и сфера нашей
             активности способствует подготовки и реализации дальнейших направлений развития. Повседневная практика
@@ -29,141 +29,125 @@
     </div>
 </div>
 
+
+<div class="catalog">
+    <div class="container">
+        <h2 class="catalog_zag" style="margin-bottom: 40px">Блог</h2>
+
+        <div class="cont_on_horizontscroll">
+
+            <div class="blog_item">
+                <div class="blog_item_info">
+                    <img src="../static/img/blog_big_img.png" alt="Картинка блога">
+                    <div class="blog_item_text">
+                        <div class="blog_item_text_zag">
+                            Открыт новый магазин
+                        </div>
+                        <div class="blog_item_text_preview">
+                            Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
+                            на
+                            дресскод
+                            и оформление...
+                        </div>
+                         <a href="/article" class="blog_item_text_read" >
+                            Прочитать
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog_item">
+                <div class="blog_item_info">
+                    <img src="../static/img/blog_big_img.png" alt="Картинка блога">
+                    <div class="blog_item_text">
+                        <div class="blog_item_text_zag">
+                            Открыт новый магазин
+                        </div>
+                        <div class="blog_item_text_preview">
+                            Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
+                            на
+                            дресскод
+                            и оформление...
+                        </div>
+                         <a href="/article" class="blog_item_text_read" >
+                            Прочитать
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <a class="all_catalog_href" href="/blog" style="margin-top: 30px; width: 400px; height: 100px; font-size: 40px">
+            Больше статей
+        </a>
+    </div>
+</div>
+
+
 <div class="catalog">
     <div class="container">
         <div class="catalog_flex_catalog" style="display: block">
-            <div class="blog_art_img">
-                <img src="../static/img/blog_big_img.png" width="100%" alt="Фото статьи">
-            </div>
-            <div class="blog_art_text description_explanations" style="font-size: 22px">
-                Таким образом новая модель организационной деятельности способствует подготовки и реализации новых
-                предложений. Значимость этих проблем настолько очевидна, что постоянный количественный рост и сфера
-                нашей активности способствует подготовки и реализации дальнейших направлений развития. Повседневная
-                практика показывает, что рамки и место обучения кадров играет важную роль в формировании существенных
-                финансовых и административных условий.
-
-                Повседневная практика показывает, что укрепление и развитие структуры требуют от нас анализа позиций,
-                занимаемых участниками в отношении поставленных задач. Повседневная практика показывает, что реализация
-                намеченных плановых заданий представляет собой интересный эксперимент проверки форм развития. С другой
-                стороны укрепление и развитие структуры в значительной степени обуславливает создание соответствующий
-                условий активизации.
-            </div>
+{#            <div class="blog_art_img">#}
+{#                <img src="../static/img/blog_big_img.png" width="100%" alt="Фото статьи">#}
+{#            </div>#}
+{#            <div class="blog_art_text description_explanations" style="font-size: 22px">#}
+{#                Таким образом новая модель организационной деятельности способствует подготовки и реализации новых#}
+{#                предложений. Значимость этих проблем настолько очевидна, что постоянный количественный рост и сфера#}
+{#                нашей активности способствует подготовки и реализации дальнейших направлений развития. Повседневная#}
+{#                практика показывает, что рамки и место обучения кадров играет важную роль в формировании существенных#}
+{#                финансовых и административных условий.#}
+{##}
+{#                Повседневная практика показывает, что укрепление и развитие структуры требуют от нас анализа позиций,#}
+{#                занимаемых участниками в отношении поставленных задач. Повседневная практика показывает, что реализация#}
+{#                намеченных плановых заданий представляет собой интересный эксперимент проверки форм развития. С другой#}
+{#                стороны укрепление и развитие структуры в значительной степени обуславливает создание соответствующий#}
+{#                условий активизации.#}
+{#            </div>#}
         </div>
     </div>
 </div>
 
-<div class="catalog" style="background: #f5f5f6;">
-    <div class="container">
-        <div class="catalog_flex">
-            <h2 class="catalog_zag">Больше статей</h2>
-            <a class="all_catalog_href" href="/catalog">
-                Больше статей
-            </a>
-        </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png" alt="Фото статьи">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png" alt="Фото статьи">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png" alt="Фото статьи">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider_item_card">
-            <div class="right_nav_place">
-                <div class="right_nav_item">
-                    <span class="fas fa-heart _active"></span>
-                </div>
-            </div>
-            <div class="slider_item_card_img_place">
-                <img src="../static/img/slider_img.png" alt="Фото статьи">
-            </div>
-            <div class="name_and_price">
-                <span class="slider_name_bucket">Букет "Индиго"</span>
-                <div class="price">
-                    5 400 ₽
-                </div>
-                <div class="price_hover">
-                    <div>
-                        В корзину
-                    </div>
-                    <div class="price_hover_price">
-                        5 400 ₽
-                    </div>
-                </div>
-            </div>
-        </div>
 
-    </div>
-</div>
 
 {% include 'utilites.html' %}
 
 <script>
     let id = {{ id }};
+
+
+    loadArticle();
+
+    function loadArticle(){
+        let data = {
+            'article_id': id
+        }
+        $.ajax({
+            url: '/api/article/get',
+            type: "GET",
+            data: data,
+            success: function (msg){
+                console.log(msg);
+                drawArticle(msg['message']['article']);
+            }
+        })
+    }
+
+    function drawArticle(article) {
+        title.innerText = article.title;
+        let article_data = document.getElementsByClassName('article_data');
+        article_data[0].innerText = article.title;
+        article_data[1].innerHTML = article.text;
+        article_data[2].src = article.image;
+
+       active_page.href = '/article?id=' + article.id;
+       active_page.innerText = article.title;
+    }
+
+
+
+
+
 </script>
 </body>
 </html>

@@ -548,12 +548,16 @@
         body.style.overflow = 'inherit';
         console.log('popup', popup.id);
         if (popup.id === 'basket_popup') {
-            if(location.pathname === '/catalog' || location.pathname === '/product') return  loadProducts();
+            if(location.pathname === '/catalog') return  loadProducts();
             if( location.pathname === '/' ) {
                 loadProducts();
                return loadDiscProduct();
             }
-
+            console.log(location.pathname)
+            if(location.pathname === '/product'){
+                loadProducts();
+                return  getProduct();
+            }
         }
     }
 

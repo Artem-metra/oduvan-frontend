@@ -7,10 +7,17 @@
 </head>
 <body id="body">
 <!-- Страница статьи -->
+<div style="min-height: 300px;width: 100%;position: relative">
+    <div style="position: absolute; top:0; left:0; background-attachment: fixed;width:100%; height: 100%; background-repeat: no-repeat;background-position: 0% 28%; background-size: cover"
+         class="article_data">
+
+    </div>
+</div>
 <div class="catalog">
     <div class="container">
         <div class="place_breadcoast" style="margin-bottom: 50px">
-            <a href="">Главная</a> / <a class="active_page" id="active_page href=">Блог</a> / <a class="active_page" id="active_page href=">Заголовок статьи</a>
+            <a href="">Главная</a> / <a class="" href="/blog">Блог</a> / <a class="active_page" id="active_page"
+                                                                            href=""></a>
         </div>
         <h1 class="catalog_zag article_data" style="margin-bottom: 30px">Заголовок статьи</h1>
         <div class="description_explanations article_data" style="max-width: 75%">
@@ -32,22 +39,22 @@
 <div class="catalog">
     <div class="container">
         <div class="catalog_flex_catalog">
-{#            <div class="blog_art_img">#}
-{#                <img src="../static/img/blog_big_img.png" alt="Фото блога" class="article_data">#}
-{#            </div>#}
-{#            <div class="blog_art_text description_explanations">#}
-{#                Таким образом новая модель организационной деятельности способствует подготовки и реализации новых#}
-{#                предложений. Значимость этих проблем настолько очевидна, что постоянный количественный рост и сфера#}
-{#                нашей активности способствует подготовки и реализации дальнейших направлений развития. Повседневная#}
-{#                практика показывает, что рамки и место обучения кадров играет важную роль в формировании существенных#}
-{#                финансовых и административных условий.#}
-{##}
-{#                Повседневная практика показывает, что укрепление и развитие структуры требуют от нас анализа позиций,#}
-{#                занимаемых участниками в отношении поставленных задач. Повседневная практика показывает, что реализация#}
-{#                намеченных плановых заданий представляет собой интересный эксперимент проверки форм развития. С другой#}
-{#                стороны укрепление и развитие структуры в значительной степени обуславливает создание соответствующий#}
-{#                условий активизации.#}
-{#            </div>#}
+            {#            <div class="blog_art_img">#}
+            {#                <img src="../static/img/blog_big_img.png" alt="Фото блога" class="article_data">#}
+            {#            </div>#}
+            {#            <div class="blog_art_text description_explanations">#}
+            {#                Таким образом новая модель организационной деятельности способствует подготовки и реализации новых#}
+            {#                предложений. Значимость этих проблем настолько очевидна, что постоянный количественный рост и сфера#}
+            {#                нашей активности способствует подготовки и реализации дальнейших направлений развития. Повседневная#}
+            {#                практика показывает, что рамки и место обучения кадров играет важную роль в формировании существенных#}
+            {#                финансовых и административных условий.#}
+            {##}
+            {#                Повседневная практика показывает, что укрепление и развитие структуры требуют от нас анализа позиций,#}
+            {#                занимаемых участниками в отношении поставленных задач. Повседневная практика показывает, что реализация#}
+            {#                намеченных плановых заданий представляет собой интересный эксперимент проверки форм развития. С другой#}
+            {#                стороны укрепление и развитие структуры в значительной степени обуславливает создание соответствующий#}
+            {#                условий активизации.#}
+            {#            </div>#}
         </div>
     </div>
 </div>
@@ -92,7 +99,7 @@
 
     loadArticle();
 
-    function loadArticle(){
+    function loadArticle() {
         let data = {
             'article_id': id
         }
@@ -100,7 +107,7 @@
             url: '/api/article/get',
             type: "GET",
             data: data,
-            success: function (msg){
+            success: function (msg) {
                 console.log(msg);
                 drawArticle(msg['message']['article']);
             }
@@ -108,39 +115,34 @@
     }
 
     function drawArticle(article) {
-        title
+        title.innerText = article.title;
         let article_data = document.getElementsByClassName('article_data');
-        article_data[0].innerText = article.title;
-        article_data[1].innerHTML = article.text;
-        article_data[2].src = article.image;
+        article_data[0].style.backgroundImage = `url(${article.image})`;
+        article_data[1].innerText = article.title;
+        article_data[2].innerHTML = article.text;
+
+
+        active_page.href = '/article?id=' + article.id;
+        active_page.innerText = article.title;
     }
 
 
-    loadDiscProduct();
+    loadBlog();
 
-    function loadDiscProduct() {
-         $('.delete_card').remove();
-        let data = {
-            'sorted_type': 4,
-            'page_count': 16,
-        }
+    function loadBlog(){
+
         $.ajax({
-            url: '/site/products/smart',
-            type: 'POST',
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(data),
+            url: '/api/articles/get',
+            type: "GET",
             success: function (msg) {
-                console.log('loadProducts', msg);
-                createSlider(msg['message']['products'], 'disc_swiper_place');
+                console.log(msg);
+                createSlider(msg['message']['articles']);
             }
-        });
+        })
     }
 
 
-
-
-   function createSlider(products, place) {
+    function createSlider(products) {
         let generalBox = document.getElementsByClassName('generelSlide')[0];
         let box = generalBox.cloneNode(true);
         box.id = '';
@@ -184,7 +186,7 @@
             swiper_slide.append(slider);
             wrapper.append(swiper_slide);
             disc_swiper_place.style.display = 'block';
-            document.getElementById(place).append(box);
+            document.getElementById(disc_swiper_place).append(box);
         }
     }
 
