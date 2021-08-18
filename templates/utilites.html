@@ -814,7 +814,7 @@
         let input = box.getElementsByClassName('product_counter_inp')[0];
         let minus_counter = box.getElementsByClassName('minus_counter')[0];
         input.value = Number(product['q_count']);
-        img.src = 'http://b-ws.ru:1001/get?uuid=' + product['photos'][0];
+        img.src = 'https://b-ws.ru/api/image/get?uuid=' + product['photos'][0];
         name.innerText = product['name'];
         // Если продукт имеет скидку
         if (product['discount_type'] > 0) {
