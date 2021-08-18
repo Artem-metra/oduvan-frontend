@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Одуван</title>
+    <meta name="title" content="Интернет магазин цветов Одуван">
+    <meta name="description" content="У нас вы найдете хороший выбор цветов и другой цветочной продукции по выгодной цене с быстрой и качетсвенной доставкой по Воронежу. Каждому покупателю подарок!">
     {% include 'headers.html' %}
 </head>
 <body id="body">
 
 <!-- Первый блок на главной -->
 <div class="main_background">
-    <img src="../static/img/main_mobile_bg.png" class="main_background_img">
+    <img src="../static/img/main_mobile_bg.png" class="main_background_img" alt="Главная картинка">
     <div class="main_background_text">
         <h1 class="main_zag">
             ДОСТАВКА <br> БУКЕТОВ <br> в Воронеже
@@ -40,7 +42,7 @@
                             <a href="" class="go_to_cat">Выбрать <span style="margin-left: 20px" class="fa fa-chevron-right"></span></a>
                         </div>
                     </div>
-                    <img src="" class="main_cat_img" style="position: absolute; right: 0; top: 215px; z-index: 1">
+                    <img src="" class="main_cat_img" style="position: absolute; right: 0; top: 215px; z-index: 1" alt="Картинка каталога">
                 </div>
             </div>
         </div>
@@ -82,7 +84,7 @@
 <div class="individual_order">
     <div class="individual_order_info">
         <div class="individual_order_info_text_img">
-            <img src="../static/img/individual_mobile_img.png">
+            <img src="../static/img/individual_mobile_img.png" alt="Индивидуальный заказ букетов">
         </div>
         <div class="individual_order_info_text">
             <div class="individual_order_info_text_info">
@@ -156,7 +158,7 @@
 
             <div class="blog_item">
                 <div class="blog_item_info">
-                    <img src="../static/img/blog_big_img.png">
+                    <img src="../static/img/blog_big_img.png" alt="Картинка блога">
                     <div class="blog_item_text">
                         <div class="blog_item_text_zag">
                             Открыт новый магазин
@@ -176,7 +178,7 @@
 
             <div class="blog_item">
                 <div class="blog_item_info">
-                    <img src="../static/img/blog_big_img.png" >
+                    <img src="../static/img/blog_big_img.png" alt="Картинка блога">
                     <div class="blog_item_text">
                         <div class="blog_item_text_zag">
                             Открыт новый магазин
@@ -213,7 +215,7 @@
                     <div class="question_place">
                         <span class="fa fa-question"></span>
                     </div>
-                    <img src="../static/img/bouquet.svg" style="width: 150px; height: auto;" alt="Букет"/>
+                    <img src="../static/img/bouquet.svg" style="width: 150px; height: auto;" alt="Букет">
                 </div>
                 <div class="item_zag">
                     Заказ
@@ -300,7 +302,7 @@
     <div class="container">
         <div class="catalog_flex_catalog">
             <div class="info_pered_footer_img">
-                <img src="../static/img/img_pered_footer_mobile.png">
+                <img src="../static/img/img_pered_footer_mobile.png" alt="Картинка информации">
             </div>
             <div class="info_pered_footer_text">
                 <div class="blog_item_text_zag">
@@ -314,7 +316,7 @@
         </div>
         <div class="catalog_flex_catalog">
             <div class="info_pered_footer_img">
-                <img src="../static/img/img_pered_footer_mobile.png">
+                <img src="../static/img/img_pered_footer_mobile.png" alt="Картинка информации">
             </div>
             <div class="info_pered_footer_text">
                 <div class="blog_item_text_zag">
@@ -328,7 +330,7 @@
         </div>
         <div class="catalog_flex_catalog">
             <div class="info_pered_footer_img">
-                <img src="../static/img/img_pered_footer_mobile.png">
+                <img src="../static/img/img_pered_footer_mobile.png" alt="Картинка информации">
             </div>
             <div class="info_pered_footer_text">
                 <div class="blog_item_text_zag">
@@ -384,6 +386,7 @@
 
 
     function drawMainCategory(categories) {
+        {#meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ' ' + categories[i]['parent_name'] + ' ' + msg['message']['products']);#}
         for (let i = 0; i < categories.length; i++) {
             let box = card_main_item.cloneNode(true);
             box.id = '';
@@ -392,7 +395,7 @@
             let href = box.getElementsByClassName('go_to_cat')[0];
             let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
             main_cat_img.alt = categories[i]['name'];
-            main_cat_img.src = 'http://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
+            main_cat_img.src = 'https://b-ws.ru/api/image/get?uuid=' + categories[i]['image'];
             if(categories[i]['parent_id'] !== 0) name_cat.innerText = categories[i]['parent_name'];
             else {
                 name_buckets.style.marginTop = '55px';

@@ -1,5 +1,6 @@
 import requests
 from flask import Flask, request, json, render_template
+import base64
 
 from flask import Flask, request, abort, session, json, render_template, redirect
 import utils, traceback
@@ -211,6 +212,12 @@ def get_photo():
 # @app.before_request
 # def redirect_on_api():
 # print(request)
+
+@app.route('/api/get_photo')
+def get_photo():
+    image_uuid = request.values.get('uuid')
+    resp = requests.get('http://b-ws.ru:1001/get', params={'uuid': image_uuid})
+    return resp.text
 
 
 if __name__ == '__main__':

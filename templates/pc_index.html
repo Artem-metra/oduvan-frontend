@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Одуван</title>
+    <meta name="title" content="Интернет магазин цветов Одуван">
+    <meta name="description" content="У нас вы найдете хороший выбор цветов и другой цветочной продукции по выгодной цене с быстрой и качетсвенной доставкой по Воронежу. Каждому покупателю подарок!">
     {% include 'pc_headers.html' %}
 </head>
 <body id="body">
 <!-- Первый блок на главной -->
 <div class="main_background">
-    <img src="../static/img/main_background.png" class="main_background_img">
+    <img src="../static/img/main_background.png" class="main_background_img" alt="Главная картинка">
     <div class="main_background_text">
         <h1 class="main_zag">
             ДОСТАВКА БУКЕТОВ <br> в Воронеже
@@ -41,7 +43,7 @@
                         <a href="" class="go_to_cat">Выбрать <span class="fa fa-chevron-right"></span></a>
                     </div>
                 </div>
-                <img src="" class="main_cat_img">
+                <img src="" class="main_cat_img" alt="Картинка карточек товара">
             </div>
 <!--            {#            <div class="card_main_item" style="width:48.5%;">#}-->
 <!--            {#                <div class="card_main_bg"></div>#}-->
@@ -155,7 +157,7 @@
             </div>
         </div>
         <a class="slider_item_card_img_place" href="">
-            <img src="../static/img/catalog_img.png" class="slider_img">
+            <img src="../static/img/catalog_img.png" class="slider_img" alt="Картинка популярных товаров">
         </a>
         <div class="name_and_price">
             <div class="catalog_flex" style="padding-bottom: 0px;">
@@ -217,7 +219,7 @@
                 </a>
             </div>
             <div class="individual_order_info_text_img">
-                <img src="../static/img/individual_img.png">
+                <img src="../static/img/individual_img.png" alt="Индивидуальный заказ">
             </div>
         </div>
     </div>
@@ -243,7 +245,7 @@
 
         </div>
     </div>
-
+</div>
 
 
 
@@ -265,7 +267,7 @@
             </div>
         </div>
         <a class="slider_item_card_img_place" href="">
-            <img src="../static/img/catalog_img.png" class="slider_img">
+            <img src="../static/img/catalog_img.png" class="slider_img" alt="Картинка товаров со скидкой">
         </a>
         <div class="name_and_price">
             <div class="catalog_flex" style="padding-bottom: 0px;">
@@ -324,7 +326,7 @@
             <div class="blog_item_main">
                 <div class="blog_item">
                     <div class="blog_item_info">
-                        <img src="../static/img/blog_big_img.png">
+                        <img src="../static/img/blog_big_img.png" alt="Фото блога">
                         <div class="blog_item_text">
                             <div class="blog_item_text_zag">
                                 Открыт <br>новый магазин
@@ -342,7 +344,7 @@
             <div class="blog_item_main">
                 <div class="blog_item" style="display: none;">
                     <div class="blog_item_info">
-                        <img src="../static/img/blog_big_img.png">
+                        <img src="../static/img/blog_big_img.png" alt="Фото блога">
                         <div class="blog_item_text">
                             <div class="blog_item_text_zag">
                                 Открыт <br>новый <br>магазин
@@ -361,7 +363,7 @@
                 </div>
                 <div class="blog_item">
                     <div class="blog_item_info">
-                        <img src="../static/img/blog_big_img.png">
+                        <img src="../static/img/blog_big_img.png" alt="Фото блога">
                         <div class="blog_item_text">
                             <div class="blog_item_text_zag">
                                 Открыт <br>новый <br>магазин
@@ -380,7 +382,7 @@
                 </div>
                 <div class="blog_item">
                     <div class="blog_item_info">
-                        <img src="../static/img/blog_big_img.png">
+                        <img src="../static/img/blog_big_img.png" alt="Фото блога">
                         <div class="blog_item_text">
                             <div class="blog_item_text_zag">
                                 Открыт <br>новый <br>магазин
@@ -580,7 +582,7 @@
             <div class="info_pered_footer_ryad">
                 <div class="info_pered_footer">
                     <div style="width:50%">
-                        <img src="../static/img/img_pered_footer.png" class="info_pered_footer_img">
+                        <img src="../static/img/img_pered_footer.png" class="info_pered_footer_img" alt="Фото перед футером">
                     </div>
                     <div class="info_pered_footer_text">
                         <div class="blog_item_text_zag">
@@ -595,7 +597,7 @@
                 </div>
                 <div class="info_pered_footer">
                     <div style="width:50%">
-                        <img src="../static/img/img_pered_footer2.png" class="info_pered_footer_img">
+                        <img src="../static/img/img_pered_footer2.png" class="info_pered_footer_img" alt="Фото перед футером">
                     </div>
                     <div class="info_pered_footer_text">
                         <div class="blog_item_text_zag">
@@ -612,7 +614,7 @@
             <div class="info_pered_footer_ryad">
                 <div class="info_pered_footer">
                     <div style="width:50%">
-                        <img src="../static/img/img_pered_footer3.png" class="info_pered_footer_img">
+                        <img src="../static/img/img_pered_footer3.png" class="info_pered_footer_img" alt="Фото перед футером">
                     </div>
                     <div class="info_pered_footer_text">
                         <div class="blog_item_text_zag">
@@ -658,6 +660,7 @@
     loadMainCategory();
 
     function loadMainCategory() {
+
         $.ajax({
             url: '/api/categories/get_for_main',
             type: "GET",
@@ -678,7 +681,7 @@
             let href = box.getElementsByClassName('go_to_cat')[0];
             let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
             main_cat_img.alt = categories[i]['name'];
-            main_cat_img.src = 'http://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
+            main_cat_img.src = 'https://b-ws.ru/api/image/get?uuid=' + categories[i]['image'];
             if (categories[i]['parent_id'] !== 0) name_cat.innerText = categories[i]['parent_name'];
             else {
                 name_buckets.style.marginTop = '55px';

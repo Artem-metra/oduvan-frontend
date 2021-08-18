@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title id="title"></title>
+    <meta id="title_meta" name="title" content="Купить по отличной цене букет -">
+    <meta name="description" content="Цветы и цветочная продукция всегда свежие и по отличной цене. Быстрая и качественная доставка по всему Воронежу.">
     {% include 'pc_headers.html' %}
 </head>
 <body id="body">
@@ -39,7 +41,7 @@
             <div class="all_pictures_product_place" id="all_pictures_product_place">
                 <div class="small_product_card" id="small_product_card" style="display: none;">
                     <div class="small_product_place">
-                        <img src="" class="small_product_img">
+                        <img src="" class="small_product_img" alt="Маленькая картинка товара">
                     </div>
                 </div>
             </div>
@@ -47,7 +49,7 @@
             <div class="main_pictures_product_place" id="main_pictures_product_place">
                 <div class="big_product_card">
                     <div class="small_product_place">
-                        <img src="" class="small_product_img" id="main_photo">
+                        <img src="" class="small_product_img" id="main_photo" alt="Картинка товара">
                     </div>
                 </div>
 
@@ -183,7 +185,7 @@
                 </a>
             </div>
             <div class="individual_order_info_text_img">
-                <img src="../static/img/individual_img.png" />
+                <img src="../static/img/individual_img.png" alt="Индивидуальный заказ букетов" />
             </div>
         </div>
     </div>
@@ -239,12 +241,14 @@
 
     /* Отрисовать продукт */
     function drawProduct(msg) {
+        title_meta.setAttribute('content', title_meta.getAttribute('content') + ' ' + msg['product']['name']);
         title.innerText = msg['product']['name'];
+        meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg['product']['name'] + ',' + msg['product']['description']);
         console.log(msg);
         description_product.innerText = msg['product']['description'];
         name_bucket.innerText = msg['product']['name'];
         name = msg['product']['name'];
-        main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][0];
+        main_photo.src = 'https://b-ws.ru/api/image/get?uuid=' + msg['product']['photos'][0];
 
         if (msg['product']['photos'].length) {
             for (let i = 0; i < msg['product']['photos'].length; i++) {
@@ -254,12 +258,12 @@
                     images.classList.add('_active_photo');
                 }
                 let img = images.getElementsByClassName('small_product_img')[0];
-                img.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i];
+                img.src = 'https://b-ws.ru/api/image/get?uuid=' + msg['product']['photos'][i];
                 images.style.display = 'block';
                 images.onclick = function () {
                     document.getElementsByClassName('_active_photo')[0].classList.remove('_active_photo');
                     images.classList.add('_active_photo');
-                    main_photo.src = 'http://b-ws.ru:1001/get?uuid=' + msg['product']['photos'][i];
+                    main_photo.src = 'https://b-ws.ru/api/image/get?uuid=' + msg['product']['photos'][i];
                 }
                 all_pictures_product_place.append(images);
             }
@@ -268,7 +272,7 @@
         let count = document.getElementById('counter_product');
         if (msg['product']['discount_type'] > 0) {
             price.classList.add('have_disc');
-            disc_price_bucket.innerText = msg['product']['discount_cost'];
+            disc_price_bucket.innerText = msg['product']['discount_cost'] + ' ₽';
         } else {
             disc_price_bucket.style.display = 'none';
         }

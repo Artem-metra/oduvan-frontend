@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Оформление заказа</title>
+    <meta name="title" content="Цветы на любой вкус с быстрой и качественной доставкой. Купи прямо сейчас">
+    <meta name="description" content="Цветы и цветочная продукция всегда свежие и по отличной цене. Быстрая и качественная доставка по всему Воронежу.">
     {% include 'headers.html' %}
 </head>
 <body id="body">
@@ -188,7 +190,7 @@
                             <div class="catalog_flex" style="justify-content: normal">
                                 <div class="small_product_card" style="margin-right:15px;">
                                     <a class="small_product_place">
-                                        <img src="../static/img/small_img_main.png" class="small_product_img"
+                                        <img src="../static/img/small_img_main.png" class="small_product_img" alt="Фото карточки товара"
                                              style="margin-bottom: 95px;">
                                     </a>
                                 </div>
@@ -242,23 +244,23 @@
                     <div style="width:100%; display: flex; flex-direction: row; justify-content: space-between">
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/mastercard.png" class="small_product_img"
+                                <img src="../static/img/mastercard.png" class="small_product_img" alt="Мастеркард"
                                      style="padding-top: 10px; width: auto; height: 70px;">
                             </div>
                         </div>
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/visa.png" class="small_product_img" style="width: auto; height: 70px;">
+                                <img src="../static/img/visa.png" class="small_product_img" style="width: auto; height: 70px;" alt="Виза">
                             </div>
                         </div>
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/mir.png" class="small_product_img"  style="width: auto; height: 70px;">
+                                <img src="../static/img/mir.png" class="small_product_img" alt="Мир"  style="width: auto; height: 70px;">
                             </div>
                         </div>
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/applepay.png" class="small_product_img"  style="width: auto; height: 70px;">
+                                <img src="../static/img/applepay.png" class="small_product_img" alt="Эплпай"  style="width: auto; height: 70px;">
                             </div>
                         </div>
                     </div>
@@ -485,6 +487,7 @@
 
    // Загрузка магазинов
     function loadShops() {
+        meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ' ' + msg['message']['shops'][i]['address'] + ' ' + msg['message']['shops']);
         $.ajax({
             url: '/api/shops/get',
             type: "GET",

@@ -41,6 +41,7 @@ function getCategories() {
         success: function (msg) {
             console.log(msg['message']);
             for (let i = 0; i < msg['message']['top_categories'].length; i++) {
+                meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg['message']['top_categories'][i]['name']);
                 let div = document.createElement('div');
                 div.style.padding = '8px 0';
                 let item = document.createElement('a');
@@ -63,7 +64,7 @@ function getCategories() {
 // Отрисовка категорий
 function drawCategories(msg) {
     let breadcoast = BreadCoast(id);
-
+    // meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg['name']);
     for (let i = 0; i < msg.length; i++) {
         let category = catalog_category_card.cloneNode(true);
         category.removeAttribute('id');
@@ -138,6 +139,7 @@ function loadProducts() {
         'page': page,
     }
     console.log('data', data);
+
     $.ajax({
         url: '/site/products/smart',
         type: 'POST',
@@ -235,6 +237,7 @@ function loadFlowers() {
 
 function drawFlowers(flower) {
     for (let i = 0; i < flower.length; i++) {
+        meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + flower[i]['name']);
         let fl = choose_flower.cloneNode(true);
         fl.removeAttribute('id');
         let name = fl.getElementsByClassName('name_flower')[0];
