@@ -17,63 +17,10 @@
 </div>
 
 <div class="catalog" style="min-height: 483px">
-    <div class="container" style="text-align: center">
-        <div class="blog_item_main" style="margin-right: 0; width: auto;">
-            <div class="blog_item" style="width: 800px;">
-                <div class="blog_item_info">
-                    <img src="../static/img/blog_big_img.png" alt="Фото блога">
-                    <div class="blog_item_text">
-                        <div class="blog_item_text_zag">
-                            Открыт <br>новый магазин
-                        </div>
-                        <div class="blog_item_text_preview">
-                            Открылся новый магазин по адресу Плехановская 15, мы рады представить...
-                        </div>
-                        <a href="/article" class="blog_item_text_read" >
-                            Прочитать
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="container" style="text-align: center" id="articles_place">
 
-        <div class="blog_item_main" style="margin-right: 0; width: auto;">
-            <div class="blog_item" style="width: 800px;">
-                <div class="blog_item_info">
-                    <img src="../static/img/blog_big_img.png" alt="Фото блога">
-                    <div class="blog_item_text">
-                        <div class="blog_item_text_zag">
-                            Открыт <br>новый магазин
-                        </div>
-                        <div class="blog_item_text_preview">
-                            Открылся новый магазин по адресу Плехановская 15, мы рады представить...
-                        </div>
-                       <a href="/article" class="blog_item_text_read" >
-                            Прочитать
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="blog_item_main" style="margin-right: 0; width: auto;">
-            <div class="blog_item" style="width: 800px;">
-                <div class="blog_item_info">
-                    <img src="../static/img/blog_big_img.png" alt="Фото блога">
-                    <div class="blog_item_text">
-                        <div class="blog_item_text_zag">
-                            Открыт <br>новый магазин
-                        </div>
-                        <div class="blog_item_text_preview">
-                            Открылся новый магазин по адресу Плехановская 15, мы рады представить...
-                        </div>
-                        <a href="/article" class="blog_item_text_read" >
-                            Прочитать
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 
@@ -84,6 +31,46 @@
 
 <script>
     {#let id = {{ id }};#}
+
+    loadBlog();
+
+    function loadBlog(){
+        $.ajax({
+            url: '/api/articles/get',
+            type: "GET",
+            success: function (msg) {
+                console.log(msg);
+                drawArticles(msg['message']['articles']);
+            }
+        })
+    }
+
+    function drawArticles(articles){
+        articles.map((article) => {
+
+        articles_place.innerHTML += `
+            <div class="blog_item_main" style="margin-right: 0; width: auto;">
+                <div class="blog_item" style="width: 800px;">
+                    <div class="blog_item_info" id="card-${article.id}">
+                        <img src="${article.image}" alt="${article.title}">
+                            <div class="blog_item_text">
+                                <div class="blog_item_text_zag">
+                                    ${article.title}
+                                </div>
+                                <div class="blog_item_text_preview">
+                                    ${article.text}
+                                </div>
+                                <a href="/article?id=${article.id}" class="blog_item_text_read" >
+                                    Прочитать
+                                </a>
+                            </div>
+                    </div>
+                </div>
+            </div>`
+        })
+    }
+
+
 </script>
 </body>
 </html>

@@ -5,12 +5,6 @@
     <title>Одуван</title>
     <meta name="title" content="Интернет магазин цветов Одуван">
     <meta name="description" content="У нас вы найдете хороший выбор цветов и другой цветочной продукции по выгодной цене с быстрой и качетсвенной доставкой по Воронежу. Каждому покупателю подарок!">
-    <meta property="og:type" content="business.business">
-    <meta property="og:title" content="Купить цветы в магазине Одуван">
-    <meta property="og:description" content="Купить цветы в магазине Одуван, всегда свежие цветы и быстрая доставка.">
-    <meta property="og:url" content="https://oduvan-vesyoliy.ru/">
-    <meta property="og:site_name" content="Одуван">
-    <meta property="og:locale" content="ru_Ru, en_En">
     {% include 'pc_headers.html' %}
 </head>
 <body id="body">
@@ -251,7 +245,7 @@
 
         </div>
     </div>
-
+</div>
 
 
 
@@ -687,7 +681,7 @@
             let href = box.getElementsByClassName('go_to_cat')[0];
             let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
             main_cat_img.alt = categories[i]['name'];
-            main_cat_img.src = 'http://b-ws.ru:1001/get?uuid=' + categories[i]['image'];
+            main_cat_img.src = 'https://b-ws.ru/api/image/get?uuid=' + categories[i]['image'];
             if (categories[i]['parent_id'] !== 0) name_cat.innerText = categories[i]['parent_name'];
             else {
                 name_buckets.style.marginTop = '55px';

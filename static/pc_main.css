@@ -1184,6 +1184,8 @@ input[type="checkbox"] {
     font-size: 18px;
     line-height: 100%;
     padding: 20px 0;
+    overflow: hidden;
+    max-height: 180px;
 }
 
 .blog_item_text_read {
