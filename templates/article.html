@@ -7,6 +7,11 @@
 </head>
 <body id="body">
 <!-- Страница статьи -->
+<div style="min-height: 300px;width: 100%;position: relative">
+    <div class="article_data article_image">
+
+    </div>
+</div>
 <div class="catalog">
     <div class="container">
         <div class="place_breadcoast" style="margin-bottom: 50px">
@@ -136,9 +141,9 @@
     function drawArticle(article) {
         title.innerText = article.title;
         let article_data = document.getElementsByClassName('article_data');
-        article_data[0].innerText = article.title;
-        article_data[1].innerHTML = article.text;
-        article_data[2].src = article.image;
+        article_data[0].style.backgroundImage = `url(${article.image})`;
+        article_data[1].innerText = article.title;
+        article_data[2].innerHTML = article.text;
 
        active_page.href = '/article?id=' + article.id;
        active_page.innerText = article.title;

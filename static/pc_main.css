@@ -3092,12 +3092,15 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .article_image{
-    width: 100%;
-    height: 100%;
-    background-attachment: fixed;
     position: absolute;
-    top: 0;
-    left: 0;
+    top:0;
+    left:0;
+    background-attachment: fixed;
+    width:100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 0% 28%;
+    background-size: cover;
 }
 
 /* Container */

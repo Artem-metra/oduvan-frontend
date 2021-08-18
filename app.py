@@ -213,12 +213,6 @@ def get_photo():
 # def redirect_on_api():
 # print(request)
 
-@app.route('/api/get_photo')
-def get_photo():
-    image_uuid = request.values.get('uuid')
-    resp = requests.get('http://b-ws.ru:1001/get', params={'uuid': image_uuid})
-    return resp.text
-
 
 if __name__ == '__main__':
     app.run(debug=True)

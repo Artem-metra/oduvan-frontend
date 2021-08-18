@@ -153,55 +153,18 @@
 <div class="catalog">
     <div class="container">
         <h2 class="catalog_zag" style="margin-bottom: 40px">Блог</h2>
+    </div>
+    <div class="cont_on_horizontscroll">
+        <div class="container" id="articles_place" style="display: flex">
 
-        <div class="cont_on_horizontscroll">
 
-            <div class="blog_item">
-                <div class="blog_item_info">
-                    <img src="../static/img/blog_big_img.png" alt="Картинка блога">
-                    <div class="blog_item_text">
-                        <div class="blog_item_text_zag">
-                            Открыт новый магазин
-                        </div>
-                        <div class="blog_item_text_preview">
-                            Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
-                            на
-                            дресскод
-                            и оформление...
-                        </div>
-                         <a href="/article" class="blog_item_text_read" >
-                            Прочитать
-                        </a>
-                    </div>
-                </div>
-            </div>
 
-            <div class="blog_item">
-                <div class="blog_item_info">
-                    <img src="../static/img/blog_big_img.png" alt="Картинка блога">
-                    <div class="blog_item_text">
-                        <div class="blog_item_text_zag">
-                            Открыт новый магазин
-                        </div>
-                        <div class="blog_item_text_preview">
-                            Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
-                            на
-                            дресскод
-                            и оформление...
-                        </div>
-                         <a href="/article" class="blog_item_text_read" >
-                            Прочитать
-                        </a>
-                    </div>
-                </div>
-            </div>
 
         </div>
-
-        <a class="all_catalog_href" href="/blog" style="margin-top: 30px; width: 400px; height: 100px; font-size: 40px">
-            Больше статей
-        </a>
     </div>
+    <a class="all_catalog_href" href="/blog" style="margin-top: 30px; width: 400px; height: 100px; font-size: 40px">
+        Больше статей
+    </a>
 </div>
 
 <!-- Почему мы -->
@@ -369,6 +332,47 @@
     {#        }#}
     {#    });#}
     {##}
+
+
+     loadBlog();
+
+    function loadBlog(){
+
+        $.ajax({
+            url: '/api/articles/get',
+            type: "GET",
+            success: function (msg) {
+                console.log(msg);
+                drawArticles(msg['message']['articles']);
+            }
+        })
+    }
+
+    function drawArticles(articles){
+        articles.map((article) => {
+
+        articles_place.innerHTML += `
+            <div class="blog_item_main" style="margin-right: 0; width: auto;">
+                <div class="blog_item"  style="width: 800px;">
+                    <div class="blog_item_info">
+                        <img src="${article.image}" alt="${article.title}">
+                            <div class="blog_item_text">
+                                <div class="blog_item_text_zag">
+                                    ${article.title}
+                                </div>
+                                <div class="blog_item_text_preview">
+                                    ${article.text}
+                                </div>
+                                <a href="/article?id=${article.id}" class="blog_item_text_read" >
+                                    Прочитать
+                                </a>
+                            </div>
+                    </div>
+                </div>
+            </div>`
+        })
+
+    }
 
     loadMainCategory();
 

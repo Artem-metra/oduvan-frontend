@@ -313,94 +313,14 @@
 
 
 <!-- Блог -->
-<div class="catalog">
+<div class="catalog" style="min-height: 483px">
     <div class="container">
-        <div class="catalog_flex">
-            <h2 class="catalog_zag">Блог</h2>
-            <a class="all_catalog_href">
-                Больше статей
-            </a>
-        </div>
+        <h2 class="catalog_zag" style="margin-bottom: 40px">Блог</h2>
+    </div>
+    <div class="container" style="text-align: center" id="articles_place">
 
-        <div>
-            <div class="blog_item_main">
-                <div class="blog_item">
-                    <div class="blog_item_info">
-                        <img src="../static/img/blog_big_img.png" alt="Фото блога">
-                        <div class="blog_item_text">
-                            <div class="blog_item_text_zag">
-                                Открыт <br>новый магазин
-                            </div>
-                            <div class="blog_item_text_preview">
-                                Открылся новый магазин по адресу Плехановская 15, мы рады представить...
-                            </div>
-                            <a href="/article" class="blog_item_text_read" >
-                            Прочитать
-                        </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="blog_item_main">
-                <div class="blog_item" style="display: none;">
-                    <div class="blog_item_info">
-                        <img src="../static/img/blog_big_img.png" alt="Фото блога">
-                        <div class="blog_item_text">
-                            <div class="blog_item_text_zag">
-                                Открыт <br>новый <br>магазин
-                            </div>
-                            <div class="blog_item_text_preview">
-                                Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
-                                на
-                                дресскод
-                                и оформление...
-                            </div>
-                             <a href="/article" class="blog_item_text_read" >
-                            Прочитать
-                        </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog_item">
-                    <div class="blog_item_info">
-                        <img src="../static/img/blog_big_img.png" alt="Фото блога">
-                        <div class="blog_item_text">
-                            <div class="blog_item_text_zag">
-                                Открыт <br>новый <br>магазин
-                            </div>
-                            <div class="blog_item_text_preview">
-                                Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
-                                на
-                                дресскод
-                                и оформление...
-                            </div>
-                             <a href="/article" class="blog_item_text_read" >
-                            Прочитать
-                        </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog_item">
-                    <div class="blog_item_info">
-                        <img src="../static/img/blog_big_img.png" alt="Фото блога">
-                        <div class="blog_item_text">
-                            <div class="blog_item_text_zag">
-                                Открыт <br>новый <br>магазин
-                            </div>
-                            <div class="blog_item_text_preview">
-                                Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
-                                на
-                                дресскод
-                                и оформление...
-                            </div>
-                             <a href="/article" class="blog_item_text_read" >
-                            Прочитать
-                        </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+
     </div>
 </div>
 
@@ -656,6 +576,48 @@
     {#        }#}
     {#    });#}
     {##}
+
+
+
+     loadBlog();
+
+    function loadBlog(){
+
+        $.ajax({
+            url: '/api/articles/get',
+            type: "GET",
+            success: function (msg) {
+                console.log(msg);
+                drawArticles(msg['message']['articles']);
+            }
+        })
+    }
+
+    function drawArticles(articles){
+        articles.map((article) => {
+
+        articles_place.innerHTML += `
+            <div class="blog_item_main" style="margin-right: 0; width: auto;">
+                <div class="blog_item"  style="width: 800px;">
+                    <div class="blog_item_info">
+                        <img src="${article.image}" alt="${article.title}">
+                            <div class="blog_item_text">
+                                <div class="blog_item_text_zag">
+                                    ${article.title}
+                                </div>
+                                <div class="blog_item_text_preview">
+                                    ${article.text}
+                                </div>
+                                <a href="/article?id=${article.id}" class="blog_item_text_read" >
+                                    Прочитать
+                                </a>
+                            </div>
+                    </div>
+                </div>
+            </div>`
+        })
+
+    }
 
     loadMainCategory();
 
