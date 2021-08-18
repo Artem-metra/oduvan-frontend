@@ -272,7 +272,7 @@
         let count = document.getElementById('counter_product');
         if (msg['product']['discount_type'] > 0) {
             price.classList.add('have_disc');
-            disc_price_bucket.innerText = msg['product']['discount_cost'];
+            disc_price_bucket.innerText = msg['product']['discount_cost'] + ' ₽';
         } else {
             disc_price_bucket.style.display = 'none';
         }
