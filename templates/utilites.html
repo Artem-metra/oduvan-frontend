@@ -638,9 +638,14 @@
         console.log('popup', popup.id);
         if (popup.id === 'basket_popup') {
             if (location.pathname === '/catalog' || location.pathname === '/product') return loadProducts();
-            if (location.pathname === '/') {
+            if( location.pathname === '/' ) {
                 loadProducts();
-                return loadDiscProduct();
+               return loadDiscProduct();
+            }
+            console.log(location.pathname)
+            if(location.pathname === '/product'){
+                loadProducts();
+                return  getProduct();
             }
 
         }

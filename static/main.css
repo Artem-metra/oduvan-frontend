@@ -3269,7 +3269,7 @@ pagination_place {
 
 
 .blog_item {
-    width: 70%;
+    width: 100%;
     height: auto;
     margin-bottom: 20px;
     -webkit-box-shadow: 0 4px 16px rgba(41, 48, 72, 0.15);
@@ -3290,6 +3290,8 @@ pagination_place {
     font-size: 34px;
     line-height: 100%;
     padding: 20px 0;
+    overflow: hidden;
+    max-height: 180px;
 }
 
 
