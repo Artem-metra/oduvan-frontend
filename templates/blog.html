@@ -17,84 +17,61 @@
     </div>
 </div>
 
-<div class="catalog" style="min-height: 578px">
-    <div class="container">
-        <div class="blog_item_main">
-            <div class="blog_item" style="width: 100%;">
-                <div class="blog_item_info">
-                    <img src="../static/img/blog_big_img.png" alt="Фото блога" style="width: 100%;">
-                    <div class="blog_item_text" style="margin-top: 30px;">
-                        <div class="blog_item_text_zag">
-                            Открыт новый магазин
-                        </div>
-                        <div class="blog_item_text_preview">
-                            Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
-                            на
-                            дресскод
-                            и оформление...
-                        </div>
-                        <a href="/article" class="blog_item_text_read" >
-                            Прочитать
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="catalog" style="min-height: 483px">
+    <div class="container" style="text-align: center" id="articles_place">
 
 
-        <div class="blog_item_main">
-            <div class="blog_item" style="width: 100%;">
-                <div class="blog_item_info">
-                    <img src="../static/img/blog_big_img.png" alt="Фото блога" style="width: 100%;">
-                    <div class="blog_item_text" style="margin-top: 30px;">
-                        <div class="blog_item_text_zag">
-                            Открыт новый магазин
-                        </div>
-                        <div class="blog_item_text_preview">
-                            Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
-                            на
-                            дресскод
-                            и оформление...
-                        </div>
-                        <a href="/article" class="blog_item_text_read" >
-                            Прочитать
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-
-        <div class="blog_item_main">
-            <div class="blog_item" style="width: 100%;">
-                <div class="blog_item_info">
-                    <img src="../static/img/blog_big_img.png" alt="Фото блога" style="width: 100%;">
-                    <div class="blog_item_text" style="margin-top: 30px;">
-                        <div class="blog_item_text_zag">
-                            Открыт новый магазин
-                        </div>
-                        <div class="blog_item_text_preview">
-                            Чтобы понять, в каком стиле вам нужен бюджет на свадьбу необходимо обратить внимание
-                            на
-                            дресскод
-                            и оформление...
-                        </div>
-                        <a href="/article" class="blog_item_text_read" >
-                            Прочитать
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
+
 
 
 {% include 'utilites.html' %}
 
 <script>
     {#let id = {{ id }};#}
-    active_page.href = location.href;
+    {#active_page.href = location.href;#}
+
+     loadBlog();
+
+    function loadBlog(){
+        $.ajax({
+            url: '/api/articles/get',
+            type: "GET",
+            success: function (msg) {
+                console.log(msg);
+                drawArticles(msg['message']['articles']);
+            }
+        })
+    }
+
+    function drawArticles(articles){
+        articles.map((article) => {
+
+        articles_place.innerHTML += `
+            <div class="blog_item_main" style="margin-right: 0; width: auto;">
+                <div class="blog_item" style="width: 800px;">
+                    <div class="blog_item_info" id="card-${article.id}">
+                        <img src="${article.image}" alt="${article.title}">
+                            <div class="blog_item_text">
+                                <div class="blog_item_text_zag">
+                                    ${article.title}
+                                </div>
+                                <div class="blog_item_text_preview">
+                                    ${article.text}
+                                </div>
+                                <a href="/article?id=${article.id}" class="blog_item_text_read" >
+                                    Прочитать
+                                </a>
+                            </div>
+                    </div>
+                </div>
+            </div>`
+        })
+    }
+
+
 </script>
 </body>
 </html>
