@@ -313,22 +313,53 @@
 
 
 <!-- Блог -->
-<div class="catalog" style="min-height: 483px">
-    <div class="container" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px;">
-        <h2 class="catalog_zag">Блог</h2>
-        <a class="all_catalog_href href_catalog" href="/blog" >
-            Больше статей
-        </a>
-    </div>
+{#<div class="catalog" style="min-height: 483px">#}
+{#    <div class="container" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px;">#}
+{#        <h2 class="catalog_zag">Блог</h2>#}
+{#        <a class="all_catalog_href href_catalog" href="/blog" >#}
+{#            Больше статей#}
+{#        </a>#}
+{#    </div>#}
+{##}
+{#    <div class="container"  id="articles_place">#}
+{##}
+{#    </div>#}
+{#</div>#}
 
-    <div class="container" style="text-align: center" id="articles_place">
 
+{#<div class="catalog">#}
+{#    <div class="container">#}
+{#        <div class="catalog_flex">#}
+{#            <h2 class="catalog_zag">Блог</h2>#}
+{#            <a class="all_catalog_href">#}
+{#                Больше статей#}
+{#            </a>#}
+{#        </div>#}
+{#            <div class="blog_item_main" style="margin-right: 0; width: auto;" id="articles_place">#}
+{##}
+{#            </div>#}
+{#    </div>#}
+{#</div>#}
 
+<div class="catalog">
+    <div class="container">
+        <div class="catalog_flex">
+            <h2 class="catalog_zag">Блог</h2>
+            <a class="all_catalog_href">
+                Больше статей
+            </a>
+        </div>
 
+        <div>
+            <div class="blog_item_main" id="articles_main_place">
+
+            </div>
+             <div class="blog_item_main" id="articles_place">
+
+            </div>
+        </div>
     </div>
 </div>
-
-
 
 
 <div class="catalog" style="background: rgba(41, 48, 72, 0.1);">
@@ -505,12 +536,55 @@
     {##}
 
 
+    loadMainBlog();
 
-     loadBlog();
+    function loadMainBlog(){
+        let data = {
+            'number': 1,
+        }
+
+        $.ajax({
+            url: '/api/articles/get_last',
+            type: "GET",
+            data: data,
+            success: function (msg) {
+                console.log(msg);
+                drawMainArticles(msg['message']['articles']);
+            }
+        })
+    }
+
+
+    function drawMainArticles(articles){
+        articles.map((article) => {
+        articles_main_place.innerHTML += `
+                <div class="blog_item"  style="width: auto; height: 1376px;">
+                    <div class="blog_item_info">
+                        <img src="${article.image}" alt="${article.title}">
+                            <div class="blog_item_text">
+                                <div class="blog_item_text_zag">
+                                    ${article.title}
+                                </div>
+                                <div class="blog_item_text_preview">
+                                    ${article.text}
+                                </div>
+                                <a href="/article?id=${article.id}" class="blog_item_text_read" >
+                                    Прочитать
+                                </a>
+                            </div>
+                    </div>
+                </div>`
+        })
+
+    }
+
+
+
+    loadBlog();
 
     function loadBlog(){
         let data = {
-            'number': 5,
+            'number': 2,
         }
 
         $.ajax({
@@ -527,8 +601,7 @@
     function drawArticles(articles){
         articles.map((article) => {
         articles_place.innerHTML += `
-            <div class="blog_item_main" style="margin-right: 0; width: auto;">
-                <div class="blog_item"  style="width: 800px;">
+                <div class="blog_item"  style="width: auto;">
                     <div class="blog_item_info">
                         <img src="${article.image}" alt="${article.title}">
                             <div class="blog_item_text">
@@ -543,8 +616,7 @@
                                 </a>
                             </div>
                     </div>
-                </div>
-            </div>`
+                </div>`
         })
 
     }
