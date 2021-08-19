@@ -468,7 +468,6 @@
 
     // Загрузка магазинов
     function loadShops() {
-        meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ' ' + msg['message']['shops'][i]['address'] + ' ' + msg['message']['shops']);
         $.ajax({
             url: '/api/shops/get',
             type: "GET",

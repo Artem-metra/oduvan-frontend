@@ -27,9 +27,16 @@
     font-style: normal;
 }
 
+/* Скрытие placeholder по клику на него */
+
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+input:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
+
+
+
 /* Preloader */
-
-
 .preloader {
     width: 100%;
     padding: 35px 0;
@@ -1039,10 +1046,12 @@ input[type="checkbox"] {
 }
 
 .basket_item {
-    width: 90%;
+    width: 92%;
     position: relative;
     height: 340px;
+    margin-left: 35px;
 }
+
 
 /*.basket_item .fa-times {*/
 /*    color: #293048;*/
@@ -1316,10 +1325,6 @@ input[type="checkbox"] {
     width: 100%;
     height: 100%;
     padding: 30px 0;
-}
-
-.individual_order_info_text_info .all_catalog_href {
-    margin-top: 10px;
 }
 
 .bucket_na_zakaz {
@@ -2284,7 +2289,7 @@ input[type="checkbox"] {
 .small_product_img{
     display: block;
     margin: 0 auto;
-    width: 100%;
+    width: 189px;
     height: 250px;
     z-index: 1;
 }
@@ -3354,7 +3359,7 @@ pagination_place {
 .basket_item .fa-times{
     position: absolute;
     top: 80px;
-    right: -66px;
+    right: 0;
     font-size: 30px;
 }
 
