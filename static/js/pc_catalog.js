@@ -172,7 +172,7 @@ function loadProducts() {
                 sorted_zag.style.display = 'block';
                 price_and_range.style.display = 'block';
                 price_controller.style.display = 'block';
-                startsorting.style.display = 'block';
+                startsorting.style.display = '';
                 throw_off.style.display = 'block';
             }
         }

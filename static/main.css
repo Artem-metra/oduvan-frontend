@@ -247,9 +247,10 @@ input[type="checkbox"] {
 
 /* Уведомления об ошибке или успешности действия */
 .notification {
+    text-align: center;
     position: fixed;
-    width: 500px;
-    height: 200px;
+    width: 600px;
+    height: 160px;
     border-radius: 8px;
     bottom: 20px;
     right: 20px;
@@ -990,7 +991,7 @@ input[type="checkbox"] {
 }
 
 .basket_info .fa-chevron-down {
-    font-size: 18px;
+    font-size: 30px;
     cursor: pointer;
 }
 
