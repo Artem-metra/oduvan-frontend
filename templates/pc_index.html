@@ -314,9 +314,13 @@
 
 <!-- Блог -->
 <div class="catalog" style="min-height: 483px">
-    <div class="container">
-        <h2 class="catalog_zag" style="margin-bottom: 40px">Блог</h2>
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px;">
+        <h2 class="catalog_zag">Блог</h2>
+        <a class="all_catalog_href href_catalog" href="/blog" >
+            Больше статей
+        </a>
     </div>
+
     <div class="container" style="text-align: center" id="articles_place">
 
 
@@ -582,10 +586,14 @@
      loadBlog();
 
     function loadBlog(){
+        let data = {
+            'number': 5,
+        }
 
         $.ajax({
             url: '/api/articles/get',
             type: "GET",
+            data: data,
             success: function (msg) {
                 console.log(msg);
                 drawArticles(msg['message']['articles']);
@@ -595,7 +603,6 @@
 
     function drawArticles(articles){
         articles.map((article) => {
-
         articles_place.innerHTML += `
             <div class="blog_item_main" style="margin-right: 0; width: auto;">
                 <div class="blog_item"  style="width: 800px;">

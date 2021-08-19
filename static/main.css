@@ -2411,8 +2411,12 @@ input[type="checkbox"] {
     background: #ffffff;
 }
 
-.small_product_card .small_product_img{
+.all_pictures_product_place .small_product_card .small_product_img{
     opacity: 0.4;
+}
+
+.small_product_card .small_product_img{
+
 }
 .small_product_card._active_photo .small_product_img{
     opacity: 1;
@@ -3349,7 +3353,7 @@ pagination_place {
 .basket_item .fa-times{
     position: absolute;
     top: 80px;
-    right: 0;
+    right: -66px;
     font-size: 30px;
 }
 
