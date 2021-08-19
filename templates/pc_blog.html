@@ -30,12 +30,10 @@
 {% include 'pc_utilites.html' %}
 
 <script>
-    {#let id = {{ id }};#}
 
     loadBlog();
 
     function loadBlog(){
-
         $.ajax({
             url: '/api/articles/get',
             type: "GET",
@@ -48,7 +46,6 @@
 
     function drawArticles(articles){
         articles.map((article) => {
-
         articles_place.innerHTML += `
             <div class="blog_item_main" style="margin-right: 0; width: auto;">
                 <div class="blog_item"  style="width: 800px;">
