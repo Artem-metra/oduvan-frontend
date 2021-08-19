@@ -15,8 +15,8 @@
 <div class="catalog">
     <div class="container">
         <div class="place_breadcoast" style="margin-bottom: 50px">
-            <a href="">Главная</a> / <a class="" href="/blog">Блог</a> / <a class="active_page" id="active_page"
-                                                                            href=""></a>
+            <a href="/">Главная</a> / <a class="" href="/blog">Блог</a> / <a class="active_page" id="active_page"
+                                                                             href=""></a>
         </div>
         <h1 class="catalog_zag article_data" style="margin-bottom: 30px">Заголовок статьи</h1>
         <div class="description_explanations article_data" style="max-width: 75%">
@@ -79,11 +79,20 @@
                 <div class="swip_right_arrow"><span class="fa fa-chevron-right swip_arrow"></span></div>
                 <div class="container">
                     <div class="swiper-container">
-                        <div class="swiper-wrapper"></div>
-
-                        <!--                        <div class="pagination_place">-->
-                        <!--                            <div class="swiper-pagination" style="position:static"></div>-->
-                        <!--                        </div>-->
+                        <div class="swiper-wrapper">
+                            <div class="small_blog_item" style="display: none;">
+                                <div class="flex">
+                                    <div class="art_img_place">
+                                        <img class="art_img"/>
+                                    </div>
+                                    <div style="width: 50%;padding-left: 30px;">
+                                        <div class="catalog_zag"></div>
+                                        <div class="description_explanations blog_item_text_preview"></div>
+                                        <a class="article_href" href="">Прочитать</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -119,18 +128,14 @@
         article_data[0].style.backgroundImage = `url(${article.image})`;
         article_data[1].innerText = article.title;
         article_data[2].innerHTML = article.text;
-
-
         active_page.href = '/article?id=' + article.id;
         active_page.innerText = article.title;
     }
 
 
-
-
     loadBlog();
 
-    function loadBlog(){
+    function loadBlog() {
 
         $.ajax({
             url: '/api/articles/get',
@@ -142,32 +147,8 @@
         })
     }
 
-    function drawArticles(articles){
-        articles.map((article) => {
-        articles_place.innerHTML += `
-            <div class="blog_item_main" style="margin-right: 0; width: auto;">
-                <div class="blog_item"  style="width: 800px;">
-                    <div class="blog_item_info">
-                        <img src="${article.image}" alt="${article.title}">
-                            <div class="blog_item_text">
-                                <div class="blog_item_text_zag">
-                                    ${article.title}
-                                </div>
-                                <div class="blog_item_text_preview">
-                                    ${article.text}
-                                </div>
-                                <a href="/article?id=${article.id}" class="blog_item_text_read" >
-                                    Прочитать
-                                </a>
-                            </div>
-                    </div>
-                </div>
-            </div>`
-        })
-    }
 
-
-    function createSlider(products) {
+    function createSlider(articles) {
         let generalBox = document.getElementsByClassName('generelSlide')[0];
         let box = generalBox.cloneNode(true);
         box.id = '';
@@ -176,6 +157,7 @@
         let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
         let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
         let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
+        let card = box.getElementsByClassName('small_blog_item')[0];
         let sw = new Swiper(swiper, {
             slidesPerView: 2,
             slidesPerGroup: 2,
@@ -200,20 +182,36 @@
             loop: true,
         });
         let pagination_place = box.getElementsByClassName('pagination_place')[0];
-        for (let i = 0; i < products.length; i++) {
-            let slider = drawArticles(products[i]);
+        for (let i = 0; i < articles.length; i++) {
+            let slider = createSliderBox(articles[i], card);
+            console.log(slider);
             let swiper_slide = document.createElement('div');
             swiper_slide.className = 'swiper-slide';
             swiper_slide.style.width = '49.5%';
-            slider.style.display = 'block';
-            slider.style.width = '100%';
-            swiper_slide.style.marginRight = '10px';
+            swiper_slide.style.marginRight = '1%';
             swiper_slide.append(slider);
             wrapper.append(swiper_slide);
             disc_swiper_place.style.display = 'block';
-            document.getElementById(disc_swiper_place).append(box);
+            disc_swiper_place.append(box);
         }
     }
+
+
+    function createSliderBox(article, card) {
+        let box = card.cloneNode(true);
+        let title = box.getElementsByClassName('catalog_zag')[0];
+        let img = box.getElementsByClassName('art_img')[0];
+        let href = box.getElementsByClassName('article_href')[0];
+        let preview = box.getElementsByClassName('description_explanations')[0];
+        title.innerText = article.title;
+        img.src = article.image;
+        img.alt = article.title;
+        href.href = '/article?id=' + article.id;
+        preview.innerHTML = article.text;
+        box.style.display = 'block';
+        return box;
+    }
+
 
 </script>
 </body>
