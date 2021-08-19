@@ -202,7 +202,7 @@ function loadProducts() {
 //     }
 // }
 
-if (id === 28) loadFlowers();
+loadFlowers();
 
 function loadFlowers() {
     filter_place.style.display = 'block';

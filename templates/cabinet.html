@@ -49,10 +49,10 @@
                 <h2 class="name_buckets">
                     Личные данные
                 </h2>
-                <input class="popup_input new_data" placeholder="Ваше имя" id="your_name">
-                <input class="popup_input" placeholder="Ваша фамилия" id="your_surname">
-                <input class="popup_input new_data" type="tel" placeholder="+7 (___) ___-__-__" id="your_mobile">
-                <input class="popup_input new_data" type="email" placeholder="Электронная почта" id="your_email_address">
+                <input class="popup_input new_data" placeholder="Ваше имя" id="your_name" />
+                <input class="popup_input" placeholder="Ваша фамилия" id="your_surname" />
+                <input class="popup_input new_data" type="tel" placeholder="+7 (___) ___-__-__" id="your_mobile" />
+                <input class="popup_input new_data" type="email" placeholder="Электронная почта" id="your_email_address" />
                  <div class="catalog_flex_catalog">
                     <!--                    <div class="birthday_item">-->
                     <!--                        <input class="popup_input" type="number" placeholder="День" id="birthday_day"-->
@@ -131,14 +131,14 @@
                                 <div class="address_info_zag" style="font-size: 35px">
                                     Название:
                                 </div>
-                                <input class="popup_input name_address" style="height: 35px;width: 70%;  color: white">
+                                <input class="popup_input name_address" style="height: 35px;width: 70%;  color: white" />
                             </div>
                             <div class="catalog_flex info">
                                 <div class="address_info_zag" style="font-size: 35px">
                                     Адрес:
                                 </div>
                                 <input class="popup_input address_address" id="address_address"
-                                       style="height: 35px;width: 70%; color: white">
+                                       style="height: 35px;width: 70%; color: white" />
                             </div>
                             <div class="catalog_flex info" style="margin-top:35px;border-bottom: 0;">
                                 <div class="all_catalog_href"
@@ -181,57 +181,6 @@
             </div>
     </div>
 
-
-
-	<!-- ЛК история -->
-<!--	<section class="main" id="personal_history">-->
-<!--		<div class="container">-->
-<!--			<div class="main_info__two">-->
-<!--				<div class="main_info__desc">-->
-<!--					<div class="info_desc__item">-->
-<!--						<ul class="desc_item__list">-->
-<!--							<li class="desc_item__list&#45;&#45;1">Адрес</li>-->
-<!--							<li class="desc_item__list&#45;&#45;2">Воронеж, Ул. Урывского 2В</li>-->
-<!--						</ul>-->
-<!--					</div>-->
-
-<!--					<div class="info_desc__item">-->
-<!--						<ul class="desc_item__list">-->
-<!--							<li class="desc_item__list&#45;&#45;1">Стоимость</li>-->
-<!--							<li class="desc_item__list&#45;&#45;2">17 200 ₽</li>-->
-<!--						</ul>-->
-<!--					</div>-->
-
-<!--					<div class="info_desc__item">-->
-<!--						<ul class="desc_item__list">-->
-<!--							<li class="desc_item__list&#45;&#45;1">Дата</li>-->
-<!--							<li class="desc_item__list&#45;&#45;2">06.07.2021</li>-->
-<!--						</ul>-->
-<!--					</div>-->
-<!--				</div>-->
-
-<!--				<div class="main_category">-->
-<!--					<ul class="category_list">-->
-<!--						<li class="category_item">-->
-<!--							<img src="../static/img/mobile_catalog.png" alt="">-->
-<!--							<div class="category_item__desc">-->
-<!--								<p class="flow_name">Букет «Индиго»</p>-->
-<!--								<p class="flow_price">5 400 ₽</p>-->
-<!--							</div>-->
-<!--						</li>-->
-
-<!--                        <li class="category_item">-->
-<!--							<img src="../static/img/mobile_catalog.png" alt="">-->
-<!--							<div class="category_item__desc">-->
-<!--								<p class="flow_name">Букет «Индиго»</p>-->
-<!--								<p class="flow_price">5 400 ₽</p>-->
-<!--							</div>-->
-<!--						</li>-->
-<!--					</ul>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</section>-->
 
     <div class="catalog_flex createorder" style="padding:0;display: none" id="personal_history">
           <!-- Если история заказов пуста -->
@@ -351,7 +300,7 @@
         your_surname.value = user['surname'];
         your_mobile.value = '+7' + user['phone'];
         your_email_address.value = user['email'];
-        avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
+        avatar_img.src = 'https://b-ws.ru/api/image/get?uuid=' + user['avatar'];
         day_datepicker.value = user['birthday'].split(' ')[0];
         let inputs = document.getElementsByClassName('new_data');
         for (let i = 0; i < inputs.length; i++) {
@@ -398,8 +347,8 @@
                         /* Вызывается, когда пользователь выбирает одну из подсказок */
                         onSelect: function (suggestion) {
                             if (Number(suggestion['data']['fias_level']) < 8) {
-                                notification('Укажите точный адрес', 1);
-                                return;
+                                return notification('Укажите точный адрес', 1);
+
                             }
                             address_data = suggestion['value'];
                         }
@@ -410,12 +359,12 @@
                             for (let i = 0; i < inputs.length; i++) {
                                 inputs[i].classList.add('error');
                             }
-                            notification('Заполните все обязательные поля', 1);
-                            return;
+                            return notification('Заполните все обязательные поля', 1);
+
                         }
                         if (address.value === user['addresses'][i]['address'] && name_address.value === user['addresses'][i]['name']) {
-                            notification('Вы ничего не поменяли', 1);
-                            return;
+                            return notification('Вы ничего не поменяли', 1);
+
                         }
                         changeAddress(name_address.value, address_data, user['addresses'][i]['id'])
                     }
@@ -461,8 +410,7 @@
                 onSelect: function (suggestion) {
                     console.log('Дашло 2');
                     if (Number(suggestion['data']['fias_level']) < 8) {
-                        notification('Укажите точный адрес', 1);
-                        return;
+                        return notification('Укажите точный адрес', 1);
                     }
                     address_data = suggestion['value'];
                 }
@@ -474,8 +422,7 @@
                     for (let i = 0; i < inputs.length; i++) {
                         inputs[i].classList.add('error');
                     }
-                    notification('Заполните обязательные поля', 1);
-                    return;
+                    return notification('Заполните обязательные поля', 1);
                 }
                 addAddress(name_address.value, address_data);
 
@@ -490,8 +437,7 @@
     function checkingOldPassword() {
         if (old_password.value === '') {
             old_password.classList.add('error');
-            notification('Вы ничего не ввели', 1);
-            return;
+            return notification('Вы ничего не ввели', 1);
         } else {
             let data = {
                 'user_id': user['id'],
@@ -503,8 +449,7 @@
                 type: 'GET',
                 success: function (msg) {
                     if (msg['status'] === "error") {
-                        notification('Неверный пароль!', 1);
-                        return;
+                        return notification('Неверный пароль!', 1);
                     }
                     console.log(msg);
                     place_for_old_pas.style.display = 'none';
@@ -550,7 +495,7 @@
                     console.log(msg);
                     let uuid = msg['message']['avatar'];
                     console.log(uuid);
-                    avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + uuid;
+                    avatar_img.src = 'https://b-ws.ru/api/image/get?uuid=' + uuid;
                     GetUser();
                 }
             });

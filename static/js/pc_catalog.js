@@ -157,10 +157,6 @@ function loadProducts() {
                 price_controller.style.display = 'none';
                 startsorting.style.display = 'none';
                 throw_off.style.display = 'none';
-                place_bread.innerHTML += '<span class="delete_slash"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${msg[i]['id']}" class="active_page catalog_category_card delete_subcat">
-            ${msg[i]['name']}</a>`;
-
-
             } else {
                 document.getElementById('lds-roller').style.display = 'block';
                 message_for_empty.innerText = ' ';
@@ -172,7 +168,7 @@ function loadProducts() {
                 sorted_zag.style.display = 'block';
                 price_and_range.style.display = 'block';
                 price_controller.style.display = 'block';
-                startsorting.style.display = '';
+                startsorting.style.display = 'flex';
                 throw_off.style.display = 'block';
             }
         }
@@ -230,7 +226,7 @@ function outdoingListCatalog() {
 
 }
 
-if (id === 28) loadFlowers();
+loadFlowers();
 
 function loadFlowers() {
     flowers_zag.style.display = 'block';

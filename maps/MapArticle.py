@@ -28,3 +28,8 @@ def api_article_edit():
 @article_app.route('/api/article/remove')
 def api_article_remove():
     return utils.complete_request(request, request.path)
+
+
+@article_app.route('/api/articles/get_last')
+def api_article_get_last():
+    return utils.complete_request(request, request.path)

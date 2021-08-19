@@ -719,18 +719,21 @@
         console.log(likeds.indexOf(product['id']));
         if (likeds.indexOf(product['id']) !== -1) {
             place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
-            place_for_favor.onclick = function () {
-                console.log('hell');
-                place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
-                DeleteLikeds(product['id']);
-            }
 
         } else {
             place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
-            place_for_favor.onclick = function () {
+        }
+        place_for_favor.onclick = function () {
+            if (likeds.indexOf(product['id']) !== -1) {
+                likeds = removeItemAll(likeds, product['id'])
+                place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
+                DeleteLikeds(product['id']);
+            } else {
+                likeds.push(product['id'])
                 place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
                 AddLikeds(product['id']);
             }
+
         }
 
         // Если продукт в корзине
@@ -1149,5 +1152,17 @@
         })
     }
 
+
+    function removeItemAll(arr, value) {
+        var i = 0;
+        while (i < arr.length) {
+            if (arr[i] === value) {
+                arr.splice(i, 1);
+            } else {
+                ++i;
+            }
+        }
+        return arr;
+    }
 
 </script>

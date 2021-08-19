@@ -177,7 +177,7 @@
                     <div class="empty_basket_info">
                         <div class="name_buckets">
                             Вы ещё ничего не заказывали!
-                            <a class="all_catalog_href" href="/catalog?category_id=1">
+                            <a class="all_catalog_href" href="/catalog">
                                 Перейти в каталог
                             </a>
                         </div>
@@ -289,7 +289,7 @@
         your_surname.value = user['surname'];
         your_mobile.value = '+7' + user['phone'];
         your_email_address.value = user['email'];
-        avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + user['avatar'];
+        avatar_img.src = 'https://b-ws.ru/api/image/get?uuid=' + user['avatar'];
         day_datepicker.value = user['birthday'].split(' ')[0];
         let inputs = document.getElementsByClassName('new_data');
         for (let i = 0; i < inputs.length; i++) {
