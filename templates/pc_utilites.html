@@ -229,7 +229,7 @@
 <!-- Карточка товара -->
 <div id="item_card_place" style="padding-top: 35px;display: none">
     <div id="card_product" style="display: none;">
-        <div class="right_nav_place">
+        <div class="right_nav_place" id="right_nav_place">
             <div class="right_nav_item">
 
             </div>
@@ -713,14 +713,18 @@
         hover_price.innerText = product['discount_cost'] + ' ₽';
         price.innerText = product['cost'] + ' ₽';
         href.href = 'product?id=' + product['id'];
+
+
         // Если продукт в избранном
         console.log(likeds.indexOf(product['id']));
         if (likeds.indexOf(product['id']) !== -1) {
             place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
             place_for_favor.onclick = function () {
+                console.log('hell');
                 place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
                 DeleteLikeds(product['id']);
             }
+
         } else {
             place_for_favor.innerHTML = '<span class="far fa-heart"></span>';
             place_for_favor.onclick = function () {
@@ -728,6 +732,7 @@
                 AddLikeds(product['id']);
             }
         }
+
         // Если продукт в корзине
         if (product['q_count'] > 0) {
             box.classList.add('in_basket');

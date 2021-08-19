@@ -162,9 +162,11 @@
 
         </div>
     </div>
-    <a class="all_catalog_href" href="/blog" style="margin-top: 30px; width: 400px; height: 100px; font-size: 40px">
-        Больше статей
-    </a>
+    <div class="container">
+        <a class="all_catalog_href" href="/blog" style="margin-top: 30px; width: 400px; height: 100px; font-size: 40px">
+            Больше статей
+        </a>
+    </div>
 </div>
 
 <!-- Почему мы -->
@@ -334,13 +336,18 @@
     {##}
 
 
-     loadBlog();
+    loadBlog();
 
     function loadBlog(){
+
+        let data = {
+            'number': 5,
+        }
 
         $.ajax({
             url: '/api/articles/get',
             type: "GET",
+            data: data,
             success: function (msg) {
                 console.log(msg);
                 drawArticles(msg['message']['articles']);

@@ -151,6 +151,16 @@ function loadProducts() {
             if (msg['message']['products'].length === 0) {
                 Preloader(0);
                 EmptyProducts();
+                sorted_text.style.display = 'none';
+                sorted_zag.style.display = 'none';
+                price_and_range.style.display = 'none';
+                price_controller.style.display = 'none';
+                startsorting.style.display = 'none';
+                throw_off.style.display = 'none';
+                place_bread.innerHTML += '<span class="delete_slash"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${msg[i]['id']}" class="active_page catalog_category_card delete_subcat">
+            ${msg[i]['name']}</a>`;
+
+
             } else {
                 document.getElementById('lds-roller').style.display = 'block';
                 message_for_empty.innerText = ' ';
@@ -158,6 +168,12 @@ function loadProducts() {
                 paginations = Number(msg['message']['pages']);
                 page = Number(msg['message']['page']);
                 drawProducts(msg['message']['products']);
+                sorted_text.style.display = 'block';
+                sorted_zag.style.display = 'block';
+                price_and_range.style.display = 'block';
+                price_controller.style.display = 'block';
+                startsorting.style.display = 'block';
+                throw_off.style.display = 'block';
             }
         }
     });
