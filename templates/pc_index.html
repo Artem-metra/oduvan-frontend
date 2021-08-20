@@ -340,7 +340,7 @@
     <div class="container">
         <div class="catalog_flex">
             <h2 class="catalog_zag">Блог</h2>
-            <a class="all_catalog_href">
+            <a class="all_catalog_href" href="/blog">
                 Больше статей
             </a>
         </div>
@@ -543,28 +543,6 @@
 {% include 'pc_utilites.html' %}
 <script>
 
-    {#loadCategories();#}
-    {##}
-    {#function loadCategories() {#}
-    {#    let data = {#}
-    {#        'category_id': 0,#}
-    {#    }#}
-    {#    $.ajax({#}
-    {#        url: '/api/categories/get',#}
-    {#        data: data,#}
-    {#        type: 'GET',#}
-    {#        success: function (msg) {#}
-    {#            console.log('categoris', msg);#}
-    {#            let inputs = document.getElementsByClassName('href_catalog');#}
-    {#            for (let i = 0; i < inputs.length; i++) {#}
-    {#                inputs[i].href = 'catalog?category_id=' + msg['message']['top_categories'][0]['id'];#}
-    {#            }#}
-    {#        }#}
-    {#    });#}
-    {##}
-
-
-
 
     loadBlog();
 
@@ -620,31 +598,6 @@
             }
         }
     }
-
-
-
-    {#function drawArticles(articles) {#}
-    {#    articles.map((article) => {#}
-    {#        articles_place.innerHTML += `#}
-    {#            <div class="blog_item"  style="width: auto;">#}
-    {#                <div class="blog_item_info">#}
-    {#                    <img src="${article.image}" alt="${article.title}">#}
-    {#                        <div class="blog_item_text">#}
-    {#                            <div class="blog_item_text_zag">#}
-    {#                                ${article.title}#}
-    {#                            </div>#}
-    {#                            <div class="blog_item_text_preview">#}
-    {#                                ${article.text}#}
-    {#                            </div>#}
-    {#                            <a href="/article?id=${article.id}" class="blog_item_text_read" >#}
-    {#                                Прочитать#}
-    {#                            </a>#}
-    {#                        </div>#}
-    {#                </div>#}
-    {#            </div>`#}
-    {#    })#}
-
-
 
 
     loadMainCategory();
