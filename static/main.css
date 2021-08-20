@@ -627,6 +627,7 @@ input[type="checkbox"] {
 .main_background_img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .main_zag {
@@ -2292,6 +2293,7 @@ input[type="checkbox"] {
     width: 189px;
     height: 250px;
     z-index: 1;
+    object-fit: cover;
 }
 
 
@@ -2649,11 +2651,13 @@ input[type="checkbox"] {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+    object-fit: cover;
 }
 
 .slider_item_card_img_place img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .card_text {
