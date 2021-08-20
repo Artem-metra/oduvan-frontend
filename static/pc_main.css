@@ -762,6 +762,9 @@ input[type="checkbox"] {
     box-shadow: 0 4px 16px rgba(41, 48, 72, 0.25);
 }
 
+
+/* Надо доделать!!! */
+
 .slider_item_card .name_and_price:hover .catalog_flex_catalog {
     display: none;
 }

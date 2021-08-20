@@ -406,6 +406,15 @@
         let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
         let pagination_place = box.getElementsByClassName('pagination_place')[0];
         for (let i = 0; i < products.length; i++) {
+
+            let slider = createProduct(products[i]);
+            let swiper_slide = document.createElement('div');
+            swiper_slide.className = 'swiper-slide';
+            slider.style.display = 'block';
+            slider.style.width = '100%';
+            swiper_slide.append(slider);
+            wrapper.append(swiper_slide);
+            swiper_place.style.display = 'block';
             let sw = new Swiper(swiper, {
                 slidesPerView: 4,
                 slidesPerGroup: 1,
@@ -426,16 +435,8 @@
                 parallax: {
                     enabled: true,
                 },
-                loop: true,
+
             });
-            let slider = createProduct(products[i]);
-            let swiper_slide = document.createElement('div');
-            swiper_slide.className = 'swiper-slide';
-            slider.style.display = 'block';
-            slider.style.width = '100%';
-            swiper_slide.append(slider);
-            wrapper.append(swiper_slide);
-            swiper_place.style.display = 'block';
             document.getElementById('swiper_place').append(box);
         }
     }

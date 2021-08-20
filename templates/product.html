@@ -412,6 +412,16 @@
         let bullets = box.getElementsByClassName('swiper-pagination')[0];
 
         for (let i = 0; i < products.length; i++) {
+
+            let slider = createProduct(products[i]);
+            let swiper_slide = document.createElement('div');
+            swiper_slide.className = 'swiper-slide';
+            swiper_slide.style.width = '45%';
+            slider.style.display = 'block';
+            slider.style.width = '100%';
+            swiper_slide.style.marginRight = '20px';
+            swiper_slide.append(slider);
+            wrapper.append(swiper_slide);
             let sw = new Swiper(swiper, {
                 slidesPerView: 2,
                 slidesPerGroup: 2,
@@ -428,17 +438,7 @@
                 parallax: {
                     enabled: true
                 },
-                loop: true
             });
-            let slider = createProduct(products[i]);
-            let swiper_slide = document.createElement('div');
-            swiper_slide.className = 'swiper-slide';
-            swiper_slide.style.width = '45%';
-            slider.style.display = 'block';
-            slider.style.width = '100%';
-            swiper_slide.style.marginRight = '20px';
-            swiper_slide.append(slider);
-            wrapper.append(swiper_slide);
             document.getElementById('slider_place').append(box);
         }
     }
