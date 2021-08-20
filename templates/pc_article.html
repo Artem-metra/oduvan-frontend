@@ -80,7 +80,7 @@
 {% include 'pc_utilites.html' %}
 
 <script>
-    let id = {{ id }};
+    let id = {{id}};
 
     loadArticle();
 
@@ -113,7 +113,6 @@
     loadBlog();
 
     function loadBlog() {
-
         $.ajax({
             url: '/api/articles/get',
             type: "GET",
@@ -135,40 +134,36 @@
         let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
         let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
         let card = box.getElementsByClassName('small_blog_item')[0];
-        let sw = new Swiper(swiper, {
-            slidesPerView: 2,
-            slidesPerGroup: 2,
-            spaceBetween: 30,
-            pagination: {
-                el: '.swiper-pagination',
-                type: 'bullets',
-                clickable: true,
-            },
-            grabCursor: true,
-            navigation: {
-                nextEl: right_arrow,
-                prevEl: left_arrow,
-            },
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            parallax: {
-                enabled: true,
-            },
-            loop: true,
-        });
         let pagination_place = box.getElementsByClassName('pagination_place')[0];
         for (let i = 0; i < articles.length; i++) {
             let slider = createSliderBox(articles[i], card);
-            console.log(slider);
             let swiper_slide = document.createElement('div');
             swiper_slide.className = 'swiper-slide';
-            swiper_slide.style.width = '49.5%';
-            swiper_slide.style.marginRight = '1%';
             swiper_slide.append(slider);
             wrapper.append(swiper_slide);
             disc_swiper_place.style.display = 'block';
+            let sw = new Swiper(swiper, {
+                slidesPerView: 2,
+                slidesPerGroup: 1,
+                spaceBetween: 10,
+                pagination: {
+                    el: '.swiper-pagination',
+                    type: 'bullets',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: right_arrow,
+                    prevEl: left_arrow,
+                },
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                parallax: {
+                    enabled: true,
+                },
+                loop: true,
+            });
             disc_swiper_place.append(box);
         }
     }
