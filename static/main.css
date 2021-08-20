@@ -2290,7 +2290,7 @@ input[type="checkbox"] {
 .small_product_img{
     display: block;
     margin: 0 auto;
-    width: 189px;
+    width: 197px;
     height: 250px;
     z-index: 1;
     object-fit: cover;

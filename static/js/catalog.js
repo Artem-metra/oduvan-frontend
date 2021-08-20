@@ -150,6 +150,7 @@ function loadProducts() {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success: function (msg) {
+            drawFlowers(msg['message']['flowers']);
             console.log('Продкуты каталога', msg);
             if (msg['message']['products'].length === 0) {
                 EmptyProducts();
@@ -211,7 +212,7 @@ function loadFlowers() {
         type: 'GET',
         success: function (msg) {
             console.log(msg);
-            drawFlowers(msg['message']);
+            // drawFlowers(msg['message']);
             // Хлебные крошки
             let breadcoast = BreadCoast(id);
             console.log(breadcoast);
