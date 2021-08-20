@@ -224,8 +224,10 @@ function loadFlowers() {
     })
 }
 
+let check_flowers = false;
 
 function drawFlowers(flower) {
+    if(check_flowers) return;
     for (let i = 0; i < flower.length; i++) {
         meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + flower[i]['name']);
         let fl = choose_flower.cloneNode(true);
@@ -251,6 +253,7 @@ function drawFlowers(flower) {
         fl.style.display = 'flex';
         flowers_place.append(fl);
     }
+    check_flowers = true;
 }
 
 

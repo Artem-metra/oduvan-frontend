@@ -2278,6 +2278,17 @@ input[type="checkbox"] {
     margin-bottom: 35px;
 }
 
+
+.card_main_item img {
+    width: auto;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+}
+
+
 .mar_left{
     margin-left: 20px;
 }
