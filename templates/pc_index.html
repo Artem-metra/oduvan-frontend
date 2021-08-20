@@ -313,20 +313,6 @@
 
 
 <!-- Блог -->
-{#<div class="catalog" style="min-height: 483px">#}
-{#    <div class="container" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px;">#}
-{#        <h2 class="catalog_zag">Блог</h2>#}
-{#        <a class="all_catalog_href href_catalog" href="/blog" >#}
-{#            Больше статей#}
-{#        </a>#}
-{#    </div>#}
-{##}
-{#    <div class="container"  id="articles_place">#}
-{##}
-{#    </div>#}
-{#</div>#}
-
-
 {#<div class="catalog">#}
 {#    <div class="container">#}
 {#        <div class="catalog_flex">#}
@@ -335,11 +321,20 @@
 {#                Больше статей#}
 {#            </a>#}
 {#        </div>#}
-{#            <div class="blog_item_main" style="margin-right: 0; width: auto;" id="articles_place">#}
+{##}
+{#        <div>#}
+{#             <div class="blog_item_main" id="articles_main_place">#}
 {##}
 {#            </div>#}
+{#            <div class="blog_item_main"  id="articles_place">#}
+{##}
+{#            </div>#}
+{#        </div>#}
 {#    </div>#}
 {#</div>#}
+
+
+
 
 <div class="catalog">
     <div class="container">
@@ -350,16 +345,49 @@
             </a>
         </div>
 
-        <div>
-             <div class="blog_item_main" id="articles_place">
-
+        <div class="blog_main_place"  id="blog_main_place">
+            <div class="blog_item_main" id="blog_item_main">
+                <div class="blog_item" style="min-height: 637px; display: none" id="blog_one">
+                    <div class="blog_item_info">
+                        <img class="blog_img" src="">
+                        <div class="blog_item_text">
+                            <div class="blog_item_text_zag">
+                                Открыт <br>новый магазин
+                            </div>
+                            <div class="blog_item_text_preview">
+                                Открылся новый магазин по адресу Плехановская 15, мы рады представить...
+                            </div>
+                            <a class="blog_item_text_read" href="">
+                                Прочитать
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="blog_item_main"  id="articles_main_place">
+            <div class="blog_item_main" id="blog_join" >
+                <div class="blog_item" id="blog_two" style="display: none; min-height: 308px    ">
+                    <div class="blog_item_info">
+                        <img class="blog_img" src="">
+                        <div class="blog_item_text">
+                            <div class="blog_item_text_zag">
 
+                            </div>
+                            <div class="blog_item_text_preview">
+
+                            </div>
+                            <a class="blog_item_text_read"  href="">
+                                Прочитать
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
 
 
 <div class="catalog" style="background: rgba(41, 48, 72, 0.1);">
@@ -536,58 +564,14 @@
     {##}
 
 
-    loadMainBlog();
-
-    function loadMainBlog(){
-        let data = {
-            'number': 1,
-        }
-
-        $.ajax({
-            url: '/api/articles/get_last',
-            type: "GET",
-            data: data,
-            success: function (msg) {
-                console.log(msg);
-                drawMainArticles(msg['message']['articles']);
-            }
-        })
-    }
-
-
-
-    function drawMainArticles(articles){
-        articles.map((article) => {
-        articles_main_place.innerHTML += `
-                <div class="blog_item"  style="width: auto; height: 1376px;">
-                    <div class="blog_item_info">
-                        <img src="${article.image}" alt="${article.title}">
-                            <div class="blog_item_text">
-                                <div class="blog_item_text_zag">
-                                    ${article.title}
-                                </div>
-                                <div class="blog_item_text_preview">
-                                    ${article.text}
-                                </div>
-                                <a href="/article?id=${article.id}" class="blog_item_text_read" >
-                                    Прочитать
-                                </a>
-                            </div>
-                    </div>
-                </div>`
-        })
-
-    }
-
 
 
     loadBlog();
 
     function loadBlog(){
         let data = {
-            'number': 2,
+            'number': 3,
         }
-
         $.ajax({
             url: '/api/articles/get_last',
             type: "GET",
@@ -600,28 +584,66 @@
     }
 
 
+    function drawArticles(articles){
+        console.log(articles);
+        for(let i = 0; i < articles.length; i++){
+            if(articles.length > 0) {
+                if (i === 0) {
+                    let box = blog_one.cloneNode(true);
+                    let img = box.getElementsByClassName('blog_img')[0];
+                    let title =box.getElementsByClassName('blog_item_text_zag')[0];
+                    let text = box.getElementsByClassName('blog_item_text_preview')[0];
+                    let link = box.getElementsByClassName('blog_item_text_read')[0];
+                    img.src = 'https://b-ws.ru/api/image/get?uuid=' + articles[i]['image'];
+                    title.innerHTML = articles[i]['title'];
+                    text.innerHTML = articles[i]['text'];
+                    link.href = 'article?id=' + articles[i]['id'];
+                    box.style.display = 'block';
+                    blog_item_main.append(box);
 
-    function drawArticles(articles) {
-        articles.map((article) => {
-            articles_place.innerHTML += `
-                <div class="blog_item"  style="width: auto;">
-                    <div class="blog_item_info">
-                        <img src="${article.image}" alt="${article.title}">
-                            <div class="blog_item_text">
-                                <div class="blog_item_text_zag">
-                                    ${article.title}
-                                </div>
-                                <div class="blog_item_text_preview">
-                                    ${article.text}
-                                </div>
-                                <a href="/article?id=${article.id}" class="blog_item_text_read" >
-                                    Прочитать
-                                </a>
-                            </div>
-                    </div>
-                </div>`
-        })
+                }
+                else{
+                    let box_two = blog_two.cloneNode(true);
+                    box_two.removeAttribute('id');
+                    let img_two = box_two.getElementsByClassName('blog_img')[0];
+                    let title_two = box_two.getElementsByClassName('blog_item_text_zag')[0];
+                    let text_two = box_two.getElementsByClassName('blog_item_text_preview')[0];
+                    let link_two = box_two.getElementsByClassName('blog_item_text_read')[0];
+                    img_two.src = 'https://b-ws.ru/api/image/get?uuid=' + articles[i]['image'];
+                    title_two.innerHTML = articles[i]['title'];
+                    text_two.innerHTML = articles[i]['text'];
+                    link_two.href = 'article?id=' + articles[i]['id'];
+
+                    box_two.style.display = 'block';
+                    blog_join.append(box_two);
+                }
+            }
+        }
     }
+
+
+
+    {#function drawArticles(articles) {#}
+    {#    articles.map((article) => {#}
+    {#        articles_place.innerHTML += `#}
+    {#            <div class="blog_item"  style="width: auto;">#}
+    {#                <div class="blog_item_info">#}
+    {#                    <img src="${article.image}" alt="${article.title}">#}
+    {#                        <div class="blog_item_text">#}
+    {#                            <div class="blog_item_text_zag">#}
+    {#                                ${article.title}#}
+    {#                            </div>#}
+    {#                            <div class="blog_item_text_preview">#}
+    {#                                ${article.text}#}
+    {#                            </div>#}
+    {#                            <a href="/article?id=${article.id}" class="blog_item_text_read" >#}
+    {#                                Прочитать#}
+    {#                            </a>#}
+    {#                        </div>#}
+    {#                </div>#}
+    {#            </div>`#}
+    {#    })#}
+
 
 
 

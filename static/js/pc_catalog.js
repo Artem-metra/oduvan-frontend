@@ -158,6 +158,7 @@ function loadProducts() {
                 startsorting.style.display = 'none';
                 throw_off.style.display = 'none';
             } else {
+                drawFlowers(msg['message']['flowers']);
                 document.getElementById('lds-roller').style.display = 'block';
                 message_for_empty.innerText = ' ';
                 $('.delete_paginations').remove();
@@ -235,7 +236,7 @@ function loadFlowers() {
         type: 'GET',
         success: function (msg) {
             console.log(msg);
-            drawFlowers(msg['message']);
+            // drawFlowers(msg['message']);
             // Хлебные крошки
             let breadcoast = BreadCoast(id);
             console.log(breadcoast);
