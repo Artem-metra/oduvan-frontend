@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title id="title"></title>
     <meta id="title_meta" name="title" content="Купить по отличной цене букет -">
-    <meta name="description" content="Цветы и цветочная продукция всегда свежие и по отличной цене. Быстрая и качественная доставка по всему Воронежу.">
+    <meta name="description"
+          content="Цветы и цветочная продукция всегда свежие и по отличной цене. Быстрая и качественная доставка по всему Воронежу.">
     {% include 'pc_headers.html' %}
 </head>
 <body id="body">
@@ -35,7 +36,6 @@
         </div>
 
 
-
         <div class="catalog_flex_catalog" id="content_catalog" style="margin-top:50px;">
             <!-- Картинки слева. Все картинки букета -->
             <div class="all_pictures_product_place" id="all_pictures_product_place">
@@ -58,7 +58,8 @@
                     <span class="fa fa-chevron-down" id="chevron_list_one"></span>
                 </div>
                 <div id="all_text_one" class="all_text">
-                    Поместите букет в вазу, Поставьте вазу в прохладном месте без сквозняка, вдали от прямых солнечных лучей и фруктов.
+                    Поместите букет в вазу, Поставьте вазу в прохладном месте без сквозняка, вдали от прямых солнечных
+                    лучей и фруктов.
                     Ежедневно мойте вазу, обновляйте воду и подрезайте стебли.
                     Наслаждайтесь своим букетом. Покажите его друзьям в инстаграм и не забудьте отметить нас @одуван.
                 </div>
@@ -66,7 +67,7 @@
 
                 <div class="flex_for_explanations_product">
                     <div class="explanations_product">Подробнее о доставке</div>
-                    <span class="fa fa-chevron-down"  id="chevron_list_two"></span>
+                    <span class="fa fa-chevron-down" id="chevron_list_two"></span>
                 </div>
                 <div id="all_text_two" class="all_text">
                     При заказе от 2 000 руб. доставка БЕСПЛАТНО* в любую точку г. Воронежа.
@@ -178,14 +179,15 @@
                     и
                     упаковке
                 </div>
-                <input type="name" class="popup_input" placeholder="Введите свое имя" style="width: 70%; height: 80px" />
-                <input type="surname" class="popup_input" placeholder="Номер телефона" style="width: 70%; height: 80px" />
+                <input type="name" class="popup_input" placeholder="Введите свое имя" style="width: 70%; height: 80px"/>
+                <input type="surname" class="popup_input" placeholder="Номер телефона"
+                       style="width: 70%; height: 80px"/>
                 <a class="all_catalog_href" style="float: none; margin-bottom: 13px;width: 70%; height: 95px">
                     Сделать заказ
                 </a>
             </div>
             <div class="individual_order_info_text_img">
-                <img src="../static/img/individual_img.png" alt="Индивидуальный заказ букетов" />
+                <img src="../static/img/individual_img.png" alt="Индивидуальный заказ букетов"/>
             </div>
         </div>
     </div>
@@ -193,10 +195,9 @@
 
 {% include 'pc_utilites.html' %}
 <script>
-    let id = {{id}},
+    let id = {{ id }},
         name = '',
         category_id = 0;
-
 
 
     function Preloader(status) {
@@ -313,7 +314,7 @@
         // Счетчик товаров
 
 
-        minus.addEventListener("mousedown", ()=> {
+        minus.addEventListener("mousedown", () => {
             if (Number(count.value) === 1) {
                 DeleteProductBasket(msg['product']['id']);
                 add_to_basket.style.display = 'flex';
@@ -362,11 +363,11 @@
         }
         height_product.innerText += ' ' + msg['product']['height'] + ' см';
         diameter_product.innerText += ' ' + msg['product']['diameter'] + ' см';
-        chevron_list_one.onclick = function (){
+        chevron_list_one.onclick = function () {
             actionList(all_text_one);
             positionArrow(chevron_list_one)
         }
-        chevron_list_two.onclick = function(){
+        chevron_list_two.onclick = function () {
             actionList(all_text_two);
             positionArrow(chevron_list_two)
         }
@@ -403,42 +404,39 @@
         let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
         let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
         let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
-        let sw = new Swiper(swiper, {
-            slidesPerView: 4,
-            slidesPerGroup: 4,
-            spaceBetween: 30,
-            pagination: {
-                el: '.swiper-pagination',
-                type: 'bullets',
-                clickable: true,
-            },
-            grabCursor: true,
-            navigation: {
-                nextEl: right_arrow,
-                prevEl: left_arrow,
-            },
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            parallax: {
-                enabled: true,
-            },
-            loop: true,
-        });
         let pagination_place = box.getElementsByClassName('pagination_place')[0];
         for (let i = 0; i < products.length; i++) {
 
             let slider = createProduct(products[i]);
             let swiper_slide = document.createElement('div');
             swiper_slide.className = 'swiper-slide';
-            swiper_slide.style.width = '24.47%';
             slider.style.display = 'block';
             slider.style.width = '100%';
-            swiper_slide.style.marginRight = '10px';
             swiper_slide.append(slider);
             wrapper.append(swiper_slide);
             swiper_place.style.display = 'block';
+            let sw = new Swiper(swiper, {
+                slidesPerView: 4,
+                slidesPerGroup: 1,
+                spaceBetween: 10,
+                pagination: {
+                    el: '.swiper-pagination',
+                    type: 'bullets',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: right_arrow,
+                    prevEl: left_arrow,
+                },
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                parallax: {
+                    enabled: true,
+                },
+
+            });
             document.getElementById('swiper_place').append(box);
         }
     }
@@ -468,20 +466,19 @@
     }
 
 
-
     function actionList(place) {
-        if(place.classList.contains('_active')){
+        if (place.classList.contains('_active')) {
             place.classList.remove('_active');
-        }else {
+        } else {
             place.classList.add('_active');
         }
     }
 
-    function positionArrow(position){
-        if(position.style.transform === 'rotate(180deg)'){
+    function positionArrow(position) {
+        if (position.style.transform === 'rotate(180deg)') {
             position.style.transform = 'rotate(0deg)';
             position.style.transition = 'transform .3s';
-        }else {
+        } else {
             position.style.transform = 'rotate(180deg)';
             position.style.transition = 'transform .3s';
         }

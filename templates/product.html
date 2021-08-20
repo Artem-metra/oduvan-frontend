@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <title id="title"></title>
     <meta id="title_meta" name="title" content="Купить по отличной цене букет -">
-    <meta name="description" content="Цветы и цветочная продукция всегда свежие и по отличной цене. Быстрая и качественная доставка по всему Воронежу.">
+    <meta name="description"
+          content="Цветы и цветочная продукция всегда свежие и по отличной цене. Быстрая и качественная доставка по всему Воронежу.">
     {% include 'headers.html' %}
 </head>
 <body id="body">
 
 <div class="catalog">
     <div class="container">
-         <div class="place_breadcoast" id="place_breadcoast">
+        <div class="place_breadcoast" id="place_breadcoast">
             <a href="/">Главная</a>
         </div>
 
-         <!-- Preloader -->
+        <!-- Preloader -->
         <div class="preloader" id="preloader">
             <div class="preloader_text">
                 <span id="message_for_empty"></span>
@@ -56,7 +57,8 @@
                     <span class="fa fa-chevron-down" style="font-size: 34px" id="chevron_list_one"></span>
                 </div>
                 <div id="all_text_one" class="all_text" style="font-size: 16px">
-                    Поместите букет в вазу, Поставьте вазу в прохладном месте без сквозняка, вдали от прямых солнечных лучей и фруктов.
+                    Поместите букет в вазу, Поставьте вазу в прохладном месте без сквозняка, вдали от прямых солнечных
+                    лучей и фруктов.
                     Ежедневно мойте вазу, обновляйте воду и подрезайте стебли.
                     Наслаждайтесь своим букетом. Покажите его друзьям в инстаграм и не забудьте отметить нас @одуван.
                 </div>
@@ -64,7 +66,7 @@
 
                 <div class="flex_for_explanations_product">
                     <div class="explanations_product" style="font-size: 48px">Подробнее о доставке</div>
-                    <span class="fa fa-chevron-down" style="font-size: 34px"  id="chevron_list_two"></span>
+                    <span class="fa fa-chevron-down" style="font-size: 34px" id="chevron_list_two"></span>
                 </div>
                 <div id="all_text_two" class="all_text" style="font-size: 16px">
                     При заказе от 2 000 руб. доставка БЕСПЛАТНО* в любую точку г. Воронежа.
@@ -80,7 +82,8 @@
             <!-- Описание товара -->
             <div class="description_product_place">
                 <strong class="bucket_na_zakaz" id="name_cat_bucket">Монобукет</strong>
-                <h1 class="name_buckets" id="name_bucket" style="padding-top:8px; margin-top: 30px; margin-bottom: 30px;">"Индиго"</h1>
+                <h1 class="name_buckets" id="name_bucket"
+                    style="padding-top:8px; margin-top: 30px; margin-bottom: 30px;">"Индиго"</h1>
                 <div class="disc_price_bucket" id="disc_price_bucket"
                      style="padding:20px 0 15px 0;display: inline-block; font-size: 65px">5 400 ₽
                 </div>
@@ -153,9 +156,10 @@
                 </div>
             </div>
         </div>
-         <a class="all_catalog_href" href="/catalog" style="width: 50%; font-size: 46px; height: 110px; margin-top: 60px">
-                Весь каталог
-         </a>
+        <a class="all_catalog_href" href="/catalog"
+           style="width: 50%; font-size: 46px; height: 110px; margin-top: 60px">
+            Весь каталог
+        </a>
     </div>
 </div>
 
@@ -163,12 +167,14 @@
 <div class="individual_order" style="height: 1800px">
     <div class="individual_order_info" style="height: 1700px;">
         <div class="individual_order_info_text_img">
-                <img src="../static/img/individual_img.png" style="height: 700px;" alt="Индивидуальный заказ букетов">
+            <img src="../static/img/individual_img.png" style="height: 700px;" alt="Индивидуальный заказ букетов">
         </div>
-        <div class="individual_order_info_text" style="display: block" >
+        <div class="individual_order_info_text" style="display: block">
             <div class="individual_order_info_text_info" style="padding: 80px 0">
                 <span class="bucket_na_zakaz" style="font-size: 28px">Букет на заказ</span>
-                <h3 class="individual_zakaz" style="font-size: 50px; width: 80%; margin: 0 auto; padding-top: 30px; padding-bottom: 40px">Индивидуальный заказ букета</h3>
+                <h3 class="individual_zakaz"
+                    style="font-size: 50px; width: 80%; margin: 0 auto; padding-top: 30px; padding-bottom: 40px">
+                    Индивидуальный заказ букета</h3>
                 <div class="individual_info" style="font-size: 48px; ">
                     Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
                     и
@@ -194,7 +200,6 @@
 
 
     let id = {{id}}, name = '', category_id = 0;
-
 
 
     function Preloader(status) {
@@ -238,8 +243,7 @@
     }
 
 
-
-     /* Отрисовать продукт */
+    /* Отрисовать продукт */
     function drawProduct(msg) {
         title_meta.setAttribute('content', title_meta.getAttribute('content') + ' ' + msg['product']['name']);
         title.innerText = msg['product']['name'];
@@ -277,7 +281,7 @@
             disc_price_bucket.style.display = 'none';
         }
 
-         if (msg['product']['q_count'] > 0) {
+        if (msg['product']['q_count'] > 0) {
             disc_price_bucket.innerText = Number(msg['product']['discount_cost'] * msg['product']['q_count']) + ' ₽';
             price.innerText = Number(msg['product']['cost'] * msg['product']['q_count']) + ' ₽';
             add_to_basket.style.display = 'none';
@@ -313,7 +317,7 @@
         // Счетчик товаров
 
 
-        minus.addEventListener("mousedown", ()=> {
+        minus.addEventListener("mousedown", () => {
             if (Number(count.value) === 1) {
                 DeleteProductBasket(msg['product']['id']);
                 add_to_basket.style.display = 'flex';
@@ -363,23 +367,18 @@
         diameter_product.innerText += ' ' + msg['product']['diameter'] + ' см';
 
 
-
-        chevron_list_one.onclick = function (){
+        chevron_list_one.onclick = function () {
             actionList(all_text_one);
             positionArrow(chevron_list_one)
         }
 
 
-        chevron_list_two.onclick = function(){
+        chevron_list_two.onclick = function () {
             actionList(all_text_two);
             positionArrow(chevron_list_two)
         }
         Preloader(0);
     }
-
-
-
-
 
 
     loadProducts();
@@ -411,25 +410,9 @@
         // let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
         let pagination_place = box.getElementsByClassName('pagination_place')[0];
         let bullets = box.getElementsByClassName('swiper-pagination')[0];
-        let sw = new Swiper(swiper, {
-            slidesPerView: 2,
-            slidesPerGroup: 2,
-            spaceBetween: 30,
-            // pagination: {
-            //     el: '.swiper-pagination',
-            //     type: 'bullets',
-            // },
-            grabCursor: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false
-            },
-            parallax: {
-                enabled: true
-            },
-            loop: true
-        });
+
         for (let i = 0; i < products.length; i++) {
+
             let slider = createProduct(products[i]);
             let swiper_slide = document.createElement('div');
             swiper_slide.className = 'swiper-slide';
@@ -439,11 +422,28 @@
             swiper_slide.style.marginRight = '20px';
             swiper_slide.append(slider);
             wrapper.append(swiper_slide);
+            let sw = new Swiper(swiper, {
+                slidesPerView: 2,
+                slidesPerGroup: 2,
+                spaceBetween: 10,
+                // pagination: {
+                //     el: '.swiper-pagination',
+                //     type: 'bullets',
+                // },
+                grabCursor: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false
+                },
+                parallax: {
+                    enabled: true
+                },
+            });
             document.getElementById('slider_place').append(box);
         }
     }
 
-     function getCategory(category_id) {
+    function getCategory(category_id) {
         console.log('categ_id', category_id);
         $('.delete_breadcoast').remove();
         let data = {
@@ -467,24 +467,22 @@
 
 
     function actionList(place) {
-        if(place.classList.contains('_active')){
+        if (place.classList.contains('_active')) {
             place.classList.remove('_active');
-        }else {
+        } else {
             place.classList.add('_active');
         }
     }
 
-    function positionArrow(position){
-        if(position.style.transform === 'rotate(180deg)'){
+    function positionArrow(position) {
+        if (position.style.transform === 'rotate(180deg)') {
             position.style.transform = 'rotate(0deg)';
             position.style.transition = 'transform .3s';
-        }else {
+        } else {
             position.style.transform = 'rotate(180deg)';
             position.style.transition = 'transform .3s';
         }
     }
-
-
 
 
 </script>
