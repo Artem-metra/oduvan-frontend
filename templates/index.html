@@ -482,27 +482,7 @@
         let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
         let pagination_place = box.getElementsByClassName('pagination_place')[0];
         let bullets = box.getElementsByClassName('swiper-pagination')[0];
-
         for (let i = 0; i < products.length; i++) {
-            let sw = new Swiper(swiper, {
-                slidesPerView: 2,
-                slidesPerGroup: 2,
-                spaceBetween: 10,
-                // pagination: {
-                //     el: '.swiper-pagination',
-                //     type: 'bullets',
-                // },
-                grabCursor: true,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false
-                },
-                resistance: true,
-                // parallax: {
-                //     enabled: true
-                // },
-                loop: true
-            });
             let slider = createProduct(products[i]);
             let swiper_slide = document.createElement('div');
             swiper_slide.className = 'swiper-slide';
@@ -510,6 +490,17 @@
             slider.style.width = '100%';
             wrapper.append(swiper_slide);
             swiper_slide.append(slider);
+            let sw = new Swiper(swiper, {
+                slidesPerView: 2,
+                slidesPerGroup: 2,
+                spaceBetween: 10,
+                grabCursor: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false
+                },
+                resistance: true,
+            });
             document.getElementById(place).append(box);
 
         }

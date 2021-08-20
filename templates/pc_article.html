@@ -113,7 +113,6 @@
     loadBlog();
 
     function loadBlog() {
-
         $.ajax({
             url: '/api/articles/get',
             type: "GET",
@@ -135,12 +134,17 @@
         let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
         let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
         let card = box.getElementsByClassName('small_blog_item')[0];
-
         let pagination_place = box.getElementsByClassName('pagination_place')[0];
         for (let i = 0; i < articles.length; i++) {
+            let slider = createSliderBox(articles[i], card);
+            let swiper_slide = document.createElement('div');
+            swiper_slide.className = 'swiper-slide';
+            swiper_slide.append(slider);
+            wrapper.append(swiper_slide);
+            disc_swiper_place.style.display = 'block';
             let sw = new Swiper(swiper, {
                 slidesPerView: 2,
-                slidesPerGroup: 2,
+                slidesPerGroup: 1,
                 spaceBetween: 10,
                 pagination: {
                     el: '.swiper-pagination',
@@ -160,12 +164,6 @@
                 },
                 loop: true,
             });
-            let slider = createSliderBox(articles[i], card);
-            let swiper_slide = document.createElement('div');
-            swiper_slide.className = 'swiper-slide';
-            swiper_slide.append(slider);
-            wrapper.append(swiper_slide);
-            disc_swiper_place.style.display = 'block';
             disc_swiper_place.append(box);
         }
     }
