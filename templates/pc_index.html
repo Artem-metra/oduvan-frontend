@@ -347,7 +347,7 @@
 
         <div class="blog_main_place"  id="blog_main_place">
             <div class="blog_item_main" id="blog_item_main">
-                <div class="blog_item" style="min-height: 637px; display: none" id="blog_one">
+                <div class="blog_item" style="min-height: 841px; display: none" id="blog_one">
                     <div class="blog_item_info">
                         <img class="blog_img" src="">
                         <div class="blog_item_text">
@@ -657,14 +657,17 @@
             'sorted_type': 5,
             'page_count': 16,
         }
+        console.log('gjik');
         $.ajax({
             url: '/site/products/smart',
             type: 'POST',
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
+
             success: function (msg) {
                 console.log('loadProducts', msg);
+                console.log('gjik');
                 createSlider(msg['message']['products'], 'swiper_place');
             }
         });

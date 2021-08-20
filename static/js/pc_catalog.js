@@ -248,11 +248,15 @@ function loadFlowers() {
     })
 }
 
+let check_flowers = false;
+
 function drawFlowers(flower) {
+    if(check_flowers) return;
     for (let i = 0; i < flower.length; i++) {
         meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + flower[i]['name']);
         let fl = choose_flower.cloneNode(true);
         fl.removeAttribute('id');
+        console.log('LENGTH', document.getElementsByClassName('name_flower').length)
         let name = fl.getElementsByClassName('name_flower')[0];
         let checkbox = fl.getElementsByClassName('checkbox_for_choose_flower')[0];
         checkbox.id = '';
@@ -274,6 +278,7 @@ function drawFlowers(flower) {
         fl.style.display = 'flex';
         flowers_place.append(fl);
     }
+    check_flowers = true;
 }
 
 if (id === 1) loadPackages();
