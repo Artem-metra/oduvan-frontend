@@ -1511,7 +1511,7 @@ input[type="checkbox"] {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    /* float: right; */
+     float: right;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
