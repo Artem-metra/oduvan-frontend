@@ -116,12 +116,8 @@ function drawCategories(msg) {
         }
         catalog_category_place.append(category);
         console.log('Высота', catalog_category_place.offsetHeight);
-        place_top_cats.style.paddingTop = catalog_category_place.offsetHeight + 5 + 'px';
         place_top_cats.style.paddingBottom = '30px';
     }
-
-
-
 }
 
 

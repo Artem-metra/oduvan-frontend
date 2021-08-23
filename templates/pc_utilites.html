@@ -264,14 +264,6 @@
                     <span class="fas fa-shopping-bag"></span>
                 </div>
             </div>
-            <div class="price_hover">
-                <div>
-                    В корзину
-                </div>
-                <div class="price_hover_price">
-                    5 400 ₽
-                </div>
-            </div>
             <div class="added_product" style="display: none">
                 <div class="fa fa-minus minus_counter"></div>
                 <div>
@@ -684,8 +676,7 @@
         let img = box.getElementsByClassName('slider_img')[0];
         let name = box.getElementsByClassName('slider_name_bucket')[0];
         let price = box.getElementsByClassName('price')[0];
-        let hover_price = box.getElementsByClassName('price_hover_price')[0];
-        let price_hover = box.getElementsByClassName('price_hover')[0];
+
         let place_for_favor = box.getElementsByClassName('right_nav_item')[0];
         let href = box.getElementsByClassName('slider_item_card_img_place')[0];
         let discount_text = box.getElementsByClassName('discount_text')[0];
@@ -697,6 +688,8 @@
         let plus_counter = box.getElementsByClassName('plus_counter')[0];
         let input = box.getElementsByClassName('product_counter_inp')[0];
         let minus_counter = box.getElementsByClassName('minus_counter')[0];
+
+        let add_to_basket = box.getElementsByClassName('add_to_basket_card')[0];
         input.value = Number(product['q_count']);
         img.src = 'https://b-ws.ru/api/image/get?uuid=' + product['photos'][0];
         img.alt = product['name'];
@@ -710,7 +703,6 @@
             discount_place.style.display = 'none';
             discount_price.style.display = 'none';
         }
-        hover_price.innerText = product['discount_cost'] + ' ₽';
         price.innerText = product['cost'] + ' ₽';
         href.href = 'product?id=' + product['id'];
 
@@ -759,7 +751,23 @@
                     addProduct(product['id'], Number(-1));
                     price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
                     console.log('InputValue', Number(input.value));
+                } else {
+                    box.classList.remove('in_basket');
+                    for_basket.style.display = '';
+                    added_product.style.display = 'none';
+                    price_basket.style.display = 'none';
+                    DeleteProductBasket(product['id']);
                 }
+            }
+            add_to_basket.onclick = function () {
+                console.log('Дашло!');
+                addProduct(product['id'], 1);
+                box.classList.add('in_basket');
+                added_product.style.display = 'flex';
+                for_basket.style.display = 'none';
+                input.value = 1;
+                price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
+                price_basket.style.display = 'block';
             }
             plus_counter.onclick = function () {
                 if (Number(input.value) >= 1) {
@@ -768,11 +776,10 @@
                     price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
                 }
             }
-            price_hover.style.display = 'none';
             added_product.style.display = 'flex';
-
         } else {
-            price_hover.onclick = function () {
+            add_to_basket.onclick = function () {
+                console.log('Дашло!');
                 addProduct(product['id'], 1);
                 box.classList.add('in_basket');
                 added_product.style.display = 'flex';
@@ -786,22 +793,18 @@
                         price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
                     }
                 }
-                minus_counter.addEventListener("mousedown", () => {
-                    if (Number(input.value) === 1) {
-                        box.classList.remove('in_basket');
-                        for_basket.style.display = '';
-                        added_product.style.display = 'none';
-                        price_basket.style.display = 'none';
-                        DeleteProductBasket(product['id']);
-                    }
-                })
                 minus_counter.onclick = function () {
-
                     if (Number(input.value) > 1) {
                         input.value--;
                         addProduct(product['id'], Number(-1));
                         price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
                         console.log('InputValue', Number(input.value));
+                    } else {
+                        box.classList.remove('in_basket');
+                        for_basket.style.display = '';
+                        added_product.style.display = 'none';
+                        price_basket.style.display = 'none';
+                        DeleteProductBasket(product['id']);
                     }
                 }
                 plus_counter.onclick = function () {
@@ -1163,6 +1166,18 @@
             }
         }
         return arr;
+    }
+
+
+    anchor();
+    function anchor(){
+        let links = document.getElementsByClassName('nav-link');
+        if(location.pathname === '/') return;
+        for(let i = 0; i < links.length; i++){
+            if(links[i].href.includes(location.pathname)){
+                links[i].classList.add('_active');
+            }
+        }
     }
 
 </script>

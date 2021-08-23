@@ -99,8 +99,9 @@
                     Оставте подробную информацию о себе и флорист свяжется с вами в кротчайшие сроки!!!
                 </div>
                 <div style="display: flex; flex-direction: column; align-items: center; padding-top: 30px">
-                    <input type="name" class="popup_input" placeholder="Введите свое имя" style="width: 70%">
-                    <input type="surname" class="popup_input" placeholder="Номер телефона" style="width: 70%">
+                    <input type="name" class="popup_input" placeholder="Введите свое имя" style="width: 70%"/>
+                    <input type="tel" class="popup_input" placeholder="Номер телефона" id="phone_number_order"
+                           style="width: 70%"/>
                 </div>
                 <div style="display: flex;margin: 0 auto;justify-content: center">
                     <a class="all_catalog_href" style=" width: 70%; height: 100px; font-size: 40px">
@@ -365,7 +366,7 @@
             <div class="blog_item_main" style="margin-right: 0; width: auto;">
                 <div class="blog_item"  style="width: 800px;">
                     <div class="blog_item_info">
-                        <img src="${article.image}" alt="${article.title}">
+                        <img src="${'https://b-ws.ru/api/image/get?uuid=' + article.image}" alt="${article.title}">
                             <div class="blog_item_text">
                                 <div class="blog_item_text_zag">
                                     ${article.title}
@@ -397,6 +398,7 @@
         })
     }
 
+    maskPhone(phone_number_order);
 
     function drawMainCategory(categories) {
         {#meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ' ' + categories[i]['parent_name'] + ' ' + msg['message']['products']);#}
@@ -500,6 +502,17 @@
                     disableOnInteraction: false
                 },
                 resistance: true,
+                on: {
+                    init() {
+                        this.el.addEventListener('mouseenter', () => {
+                            this.autoplay.stop();
+                        });
+
+                        this.el.addEventListener('mouseleave', () => {
+                            this.autoplay.start();
+                        });
+                    }
+                },
             });
             document.getElementById(place).append(box);
 
