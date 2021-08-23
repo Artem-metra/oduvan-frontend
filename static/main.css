@@ -1049,7 +1049,7 @@ input[type="checkbox"] {
 .basket_item {
     width: 92%;
     position: relative;
-    height: 340px;
+    height: 363px;
     margin-left: 35px;
 }
 
@@ -2301,7 +2301,7 @@ input[type="checkbox"] {
 .small_product_img{
     display: block;
     margin: 0 auto;
-    width: 197px;
+    width: 220px;
     height: 250px;
     z-index: 1;
     object-fit: cover;
