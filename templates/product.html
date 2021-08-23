@@ -181,8 +181,9 @@
                     упаковке
                 </div>
                 <div style="display: flex; flex-direction: column; align-items: center; padding-top: 30px">
-                    <input type="name" class="popup_input" placeholder="Введите свое имя" style="width: 70%">
-                    <input type="surname" class="popup_input" placeholder="Номер телефона" style="width: 70%">
+                    <input type="name" class="popup_input" placeholder="Введите свое имя" style="width: 70%"/>
+                    <input type="tel" class="popup_input" id="phone_number_order" placeholder="Номер телефона"
+                           style="width: 70%"/>
                 </div>
                 <div style="display: flex;margin: 0 auto;justify-content: center">
                     <a class="all_catalog_href" style=" width: 70%; height: 100px; font-size: 40px">
@@ -380,6 +381,7 @@
         Preloader(0);
     }
 
+    maskPhone(phone_number_order);
 
     loadProducts();
 
@@ -412,7 +414,6 @@
         let bullets = box.getElementsByClassName('swiper-pagination')[0];
 
         for (let i = 0; i < products.length; i++) {
-
             let slider = createProduct(products[i]);
             let swiper_slide = document.createElement('div');
             swiper_slide.className = 'swiper-slide';
@@ -437,6 +438,17 @@
                 },
                 parallax: {
                     enabled: true
+                },
+                on: {
+                    init() {
+                        this.el.addEventListener('mouseenter', () => {
+                            this.autoplay.stop();
+                        });
+
+                        this.el.addEventListener('mouseleave', () => {
+                            this.autoplay.start();
+                        });
+                    }
                 },
             });
             document.getElementById('slider_place').append(box);

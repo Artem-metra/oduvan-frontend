@@ -309,7 +309,7 @@ input[type="checkbox"] {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 201;
+    z-index: 999;
     width: 100%;
     padding-left: 30px;
 }
@@ -478,7 +478,7 @@ input[type="checkbox"] {
             align-items: center;
     border-radius: 50%;
     background: #F877AD;
-    z-index: 9999;
+    z-index: 900;
     color: #FFFFFF;
 }
 
@@ -894,6 +894,17 @@ input[type="checkbox"] {
     text-align: center;
 }
 
+
+
+.popup_input .necessarily_star {
+    font-size: 14px;
+    color: #293048;
+    position: absolute;
+    top: 4px;
+    right: 6px;
+}
+
+
 .popup_input {
     width: 100%;
     text-align: center;
@@ -908,6 +919,7 @@ input[type="checkbox"] {
     background: #29304833;
     font-size: 32px;
     font-weight: 450;
+    position: relative;
 }
 
 .popup_input::-webkit-input-placeholder {
@@ -1717,11 +1729,8 @@ input[type="checkbox"] {
 }
 
 .head_block__title{
-
     display: -webkit-box;
-
     display: -ms-flexbox;
-
     display: flex;
     -webkit-box-pack: start;
         -ms-flex-pack: start;
@@ -1812,10 +1821,7 @@ input[type="checkbox"] {
     text-transform: uppercase;
     color: #293048;
     background-color: #EAEAED;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-left: 22px;
-    padding-right: 22px;
+    padding: 8px 22px;
     border-radius: 61px;
 }
 
@@ -2123,22 +2129,6 @@ input[type="checkbox"] {
 
 
 
-.popup_input {
-    width: 100%;
-    height: 90px;
-    text-align: center;
-    margin-bottom: 25px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    background: #29304833;
-    font-size: 38px;
-    font-weight: 450;
-
-}
 
 .popup_input::-webkit-input-placeholder {
   font-size: 30px;
@@ -2386,10 +2376,6 @@ input[type="checkbox"] {
 #addresses_place {
     display: none;
 }
-
-
-
-
 
 
 /* ===== Карточка товара ===== */
@@ -2955,9 +2941,6 @@ input[type="checkbox"] {
     height: 1px;
     background: #293048;
 }
-
-
-
 
 
 .completed_address .catalog_flex.info {
