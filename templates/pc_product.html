@@ -175,14 +175,12 @@
                 <span class="bucket_na_zakaz" style="margin-top: 20px;">Букет на заказ</span>
                 <h3 class="individual_zakaz">Индивидуальный заказ букета</h3>
                 <div class="individual_info">
-                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
-                    и
-                    упаковке
+                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу и упаковке
                 </div>
-                <input type="name" class="popup_input" placeholder="Введите свое имя" style="width: 70%; height: 80px"/>
-                <input type="tel" class="popup_input" id="phone_number_order" placeholder="Номер телефона"
+                <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя" style="width: 70%; height: 80px"/>
+                <input type="tel" class="popup_input individual_order_inp" id="phone_number_order" placeholder="Номер телефона"
                        style="width: 70%; height: 80px"/>
-                <a class="all_catalog_href" style="float: none; margin-bottom: 13px;width: 70%; height: 95px">
+                <a class="all_catalog_href" id="individual_order_btn" style="float: none; margin-bottom: 13px;width: 70%; height: 95px">
                     Сделать заказ
                 </a>
             </div>
@@ -235,6 +233,12 @@
                 category_id = Number(msg['message']['product']['category_id']);
                 getCategory(category_id);
                 drawProduct(msg['message']);
+                let inputs = document.getElementsByClassName('error');
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].oninput = function () {
+                        inputs[i].classList.remove('error');
+                    }
+                }
             }
         })
     }

@@ -306,7 +306,7 @@ input[type="checkbox"] {
     background: #ffffff;
     -webkit-box-shadow: 0 4px 16px rgba(41, 48, 72, 0.5);
             box-shadow: 0 4px 16px rgba(41, 48, 72, 0.5);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 999;
@@ -1281,7 +1281,9 @@ input[type="checkbox"] {
     line-height: 110%;
     text-transform: uppercase;
 }
-
+.go_to_cat{
+    font-weight: bold;
+}
 
 /* Индивидуальный заказ букета */
 .individual_order {
@@ -2275,7 +2277,7 @@ input[type="checkbox"] {
     position: absolute;
     bottom: 0;
     right: 0;
-    z-index: -1;
+    z-index: 1;
 }
 
 
