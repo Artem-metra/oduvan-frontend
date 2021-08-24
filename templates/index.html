@@ -44,7 +44,7 @@
                                                                        class="fa fa-chevron-right"></span></a>
                         </div>
                     </div>
-                    <img src="" class="main_cat_img" style="position: absolute; right: 0; top: 215px; z-index: 1"
+                    <img src="" class="main_cat_img"
                          alt="Картинка каталога">
                 </div>
             </div>
@@ -96,15 +96,18 @@
                 <div class="bucket_na_zakaz" style="margin-top: 20px; margin-bottom: 20px;">Букет на заказ</div>
                 <h3 class="individual_zakaz">Индивидуальный <br> заказ букета</h3>
                 <div class="individual_info">
-                    Оставте подробную информацию о себе и флорист свяжется с вами в кротчайшие сроки!!!
+                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу и упаковке
                 </div>
                 <div style="display: flex; flex-direction: column; align-items: center; padding-top: 30px">
-                    <input type="name" class="popup_input" placeholder="Введите свое имя" style="width: 70%"/>
-                    <input type="tel" class="popup_input" placeholder="Номер телефона" id="phone_number_order"
+                    <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
+                           style="width: 70%"/>
+                    <input type="tel" class="popup_input individual_order_inp" placeholder="Номер телефона"
+                           id="phone_number_order"
                            style="width: 70%"/>
                 </div>
                 <div style="display: flex;margin: 0 auto;justify-content: center">
-                    <a class="all_catalog_href" style=" width: 70%; height: 100px; font-size: 40px">
+                    <a class="all_catalog_href" id="individual_order_btn"
+                       style=" width: 70%; height: 100px; font-size: 40px">
                         Сделать заказ
                     </a>
                 </div>
@@ -289,7 +292,7 @@
             </div>
             <div class="info_pered_footer_text">
                 <div class="blog_item_text_zag">
-                     Букеты для дома
+                    Букеты для дома
                 </div>
                 <div class="description_explanations">
                     На маленьких подарках держится дружба, на больших - любовь. И только тот подарок, что
@@ -358,6 +361,12 @@
             success: function (msg) {
                 console.log(msg);
                 drawArticles(msg['message']['articles']);
+                let inputs = document.getElementsByClassName('error');
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].oninput = function () {
+                        inputs[i].classList.remove('error');
+                    }
+                }
             }
         })
     }
@@ -525,6 +534,38 @@
         //         console.log('hello')
         // }
 
+    }
+
+
+    individual_order_btn.onclick = function () {
+        individualOrder();
+    }
+
+    // Сделать индивидуальный заказ
+    function individualOrder() {
+        let inputs = document.getElementsByClassName('individual_order_inp');
+
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value === '') {
+                inputs[i].classList.add('error');
+            }
+        }
+        if (document.getElementsByClassName('error').length) return notification('Заполните обязательные поля!', 1)
+
+        let data = {
+            'name': inputs[0].value,
+            'phone_number': inputs[1].value,
+        }
+        $.ajax({
+            url: '/api/',
+            data: data,
+            success: function (msg) {
+                console.log('Индивидуальный заказ', msg);
+                inputs[0].value = '';
+                inputs[1].value = '';
+                return notification('Заказ успешно создан. Вам скоро позвонят.', 2)
+            }
+        })
     }
 
 </script>

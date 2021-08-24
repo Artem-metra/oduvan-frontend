@@ -27,6 +27,14 @@
     font-style: normal;
 }
 
+/* Скролл страницы справа */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    background: #29304820;
+}
 
 /* Скрытие placeholder по клику на него */
 
@@ -1312,18 +1320,18 @@ input[type="checkbox"] {
     width: 100%;
 }
 
-.blog_flex{
+.blog_flex {
     text-align: center;
     display: flex;
     flex-wrap: wrap;
 }
 
-.blog_item_main:nth-child(2n+1){
+.blog_item_main:nth-child(2n+1) {
     margin-right: 52px;
 }
 
 
-.blog_item_main:nth-child(2n){
+.blog_item_main:nth-child(2n) {
     margin-right: 0;
 }
 

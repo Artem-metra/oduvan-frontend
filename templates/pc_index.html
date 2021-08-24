@@ -211,12 +211,15 @@
                 <span class="bucket_na_zakaz" style="margin-top: 20px;">Букет на заказ</span>
                 <h3 class="individual_zakaz">Индивидуальный заказ букета</h3>
                 <div class="individual_info">
-                    Оставте подробную информацию о себе и флорист свяжется с вами в кротчайшие сроки!!!
+                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу и упаковке
                 </div>
-                <input type="name" class="popup_input" placeholder="Введите свое имя" style="width: 70%">
-                <input type="tel" class="popup_input" id="phone_number_order" placeholder="Номер телефона"
+                <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
                        style="width: 70%">
-                <a class="all_catalog_href" style="float: none; margin-bottom: 25px;width: 70%">
+                <input type="tel" class="popup_input individual_order_inp" id="phone_number_order"
+                       placeholder="Номер телефона"
+                       style="width: 70%">
+                <a class="all_catalog_href" id="individual_order_btn"
+                   style="float: none; margin-bottom: 25px;width: 70%">
                     Сделать заказ
                 </a>
             </div>
@@ -556,6 +559,12 @@
             success: function (msg) {
                 console.log(msg);
                 drawArticles(msg['message']['articles']);
+                let inputs = document.getElementsByClassName('error');
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].oninput = function () {
+                        inputs[i].classList.remove('error');
+                    }
+                }
             }
         })
     }
@@ -695,7 +704,6 @@
 
 
     function createSlider(products, place) {
-
         let generalBox = document.getElementsByClassName('generelSlide')[0];
         let box = generalBox.cloneNode(true);
         box.id = '';
@@ -705,7 +713,6 @@
         let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
         let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
         let pagination_place = box.getElementsByClassName('pagination_place')[0];
-
         for (let i = 0; i < products.length; i++) {
             let slider = createProduct(products[i]);
             let swiper_slide = document.createElement('div');
@@ -747,10 +754,41 @@
                         });
                     }
                 }
-
             });
         }
     }
+
+    individual_order_btn.onclick = function () {
+        individualOrder();
+    }
+
+    // Сделать индивидуальный заказ
+    function individualOrder() {
+        let inputs = document.getElementsByClassName('individual_order_inp');
+
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value === '') {
+                inputs[i].classList.add('error');
+            }
+        }
+        if (document.getElementsByClassName('error').length) return notification('Заполните обязательные поля!', 1)
+
+        let data = {
+            'name': inputs[0].value,
+            'phone_number': inputs[1].value,
+        }
+        $.ajax({
+            url: '/api/',
+            data: data,
+            success: function(msg){
+                console.log('Индивидуальный заказ', msg);
+                inputs[0].value = '';
+                inputs[1].value = '';
+                return notification('Заказ успешно создан. Вам скоро позвонят.', 2)
+            }
+        })
+    }
+
 
 </script>
 </body>
