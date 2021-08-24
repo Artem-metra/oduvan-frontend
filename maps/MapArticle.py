@@ -5,7 +5,7 @@ import utils
 article_app = Blueprint('article_app', __name__)
 
 
-@article_app.route('/api/article/create')
+@article_app.route('/api/article/create', methods=['POST'])
 def api_article_create():
     return utils.complete_request(request, request.path)
 
@@ -20,7 +20,7 @@ def api_article_get():
     return utils.complete_request(request, request.path)
 
 
-@article_app.route('/api/article/edit')
+@article_app.route('/api/article/edit', methods=['POST'])
 def api_article_edit():
     return utils.complete_request(request, request.path)
 
