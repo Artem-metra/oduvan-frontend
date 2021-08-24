@@ -76,7 +76,7 @@
             <div class="blog_item_main" style="margin-right: 0; width: auto;">
                 <div class="blog_item"  style="width: 800px;">
                     <div class="blog_item_info">
-                        <img src="${article.image}" alt="${article.title}">
+                        <img style="width: 100%" src="${'https://b-ws.ru/api/image/get?uuid=' + article.image}" alt="${article.title}">
                             <div class="blog_item_text">
                                 <div class="blog_item_text_zag">
                                     ${article.title}
@@ -116,7 +116,7 @@
     function drawArticle(article) {
         title.innerText = article.title;
         let article_data = document.getElementsByClassName('article_data');
-        article_data[0].style.backgroundImage = `url(${article.image})`;
+        article_data[0].style.backgroundImage = `url(${'https://b-ws.ru/api/image/get?uuid=' + article.image})`;
         article_data[1].innerText = article.title;
         article_data[2].innerHTML = article.text;
 
