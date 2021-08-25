@@ -1045,6 +1045,11 @@ input[type="checkbox"] {
     font-size: 18px;
 }
 
+.description_explanations.article_data p{
+    font-size: 46px;
+    line-height: 52px;
+}
+
 .basket_place {
     width: 100%;
     height: 100%;

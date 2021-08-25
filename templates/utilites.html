@@ -124,7 +124,7 @@
 
 <!-- Поп ап корзины -->
 <div class="registrationpopup" id="basket_popup" style="padding: 0;">
-    <div class="basket_place">
+    <div class="basket_place" style="padding: 60px 0">
         <!-- Закрыть корзину -->
         <div class="closepopupplace">
             <div class="close_place" id="close_basket" onclick="ClosePopup(basket_popup)">
@@ -578,7 +578,7 @@
 
 
     // Получает список избранного
-    getLikeds();
+      getLikeds();
 
     function getLikeds() {
         let data = [];
@@ -755,35 +755,7 @@
     }
 
 
-    /* Добавление в избранное */
-    function AddLikeds(product_id) {
-        let data = {
-            'product_id': product_id,
-        }
-        $.ajax({
-            url: 'api/user/liked',
-            type: "GET",
-            data: data,
-            success: function (msg) {
-                console.log(msg);
-            }
-        })
-    }
 
-    /* Удаление из избранного */
-    function DeleteLikeds(product_id) {
-        let data = {
-            'product_id': product_id
-        }
-        $.ajax({
-            url: 'api/user/disliked',
-            type: "GET",
-            data: data,
-            success: function (msg) {
-                console.log(msg);
-            }
-        })
-    }
 
 
         /* Отрисовка товара */
@@ -937,6 +909,36 @@
         return box;
     }
 
+
+    /* Добавление в избранное */
+    function AddLikeds(product_id) {
+        let data = {
+            'product_id': product_id,
+        }
+        $.ajax({
+            url: 'api/user/liked',
+            type: "GET",
+            data: data,
+            success: function (msg) {
+                console.log(msg);
+            }
+        })
+    }
+
+    /* Удаление из избранного */
+    function DeleteLikeds(product_id) {
+        let data = {
+            'product_id': product_id
+        }
+        $.ajax({
+            url: 'api/user/disliked',
+            type: "GET",
+            data: data,
+            success: function (msg) {
+                console.log(msg);
+            }
+        })
+    }
 
     function addProduct(id, count) {
         console.log(id, count);
@@ -1225,6 +1227,20 @@
                 }
             }
         })
+    }
+
+
+
+    function removeItemAll(arr, value) {
+        var i = 0;
+        while (i < arr.length) {
+            if (arr[i] === value) {
+                arr.splice(i, 1);
+            } else {
+                ++i;
+            }
+        }
+        return arr;
     }
 
     anchor();
