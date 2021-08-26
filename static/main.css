@@ -3254,6 +3254,7 @@ pagination_place {
     background: linear-gradient(81.1deg, #FFF0EF 0%, #FAEFFF 100%);
     -webkit-box-shadow: 0px 4px 16px rgba(41, 48, 72, 0.15);
             box-shadow: 0px 4px 16px rgba(41, 48, 72, 0.15);
+    z-index: 1;
 }
 
 .card_main_item:last-child{
