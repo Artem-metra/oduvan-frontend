@@ -10,6 +10,7 @@ from maps.MapCategory import category_app
 from maps.MapDeal import deal_app
 from maps.MapDelivery import delivery_app
 from maps.MapFlower import flower_app
+from maps.MapOrder import order_app
 from maps.MapPackage import package_app
 from maps.MapPayment import payment_app
 from maps.MapPosition import position_app
@@ -36,7 +37,7 @@ app.register_blueprint(user_app)
 app.register_blueprint(delivery_app)
 app.register_blueprint(position_app)
 app.register_blueprint(package_app)
-
+app.register_blueprint(order_app)
 
 # Index
 @app.route('/')

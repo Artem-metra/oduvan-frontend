@@ -46,65 +46,6 @@
                 </div>
                 <img src="" class="main_cat_img" alt="Картинка карточек товара">
             </div>
-            <!--            {#            <div class="card_main_item" style="width:48.5%;">#}-->
-            <!--            {#                <div class="card_main_bg"></div>#}-->
-            <!--            {#                <div style="z-index:10">#}-->
-            <!--            {#                    <span class="buckets">Букеты</span>#}-->
-            <!--            {#                    <strong class="name_buckets">#}-->
-            <!--            {#                        Монобукеты#}-->
-            <!--            {#                    </strong>#}-->
-            <!--            {##}-->
-            <!--            {#                    <div class="to_choose_href">#}-->
-            <!--            {#                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>#}-->
-            <!--            {#                    </div>#}-->
-            <!--            {#                </div>#}-->
-            <!--            {#                <img src="../static/img/big_img_main.png">#}-->
-            <!--            {#            </div>#}-->
-            <!--            {##}-->
-            <!--            {#            <div class="card_main_item" style="width:32%;margin-right:2%">#}-->
-            <!--            {#                <div class="card_main_bg"></div>#}-->
-            <!--            {#                <div style="z-index:10">#}-->
-            <!--            {#                    <span class="buckets">Букеты</span>#}-->
-            <!--            {#                    <strong class="name_buckets">#}-->
-            <!--            {#                        Монобукеты#}-->
-            <!--            {#                    </strong>#}-->
-            <!--            {##}-->
-            <!--            {#                    <div class="to_choose_href">#}-->
-            <!--            {#                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>#}-->
-            <!--            {#                    </div>#}-->
-            <!--            {#                </div>#}-->
-            <!--            {#                <img src="../static/img/small_img_main.png">#}-->
-            <!--            {#            </div>#}-->
-            <!--            {##}-->
-            <!--            {#            <div class="card_main_item" style="width:32%;margin-right:1.45%">#}-->
-            <!--            {#                <div class="card_main_bg"></div>#}-->
-            <!--            {#                <div style="z-index:10">#}-->
-            <!--            {#                    <span class="buckets">Букеты</span>#}-->
-            <!--            {#                    <strong class="name_buckets">#}-->
-            <!--            {#                        Монобукеты#}-->
-            <!--            {#                    </strong>#}-->
-            <!--            {##}-->
-            <!--            {#                    <div class="to_choose_href">#}-->
-            <!--            {#                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>#}-->
-            <!--            {#                    </div>#}-->
-            <!--            {#                </div>#}-->
-            <!--            {#                <img src="../static/img/small_img_main.png">#}-->
-            <!--            {#            </div>#}-->
-            <!--            {##}-->
-            <!--            {#            <div class="card_main_item" style="width:31.5%;">#}-->
-            <!--            {#                <div class="card_main_bg"></div>#}-->
-            <!--            {#                <div style="z-index:10">#}-->
-            <!--            {#                    <span class="buckets">Букеты</span>#}-->
-            <!--            {#                    <strong class="name_buckets">#}-->
-            <!--            {#                        Монобукеты#}-->
-            <!--            {#                    </strong>#}-->
-            <!--            {##}-->
-            <!--            {#                    <div class="to_choose_href">#}-->
-            <!--            {#                        <a href="">Выбрать <span class="fa fa-chevron-right"></span></a>#}-->
-            <!--            {#                    </div>#}-->
-            <!--            {#                </div>#}-->
-            <!--            {#                <img src="../static/img/small_img_main.png">#}-->
-            <!--            {#            </div>#}-->
         </div>
     </div>
 </div>
@@ -245,9 +186,7 @@
     <!-- Слайдер -->
 
     <div class="swiper-container generelSlide" id="disc_swiper_place">
-        <div class="swiper-wrapper">
 
-        </div>
     </div>
 </div>
 
@@ -559,7 +498,7 @@
             success: function (msg) {
                 console.log(msg);
                 drawArticles(msg['message']['articles']);
-                let inputs = document.getElementsByClassName('error');
+                let inputs = document.getElementsByClassName('individual_order_inp');
                 for (let i = 0; i < inputs.length; i++) {
                     inputs[i].oninput = function () {
                         inputs[i].classList.remove('error');
@@ -673,7 +612,7 @@
 
             success: function (msg) {
                 console.log('loadProducts', msg);
-                console.log('gjik');
+
                 createSlider(msg['message']['products'], 'swiper_place');
             }
         });
@@ -704,9 +643,12 @@
 
 
     function createSlider(products, place) {
-        let generalBox = document.getElementsByClassName('generelSlide')[0];
-        let box = generalBox.cloneNode(true);
-        box.id = '';
+        if(place === 'disc_swiper_place') $('.delete-slider-2').remove()
+        else $('.delete-slider-1').remove();
+        let box = pop_slider_place.cloneNode(true);
+        box.removeAttribute('id');
+        if(place === 'disc_swiper_place') box.classList.add('delete-slider-2');
+        else box.classList.add('delete-slider-1');
         box.style.display = 'block';
         let swiper = box.getElementsByClassName('swiper-container')[0];
         let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
@@ -775,10 +717,10 @@
 
         let data = {
             'name': inputs[0].value,
-            'phone_number': inputs[1].value,
+            'phone': inputs[1].value,
         }
         $.ajax({
-            url: '/api/',
+            url: '/api/order/create',
             data: data,
             success: function(msg){
                 console.log('Индивидуальный заказ', msg);
