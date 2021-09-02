@@ -96,7 +96,8 @@
                 <div class="bucket_na_zakaz" style="margin-top: 20px; margin-bottom: 20px;">Букет на заказ</div>
                 <h3 class="individual_zakaz">Индивидуальный <br> заказ букета</h3>
                 <div class="individual_info">
-                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу и упаковке
+                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
+                    и упаковке
                 </div>
                 <div style="display: flex; flex-direction: column; align-items: center; padding-top: 30px">
                     <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
@@ -115,21 +116,6 @@
         </div>
     </div>
 </div>
-
-
-<!--<div id="swiper_place_disk">-->
-<!--    <div class="generelSlide" id="disc_swiper_place">-->
-<!--        &lt;!&ndash; Slider Banners &ndash;&gt;-->
-<!--        <div class="swiper-container mySwiper swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">-->
-<!--            <div class="swiper-wrapper">-->
-<!--                <div class="swiper-slide">-->
-
-<!--                </div>-->
-<!--            </div>-->
-
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 
 
 <!-- Скидки -->
@@ -324,32 +310,9 @@
 {% include 'utilites.html' %}
 
 <script>
-
-    {#loadCategories();#}
-    {##}
-    {#function loadCategories() {#}
-    {#    let data = {#}
-    {#        'category_id': 0,#}
-    {#    }#}
-    {#    $.ajax({#}
-    {#        url: '/api/categories/get',#}
-    {#        data: data,#}
-    {#        type: 'GET',#}
-    {#        success: function (msg) {#}
-    {#            console.log('categoris', msg);#}
-    {#            let inputs = document.getElementsByClassName('href_catalog');#}
-    {#            for (let i = 0; i < inputs.length; i++) {#}
-    {#                inputs[i].href = 'catalog?category_id=' + msg['message']['top_categories'][0]['id'];#}
-    {#            }#}
-    {#        }#}
-    {#    });#}
-    {##}
-
-
     loadBlog();
 
     function loadBlog() {
-
         let data = {
             'number': 3,
         }
@@ -361,7 +324,7 @@
             success: function (msg) {
                 console.log(msg);
                 drawArticles(msg['message']['articles']);
-                let inputs = document.getElementsByClassName('error');
+                let inputs = document.getElementsByClassName('individual_order_inp');
                 for (let i = 0; i < inputs.length; i++) {
                     inputs[i].oninput = function () {
                         inputs[i].classList.remove('error');
@@ -488,14 +451,14 @@
 
 
     function createSlider(products, place) {
-        let generalBox = document.getElementsByClassName('generelSlide')[0];
-        let box = generalBox.cloneNode(true);
+        if (place === 'disc_swiper_place') $('.delete-slider-2').remove()
+        else $('.delete-slider-1').remove();
+        let box = pop_slider_place.cloneNode(true);
+        box.removeAttribute('id');
+        if (place === 'disc_swiper_place') box.classList.add('delete-slider-2');
+        else box.classList.add('delete-slider-1');
         let swiper = box.getElementsByClassName('swiper-container')[0];
         let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
-        let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];
-        let right_arrow = box.getElementsByClassName('swip_right_arrow')[0];
-        let pagination_place = box.getElementsByClassName('pagination_place')[0];
-        let bullets = box.getElementsByClassName('swiper-pagination')[0];
         for (let i = 0; i < products.length; i++) {
             let slider = createProduct(products[i]);
             let swiper_slide = document.createElement('div');
@@ -527,13 +490,7 @@
                 },
             });
             document.getElementById(place).append(box);
-
         }
-
-        // if(wrapper.style.transform === 'translate3d(-100px, 0px, 0px)'){
-        //         console.log('hello')
-        // }
-
     }
 
 
@@ -544,7 +501,6 @@
     // Сделать индивидуальный заказ
     function individualOrder() {
         let inputs = document.getElementsByClassName('individual_order_inp');
-
         for (let i = 0; i < inputs.length; i++) {
             if (inputs[i].value === '') {
                 inputs[i].classList.add('error');
@@ -554,16 +510,18 @@
 
         let data = {
             'name': inputs[0].value,
-            'phone_number': inputs[1].value,
+            'phone': inputs[1].value,
         }
         $.ajax({
-            url: '/api/',
+            url: '/api/order/create',
             data: data,
             success: function (msg) {
                 console.log('Индивидуальный заказ', msg);
-                inputs[0].value = '';
-                inputs[1].value = '';
-                return notification('Заказ успешно создан. Вам скоро позвонят.', 2)
+                if (msg['status'] === 'ok') {
+                    inputs[0].value = '';
+                    inputs[1].value = '';
+                    return notification('Заказ успешно создан. Вам скоро позвонят.', 2)
+                }
             }
         })
     }

@@ -44,79 +44,77 @@ function getCategories() {
         type: 'GET',
         success: function (msg) {
             console.log(msg['message']);
-            for (let i = 0; i < msg['message']['top_categories'].length; i++) {
-                meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg['message']['top_categories'][i]['name']);
-                let div = document.createElement('div');
-                div.style.padding = '16px 0';
-                let item = document.createElement('a');
-                item.style.fontSize = '65px';
-                item.href = 'catalog?category_id=' + msg['message']['top_categories'][i]['id'];
-                if (msg['message']['top_categories'][i]['id'] === id) {
-                    item.className = 'catalog_zag _active_cat';
-                } else {
-                    item.className = 'catalog_zag';
-                }
-                item.innerText = msg['message']['top_categories'][i]['name'];
-                div.append(item);
-                place_top_cats.append(div);
-            }
+            drawTopCategories(msg['message']['top_categories']);
             drawCategories(msg['message']['categories']);
         }
     });
 }
+function drawTopCategories(msg) {
+    for (let i = 0; i < msg.length; i++) {
+        meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg[i]['name']);
+            let div = document.createElement('div');
+            let item = document.createElement('a');
+            item.href = 'catalog?category_id=' + msg[i]['id'];
+            msg[i]['id'] === id ? item.className = 'catalog_zag _active_cat' : item.className = 'catalog_zag';
+            item.innerText = msg[i]['name'];
+            div.appendChild(item);
+            place_top_cats.append(div);
 
+    }
+}
 
 
 function drawCategories(msg) {
     let breadcoast = BreadCoast(id);
-
     for (let i = 0; i < msg.length; i++) {
-        let category = catalog_category_card.cloneNode(true);
-        category.removeAttribute('id');
-        let cat_name = category.getElementsByClassName('catalog_category_item')[0];
-        cat_name.innerText = msg[i]['name'];
-        if (sub_category === msg[i]['id']) {
-            name_sub_category = msg[i]['name'];
-            cat_name.classList.add('_active');
-            vse.classList.remove('_active');
-        }
-        console.log(sub_category, msg[i]['id']);
-        category.style.display = 'inline-block';
+        if (msg[i]['q_product_count'] !== 0) {
+            let category = catalog_category_card.cloneNode(true);
+            category.removeAttribute('id');
+            let cat_name = category.getElementsByClassName('catalog_category_item')[0];
+            cat_name.innerText = msg[i]['name'];
+            if (sub_category === msg[i]['id']) {
+                name_sub_category = msg[i]['name'];
+                cat_name.classList.add('_active');
+                vse.classList.remove('_active');
+            }
+            console.log(sub_category, msg[i]['id']);
+            category.style.display = 'inline-block';
 
-        vse.onclick = function () {
-            document.getElementsByClassName('_active')[0].classList.remove('_active');
-            document.getElementsByClassName('active_page')[0].classList.remove('active_page');
-            vse.classList.add('_active');
-            sub_category = 0;
-            page = 1;
-            $('.delete_cat').remove();
-            $('.delete_subcat').remove();
-            $('.delete_slash').remove();
+            vse.onclick = function () {
+                document.getElementsByClassName('_active')[0].classList.remove('_active');
+                document.getElementsByClassName('active_page')[0].classList.remove('active_page');
+                vse.classList.add('_active');
+                sub_category = 0;
+                page = 1;
+                $('.delete_cat').remove();
+                $('.delete_subcat').remove();
+                $('.delete_slash').remove();
 
-            place_bread.innerHTML += `<a href="/catalog?category_id=${id}" class="active_page catalog_category_card delete_cat">${breadcoast[0]}</a>`
-            // place_bread.innerHTML +=  `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
-            loadProducts();
-        }
-        category.onclick = function () {
-            if (sub_category === msg[i]['id']) return
-            sub_category = msg[i]['id'];
-            document.getElementsByClassName('active_page')[0].classList.remove('active_page');
-            // document.getElementsByClassName('active_page')[0].classList.add('active_page');
-            $('.delete_subcat').remove();
-            $('.delete_slash').remove();
-            document.getElementsByClassName('_active')[0].classList.remove('_active');
-            cat_name.classList.add('_active');
-            page = 1;
+                place_bread.innerHTML += `<a href="/catalog?category_id=${id}" class="active_page catalog_category_card delete_cat">${breadcoast[0]}</a>`
+                // place_bread.innerHTML +=  `/ <a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${id}&sub_category=0" class="active_page delete_cat">Все</a>`;
+                loadProducts();
+            }
+            category.onclick = function () {
+                if (sub_category === msg[i]['id']) return
+                sub_category = msg[i]['id'];
+                document.getElementsByClassName('active_page')[0].classList.remove('active_page');
+                // document.getElementsByClassName('active_page')[0].classList.add('active_page');
+                $('.delete_subcat').remove();
+                $('.delete_slash').remove();
+                document.getElementsByClassName('_active')[0].classList.remove('_active');
+                cat_name.classList.add('_active');
+                page = 1;
 
-            // document.getElementsByClassName('active_page')[0].classList.add('active_page');
+                // document.getElementsByClassName('active_page')[0].classList.add('active_page');
 
-            place_bread.innerHTML +=  '<span class="delete_slash" style="font-size: 35px"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${msg[i]['id']}" class="active_page catalog_category_card delete_subcat">
+                place_bread.innerHTML += '<span class="delete_slash" style="font-size: 35px"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${msg[i]['id']}" class="active_page catalog_category_card delete_subcat">
             ${msg[i]['name']}</a>`;
-            loadProducts();
+                loadProducts();
+            }
+            catalog_category_place.append(category);
+            console.log('Высота', catalog_category_place.offsetHeight);
+            place_top_cats.style.paddingBottom = '30px';
         }
-        catalog_category_place.append(category);
-        console.log('Высота', catalog_category_place.offsetHeight);
-        place_top_cats.style.paddingBottom = '30px';
     }
 }
 

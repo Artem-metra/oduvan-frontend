@@ -175,12 +175,16 @@
                 <span class="bucket_na_zakaz" style="margin-top: 20px;">Букет на заказ</span>
                 <h3 class="individual_zakaz">Индивидуальный заказ букета</h3>
                 <div class="individual_info">
-                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу и упаковке
+                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
+                    и упаковке
                 </div>
-                <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя" style="width: 70%; height: 80px"/>
-                <input type="tel" class="popup_input individual_order_inp" id="phone_number_order" placeholder="Номер телефона"
+                <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
                        style="width: 70%; height: 80px"/>
-                <a class="all_catalog_href" id="individual_order_btn" style="float: none; margin-bottom: 13px;width: 70%; height: 95px">
+                <input type="tel" class="popup_input individual_order_inp" id="phone_number_order"
+                       placeholder="Номер телефона"
+                       style="width: 70%; height: 80px"/>
+                <a class="all_catalog_href" id="individual_order_btn"
+                   style="float: none; margin-bottom: 13px;width: 70%; height: 95px">
                     Сделать заказ
                 </a>
             </div>
@@ -233,7 +237,7 @@
                 category_id = Number(msg['message']['product']['category_id']);
                 getCategory(category_id);
                 drawProduct(msg['message']);
-                let inputs = document.getElementsByClassName('error');
+                let inputs = document.getElementsByClassName('individual_order_inp');
                 for (let i = 0; i < inputs.length; i++) {
                     inputs[i].oninput = function () {
                         inputs[i].classList.remove('error');
@@ -497,6 +501,34 @@
             position.style.transform = 'rotate(180deg)';
             position.style.transition = 'transform .3s';
         }
+    }
+
+    // Сделать индивидуальный заказ
+    function individualOrder() {
+        let inputs = document.getElementsByClassName('individual_order_inp');
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value === '') {
+                inputs[i].classList.add('error');
+            }
+        }
+        if (document.getElementsByClassName('error').length) return notification('Заполните обязательные поля!', 1)
+
+        let data = {
+            'name': inputs[0].value,
+            'phone': inputs[1].value,
+        }
+        $.ajax({
+            url: '/api/order/create',
+            data: data,
+            success: function (msg) {
+                console.log('Индивидуальный заказ', msg);
+                if (msg['status'] === 'ok') {
+                    inputs[0].value = '';
+                    inputs[1].value = '';
+                    return notification('Заказ успешно создан. Вам скоро позвонят.', 2)
+                }
+            }
+        })
     }
 
 
