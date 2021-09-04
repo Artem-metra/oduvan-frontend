@@ -199,7 +199,8 @@
 <script>
     let id = {{ id }},
         name = '',
-        category_id = 0;
+        category_id = 0,
+        first_load = true;
 
 
     function Preloader(status) {
@@ -261,7 +262,9 @@
         main_photo.alt = msg['product']['name'];
 
         if (msg['product']['photos'].length) {
+            first_load = false;
             for (let i = 0; i < msg['product']['photos'].length; i++) {
+
                 let images = small_product_card.cloneNode(true);
                 images.removeAttribute('id');
                 if (i === 0) {
@@ -269,7 +272,6 @@
                 }
                 let img = images.getElementsByClassName('small_product_img')[0];
                 img.src = 'https://b-ws.ru/api/image/get?uuid=' + msg['product']['photos'][i];
-                img.alt = msg['product']['name'];
                 images.style.display = 'block';
                 images.onclick = function () {
                     document.getElementsByClassName('_active_photo')[0].classList.remove('_active_photo');
@@ -401,14 +403,18 @@
             data: JSON.stringify(data),
             success: function (msg) {
                 console.log('loadProducts', msg);
-                createSlider(msg['message']['products']);
+                createSlider(msg['message']['products'], 'swiper_place');
             }
         });
     }
 
-    function createSlider(products) {
+    function createSlider(products, place) {
+        if(place === 'disc_swiper_place') $('.delete-slider-2').remove()
+        else $('.delete-slider-1').remove();
         let box = slider_place.cloneNode(true);
-        box.id = '';
+        box.removeAttribute('id');
+        if(place === 'disc_swiper_place') box.classList.add('delete-slider-2');
+        else box.classList.add('delete-slider-1');
         box.style.display = 'block';
         let swiper = box.getElementsByClassName('swiper-container')[0];
         let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
