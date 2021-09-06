@@ -261,7 +261,7 @@
         main_photo.src = 'https://b-ws.ru/api/image/get?uuid=' + msg['product']['photos'][0];
         main_photo.alt = msg['product']['name'];
 
-        if (msg['product']['photos'].length) {
+        if (msg['product']['photos'].length && first_load) {
             first_load = false;
             for (let i = 0; i < msg['product']['photos'].length; i++) {
 
