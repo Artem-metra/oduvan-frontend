@@ -7,7 +7,7 @@ let packaging = [];
 let discount_type = 0;
 let paginations = 0;
 let first_loaded = false;
-
+let first_loaded_cat = false;
 function Preloader(status) {
     if (status === 1) {
         document.getElementById('preloader').style.display = 'block';
@@ -44,8 +44,6 @@ function loadProducts() {
         'packaging': packaging,
         'page': page,
     }
-    console.log('data', data);
-
     $.ajax({
         url: '/site/products/smart',
         type: 'POST',
@@ -53,8 +51,6 @@ function loadProducts() {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success: function (msg) {
-            console.log('Продкуты каталога', msg);
-
             if (msg['message']['products'].length === 0) {
                 Preloader(0);
                 EmptyProducts();
@@ -109,10 +105,9 @@ function getCategories() {
         data: data,
         type: 'GET',
         success: function (msg) {
-            console.log('NEEEEEEn', msg['message']);
-            $('.catalog_zag').remove();
-            drawTopCategories(msg['message']['top_categories']);
+            if(!first_loaded_cat) drawTopCategories(msg['message']['top_categories']);
             drawCategories(msg['message']['categories']);
+            first_loaded_cat = true;
         }
     });
 }
@@ -125,15 +120,14 @@ function drawTopCategories(msg) {
             item.href = 'catalog?category_id=' + msg[i]['id'];
             msg[i]['id'] === id ? item.className = 'catalog_zag _active_cat' : item.className = 'catalog_zag';
             item.innerText = msg[i]['name'];
+            div.style.padding = '10px 0';
             div.appendChild(item);
             place_top_cats.append(div);
-
     }
 }
 
 // Отрисовка категорий
 function drawCategories(msg) {
-    console.log('Смотри сюда тут кат', msg);
     $('.remove_subcat').remove();
     let breadcoast = BreadCoast(id);
     for (let i = 0; i < msg.length; i++) {
@@ -150,7 +144,6 @@ function drawCategories(msg) {
                 cat_name.classList.add('_active');
                 vse.classList.remove('_active');
             }
-            console.log(sub_category, msg[i]['id']);
             category.style.display = 'inline-block';
             vse.onclick = function () {
                 document.getElementsByClassName('_active')[0].classList.remove('_active');
@@ -225,11 +218,9 @@ function loadFlowers() {
         url: '/api/flowers/get',
         type: 'GET',
         success: function (msg) {
-            console.log(msg);
             // drawFlowers(msg['message']);
             // Хлебные крошки
             let breadcoast = BreadCoast(id);
-            console.log(breadcoast);
             if (sub_category === 0) place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
             else place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="delete_cat">${breadcoast[0]}</a>`
                 + '<span class="delete_slash"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${sub_category}" class="active_page delete_subcat">${name_sub_category}</a>`;
@@ -246,7 +237,6 @@ function drawFlowers(flower) {
         meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + flower[i]['name']);
         let fl = choose_flower.cloneNode(true);
         fl.removeAttribute('id');
-        console.log('LENGTH', document.getElementsByClassName('name_flower').length)
         let name = fl.getElementsByClassName('name_flower')[0];
         let checkbox = fl.getElementsByClassName('checkbox_for_choose_flower')[0];
         checkbox.id = '';
@@ -261,7 +251,6 @@ function drawFlowers(flower) {
             } else {
                 flowers = removeItemAll(flowers, Number(checkbox.value));
             }
-            console.log(flowers);
         }
         name.innerText = flower[i]['name'];
         checkbox.value = flower[i]['id'];
@@ -332,15 +321,12 @@ function removeItemAll(arr, value) {
 
 
 function startSorting() {
-    console.log('Дашло!');
     cost_start = Number(price_min.value);
     cost_end = Number(price_max.value);
-    console.log(cost_end);
     loadProducts();
 }
 
 function drawProducts(msg) {
-    console.log('drawProducts', msg);
     for (let i = 0; i < msg.length; i++) {
         let box = createProduct(msg[i]);
         box.style.display = 'inline-block';
@@ -380,7 +366,6 @@ function minPrice() {
         data: data,
         async: false,
         success: function (msg) {
-            console.log('MinPrice', msg);
             start_cost = msg['message']['min_cost'];
             price_min.value = start_cost;
             price_controller.setAttribute('min', start_cost);
@@ -411,7 +396,6 @@ function minPrice() {
 
 // Получение максимальной цены товара в категории
 function maxPrice() {
-    console.log('cat_id', id);
     let endcost = 0;
     let data = {
         'sub_category': sub_category,
@@ -423,7 +407,6 @@ function maxPrice() {
         data: data,
         async: false,
         success: function (msg) {
-            console.log(msg);
             endcost = msg['message']['max_cost'];
             price_max.value = endcost;
             price_controller.setAttribute('max', Number(msg['message']['max_cost']));

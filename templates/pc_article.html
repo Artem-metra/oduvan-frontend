@@ -93,7 +93,6 @@
             type: "GET",
             data: data,
             success: function (msg) {
-                console.log(msg);
                 drawArticle(msg['message']['article']);
             }
         })
@@ -117,7 +116,6 @@
             url: '/api/articles/get',
             type: "GET",
             success: function (msg) {
-                console.log(msg);
                 createSlider(msg['message']['articles']);
             }
         })

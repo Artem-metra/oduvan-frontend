@@ -320,12 +320,10 @@ input[type="checkbox"] {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    justify-content: space-between;
     height: 96px;
 }
 
-.nav {
-    width: 25%;
-}
 
 .nav-link {
     font-weight: 600;
@@ -379,10 +377,14 @@ input[type="checkbox"] {
 }
 
 .logo_place {
-    width: 40%;
+
     text-align: center;
     text-transform: uppercase;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .logo {
@@ -400,9 +402,6 @@ input[type="checkbox"] {
     text-align: center;
 }
 
-.right_header_part {
-    width: 35%;
-}
 
 .right_header_part_item {
     display: -webkit-box;
@@ -459,6 +458,11 @@ input[type="checkbox"] {
     margin-right: 0;
 }
 
+.header .right_nav_item:hover {
+    transition: background .3s;
+    background: #cdc9d1;
+}
+
 .right_nav_item {
     width: 100%;
     height: 100%;
@@ -474,6 +478,7 @@ input[type="checkbox"] {
     -ms-flex-pack: center;
     justify-content: center;
     position: relative;
+    transition: background .3s;
 }
 
 .num_likeds {
@@ -667,10 +672,27 @@ input[type="checkbox"] {
     overflow: hidden;
     -webkit-box-shadow: 0 4px 16px rgba(41, 48, 72, 0.15);
     box-shadow: 0 4px 16px rgba(41, 48, 72, 0.15);
+    -webkit-transition: -webkit-transform .6s;
+    transition: -webkit-transform .6s;
+    -o-transition: transform .6s;
+    transition: transform .6s;
 }
 
 .card_main_item:last-child {
     margin: 0 0 15px 0;
+}
+
+.card_main_item:hover {
+    -webkit-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    transform: scale(1.02);
+    -webkit-transition: -webkit-transform .6s;
+    transition: -webkit-transform .6s;
+    -o-transition: transform .6s;
+    transition: transform .6s;
+    cursor: pointer;
+    -webkit-box-shadow: 0 4px 16px rgba(41, 48, 72, 0.25);
+    box-shadow: 0 4px 16px rgba(41, 48, 72, 0.25);
 }
 
 .card_main_bg {
@@ -1184,6 +1206,9 @@ input[type="checkbox"] {
     padding: 35px;
 }
 
+.question {
+    font-family: 'Montserrat', sans-serif;
+}
 
 /* Blog */
 .blog_item_main {
@@ -2464,6 +2489,10 @@ input[type="checkbox"] {
     color: #293048;
     opacity: 0.9;
     margin-left: 10px;
+}
+
+.top_cat {
+    padding: 10px 0;
 }
 
 /*====== Страница товара =======*/

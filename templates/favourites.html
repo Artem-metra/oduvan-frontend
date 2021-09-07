@@ -140,7 +140,6 @@
                     catalog.style.display = 'none';
                 } else {
                     for (let i = 0; i < msg['message']['products'].length; i++) {
-                        console.log(msg['message']['products'][i] !== null);
                         if (msg['message']['products'][i] !== null) {
                             likeds.push(Number(msg['message']['products'][i]));
                             drawProducts(msg['message']['products'][i]);

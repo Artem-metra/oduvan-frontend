@@ -177,11 +177,11 @@
                     style="font-size: 50px; width: 80%; margin: 0 auto; padding-top: 30px; padding-bottom: 40px">
                     Индивидуальный заказ букета</h3>
                 <div class="individual_info" style="font-size: 48px; ">
-                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
+                    Не нашли то, что искали<span class="question">?</span> <br> Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
                     и упаковке
                 </div>
                 <div style="display: flex; flex-direction: column; align-items: center; padding-top: 30px">
-                    <input type="name" class="popup_input individual_order_inp" placeholder="Введите свое имя"
+                    <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
                            style="width: 70%"/>
                     <input type="tel" class="popup_input individual_order_inp" id="phone_number_order"
                            placeholder="Номер телефона"
@@ -534,7 +534,6 @@
             url: '/api/order/create',
             data: data,
             success: function (msg) {
-                console.log('Индивидуальный заказ', msg);
                 if (msg['status'] === 'ok') {
                     inputs[0].value = '';
                     inputs[1].value = '';

@@ -175,7 +175,7 @@
                 <span class="bucket_na_zakaz" style="margin-top: 20px;">Букет на заказ</span>
                 <h3 class="individual_zakaz">Индивидуальный заказ букета</h3>
                 <div class="individual_info">
-                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
+                    Не нашли то, что искали<span class="question">?</span> <br> Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу
                     и упаковке
                 </div>
                 <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
@@ -234,7 +234,6 @@
             type: 'GET',
             data: data,
             success: function (msg) {
-                console.log('product', msg);
                 category_id = Number(msg['message']['product']['category_id']);
                 getCategory(category_id);
                 drawProduct(msg['message']);
@@ -254,7 +253,6 @@
         title_meta.setAttribute('content', title_meta.getAttribute('content') + ' ' + msg['product']['name']);
         title.innerText = msg['product']['name'];
         meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg['product']['name'] + ',' + msg['product']['description']);
-        console.log(msg);
         description_product.innerText = msg['product']['description'];
         name_bucket.innerText = msg['product']['name'];
         name = msg['product']['name'];
@@ -324,8 +322,6 @@
         let plus = document.getElementById('plus_counter');
 
         // Счетчик товаров
-
-
         minus.addEventListener("mousedown", () => {
             if (Number(count.value) === 1) {
                 DeleteProductBasket(msg['product']['id']);
@@ -402,8 +398,7 @@
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
             success: function (msg) {
-                console.log('loadProducts', msg);
-                createSlider(msg['message']['products'], 'swiper_place');
+                createSlider(msg['message']['products']);
             }
         });
     }
@@ -467,7 +462,6 @@
 
     /* Получить категорию */
     function getCategory(category_id) {
-        console.log('categ_id', category_id);
         $('.delete_breadcoast').remove();
         let data = {
             'category_id': category_id,
@@ -477,11 +471,8 @@
             type: 'GET',
             data: data,
             success: function (msg) {
-                console.log(msg);
                 name_cat_bucket.innerText = msg['message']['category']['name'];
                 let breadcoast = BreadCoast(category_id);
-                console.log('hleb', breadcoast);
-
                 place_breadcoast.innerHTML += '<div class="delete_breadcoast" style="display: contents">' + ' / ' + `<a href="/catalog?category_id=${msg['message']['category']['parent_id']}">${breadcoast[0]}</a>` + ' / ' + `<a href="/catalog?category_id=${msg['message']['category']['parent_id']}&sub_category=${msg['message']['category']['id']}">${msg['message']['category']['name']}</a>` + ' / ' +
                     `<a href="/product?id=${id}" class="active_page">${name}</a></div>`;
             }
@@ -527,7 +518,6 @@
             url: '/api/order/create',
             data: data,
             success: function (msg) {
-                console.log('Индивидуальный заказ', msg);
                 if (msg['status'] === 'ok') {
                     inputs[0].value = '';
                     inputs[1].value = '';

@@ -14,7 +14,7 @@
     <img src="../static/img/main_background.png" class="main_background_img" alt="Главная картинка">
     <div class="main_background_text">
         <h1 class="main_zag">
-            ДОСТАВКА БУКЕТОВ <br> в Воронеже
+            ДОСТАВКА БУКЕТОВ
         </h1>
         <strong class="main_sub_zag">Закажи свой идеальный букет</strong>
         <div id="down_to_catalog"><span class="fa fa-chevron-down"></span></div>
@@ -152,7 +152,7 @@
                 <span class="bucket_na_zakaz" style="margin-top: 20px;">Букет на заказ</span>
                 <h3 class="individual_zakaz">Индивидуальный заказ букета</h3>
                 <div class="individual_info">
-                    Не нашли то, что искали? Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу и упаковке
+                    Не нашли то, что искали<span class="question">?</span> <br> Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу и упаковке
                 </div>
                 <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
                        style="width: 70%">
@@ -331,7 +331,7 @@
 
 <div class="catalog" style="background: rgba(41, 48, 72, 0.1);">
     <div class="container" style="text-align: center">
-        <h3 class="catalog_zag" style="padding-bottom: 25px;">Почему мы</h3>
+        <h3 class="catalog_zag" style="padding-bottom: 25px;">5 шагов к доставке</h3>
         <div class="why_me_flex">
             <div class="why_me_flex_item" style="position: relative">
                 <div class="item_num">
@@ -409,7 +409,7 @@
                     Доставка
                 </div>
                 <div class="sub_zag">
-                    Курьер позвонит за 1 час и привезет вовремя
+                    Курьер позвонит за 30 минут и привезет вовремя
                 </div>
             </div>
 
@@ -496,7 +496,6 @@
             type: "GET",
             data: data,
             success: function (msg) {
-                console.log(msg);
                 drawArticles(msg['message']['articles']);
                 let inputs = document.getElementsByClassName('individual_order_inp');
                 for (let i = 0; i < inputs.length; i++) {
@@ -510,7 +509,6 @@
 
 
     function drawArticles(articles) {
-        console.log(articles);
         for (let i = 0; i < articles.length; i++) {
             if (articles.length > 0) {
                 if (i === 0) {
@@ -554,7 +552,6 @@
             url: '/api/categories/get_for_main',
             type: "GET",
             success: function (msg) {
-                console.log('Category on Main', msg);
                 drawMainCategory(msg['message']['categories']);
             }
         })
@@ -602,7 +599,6 @@
             'sorted_type': 5,
             'page_count': 16,
         }
-        console.log('gjik');
         $.ajax({
             url: '/site/products/smart',
             type: 'POST',
@@ -611,8 +607,6 @@
             data: JSON.stringify(data),
 
             success: function (msg) {
-                console.log('loadProducts', msg);
-
                 createSlider(msg['message']['products'], 'swiper_place');
             }
         });
@@ -633,7 +627,6 @@
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
             success: function (msg) {
-                console.log('loadProducts', msg);
                 createSlider(msg['message']['products'], 'disc_swiper_place');
             }
         });
@@ -723,7 +716,6 @@
             url: '/api/order/create',
             data: data,
             success: function(msg){
-                console.log('Индивидуальный заказ', msg);
                 inputs[0].value = '';
                 inputs[1].value = '';
                 return notification('Заказ успешно создан. Вам скоро позвонят.', 2)
