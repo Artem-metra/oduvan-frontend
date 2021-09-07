@@ -348,6 +348,11 @@
                     $(address).suggestions({
                         token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
                         type: "ADDRESS",
+                        constraints: {
+                            locations: {
+                                kladr_id: "3600000100000"
+                            }
+                        },
                         /* Вызывается, когда пользователь выбирает одну из подсказок */
                         onSelect: function (suggestion) {
                             if (Number(suggestion['data']['fias_level']) < 8) {
@@ -355,7 +360,8 @@
 
                             }
                             address_data = suggestion['value'];
-                        }
+                        },
+                        restrict_value: true
                     });
                     btn_save.onclick = function () {
                         if (address.value === '' || name_address.value === '') {
@@ -410,6 +416,11 @@
             $(address).suggestions({
                 token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
                 type: "ADDRESS",
+                constraints: {
+                    locations: {
+                        kladr_id: "3600000100000"
+                    }
+                },
                 /* Вызывается, когда пользователь выбирает одну из подсказок */
                 onSelect: function (suggestion) {
                     console.log('Дашло 2');
@@ -417,7 +428,8 @@
                         return notification('Укажите точный адрес', 1);
                     }
                     address_data = suggestion['value'];
-                }
+                },
+                restrict_value: true
             });
 
             btn_save.onclick = function () {
