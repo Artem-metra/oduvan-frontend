@@ -1090,6 +1090,7 @@
         let minus_counter = box.getElementsByClassName('minus_counter')[0];
         let plus_counter = box.getElementsByClassName('plus_counter')[0];
         img.src = 'https://b-ws.ru/api/image/get?uuid=' + product['photos'][0];
+        img.alt = product['name'];
         name.innerText = product['name'];
         input.value = Number(product['q_count']);
         // Счётчик

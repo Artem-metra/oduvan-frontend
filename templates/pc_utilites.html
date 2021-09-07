@@ -674,7 +674,6 @@
         let plus_counter = box.getElementsByClassName('plus_counter')[0];
         let input = box.getElementsByClassName('product_counter_inp')[0];
         let minus_counter = box.getElementsByClassName('minus_counter')[0];
-
         let add_to_basket = box.getElementsByClassName('add_to_basket_card')[0];
         input.value = Number(product['q_count']);
         img.src = 'https://b-ws.ru/api/image/get?uuid=' + product['photos'][0];
@@ -940,6 +939,7 @@
             url: '/api/basket/get_by_basket_id',
             type: 'GET',
             success: function (msg) {
+                console.log('Привет я тут и тут', msg)
                 if (msg['message']['products'].length === 0) {
                     empty_basket.style.display = 'block';
                     content.style.display = 'none';
@@ -979,6 +979,7 @@
     function drawBasket(products) {
         for (let i = 0; i < products.length; i++) {
             let box = createProductBasket(products[i]);
+
             box.classList.add('delete_basket');
             box.style.display = 'block';
             basket_items_place.style.display = 'block';
@@ -1003,6 +1004,7 @@
         let minus_counter = box.getElementsByClassName('minus_counter')[0];
         let plus_counter = box.getElementsByClassName('plus_counter')[0];
         img.src = 'https://b-ws.ru/api/image/get?uuid=' + product['photos'][0];
+        img.alt = product['name'];
         name.innerText = product['name'];
         input.value = Number(product['q_count']);
         // Счётчик
