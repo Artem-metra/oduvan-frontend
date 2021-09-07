@@ -100,13 +100,8 @@
             <input class="popup_input authorization_input" type="tel" style="width: 90%" placeholder="+7 (__) __-__-_"
                    id="phone_user_auth">
         </div>
-        <!--        <input class="popup_input authorization_input" type="password" placeholder="Пароль" id="password_user_auth">-->
-        <!--        <div style="text-align: center">-->
-        <!--            <span class="forgot_pas">Забыли пароль?</span>-->
-        <!--        </div>-->
-
         <div style="display: flex; justify-content: center">
-            <input class="popup_input authorization_input" type="password" placeholder="•••••" id="password_user_auth"
+            <input class="popup_input authorization_input" type="number" placeholder="Введите пароль" id="password_user_auth"
                    style="display: none; width: 90%; margin-top: 20px;">
         </div>
         <div class="on_center" style="display: flex; justify-content: center">
@@ -389,13 +384,10 @@
                 </div>
             </div>
             <ul class="footer_list">
-                {#                <li>#}
-                {#                    <a class="nav-link" href="">Программа лояльности</a>#}
-                {#                </li>#}
                 <li>
                     <a class="nav-link" href="/weddingfloristry">Свадебная флористика</a>
                 </li>
-                <li><a class="nav-link" href="/freshnessinstruction">Инструкция свежести</a></li>
+                <li><a class="nav-link" href="/freshnessinstruction">Уход за цветами</a></li>
                 <li><a class="nav-link" href="/vacancies">Вакансии</a></li>
                 <li><a class="nav-link" href="/legalinformation">Юридическая информация</a></li>
                 <li>
@@ -501,7 +493,6 @@
                 }
             }
             go_to_createorder.onclick = function () {
-                console.log(user);
                 if (user !== null) {
                     if (pickup.checked || courier.checked) {
                         if (pickup.checked) {
@@ -546,7 +537,6 @@
             }
         }
         go_to_createorder.onclick = function () {
-            console.log(user);
             if (user !== null) {
                 if (pickup.checked || courier.checked) {
                     if (pickup.checked) {
@@ -589,7 +579,6 @@
             type: "GET",
             async: false,
             success: function (msg) {
-                console.log('likeds', msg);
                 if (msg['status'] !== 'error') {
                     for (let i = 0; i < msg['message']['products'].length; i++) {
                         if (msg['message']['products'][i] !== null) {
@@ -615,7 +604,7 @@
             data: data,
             type: "GET",
             success: function (msg) {
-                console.log(msg);
+
             }
         })
     }
@@ -626,14 +615,12 @@
         blurpopup.style.display = 'none';
         popup.classList.remove('_active');
         body.style.overflow = 'inherit';
-        console.log('popup', popup.id);
         if (popup.id === 'basket_popup') {
             if (location.pathname === '/catalog' || location.pathname === '/product') return loadProducts();
             if (location.pathname === '/') {
                 loadProducts();
                 return loadDiscProduct();
             }
-            console.log(location.pathname)
             if (location.pathname === '/product') {
                 loadProducts();
                 return getProduct();
@@ -645,8 +632,6 @@
 
     /* Авторизация пользователя */
     function AuthorizationUser() {
-        console.log('Дашло!');
-        console.log(phone_user_auth.value, password_user_auth.value);
         if (phone_user_auth.value === '' || password_user_auth.value === '') {
             let inputs = document.getElementsByClassName('authorization_input');
             for (let i = 0; i < inputs.length; i++) {
@@ -690,7 +675,6 @@
             type: 'GET',
             async: false,
             success: function (msg) {
-                console.log(msg);
                 loadBasket();
                 let user_btn = document.getElementsByClassName('user_item');
                 let basket_btn = document.getElementsByClassName('basket');
@@ -746,7 +730,6 @@
             url: '/logout',
             type: "GET",
             success: function (msg) {
-                console.log(msg);
                 notification('Вы успешно вышли из аккаунта', 2);
                 GetUser();
                 if (location.pathname === '/createorder' || location.pathname === '/cabinet') {
@@ -800,7 +783,6 @@
 
 
         // Если продукт в избранном
-        console.log(likeds.indexOf(product['id']));
         if (likeds.indexOf(product['id']) !== -1) {
             place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
 
@@ -842,7 +824,6 @@
                     input.value--;
                     addProduct(product['id'], Number(-1));
                     price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
-                    console.log('InputValue', Number(input.value));
                 } else {
                     box.classList.remove('in_basket');
                     for_basket.style.display = '';
@@ -852,7 +833,6 @@
                 }
             }
             add_to_basket.onclick = function () {
-                console.log('Дашло!');
                 addProduct(product['id'], 1);
                 box.classList.add('in_basket');
                 added_product.style.display = 'flex';
@@ -871,7 +851,6 @@
             added_product.style.display = 'flex';
         } else {
             add_to_basket.onclick = function () {
-                console.log('Дашло!');
                 addProduct(product['id'], 1);
                 box.classList.add('in_basket');
                 added_product.style.display = 'flex';
@@ -890,7 +869,6 @@
                         input.value--;
                         addProduct(product['id'], Number(-1));
                         price_basket.innerText = Number(input.value * product['discount_cost']) + ' ₽';
-                        console.log('InputValue', Number(input.value));
                     } else {
                         box.classList.remove('in_basket');
                         for_basket.style.display = '';
@@ -922,7 +900,7 @@
             type: "GET",
             data: data,
             success: function (msg) {
-                console.log(msg);
+
             }
         })
     }
@@ -937,13 +915,12 @@
             type: "GET",
             data: data,
             success: function (msg) {
-                console.log(msg);
+
             }
         })
     }
 
     function addProduct(id, count) {
-        console.log(id, count);
         let data = {
             'product_id': id,
             'count': count,
@@ -963,8 +940,6 @@
 
     // Функция изменения количества товаров по inputу
     function changeProduct(id, count) {
-        console.log(count);
-        console.log(id, count);
         let data = {
             'product_id': id,
             'input_count': count,
@@ -974,7 +949,6 @@
             type: "GET",
             data: data,
             success: function (msg) {
-                console.log(msg);
                 loadBasket();
                 // Проверяем, если мы сейчас оформляем заказ, то загружаем loadBasketOrder
                 if (location.pathname === '/createorder') {
@@ -993,7 +967,6 @@
             type: 'GET',
             async: false,
             success: function (msg) {
-                console.log('breadcoast', msg);
                 data = msg['message']['list_categories'];
             }
         });
@@ -1062,7 +1035,6 @@
                     empty_basket.style.display = 'none';
                     content.style.display = 'block';
                     $('.delete_basket').remove();
-                    console.log('producti', msg);
                     if (msg['message']['basket']['promo_code'] > 0) {
                         final_price.innerText = msg['message']['basket']['cost'] + ' ₽';
                         final_price.classList.add('have_disc');
@@ -1072,7 +1044,6 @@
                         final_price.innerText = msg['message']['basket']['discount_cost'] + ' ₽';
                     }
                     basket_id = msg['message']['basket']['id'];
-                    console.log(basket_id);
                     drawBasket(msg['message']['products']);
                 }
                 if (msg['message']['basket']['products_count'] > 0) {
@@ -1094,7 +1065,6 @@
 
     // Отрисовка товаров в корзине
     function drawBasket(products) {
-        console.log(products, basket_id);
         for (let i = 0; i < products.length; i++) {
             let box = createProductBasket(products[i]);
             box.classList.add('delete_basket');
@@ -1123,8 +1093,6 @@
         img.src = 'https://b-ws.ru/api/image/get?uuid=' + product['photos'][0];
         name.innerText = product['name'];
         input.value = Number(product['q_count']);
-        console.log(Number(input.value));
-
         // Счётчик
         input.onchange = function () {
             if (input.value === '') {
@@ -1203,7 +1171,6 @@
             type: "GET",
             data: data,
             success: function (msg) {
-                console.log('GetCode', msg);
                 if (msg['status'] === 'ok') {
                     password_user_auth.style.display = 'block';
                     if (password_user_auth.value.length < 6) {

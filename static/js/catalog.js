@@ -6,6 +6,7 @@ let flowers = [];
 let packaging = [];
 let discount_type = 0;
 let paginations = 0;
+let first_loaded = false;
 
 
 
@@ -43,13 +44,13 @@ function getCategories() {
         data: data,
         type: 'GET',
         success: function (msg) {
-            console.log(msg['message']);
             drawTopCategories(msg['message']['top_categories']);
             drawCategories(msg['message']['categories']);
         }
     });
 }
 function drawTopCategories(msg) {
+
     for (let i = 0; i < msg.length; i++) {
         meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg[i]['name']);
             let div = document.createElement('div');
@@ -59,7 +60,6 @@ function drawTopCategories(msg) {
             item.innerText = msg[i]['name'];
             div.appendChild(item);
             place_top_cats.append(div);
-
     }
 }
 
@@ -77,7 +77,6 @@ function drawCategories(msg) {
                 cat_name.classList.add('_active');
                 vse.classList.remove('_active');
             }
-            console.log(sub_category, msg[i]['id']);
             category.style.display = 'inline-block';
 
             vse.onclick = function () {
@@ -112,7 +111,6 @@ function drawCategories(msg) {
                 loadProducts();
             }
             catalog_category_place.append(category);
-            console.log('Высота', catalog_category_place.offsetHeight);
             place_top_cats.style.paddingBottom = '30px';
         }
     }
@@ -123,9 +121,7 @@ loadProducts();
 
 function loadProducts() {
     Preloader(1);
-    console.log(cost_start, cost_end);
     $('.delete_card').remove();
-    console.log('sub_category, category, page', sub_category, id, page);
     let data = {
         'category_id': id,
         'sub_category': sub_category,
@@ -145,7 +141,6 @@ function loadProducts() {
         data: JSON.stringify(data),
         success: function (msg) {
             drawFlowers(msg['message']['flowers']);
-            console.log('Продкуты каталога', msg);
             if (msg['message']['products'].length === 0) {
                 EmptyProducts();
             } else {
@@ -205,11 +200,9 @@ function loadFlowers() {
         url: '/api/flowers/get',
         type: 'GET',
         success: function (msg) {
-            console.log(msg);
             // drawFlowers(msg['message']);
             // Хлебные крошки
             let breadcoast = BreadCoast(id);
-            console.log(breadcoast);
             if(sub_category === 0)  place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
             else place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="delete_cat">${breadcoast[0]}</a>`
                 + '<span class="delete_slash" style="font-size: 35px"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${sub_category}" class="active_page delete_subcat">${name_sub_category}</a>`;
@@ -240,7 +233,6 @@ function drawFlowers(flower) {
             } else {
                 flowers = removeItemAll(flowers, Number(checkbox.value));
             }
-            console.log(flowers);
         }
         name.innerText = flower[i]['name'];
         checkbox.value = flower[i]['id'];
@@ -258,7 +250,6 @@ function loadPackages() {
         url: '/api/packages/get',
         type: "GET",
         success: function (msg) {
-            console.log('packages', msg);
             drawPackages(msg['message']['packages']);
         }
     })
@@ -282,7 +273,6 @@ function drawPackages(packages) {
             } else {
                 packaging = removeItemAll(packaging, Number(checkbox.value));
             }
-            console.log('packages', packaging);
         }
         name.innerText = packages[i]['name'];
         checkbox.value = packages[i]['id'];
@@ -312,7 +302,6 @@ function removeItemAll(arr, value) {
 }
 
 function startSorting() {
-    console.log('Дашло!');
     cost_start = Number(price_min.value);
     cost_end = Number(price_max.value);
     loadProducts();
@@ -359,7 +348,6 @@ function minPrice() {
         data: data,
         async: false,
         success: function (msg) {
-            console.log(msg);
             start_cost = msg['message']['min_cost'];
             price_min.value = start_cost;
             price_controller.setAttribute('min', start_cost);
@@ -383,7 +371,6 @@ function minPrice() {
 
 // Получение максимальной цены товара в категории
 function maxPrice() {
-    console.log('cat_id', id);
     let endcost = 0;
     let data = {
         'sub_category': sub_category,
@@ -395,7 +382,6 @@ function maxPrice() {
         data: data,
         async: false,
         success: function (msg) {
-            console.log(msg);
             endcost = msg['message']['max_cost'];
             price_max.value = endcost;
             price_controller.setAttribute('max', Number(msg['message']['max_cost']));
@@ -429,7 +415,6 @@ filter_place.onclick = function (){
         }
         inputs[i].onclick = function () {
             sorted_type = i + 1;
-            console.log('st', sorted_type);
             sorted_select_items_list.className = '';
             chevron_list.classList.remove('_active');
             active_sorted.innerText = inputs[i].getAttribute('placeholder');
