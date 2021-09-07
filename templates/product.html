@@ -39,7 +39,7 @@
             <div class="main_pictures_product_place">
                 <div class="big_product_card">
                     <div class="small_product_place">
-                        <img src="" class="product_img" id="main_photo" alt="Картинка товара">
+                        <img style="max-height: 1000px;" src="" class="product_img" id="main_photo" alt="Картинка товара">
                     </div>
                 </div>
 
@@ -203,7 +203,10 @@
 <script>
 
 
-    let id = {{id}}, name = '', category_id = 0;
+    let id = {{id}},
+        name = '',
+        category_id = 0,
+        first_load = true;
 
 
     function Preloader(status) {
@@ -263,9 +266,12 @@
         name_bucket.innerText = msg['product']['name'];
         name = msg['product']['name'];
         main_photo.src = 'https://b-ws.ru/api/image/get?uuid=' + msg['product']['photos'][0];
+        main_photo.alt = msg['product']['name'];
 
-        if (msg['product']['photos'].length) {
+        if (msg['product']['photos'].length && first_load) {
+            first_load = false;
             for (let i = 0; i < msg['product']['photos'].length; i++) {
+
                 let images = small_product_card.cloneNode(true);
                 images.removeAttribute('id');
                 if (i === 0) {
@@ -280,6 +286,9 @@
                     main_photo.src = 'https://b-ws.ru/api/image/get?uuid=' + msg['product']['photos'][i];
                 }
                 all_pictures_product_place.append(images);
+                if(msg['product']['photos'].length === 3){
+                    console.log('fjklsjfklfhklsdhf')
+                }
             }
         }
 
@@ -414,7 +423,8 @@
     }
 
     function createSlider(products) {
-        let box = swiper_place.cloneNode(true);
+        let sl = document.getElementById('swiper_place')
+        let box = sl.cloneNode(true);
         let swiper = box.getElementsByClassName('swiper-container')[0];
         let wrapper = box.getElementsByClassName('swiper-wrapper')[0];
         // let left_arrow = box.getElementsByClassName('swip_left_arrow')[0];

@@ -616,7 +616,7 @@
         popup.classList.remove('_active');
         body.style.overflow = 'inherit';
         if (popup.id === 'basket_popup') {
-            if (location.pathname === '/catalog' || location.pathname === '/product') return loadProducts();
+            if (location.pathname === '/catalog') return loadProducts();
             if (location.pathname === '/') {
                 loadProducts();
                 return loadDiscProduct();
@@ -625,7 +625,6 @@
                 loadProducts();
                 return getProduct();
             }
-
         }
     }
 
