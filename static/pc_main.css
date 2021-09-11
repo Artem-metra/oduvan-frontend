@@ -1123,7 +1123,24 @@ input[type="checkbox"] {
     background: #293048;
     color: #FFFFFF;
 }
+.comment_textarea{
+    height: 30%;
+    min-height:100px;
+    width: 80%;
+    margin: 10px 0;
+    background: #e9eaec;
+    font-size: 16px;
+    font-weight: 450;
+    position: relative;
+    max-height: 400px;
+    resize: vertical;
+    padding: 3px;
+}
 
+.comment_textarea.empty_comment {
+    border: 1px solid #F54343;
+    background: #FFFFFF;
+}
 /* Индивидуальный заказ букета */
 .individual_order {
     background: -o-linear-gradient(8.9deg, #FFF0EF 0%, #FAEFFF 100%);
@@ -2679,8 +2696,6 @@ input[type="checkbox"] {
 
 /*====  Оформление заказа  ====*/
 .createorder {
-    -webkit-box-align: normal;
-    -ms-flex-align: normal;
     align-items: normal;
     padding: 50px 0;
 }
@@ -2963,7 +2978,6 @@ input[type="checkbox"] {
 
 /* для элемента label, связанного с .custom-checkbox */
 .custom-checkbox + label {
-    display: -webkit-inline-box;
     display: -ms-inline-flexbox;
     display: inline-flex;
     -webkit-box-align: center;

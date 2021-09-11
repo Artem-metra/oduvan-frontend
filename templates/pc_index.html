@@ -152,13 +152,14 @@
                 <span class="bucket_na_zakaz" style="margin-top: 20px;">Букет на заказ</span>
                 <h3 class="individual_zakaz">Индивидуальный заказ букета</h3>
                 <div class="individual_info">
-                    Не нашли то, что искали<span class="question">?</span> <br> Оформите индивидуальный заказ! Опишите пожелания по цветовой гамме, составу и упаковке
+                    Не нашли то, что искали<span class="question">?</span> <br> Оформите индивидуальный заказ! Опишите
+                    пожелания по цветовой гамме, составу и упаковке
                 </div>
                 <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
-                       style="width: 70%">
+                       style="width: 70%"/>
                 <input type="tel" class="popup_input individual_order_inp" id="phone_number_order"
                        placeholder="Номер телефона"
-                       style="width: 70%">
+                       style="width: 70%"/>
                 <a class="all_catalog_href" id="individual_order_btn"
                    style="float: none; margin-bottom: 25px;width: 70%">
                     Сделать заказ
@@ -307,7 +308,7 @@
             <div class="blog_item_main" id="blog_join">
                 <div class="blog_item" id="blog_two" style="display: none; min-height: 410px">
                     <div class="blog_item_info">
-                        <img class="blog_img" src="">
+                        <img class="blog_img" src=""/>
                         <div class="blog_item_text">
                             <div class="blog_item_text_zag">
 
@@ -327,8 +328,29 @@
         </div>
     </div>
 </div>
+<!-- Комментарии -->
+<div class="individual_order" style="background: rgba(41, 48, 72, 0.1);">
+    <div class="individual_order_info">
+        <div class="individual_order_info_text">
+            <div class="individual_order_info_text_info">
+                <span class="bucket_na_zakaz" style="margin-top: 20px;">Обратная связь</span>
+                <h3 class="individual_zakaz">Расскажите о качестве услуг</h3>
 
+                <textarea placeholder="Всё ли вам понравилось? Есть ли замечания к магазину?" class="comment_textarea">
 
+                </textarea>
+                <div class="all_catalog_href" id="send_comment"
+                     style="float: none; margin-bottom: 25px;width: 80%">
+                    Оставить отзыв
+                </div>
+            </div>
+            <div class="individual_order_info_text_img">
+                <img src="../static/img/individual_img.png" alt="Индивидуальный заказ">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 5 шагов к доставке -->
 <div class="catalog" style="background: rgba(41, 48, 72, 0.1);">
     <div class="container" style="text-align: center">
         <h3 class="catalog_zag" style="padding-bottom: 25px;">5 шагов к доставке</h3>
@@ -346,7 +368,7 @@
                 <div class="sub_zag">
                     Выберите букет из каталога и оформите заказ
                 </div>
-                <img src="../static/img/linebottom.svg" style="position: absolute; top: 34px; left: 183px">
+                <img src="../static/img/linebottom.svg" style="position: absolute; top: 34px; left: 183px"/>
             </div>
 
             <div class="why_me_flex_item" style="position: relative">
@@ -362,7 +384,7 @@
                 <div class="sub_zag">
                     Мы перезвоним в течение 15 минут и уточним детали
                 </div>
-                <img src="../static/img/lineup.svg" class="line_up" style="position: absolute; top: 0; left: 183px;">
+                <img src="../static/img/lineup.svg" class="line_up" style="position: absolute; top: 0; left: 183px;"/>
             </div>
 
             <div class="why_me_flex_item" style="position: relative">
@@ -379,7 +401,7 @@
                     Оплатите заказ онлайн или при получении
                 </div>
                 <img src="../static/img/linebottom.svg" class="line_up"
-                     style="position: absolute; top: 34px; left: 183px">
+                     style="position: absolute; top: 34px; left: 183px"/>
             </div>
 
             <div class="why_me_flex_item" style="position: relative">
@@ -395,7 +417,7 @@
                 <div class="sub_zag">
                     Учтем пожелания и соберем идельный букет
                 </div>
-                <img src="../static/img/lineup.svg" class="line_up" style="position: absolute; right: -68px; top: 0">
+                <img src="../static/img/lineup.svg" class="line_up" style="position: absolute; right: -68px; top: 0"/>
             </div>
 
             <div class="why_me_flex_item">
@@ -416,6 +438,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Краткая информация перед футером -->
 <div class="catalog" style="position: relative">
@@ -502,6 +525,10 @@
                     inputs[i].oninput = function () {
                         inputs[i].classList.remove('error');
                     }
+                }
+                let textar = document.getElementsByClassName('empty_comment')[0];
+                textar.oninput = function () {
+                    textar.classList.remove('empty_comment');
                 }
             }
         })
@@ -636,11 +663,11 @@
 
 
     function createSlider(products, place) {
-        if(place === 'disc_swiper_place') $('.delete-slider-2').remove()
+        if (place === 'disc_swiper_place') $('.delete-slider-2').remove()
         else $('.delete-slider-1').remove();
         let box = pop_slider_place.cloneNode(true);
         box.removeAttribute('id');
-        if(place === 'disc_swiper_place') box.classList.add('delete-slider-2');
+        if (place === 'disc_swiper_place') box.classList.add('delete-slider-2');
         else box.classList.add('delete-slider-1');
         box.style.display = 'block';
         let swiper = box.getElementsByClassName('swiper-container')[0];
@@ -715,7 +742,7 @@
         $.ajax({
             url: '/api/order/create',
             data: data,
-            success: function(msg){
+            success: function (msg) {
                 inputs[0].value = '';
                 inputs[1].value = '';
                 return notification('Заказ успешно создан. Вам скоро позвонят.', 2)
@@ -723,6 +750,33 @@
         })
     }
 
+
+    send_comment.onclick = function () {
+        sendComment();
+    }
+
+
+    function sendComment() {
+        let textar = document.getElementsByClassName('comment_textarea')[0];
+
+        if (textar.value === '') {
+            textar.classList.add('empty_comment');
+            return notification('Заполните обязательные поля!', 1);
+        }
+        let data = {
+            'hz_kak': textar.value
+        }
+        $.ajax({
+            url: '',
+            type: "GET",
+            data: data,
+            success: function (msg) {
+                console.log(msg);
+
+                {#if(msg.status === 'ok') return notification('Спасибо за ваш комментарий!', 2);#}
+            }
+        })
+    }
 
 </script>
 </body>
