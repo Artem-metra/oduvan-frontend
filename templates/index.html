@@ -158,7 +158,33 @@
     </div>
 </div>
 
-<!-- Почему мы -->
+<!-- Индивидуальный заказ букета -->
+<div class="individual_order">
+    <div class="individual_order_info">
+        <div class="individual_order_info_text_img">
+            <img src="../static/img/individual_mobile_img.png" alt="Индивидуальный заказ букетов">
+        </div>
+        <div class="individual_order_info_text">
+            <div class="individual_order_info_text_info">
+                <div class="bucket_na_zakaz" style="margin-top: 20px; margin-bottom: 20px;">Обратная связь</div>
+                <h3 class="individual_zakaz">Расскажите о качестве услуг</h3>
+                <textarea class="comment_textarea" placeholder="Всё ли вам понравилось? Есть ли замечания к магазину?">
+
+                </textarea>
+                <div style="display: flex;margin: 0 auto;justify-content: center">
+                    <div class="all_catalog_href" id="send_comment"
+                       style=" width: 80%; height: 100px; font-size: 40px">
+                        Оставить отзыв
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 5 шагов к доставке -->
 <div class="catalog" style="background:rgba(41, 48, 72, 0.1);">
     <div class="container" style="text-align: center">
         <h3 class="catalog_zag" style="padding-bottom: 25px;">5 шагов к доставке</h3>
@@ -327,6 +353,10 @@
                     inputs[i].oninput = function () {
                         inputs[i].classList.remove('error');
                     }
+                }
+                let textar = document.getElementsByClassName('empty_comment')[0];
+                textar.oninput = function(){
+                    textar.classList.remove('empty_comment');
                 }
             }
         })
@@ -516,6 +546,33 @@
                     inputs[1].value = '';
                     return notification('Заказ успешно создан. Вам скоро позвонят.', 2)
                 }
+            }
+        })
+    }
+
+    send_comment.onclick = function(){
+        sendComment();
+    }
+
+
+    function sendComment(){
+        let textar = document.getElementsByClassName('comment_textarea')[0];
+
+        if(textar.value === ''){
+            textar.classList.add('empty_comment');
+            return notification('Заполните обязательные поля!', 1);
+        }
+        let data = {
+                'hz_kak': textar.value
+            }
+        $.ajax({
+            url: '',
+            type: "GET",
+             data: data,
+            success: function(msg){
+                console.log(msg);
+
+                {#if(msg.status === 'ok') return notification('Спасибо за ваш комментарий!', 2);#}
             }
         })
     }

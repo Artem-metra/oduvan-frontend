@@ -11,12 +11,17 @@
 <div class="catalog">
     <div class="container">
         <div class="place_breadcoast">
-            <a href="/">Главная</a> / <a href="/weddingfloristry" class="active_page" id="active_page">Свадебная флористика</a>
+            <a href="/">Главная</a> / <a href="/weddingfloristry" class="active_page" id="active_page">Свадебная
+            флористика</a>
         </div>
         <h1 class="catalog_zag" style="margin-top: 40px; margin-bottom: 20px;">Свадебная флористика</h1>
         <div class="description_explanations" style="font-size: 22px; margin-bottom: 25px;">
-            Цветочная мастерская «Весёлый Одуван» — это команда профессионалов, которые с радостью воплотят в жизнь любые Ваши мечты об идеальной свадьбе. Наши флористы умело сочетают современные тенденции с классикой, внимательны к деталям и обладают превосходным чувством вкуса.
-            В нашей мастерской Вы можете не только подобрать неповторимый букет невесты, бутоньерку или украшения,  но и доверить нам полное флористическое сопровождение вашей свадьбы, включающее оформление площадки для банкета, фотозоны, выездной регистрации и многое другое.
+            Цветочная мастерская «Весёлый Одуван» — это команда профессионалов, которые с радостью воплотят в жизнь
+            любые Ваши мечты об идеальной свадьбе. Наши флористы умело сочетают современные тенденции с классикой,
+            внимательны к деталям и обладают превосходным чувством вкуса.
+            В нашей мастерской Вы можете не только подобрать неповторимый букет невесты, бутоньерку или украшения, но и
+            доверить нам полное флористическое сопровождение вашей свадьбы, включающее оформление площадки для банкета,
+            фотозоны, выездной регистрации и многое другое.
         </div>
     </div>
 </div>
@@ -25,15 +30,28 @@
     <div class="container">
         <div class="catalog_flex_catalog" style="display: block">
             <div class="catalog_zag" style="margin-bottom: 10px; font-size: 24px">
-              Предлагаем вам посмотреть наши подсказки для оформления заказа:
+                Предлагаем вам посмотреть наши подсказки для оформления заказа:
             </div>
             <div>
                 <ul style="font-size: 19px; padding-left: 25px;">
-                    <li class="wedding_item"><div class="list_style"></div>Оформление заказа на свадьбу желательно минимум за месяц</li>
-                    <li class="wedding_item"><div class="list_style"></div>Обязательна личная встреча</li>
-                    <li class="wedding_item"><div class="list_style"></div>При первой встречи необходимо иметь при себе фотографии того, что хотелось бы, увидеть на вашем торжестве в каком цвете или стиле. </li>
-                    <li class="wedding_item"><div class="list_style"></div>На второй встречи мы подготавливаем проект вашего цветочного оформления,
-                          обсуждаем его  и согласовываем общий бюджет</li>
+                    <li class="wedding_item">
+                        <div class="list_style"></div>
+                        Оформление заказа на свадьбу желательно минимум за месяц
+                    </li>
+                    <li class="wedding_item">
+                        <div class="list_style"></div>
+                        Обязательна личная встреча
+                    </li>
+                    <li class="wedding_item">
+                        <div class="list_style"></div>
+                        При первой встречи необходимо иметь при себе фотографии того, что хотелось бы, увидеть на вашем
+                        торжестве в каком цвете или стиле.
+                    </li>
+                    <li class="wedding_item">
+                        <div class="list_style"></div>
+                        На второй встречи мы подготавливаем проект вашего цветочного оформления,
+                        обсуждаем его и согласовываем общий бюджет
+                    </li>
                 </ul>
             </div>
         </div>
@@ -41,19 +59,71 @@
             <div class="individual_info">
                 С нашей помощью этот прекрасный день и ваш образ будут незабываемыми!
             </div>
-            <a class="all_catalog_href" style="float: none; width: 500px; font-size: 22px">
+            <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
+                   style="width: 60%;"/>
+            <input type="tel" class="popup_input individual_order_inp" id="phone_number_order"
+                   placeholder="Номер телефона"
+                   style="width: 60%;"/>
+            <div class="all_catalog_href" id="individual_order_btn" style="float: none; width: 60%; font-size: 22px">
                 Заказать свадебное оформление
-            </a>
+            </div>
         </div>
     </div>
 </div>
 
 
-
 {% include 'pc_utilites.html' %}
 
 <script>
-    {#let id = {{ id }};#}
+    individual_order_btn.onclick = function () {
+        individualOrder();
+    }
+
+    let inputs = document.getElementsByClassName('individual_order_inp');
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].oninput = function () {
+            inputs[i].classList.remove('error');
+        }
+    }
+
+    maskPhone(phone_number_order);
+
+    // Сделать индивидуальный заказ
+    function individualOrder() {
+        let inputs = document.getElementsByClassName('individual_order_inp');
+
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value === '') {
+                inputs[i].classList.add('error');
+            }
+        }
+        if (document.getElementsByClassName('error').length) return notification('Заполните обязательные поля!', 1)
+
+        let data = {
+            'name': inputs[0].value,
+            'phone': inputs[1].value,
+        }
+        $.ajax({
+            url: '/api/order/create',
+            data: data,
+            success: function (msg) {
+                inputs[0].value = '';
+                inputs[1].value = '';
+                return notification('Заказ успешно создан. Вам скоро позвонят.', 2)
+            }
+        })
+    }
+
+
+        function maskPhone(element) {
+        IMask(
+            element, {
+                mask: '+{7} (000) 000 00 00',
+                prepare: function (str) {
+                    return str.toUpperCase();
+                },
+            });
+    }
 </script>
 </body>
 </html>
