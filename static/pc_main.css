@@ -81,7 +81,7 @@ input:focus:-ms-input-placeholder {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #F877AD;
+    background: #F4C63D;
     margin: -4px 0 0 -4px;
 }
 
@@ -199,7 +199,7 @@ input:focus:-ms-input-placeholder {
 }
 
 body {
-    color: #293048;
+    color: #353925;
     font-size: 16px;
     font-family: "Futura PT";
     width: 100%;
@@ -215,7 +215,7 @@ body {
 
 a {
     text-decoration: none;
-    color: #293048;
+    color: #353925;
 }
 
 a:hover {
@@ -337,11 +337,11 @@ input[type="checkbox"] {
 }
 
 .nav-link._active {
-    color: #F877AD;
+    color: #F4C63D;
 }
 
 .nav-link._active:after {
-    background: #F877AD;
+    background: #F4C63D;
 }
 
 .nav-link:after {
@@ -467,7 +467,7 @@ input[type="checkbox"] {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: rgba(41, 48, 72, 0.1);
+    background: #F1F0D4;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -499,7 +499,7 @@ input[type="checkbox"] {
     -ms-flex-align: center;
     align-items: center;
     border-radius: 50%;
-    background: #F877AD;
+    background: #F4C63D;
     z-index: 9999;
     color: #FFFFFF;
 }
@@ -519,7 +519,7 @@ input[type="checkbox"] {
     -ms-flex-align: center;
     align-items: center;
     border-radius: 50%;
-    background: #F877AD;
+    background: #658C49;
     z-index: 600;
     color: #FFFFFF;
     display: none;
@@ -527,6 +527,7 @@ input[type="checkbox"] {
 
 .right_nav_item span {
     font-size: 20px;
+    color: #353925;
 }
 
 
@@ -627,14 +628,14 @@ position: absolute;
 }
 
 .catalog_zag._active_cat {
-    color: #F877AD;
+    color: #F4C63D;
 }
 
 .all_catalog_href {
     float: right;
     width: 210px;
     height: 60px;
-    background: #293048;
+    background: #658C49;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -708,8 +709,8 @@ position: absolute;
     left: 0;
     width: 100%;
     height: 100%;
-    background: -o-linear-gradient(8.9deg, #FFF0EF 0%, #FAEFFF 100%);
-    background: linear-gradient(81.1deg, #FFF0EF 0%, #FAEFFF 100%);
+    /*background: -o-linear-gradient(0deg, #F8FFDC, #F8FFDC);*/
+    background: linear-gradient(0deg, #F8FFDC, #F8FFDC), linear-gradient(81.1deg, #FFF0EF 0%, #FAEFFF 100%);;
     z-index: -2;
 }
 
@@ -806,7 +807,7 @@ position: absolute;
 }
 
 .slider_item_card .right_nav_item .fa-heart._active {
-    color: #F877AD;
+    color: #658C49;
 }
 
 .slider_item_card:hover {
@@ -915,7 +916,7 @@ position: absolute;
 }
 
 .swiper-pagination.active {
-    background: #F877AD;
+    background: #F4C63D;
 }
 
 .discount_place {
@@ -954,7 +955,7 @@ position: absolute;
 }
 
 .percent_place .fa-percent {
-    color: #F877AD;
+    color: #F4C63D;
     font-size: 14px;
 }
 
@@ -1021,14 +1022,14 @@ position: absolute;
 .price.have_disc {
     color: #c2c5cb;
     text-decoration: line-through;
-    -webkit-text-decoration-color: #F877AD;
-    text-decoration-color: #F877AD;
+    -webkit-text-decoration-color: #F4C63D;
+    text-decoration-color: #F4C63D;
     font-size: 32px;
     padding-bottom: 5px;
 }
 
 .disc_price_bucket {
-    color: #F877AD;
+    color: #F4C63D;
     font-size: 38px;
     font-weight: 600;
     text-transform: uppercase;
@@ -1038,7 +1039,7 @@ position: absolute;
     height: 70px;
     width: 70px;
     border-radius: 50%;
-    background: #293048;
+    background: #658C49;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1061,7 +1062,7 @@ position: absolute;
     -o-transition: opacity .4s;
     transition: opacity .4s;
     width: 100%;
-    background: #293048;
+    background: #658C49;
     height: 70px;
     padding: 0 30px;
     display: -webkit-box;
@@ -1104,7 +1105,7 @@ position: absolute;
 }
 
 .pagination_item._active {
-    background: #F877AD;
+    background: #F4C63D;
     color: #FFFFFF;
 }
 
@@ -1150,8 +1151,7 @@ position: absolute;
 }
 /* Индивидуальный заказ букета */
 .individual_order {
-    background: -o-linear-gradient(8.9deg, #FFF0EF 0%, #FAEFFF 100%);
-    background: linear-gradient(81.1deg, #FFF0EF 0%, #FAEFFF 100%);
+    background: #F4C63D;
     width: 100%;
     height: 700px;
     padding: 30px 0;
@@ -1423,7 +1423,7 @@ position: absolute;
 }
 
 .item_num {
-    /*background: #F877AD;*/
+    /*background: #F4C63D;*/
     border-radius: 50%;
     width: 70px;
     height: 70px;
@@ -1434,11 +1434,12 @@ position: absolute;
 
 .question_place {
     position: absolute;
+    font-size: 18px;
     top: 0;
     left: -5px;
     width: 21px;
     height: 21px;
-    background: #293048;
+    background: #F4C63D;
     border-radius: 50%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1467,14 +1468,12 @@ position: absolute;
     font-weight: 600;
     font-size: 24px;
     line-height: 110%;
-    color: #293048;
     padding: 15px 0;
 }
 
 .sub_zag {
     font-size: 18px;
     line-height: 100%;
-    color: #293048;
 }
 
 /* Краткая инфа перед футером на главной */
@@ -1513,8 +1512,7 @@ position: absolute;
     width: 600px;
     max-width: 600px;
     height: 600px;
-    background: -o-linear-gradient(8.9deg, #FFF0EF 0%, #FAEFFF 100%);
-    background: linear-gradient(81.1deg, #FFF0EF 0%, #FAEFFF 100%);
+    background: #FDF4D8;
     left: 25px;
     top: 20%;
 }
@@ -1525,15 +1523,14 @@ position: absolute;
     width: 350px;
     max-width: 350px;
     height: 380px;
-    background: -o-linear-gradient(8.9deg, #FFF0EF 0%, #FAEFFF 100%);
-    background: linear-gradient(81.1deg, #FFF0EF 0%, #FAEFFF 100%);
+    background: #FDF4D8;
     right: 200px;
     top: 32%;
 }
 
 /* Footer */
 .footer {
-    background: #293048;
+    background: #353925;
     color: #ffffff !important;
 }
 
@@ -1546,11 +1543,11 @@ position: absolute;
 }
 
 .footer .nav-link._active {
-    color: #F877AD !important;
+    color: #F4C63D !important;
 }
 
 .footer .nav-link._active:after {
-    background: #F877AD !important;
+    background: #F4C63D !important;
 }
 
 .footer .nav-link:after {
@@ -1598,7 +1595,7 @@ position: absolute;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    background: #3E455A;
+    background: #484E34;
     color: #FFFFFF;
 }
 
@@ -1752,7 +1749,7 @@ position: absolute;
 }
 
 .registr_indicator._active {
-    background: #F877AD;
+    background: #F4C63D;
 }
 
 
@@ -1780,7 +1777,7 @@ position: absolute;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    background: #cdc9d1;
+    background: #F8F7E9;
     font-size: 16px;
     font-weight: 450;
     position: relative;
@@ -1855,7 +1852,7 @@ position: absolute;
 }
 
 .forgot_pas {
-    color: #F877AD;
+    color: #F4C63D;
     text-align: center;
     margin: 0 auto;
     display: contents;
@@ -2283,7 +2280,7 @@ position: absolute;
 }
 
 .place_breadcoast a.active_page {
-    color: #F877AD;
+    color: #F4C63D;
 }
 
 
@@ -2297,7 +2294,7 @@ position: absolute;
 
 .sorted_text .fa-chevron-down {
     margin-left: 5px;
-    color: #F877AD;
+    color: #F4C63D;
     cursor: pointer;
     -webkit-transition: -webkit-transform .4s;
     transition: -webkit-transform .4s;
@@ -2344,7 +2341,7 @@ position: absolute;
 }
 
 .sorted_text_select {
-    color: #F877AD;
+    color: #F4C63D;
     padding: 8px 0;
     text-transform: uppercase;
     font-size: 16px;
@@ -2397,7 +2394,7 @@ position: absolute;
 
 .sorted_select_item:hover {
     cursor: pointer;
-    background: #F877AD;
+    background: #F4C63D;
     -webkit-transition: all .3s;
     -o-transition: all .3s;
     transition: all .3s;
@@ -2422,7 +2419,7 @@ position: absolute;
 
 
 .catalog_category_item._active {
-    background: #F877AD;
+    background: #658C49;
     color: #FFFFFF;
 }
 
@@ -2813,13 +2810,13 @@ position: absolute;
 }
 
 #choose_data {
-    color: #F877AD;
+    color: #F4C63D;
     text-transform: uppercase;
     cursor: pointer;
 }
 
 #choose_time {
-    color: #F877AD;
+    color: #F4C63D;
     text-transform: uppercase;
     cursor: pointer;
 }
@@ -2861,7 +2858,7 @@ position: absolute;
 }
 
 .address_info {
-    background: #293048;
+    background: #658C49;
     color: #FFFFFF;
     position: absolute;
     top: 0;
@@ -2909,7 +2906,7 @@ position: absolute;
 }
 
 .add_address {
-    border: 4px solid #293048;
+    border: 4px solid #658C49;
     height: 310px;
     position: relative;
 }
@@ -3043,33 +3040,33 @@ position: absolute;
 }
 
 .catalog_sorted .custom-checkbox:checked + label::before {
-    border-color: #F877AD;
-    background-color: #F877AD;
+    border-color: #A7BE4A;
+    background-color: #A7BE4A;
     background-image: url('../static/img/check_mark.svg');
 }
 
 /* стили при наведении курсора на checkbox */
 .custom-checkbox:not(:disabled):not(:checked) + label:hover::before {
-    border-color: #F877AD;
+    border-color: #A7BE4A;
 }
 
 /* стили для активного чекбокса (при нажатии на него) */
 .custom-checkbox:not(:disabled):active + label::before {
-    background-color: #F877AD;
-    border-color: #F877AD;
+    background-color: #A7BE4A;
+    border-color: #A7BE4A;
 }
 
 
 /* стили для чекбокса, находящегося в состоянии checked */
 .custom-checkbox:checked + label::before {
-    border-color: #F877AD;
-    background-color: #F877AD;
+    border-color: #A7BE4A;
+    background-color: #A7BE4A;
     background-image: url("../static/img/check_mark.svg");
 }
 
 /* стили для чекбокса, находящегося в состоянии disabled */
 .custom-checkbox:disabled + label::before {
-    background-color: #F877AD;
+    background-color: #A7BE4A;
 }
 
 .date_input {
@@ -3125,11 +3122,11 @@ input[type=range]::-webkit-slider-thumb {
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background: #F877AD;
+    background: #F4C63D;
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -6px;
-    border: 1px solid #F877AD;
+    border: 1px solid #F4C63D;
 }
 
 input[type=range]:focus::-webkit-slider-runnable-track {
@@ -3142,7 +3139,7 @@ input[type=range]::-moz-range-track {
     cursor: pointer;
     animate: 0.2s;
     box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-    background: #F877AD;
+    background: #F4C63D;
     border-radius: 25px;
     border: 0px solid #000101;
 }
@@ -3222,7 +3219,7 @@ input[type=range]:focus::-ms-fill-upper {
 .list_style {
     width: 9px;
     height: 9px;
-    background-color: #F877AD;
+    background-color: #F4C63D;
     margin-right: 7px;
     border-radius: 50%;
 }
@@ -3243,6 +3240,17 @@ input[type=range]:focus::-ms-fill-upper {
     background-repeat: no-repeat;
     background-position: 0% 28%;
     background-size: cover;
+}
+
+
+/*====== Вакансии ========*/
+
+.connection{
+    display: flex;
+    padding-left: 40px;
+    font-size: 32px;
+    margin-top: 20px;
+    flex-direction: column;
 }
 
 /* Container */
