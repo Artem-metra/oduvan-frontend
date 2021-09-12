@@ -122,21 +122,12 @@ def article():
 
 
 # delivery
-@app.route('/delivery')
-def delivery():
+@app.route('/delivery_and_payment')
+def delivery_and_payment():
     if utils.is_mobile(request.user_agent):
-        return render_template('delivery.html')
+        return render_template('delivery_and_payment.html')
     else:
-        return render_template('pc_delivery.html')
-
-
-# payment
-@app.route('/payment')
-def payment():
-    if utils.is_mobile(request.user_agent):
-        return render_template('payment.html')
-    else:
-        return render_template('pc_payment.html')
+        return render_template('pc_delivery_and_payment.html')
 
 
 # loyaltyprogram
