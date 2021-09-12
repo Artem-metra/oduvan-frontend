@@ -22,23 +22,23 @@
                     <a href="tel:+7 (930) 424-00-30" style="margin-right: 40px">+7 (930) 424-00-30</a>
                     <div class="right_nav_place">
                         <span class="num_likeds" style="display: none;"></span>
-                        <a class="right_nav_item favorites" href="/favorites">
+                        <a class="right_nav_item favorites" data-tippy-content="Избранное" href="/favorites">
                             <span class="fas fa-heart"></span>
                         </a>
                     </div>
                     <div class="right_nav_place">
                         <span class="num_basket"></span>
-                        <a class="right_nav_item basket">
+                        <a class="right_nav_item basket" data-tippy-content="Корзина">
                             <span class="fas fa-shopping-bag"></span>
                         </a>
                     </div>
                     <div class="right_nav_place">
-                        <a class="right_nav_item user_item">
+                        <a class="right_nav_item user_item" data-tippy-content="Личный кабинет">
                             <span class="fas fa-user" style=""></span>
                         </a>
                     </div>
                     <div class="right_nav_place logout_place" style="display: none">
-                        <a class="right_nav_item logout">
+                        <a class="right_nav_item logout" data-tippy-content="Выйти">
                             <span class="fa fa-sign-out"></span>
                         </a>
                     </div>
@@ -311,23 +311,23 @@
                             (930) 424-00-30</a>
                         <div class="right_nav_place">
                             <span class="num_likeds" style="display: none;"></span>
-                            <a class="right_nav_item favorites" href="/favorites">
+                            <a class="right_nav_item favorites" data-tippy-content="Избранное" href="/favorites">
                                 <span class="fas fa-heart" style="color:#FFFFFF"></span>
                             </a>
                         </div>
                         <div class="right_nav_place">
                             <span class="num_basket"></span>
-                            <a class="right_nav_item basket">
+                            <a class="right_nav_item basket"  data-tippy-content="Корзина">
                                 <span class="fas fa-shopping-bag" style="color:#FFFFFF"></span>
                             </a>
                         </div>
                         <div class="right_nav_place">
-                            <a class="right_nav_item user_item">
+                            <a class="right_nav_item user_item"  data-tippy-content="Личный кабинет">
                                 <span class="fas fa-user" style="color:#FFFFFF"></span>
                             </a>
                         </div>
                         <div class="right_nav_place logout_place" style="display: none">
-                            <a class="right_nav_item logout">
+                            <a class="right_nav_item logout" data-tippy-content="Выйти">
                                 <span class="fa fa-sign-out"></span>
                             </a>
                         </div>
@@ -1150,5 +1150,21 @@
             }
         }
     }
+	      tippy('.header .right_nav_item', {
+			placement:'bottom',
+			animation:'scale',
+			arrows:true,
+			size:'small',
+			distance:30
+	      });
+
+    	  tippy('.footer .right_nav_item', {
+			placement:'top',
+			animation:'scale',
+			arrows:true,
+			size:'small',
+			distance:30
+	      });
+
 
 </script>
