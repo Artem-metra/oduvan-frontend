@@ -556,15 +556,22 @@ input[type="checkbox"] {
 }
 
 .main_background_text .fa-chevron-down {
-    cursor: pointer;
-
+cursor: pointer;
     font-size: 24px;
-
+    color: #293048;
+    font-weight: bold;
 }
 
 .main_background_text #down_to_catalog {
-    position: absolute;
+position: absolute;
     bottom: 80px;
+    background: #e9eaec;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .main_background_img {
