@@ -3,18 +3,23 @@
     <div class="container">
         <div class="flex_menu">
             <nav class="nav">
-                <a class="nav-link" href="/catalog">Каталог</a>
-                 <a class="nav-link" href="/delivery_and_payment">Доставка и оплата</a>
+                <div class="nav-link" style="position: relative">
+                    Каталог
+                    <div class="outdoing_menu_list" id="outdoing_menu_list">
+
+                    </div>
+                </div>
+                <a class="nav-link" href="/delivery_and_payment">Доставка и оплата</a>
                 <a class="nav-link" href="/blog">Блог</a>
             </nav>
             <div class="logo_place">
-            <a class="logo" href="/">
-                Веселый Одуван
+                <a class="logo" href="/">
+                    Веселый Одуван
 
-                <div class="sub_logo">
-                    Доставка букетов
-                </div>
-            </a>
+                    <div class="sub_logo">
+                        Доставка букетов
+                    </div>
+                </a>
             </div>
             <div class="right_header_part">
                 <div class="right_header_part_item">
@@ -65,7 +70,8 @@
             Свежие букеты уже ждут вас
         </div>
         <input class="popup_input authorization_input" type="tel" placeholder="+7 (__) __-__-_" id="phone_user_auth">
-        <input class="popup_input authorization_input" type="number" placeholder="Введите пароль" id="password_user_auth"
+        <input class="popup_input authorization_input" type="number" placeholder="Введите пароль"
+               id="password_user_auth"
                style="display: none;">
         <a href="#" class="all_catalog_href blur" style="float:none;width:100%;margin-top:15px;height:50px;"
            id="get_sms">Получить СМС код</a>
@@ -315,12 +321,12 @@
                         </div>
                         <div class="right_nav_place">
                             <span class="num_basket"></span>
-                            <a class="right_nav_item basket"  data-tippy-content="Корзина">
+                            <a class="right_nav_item basket" data-tippy-content="Корзина">
                                 <span class="fas fa-shopping-bag" style="color:#FFFFFF"></span>
                             </a>
                         </div>
                         <div class="right_nav_place">
-                            <a class="right_nav_item user_item"  data-tippy-content="Личный кабинет">
+                            <a class="right_nav_item user_item" data-tippy-content="Личный кабинет">
                                 <span class="fas fa-user" style="color:#FFFFFF"></span>
                             </a>
                         </div>
@@ -360,22 +366,23 @@
                         <div>
                             <div class="right_nav_place">
                                 <div class="right_nav_item">
-                                    <a href="https://www.instagram.com/flowers_vesyoliy_oduvan/?hl" target="_blank"> <span class="fab fa-instagram"
-                                                                      style="color:#FFFFFF"></span></a>
+                                    <a href="https://www.instagram.com/flowers_vesyoliy_oduvan/?hl"
+                                       target="_blank"> <span class="fab fa-instagram"
+                                                              style="color:#FFFFFF"></span></a>
                                 </div>
                             </div>
                             <div class="right_nav_place">
                                 <div class="right_nav_item">
                                     <a href="https://vk.com/vesyoliyoduvan" target="_blank"> <span class="fab fa-vk"
-                                                                      style="color:#FFFFFF"></span></a>
+                                                                                                   style="color:#FFFFFF"></span></a>
                                 </div>
                             </div>
-{#                            <div class="right_nav_place">#}
-{#                                <div class="right_nav_item">#}
-{#                                    <a href="" target="_blank"> <span class="fab fa-facebook-f"#}
-{#                                                                      style="color:#FFFFFF"></span></a>#}
-{#                                </div>#}
-{#                            </div>#}
+                            {#                            <div class="right_nav_place">#}
+                            {#                                <div class="right_nav_item">#}
+                            {#                                    <a href="" target="_blank"> <span class="fab fa-facebook-f"#}
+                            {#                                                                      style="color:#FFFFFF"></span></a>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
                         </div>
                     </div>
                 </div>
@@ -384,12 +391,30 @@
     </div>
 </footer>
 
-
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
 <script>
     let user = null,
         basket_id = 0,
         count = 1, likeds = [],
         registration_number = '';
+
+
+    tippy('.header .right_nav_item', {
+        placement: 'bottom',
+        animation: 'scale',
+        arrows: true,
+        size: 'small',
+        distance: 30
+    });
+
+    tippy('.footer .right_nav_item', {
+        placement: 'top',
+        animation: 'scale',
+        arrows: true,
+        size: 'small',
+        distance: 30
+    });
 
     /* Открытие попапа */
     function OpenPopup(popup, status) {
@@ -479,6 +504,26 @@
                 }
             }
         }
+    }
+
+
+    loadTopCat();
+
+    function loadTopCat() {
+        $.ajax({
+            url: '/api/categories/get',
+            type: 'GET',
+            success: function (msg) {
+                let top_cat = msg['message']['top_categories'];
+                for (let i = 0; i < top_cat.length; i++) {
+                    let a = document.createElement('a');
+                    a.innerText = top_cat[i]['name'];
+                    a.className = 'outdoing_link';
+                    a.href = '/catalog?category_id=' + top_cat[i]['id'];
+                    outdoing_menu_list.append(a);
+                }
+            }
+        });
     }
 
 
@@ -1139,30 +1184,16 @@
 
 
     anchor();
-    function anchor(){
+
+    function anchor() {
         let links = document.getElementsByClassName('nav-link');
-        if(location.pathname === '/') return;
-        for(let i = 0; i < links.length; i++){
-            if(links[i].href.includes(location.pathname)){
+        if (location.pathname === '/') return;
+        for (let i = 0; i < links.length; i++) {
+            if (links[i].href.includes(location.pathname)) {
                 links[i].classList.add('_active');
             }
         }
     }
-	      tippy('.header .right_nav_item', {
-			placement:'bottom',
-			animation:'scale',
-			arrows:true,
-			size:'small',
-			distance:30
-	      });
-
-    	  tippy('.footer .right_nav_item', {
-			placement:'top',
-			animation:'scale',
-			arrows:true,
-			size:'small',
-			distance:30
-	      });
 
 
 </script>

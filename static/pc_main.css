@@ -375,9 +375,36 @@ input[type="checkbox"] {
 .nav-link:last-child {
     margin-right: 0;
 }
+.outdoing_menu_list{
+    position: absolute;
+    top: 0;
+    transform: translate(0, -150%);
+    left: 0;
+    height: auto;
+    width: 250px;
+    transition: all .3s;
+    background: #FFF;
+    border:1px solid #e9eaec;
+    border-radius: 5px;
+    padding: 15px;
+}
+.outdoing_link{
+    margin: 3px 0;
+    display: block;
+    transition: all .3s;
+}
+.outdoing_link:hover{
+    color: #F4C63D;
+    transition: all .3s;
+    margin-left: 8px;
+}
+
+.nav-link:hover .outdoing_menu_list{
+   transition: all .3s;
+   transform: translate(0, 25%);
+}
 
 .logo_place {
-
     text-align: center;
     text-transform: uppercase;
     height: 100%;
