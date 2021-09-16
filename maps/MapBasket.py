@@ -84,7 +84,7 @@ def api_basket_remove():
 @basket_app.route('/api/basket/get_by_basket_id')
 def api_basket_get_by_basket_id():
     if 'basket_id' not in session:
-        resp = requests.get('http://45.12.19.118:80/api/basket/create')
+        resp = requests.get('{}/api/basket/create'.format(utils.address))
         ans = json.loads(resp.text)
         session['basket_id'] = ans['message']['basket']['id']
     params = {}
