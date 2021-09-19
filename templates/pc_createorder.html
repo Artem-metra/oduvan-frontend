@@ -155,8 +155,12 @@
                             </div>
 
                             <div class="catalog_flex" style="position: relative;">
-                                <div class="date_input" id="date_input_two">
-                                    <input type="time" class="popup_input" id="inp_choose_time">
+                                <div class="date_input" id="date_input_two" style=" background: #F8F7E9">
+                                    <div style="display: flex; align-items: center; justify-content: center;">
+                                        <label style="padding-left: 15px;" for="inp_choose_time">Наш график работы с 8:00 до 20:00</label>
+                                        <input type="time" class="popup_input" id="inp_choose_time">
+                                    </div>
+
                                 </div>
                                 <div class="address_info_zag" id="addres_info_time">
                                     <!--21:00-->
@@ -300,7 +304,7 @@
         additionally = ['', '', 0, 0],
         purchase_type = 0, time_value = '',
         my_full_time,
-        my_null = 0,
+        time_for_limit,
         promo_code_id = 0,
         payment_type = 0
     ;
@@ -309,7 +313,7 @@
     let timeElapsed = Date.now();
     let today = new Date(timeElapsed);
     let day_now = today.toLocaleDateString().split('.').reverse().join('-');
-    addres_info_date.innerText = day_now.split('-').reverse().join('.');
+    {#addres_info_date.innerText = day_now.split('-').reverse().join('.');#}
 
 
 
@@ -317,14 +321,11 @@
     let my_hours = todayy.getHours();
     let my_min = todayy.getMinutes();
     if (my_min < 10) {
-        let gab = my_null + '' + my_min
-        my_full_time = my_hours + ':' + gab;
+        my_full_time = my_hours + ':' + 0 + my_min;
     } else {
         my_full_time = my_hours + ':' + my_min;
     }
-    addres_info_time.innerText = my_full_time;
-
-
+    {#addres_info_time.innerText = my_full_time;#}
 
     const options = {
         year: 'numeric',
@@ -344,22 +345,25 @@
         inp_data.classList.add('_active');
 
     }
-    inp_choose_time.min = '8:00';
-    inp_choose_time.max = '20:00';
-
-    inp_choose_time.onchange = function () {
-        time_value = inp_choose_time.value;
-        inp_time.classList.remove('_active');
-        addres_info_time.innerText = time_value;
 
 
-        // РЕЖИМ РАБОТЫ С 8:00 ДО 20:00
-        if (time_value <= inp_choose_time.min && time_value >= inp_choose_time.max) {
-            notification('Наш график работы с 8:00 до 20:00', 1);
-        } else {
-            notification('Время выбрано', 2);
-        }
+
+
+    if(my_min < 10){
+        time_for_limit = (my_hours + 2) + ':' + 0 + my_min;
+    }else {
+        time_for_limit = (my_hours + 2) + ':' + my_min;
     }
+
+    inp_choose_time.min = my_full_time;
+    inp_choose_time.max = time_for_limit;
+
+    {#inp_choose_time.onchange = function () {#}
+    {#   #}
+    {##}
+    {##}
+
+
 
 
     inp_choose_data.onchange = function () {
@@ -367,10 +371,22 @@
         inp_data.classList.remove('_active');
         addres_info_date.innerText = data_value.split('-').reverse().join('.');
         // ПРОВЕРКА НА СОВПАДЕНИЕ ДАТЫ
-
-        if (data_value === day_now) {
-            if (time_value <= inp_choose_time.min && time_value >= inp_choose_time.max) {
+        console.log('1', data_value);
+        console.log('2', day_now);
+        inp_choose_time.onchange = function (){
+            if (data_value === day_now) {
+                console.log('Почему');
+                time_value = inp_choose_time.value;
+                addres_info_time.innerText = time_value;
+                console.log(time_value)
+                if(time_value < inp_choose_time.max && time_value > inp_choose_time.min){
+                     notification('Заказ будет готов не раньше чем через 2 часа, выберете другое время', 1);
+                }
+                 if( time_value < inp_choose_time.min){
+                     notification('Мы не доставляем букеты в прошлое)', 1);
+                 }
             }
+            inp_time.classList.remove('_active');
         }
     }
 
