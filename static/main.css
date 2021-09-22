@@ -1005,7 +1005,23 @@ input[type="checkbox"] {
 .popup_input.error::placeholder {
     color: #F54343;
 }
+.popup_input.phone_number:focus::-webkit-input-placeholder {
+    color: #293048;
+}
 
+.popup_input.phone_number:focus:-moz-placeholder {
+    color: #293048;
+}
+
+/* FF 4-18 */
+.popup_input.phone_number:focus::-moz-placeholder {
+    color: #293048;
+}
+
+/* FF 19+ */
+.popup_input.phone_number:focus:-ms-input-placeholder {
+    color: #293048;
+}
 .forgot_pas {
     color: #F4C63D;
     text-align: center;
