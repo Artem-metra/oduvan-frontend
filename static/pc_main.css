@@ -28,9 +28,6 @@
 }
 
 
-
-
-
 /* Скролл страницы справа */
 ::-webkit-scrollbar {
     width: 10px;
@@ -379,7 +376,8 @@ input[type="checkbox"] {
 .nav-link:last-child {
     margin-right: 0;
 }
-.outdoing_menu_list{
+
+.outdoing_menu_list {
     position: absolute;
     top: 0;
     transform: translate(0, -150%);
@@ -388,24 +386,26 @@ input[type="checkbox"] {
     width: 250px;
     transition: all .3s;
     background: #FFF;
-    border:1px solid #e9eaec;
+    border: 1px solid #e9eaec;
     border-radius: 5px;
     padding: 15px;
 }
-.outdoing_link{
+
+.outdoing_link {
     margin: 3px 0;
     display: block;
     transition: all .3s;
 }
-.outdoing_link:hover{
+
+.outdoing_link:hover {
     color: #F4C63D;
     transition: all .3s;
     margin-left: 8px;
 }
 
-.nav-link:hover .outdoing_menu_list{
-   transition: all .3s;
-   transform: translate(0, 25%);
+.nav-link:hover .outdoing_menu_list {
+    transition: all .3s;
+    transform: translate(0, 25%);
 }
 
 .logo_place {
@@ -588,22 +588,21 @@ input[type="checkbox"] {
 }
 
 .main_background_text .fa-chevron-down {
-cursor: pointer;
+    cursor: pointer;
     font-size: 24px;
-    color: #293048;
+    color: #FFFFFF;
     font-weight: bold;
 }
 
 .main_background_text #down_to_catalog {
 position: absolute;
-    bottom: 80px;
-    background: #e9eaec;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    bottom: 40px;
+    width: 250px;
+    height: 120px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .main_background_img {
@@ -658,8 +657,22 @@ position: absolute;
     padding: 8px 0;
 }
 
-.catalog_zag._active_cat {
+
+.catalog_zag_cat {
+    font-size: 40px;
+    line-height: 110%;
+    text-transform: uppercase;
+    padding: 8px 0;
+    transition: margin-left .3s;
+}
+
+.catalog_zag_cat._active_cat {
     color: #F4C63D;
+}
+
+.catalog_zag_cat:hover {
+    transition: margin-left .3s;
+    margin-left: 8px;
 }
 
 .all_catalog_href {
@@ -1162,9 +1175,10 @@ position: absolute;
     background: #293048;
     color: #FFFFFF;
 }
-.comment_textarea{
+
+.comment_textarea {
     height: 30%;
-    min-height:100px;
+    min-height: 100px;
     width: 80%;
     margin: 10px 0;
     background: #e9eaec;
@@ -1180,6 +1194,7 @@ position: absolute;
     border: 1px solid #F54343;
     background: #FFFFFF;
 }
+
 /* Индивидуальный заказ букета */
 .individual_order {
     background: #F4C63D;
@@ -1974,7 +1989,9 @@ position: absolute;
     transition: transform .2s;
     transition: transform .2s, -webkit-transform .2s;
 }
-
+#choose_delivery{
+    cursor: pointer;
+}
 #choose_delivery_list {
     position: absolute;
     top: 0;
@@ -3239,19 +3256,15 @@ input[type=range]:focus::-ms-fill-upper {
 
 .wedding_item {
     margin-bottom: 5px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+    display: block;
+    font-size: 24px;
 }
 
 .list_style {
     width: 9px;
     height: 9px;
     background-color: #F4C63D;
-    margin-right: 7px;
+    margin-right: 10px;
     border-radius: 50%;
 }
 
@@ -3276,7 +3289,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 /*====== Вакансии ========*/
 
-.connection{
+.connection {
     display: flex;
     padding-left: 40px;
     font-size: 32px;
@@ -3470,6 +3483,14 @@ input[type=range]:focus::-ms-fill-upper {
 .flex {
     display: flex;
     width: 100%;
+}
+
+.flex_add {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin: 8px 0;
+    font-size: 21px;
 }
 
 

@@ -26,47 +26,57 @@
     </div>
 </div>
 
-<div class="catalog" style="min-height: 483px">
-    <div class="container">
-        <div class="catalog_flex_catalog" style="display: block">
-            <div class="catalog_zag" style="margin-bottom: 10px; font-size: 24px">
-                Предлагаем вам посмотреть наши подсказки для оформления заказа:
-            </div>
+
+<div class="container" style="margin: 20px auto;">
+    <div class="catalog_flex_catalog" style="display: block">
+        <div class="catalog_zag" style="margin-bottom: 10px; font-size: 24px">
+            Предлагаем вам посмотреть наши подсказки для оформления заказа:
+        </div>
+        <div class="blog_art_text description_explanations"
+             style="line-height: 130%;width: 100%;">
             <div>
-                <ul style="font-size: 19px; padding-left: 25px;">
+                <ul style="padding-left: 25px;">
                     <li class="wedding_item">
-                        <div class="list_style"></div>
-                        Оформление заказа на свадьбу желательно минимум за месяц
+                        <div class="flex_add">
+                            <div class="list_style"></div>
+                            <span>Оформление заказа на свадьбу желательно минимум за месяц.</span>
+                        </div>
                     </li>
                     <li class="wedding_item">
-                        <div class="list_style"></div>
-                        Обязательна личная встреча
+                        <div class="flex_add">
+                            <div class="list_style"></div>
+                            <span>Обязательна личная встреча.</span>
+                        </div>
                     </li>
                     <li class="wedding_item">
-                        <div class="list_style"></div>
-                        При первой встречи необходимо иметь при себе фотографии того, что хотелось бы, увидеть на вашем
-                        торжестве в каком цвете или стиле.
+                        <div class="flex_add">
+                            <div class="list_style"></div>
+                            <span>При первой встрече необходимо иметь при себе фотографии того, что хотелось бы увидеть на вашем
+                        торжестве, в каком цвете или стиле.</span>
+                        </div>
                     </li>
                     <li class="wedding_item">
-                        <div class="list_style"></div>
-                        На второй встречи мы подготавливаем проект вашего цветочного оформления,
-                        обсуждаем его и согласовываем общий бюджет
+                        <div class="flex_add">
+                            <div class="list_style"></div>
+                            <span>На второй встрече мы подготавливаем проект вашего цветочного оформления,
+                            обсуждаем его и согласовываем общий бюджет.</span>
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="individual_order_info_text_info" style="width: 100%; margin-top: 50px;">
-            <div class="individual_info">
-                С нашей помощью этот прекрасный день и ваш образ будут незабываемыми!
-            </div>
-            <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
-                   style="width: 60%;"/>
-            <input type="tel" class="popup_input individual_order_inp" id="phone_number_order"
-                   placeholder="Номер телефона"
-                   style="width: 60%;"/>
-            <div class="all_catalog_href" id="individual_order_btn" style="float: none; width: 60%; font-size: 22px">
-                Заказать свадебное оформление
-            </div>
+    </div>
+    <div class="individual_order_info_text_info" style="width: 100%; margin-top: 50px;">
+        <div class="individual_info">
+            С нашей помощью этот прекрасный день и ваш образ будут незабываемыми!
+        </div>
+        <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
+               style="width: 60%;" id="individual_name"/>
+        <input type="tel" class="popup_input individual_order_inp" id="phone_number_order"
+               placeholder="Номер телефона"
+               style="width: 60%;"/>
+        <div class="all_catalog_href" id="individual_order_btn" style="float: none; width: 60%; font-size: 22px">
+            Заказать свадебное оформление
         </div>
     </div>
 </div>
@@ -75,6 +85,10 @@
 {% include 'pc_utilites.html' %}
 
 <script>
+
+    document.getElementById('individual_name').addEventListener('keyup', function () {
+        this.value = this.value.replace(/[0-9.]/g, "")
+    });
     individual_order_btn.onclick = function () {
         individualOrder();
     }
@@ -115,7 +129,7 @@
     }
 
 
-        function maskPhone(element) {
+    function maskPhone(element) {
         IMask(
             element, {
                 mask: '+{7} (000) 000 00 00',

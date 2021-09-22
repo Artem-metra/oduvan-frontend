@@ -118,7 +118,7 @@ function drawTopCategories(msg) {
             let div = document.createElement('div');
             let item = document.createElement('a');
             item.href = 'catalog?category_id=' + msg[i]['id'];
-            msg[i]['id'] === id ? item.className = 'catalog_zag _active_cat' : item.className = 'catalog_zag';
+            msg[i]['id'] === id ? item.className = 'catalog_zag_cat _active_cat' : item.className = 'catalog_zag_cat';
             item.innerText = msg[i]['name'];
             div.style.padding = '10px 0';
             div.appendChild(item);
