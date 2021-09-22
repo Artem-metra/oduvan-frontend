@@ -184,7 +184,7 @@
                     <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
                            style="width: 70%" id="individual_name" />
                     <input type="tel" class="popup_input individual_order_inp phone_number" id="phone_number_order"
-                           placeholder="+7 ("
+                           placeholder="Введите номер телефона"
                            style="width: 70%"/>
                 </div>
                 <div style="display: flex;margin: 0 auto;justify-content: center">
@@ -399,6 +399,7 @@
         Preloader(0);
     }
 
+    $("#phone_number_order").mask("+7(999)999-99-99");
     maskPhone(phone_number_order);
 
     loadProducts();

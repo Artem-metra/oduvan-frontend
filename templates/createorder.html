@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <title>Оформление заказа</title>
     <meta name="title" content="Цветы на любой вкус с быстрой и качественной доставкой. Купи прямо сейчас">
-    <meta name="description"
-          content="Цветы и цветочная продукция всегда свежие и по отличной цене. Быстрая и качественная доставка по всему Воронежу.">
+    <meta name="description" content="Цветы и цветочная продукция всегда свежие и по отличной цене. Быстрая и качественная доставка по всему Воронежу.">
     {% include 'headers.html' %}
 </head>
 <body id="body">
@@ -15,7 +14,7 @@
         <div class="place_breadcoast">
             <a href="/">Главная</a> / <a href="/createorder" class="active_page">Оформление заказа</a>
         </div>
-        <!-- В корзине пусто -->
+         <!-- В корзине пусто -->
         <div class="basket_place" id="basket_place" style="min-height: 90vh;display: none;">
             <div class="empty_basket" id="empty_basket_createorder">
                 <div class="empty_basket_info">
@@ -33,25 +32,26 @@
                 <div class="name_buckets">
                     Отправитель
                 </div>
-                <input class="popup_input" placeholder="Ваше имя" id="name_user"/>
-                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__" id="phone_user"/>
-                <input class="popup_input" type="email" placeholder="Электронная почта" id="email_user"/>
-                <input class="popup_input" type="text" placeholder="Адрес куда доставить" id="address_user"/>
+                <input class="popup_input" placeholder="Ваше имя" id="name_user" />
+                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__" id="phone_user" readonly />
+                <input class="popup_input" type="email" placeholder="Электронная почта" id="email_user" />
+                <input class="popup_input" type="text" placeholder="Адрес куда доставить" id="address_user" />
+
                 <div id="addresses_place">
                     <div class="add_address add_address_order" id="address_item"
                          style="display: none;height: auto;min-height: 310px; margin-bottom: 40px;">
                         <div class="data_address address_info">
 
                             <div class="catalog_flex info">
-                                <div class="address_info_zag" style="font-size: 35px">
+                                <div class="address_info_zag"  style="font-size: 35px">
                                     Название:
                                 </div>
-                                <div class="address_info_zag name_address_user" style="font-size: 35px">
+                                <div class="address_info_zag name_address_user"  style="font-size: 35px">
                                     г.Воронеж, ул.Урыского, 2В
                                 </div>
                             </div>
                             <div class="catalog_flex info">
-                                <div class="address_info_zag" style="font-size: 35px">
+                                <div class="address_info_zag"  style="font-size: 35px">
                                     Адрес:
                                 </div>
                                 <div class="address_info_zag address_address_user" style="font-size: 35px">
@@ -59,8 +59,7 @@
                                 </div>
                             </div>
                             <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0;">
-                                <div class="all_catalog_href choose_address"
-                                     style="background: white; color: black; width: 100%; margin-top: 40px;">
+                                <div class="all_catalog_href choose_address" style="background: white; color: black; width: 100%; margin-top: 40px;">
                                     Выбрать
                                 </div>
                             </div>
@@ -68,20 +67,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="catalog_flex">
-                    <div class="checkbox" id="get_other_people_place" style="margin-left:5px;">
-                        <input type="checkbox" id="get_other_people"
-                               class="scal_chek custom-checkbox" style="margin-top: 20px;">
-                        <label for="get_other_people" class="lab_desc sub_zag">Отправить другому человеку</label>
-                    </div>
-                    <div class="checkbox" style="margin-left:5px;">
-                        <input type="checkbox" id="anonim"
-                               class="scal_chek custom-checkbox additionally_input" value="0" style="margin-top: 20px;">
-                        <label for="anonim" class="lab_desc sub_zag">Отправить анонимно</label>
-                    </div>
+                <div class="checkbox" id="get_other_people_place" style="margin-left:5px;">
+                    <input type="checkbox" id="get_other_people"
+                           class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                    <label for="get_other_people" class="lab_desc sub_zag">Отправить другому человеку</label>
                 </div>
-
-
                 <div id="recipient">
                     <div class="name_buckets">
                         Получатель
@@ -197,8 +187,7 @@
                             <div class="catalog_flex" style="justify-content: normal">
                                 <div class="small_product_card" style="margin-right:15px;">
                                     <a class="small_product_place">
-                                        <img src="../static/img/small_img_main.png" class="small_product_img"
-                                             id="product_photo" alt="Фото карточки товара"
+                                        <img src="../static/img/small_img_main.png" class="small_product_img" id="product_photo" alt="Фото карточки товара"
                                              style="margin-bottom: 95px; height: 243px;">
                                     </a>
                                 </div>
@@ -258,20 +247,17 @@
                         </div>
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/visa.png" class="small_product_img"
-                                     style="width: auto; height: 70px;" alt="Виза">
+                                <img src="../static/img/visa.png" class="small_product_img" style="width: auto; height: 70px;" alt="Виза">
                             </div>
                         </div>
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/mir.png" class="small_product_img" alt="Мир"
-                                     style="width: auto; height: 70px;">
+                                <img src="../static/img/mir.png" class="small_product_img" alt="Мир"  style="width: auto; height: 70px;">
                             </div>
                         </div>
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/applepay.png" class="small_product_img" alt="Эплпай"
-                                     style="width: auto; height: 70px;">
+                                <img src="../static/img/applepay.png" class="small_product_img" alt="Эплпай"  style="width: auto; height: 70px;">
                             </div>
                         </div>
                     </div>
@@ -327,6 +313,7 @@
     ;
 
 
+
     // Создание динамического времени и даты
     let timeElapsed = Date.now();
     let today = new Date(timeElapsed);
@@ -366,9 +353,9 @@
 
     }
 
-    if (my_min < 10) {
+    if(my_min < 10){
         time_for_limit = (my_hours + 2) + ':' + 0 + my_min;
-    } else {
+    }else {
         time_for_limit = (my_hours + 2) + ':' + my_min;
     }
 
@@ -388,26 +375,27 @@
     {#        notification('Все успешно', 2);#}
     {#    }#}
 
-    maskPhone(phone_user);
-    inp_choose_data.onchange = function () {
+
+
+     inp_choose_data.onchange = function () {
         let data_value = inp_choose_data.value;
         inp_data.classList.remove('_active');
         addres_info_date.innerText = data_value.split('-').reverse().join('.');
         // ПРОВЕРКА НА СОВПАДЕНИЕ ДАТЫ
         console.log('1', data_value);
         console.log('2', day_now);
-        inp_choose_time.onchange = function () {
+        inp_choose_time.onchange = function (){
             if (data_value === day_now) {
                 console.log('Почему');
                 time_value = inp_choose_time.value;
                 addres_info_time.innerText = time_value;
                 console.log(time_value)
-                if (time_value < inp_choose_time.max && time_value > inp_choose_time.min) {
-                    notification('Заказ будет готов не раньше чем через 2 часа, выберете другое время', 1);
+                if(time_value <= inp_choose_time.max && time_value >= inp_choose_time.min){
+                     notification('Заказ будет готов не раньше чем через 2 часа, выберете другое время', 1);
                 }
-                if (time_value < inp_choose_time.min) {
-                    notification('Мы не доставляем букеты в прошлое)', 1);
-                }
+                 if(time_value < inp_choose_time.min){
+                     notification('Мы не доставляем букеты в прошлое)', 1);
+                 }
             }
             inp_time.classList.remove('_active');
         }
@@ -422,7 +410,6 @@
     maskPhone(phone_sender);
 
     drawUserInfo();
-
     function drawUserInfo() {
         name_user.value = user['name'] + ' ' + user['surname'];
         phone_user.value = '+7' + user['phone'];
@@ -458,7 +445,10 @@
     }
 
 
-    // Подгрузка товаров для оформления заказа
+
+
+
+     // Подгрузка товаров для оформления заказа
     function loadBasketOrder() {
         $.ajax({
             url: '/api/basket/get_by_basket_id',
@@ -497,7 +487,11 @@
     }
 
 
-    // Загрузка магазинов
+
+
+
+
+   // Загрузка магазинов
     function loadShops() {
         $.ajax({
             url: '/api/shops/get',
@@ -538,14 +532,16 @@
     // }
 
 
-    $('#address_user').suggestions({
+
+
+     $('#address_user').suggestions({
         token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
         type: "ADDRESS",
-        constraints: {
-            locations: {
-                kladr_id: "3600000100000"
-            }
-        },
+         constraints: {
+             locations: {
+                 kladr_id: "3600000100000"
+             }
+         },
         /* Вызывается, когда пользователь выбирает одну из подсказок */
         onSelect: function (suggestion) {
             if (Number(suggestion['data']['fias_level']) < 8) {
@@ -557,7 +553,8 @@
     })
 
 
-    // Отрисовка товаров
+
+       // Отрисовка товаров
     function drawBasketOrder(products) {
         for (let i = 0; i < products.length; i++) {
             let box = createProductBasket(products[i]);
@@ -659,7 +656,8 @@
     // }
 
 
-    // Функция проверки промокода
+
+   // Функция проверки промокода
     function checkPromoCode() {
         let data = {
             'promo_code': promo_code_code.value,
@@ -696,7 +694,7 @@
                     notification('Заполните обязательные поля', 1);
                 }
             }
-            if (document.getElementsByClassName('error').length) return notification('Заполните обязательные поля!', 1);
+            if(document.getElementsByClassName('error').length) return notification('Заполните обязательные поля!', 1);
         }
 
         if (!money_payment.checked && !card_payment.checked) {
@@ -730,6 +728,8 @@
             }
         })
     }
+
+
 
 
 </script>

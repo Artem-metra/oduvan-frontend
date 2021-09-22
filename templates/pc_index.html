@@ -326,7 +326,7 @@
                 <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
                        style="width: 70%" id="individual_name"/>
                 <input type="tel" class="popup_input phone_number individual_order_inp" id="phone_number_order"
-                       placeholder="+7 ("
+                       placeholder="Введите номер телефона"
                        style="width: 70%"/>
                 <a class="all_catalog_href" id="individual_order_btn"
                    style="float: none; margin-bottom: 25px;width: 70%">
@@ -509,6 +509,8 @@
 {% include 'pc_utilites.html' %}
 <script>
 
+
+
     document.getElementById('individual_name').addEventListener('keyup', function () {
          this.value = this.value.replace(/[0-9.]/g, "")
     });
@@ -665,6 +667,7 @@
         });
     }
 
+    $("#phone_number_order").mask("+7(999)999-99-99");
     maskPhone(phone_number_order);
 
 
