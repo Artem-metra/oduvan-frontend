@@ -73,7 +73,7 @@
         <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
                style="width: 60%;" id="individual_name"/>
         <input type="tel" class="popup_input individual_order_inp phone_number" id="phone_number_order"
-               placeholder="+7 ("
+               placeholder="Введите номер телефона"
                style="width: 60%;"/>
         <div class="all_catalog_href" id="individual_order_btn" style="float: none; width: 60%; font-size: 22px">
             Заказать свадебное оформление
@@ -100,6 +100,7 @@
         }
     }
 
+    $("#phone_number_order").mask("+7(999)999-99-99");
     maskPhone(phone_number_order);
 
     // Сделать индивидуальный заказ
