@@ -47,7 +47,7 @@
                 <div class="all_pictures_product_place" id="all_pictures_product_place">
                     <div class="small_product_card" id="small_product_card" style="display: none;">
                         <div class="">
-                            <img style="width: -webkit-fill-available;" src="" class="small_product_img"
+                            <img src="" class="small_product_img"
                                  alt="Маленькая картинка товара">
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                 </div>
                 <div style="display: flex; flex-direction: column; align-items: center; padding-top: 30px">
                     <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
-                           style="width: 70%"/>
+                           style="width: 70%" id="individual_name" />
                     <input type="tel" class="popup_input individual_order_inp" id="phone_number_order"
                            placeholder="Номер телефона"
                            style="width: 70%"/>
@@ -201,14 +201,14 @@
 
 {% include 'utilites.html' %}
 <script>
-
-
     let id = {{id}},
         name = '',
         category_id = 0,
         first_load = true;
 
-
+    document.getElementById('individual_name').addEventListener('keyup', function () {
+         this.value = this.value.replace(/[0-9.]/g, "")
+    });
     function Preloader(status) {
         if (status === 1) {
             document.getElementById('preloader').style.display = 'block';

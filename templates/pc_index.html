@@ -324,7 +324,7 @@
                     пожелания по цветовой гамме, составу и упаковке
                 </div>
                 <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
-                       style="width: 70%"/>
+                       style="width: 70%" id="individual_name"/>
                 <input type="tel" class="popup_input individual_order_inp" id="phone_number_order"
                        placeholder="Номер телефона"
                        style="width: 70%"/>
@@ -339,8 +339,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <!-- Блог -->
@@ -365,7 +363,6 @@
 {#</div>#}
 
 
-
 <!-- Комментарии -->
 <div class="individual_order" style="background: rgba(41, 48, 72, 0.1);">
     <div class="individual_order_info">
@@ -373,9 +370,8 @@
             <div class="individual_order_info_text_info">
                 <span class="bucket_na_zakaz" style="margin-top: 20px;">Обратная связь</span>
                 <h3 class="individual_zakaz">Расскажите о качестве услуг</h3>
-                <textarea placeholder="Всё ли вам понравилось? Есть ли замечания к магазину?" class="comment_textarea">
-
-                </textarea>
+                <textarea placeholder="Всё ли вам понравилось? Есть ли замечания к магазину?"
+                          class="comment_textarea"></textarea>
                 <div class="all_catalog_href" id="send_comment"
                      style="float: none; margin-bottom: 25px;width: 80%">
                     Оставить отзыв
@@ -387,7 +383,6 @@
         </div>
     </div>
 </div>
-
 
 
 <div class="catalog">
@@ -443,8 +438,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <!-- Краткая информация перед футером -->
@@ -515,6 +508,12 @@
 
 {% include 'pc_utilites.html' %}
 <script>
+
+    document.getElementById('individual_name').addEventListener('keyup', function () {
+         this.value = this.value.replace(/[0-9.]/g, "")
+    });
+
+
     loadBlog();
 
     function loadBlog() {
@@ -784,6 +783,7 @@
             }
         })
     }
+
 
 </script>
 </body>

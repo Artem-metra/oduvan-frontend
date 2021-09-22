@@ -71,7 +71,9 @@
                             <span class="fas fa-user"></span>
                         </a>
                     </div>
-                    <a href="tel:+7 (930) 424-00-30" style="margin:60px 0 20px 0;color:#293048;font-size: 32px;display: block;font-weight: bold;">+7 (930) 424-00-30</a>
+                    <a href="tel:+7 (930) 424-00-30"
+                       style="margin:60px 0 20px 0;color:#293048;font-size: 32px;display: block;font-weight: bold;">+7
+                        (930) 424-00-30</a>
                 </div>
             </div>
         </div>
@@ -100,7 +102,8 @@
                    id="phone_user_auth">
         </div>
         <div style="display: flex; justify-content: center">
-            <input class="popup_input authorization_input" type="number" placeholder="Введите пароль" id="password_user_auth"
+            <input class="popup_input authorization_input" type="number" placeholder="Введите пароль"
+                   id="password_user_auth"
                    style="display: none; width: 90%; margin-top: 20px;">
         </div>
         <div class="on_center" style="display: flex; justify-content: center">
@@ -124,93 +127,92 @@
         </div>
     </div>
     <div id="content" style="height: 100vh; position: relative;">
-            <div class="oformit_zakaz" id="oformit_zakaz">
-                <div class="all_catalog_href" id="go_to_createorder" style="margin-top: 40px;">
-                    <div class="pereiti_k_oform">
-                        Перейти к оформлению
-                    </div>
-                    <div class="price" id="final_price">
-                        16200 ₽
-                    </div>
+        <div class="oformit_zakaz" id="oformit_zakaz">
+            <div class="all_catalog_href" id="go_to_createorder" style="margin-top: 40px;">
+                <div class="pereiti_k_oform">
+                    Перейти к оформлению
+                </div>
+                <div class="price" id="final_price">
+                    16200 ₽
                 </div>
             </div>
-            <div class="name_popup" style="margin-top: 40px;">
-                Ваша корзина
+        </div>
+        <div class="name_popup" style="margin-top: 40px;">
+            Ваша корзина
+        </div>
+        <div class="info_popup">
+            Проверим наличие цветов, на выбранную дату
+        </div>
+        <div class="basket_info">
+            <div class="catalog_flex">
+                <div class="address_info_zag">
+                    Воронеж
+                </div>
+                <!--<span class="fa fa-chevron-down"></span>-->
             </div>
-            <div class="info_popup">
-                Проверим наличие цветов, на выбранную дату
-            </div>
-            <div class="basket_info">
-                <div class="catalog_flex">
+
+            <div style="position: relative">
+                <div class="catalog_flex" id="choose_delivery">
                     <div class="address_info_zag">
-                        Воронеж
+                        Выберите способ доставки
                     </div>
-                    <!--<span class="fa fa-chevron-down"></span>-->
+                    <div><span class="fa fa-chevron-down" id="chevron_for_delivery"></span>
+                    </div>
                 </div>
-
-                <div style="position: relative">
+                <div id="choose_delivery_list" style="background-color: white;">
                     <div class="catalog_flex">
-                        <div class="address_info_zag" style="margin-bottom: 18px;">
-                            Выберите способ доставки
+                        <div class="checkbox" style="margin-left:5px;">
+                            <input type="checkbox" id="pickup"
+                                   class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                            <label for="pickup" class="lab_desc address_info_zag">Самовывоз</label>
                         </div>
-                        <div id="choose_delivery"><span class="fa fa-chevron-down" style="fint-size: 30px;"
-                                                        id="chevron_for_delivery"></span>
-                        </div>
-                    </div>
-                    <div id="choose_delivery_list" style="background-color: white; border-top: 4px solid #293048">
-                        <div class="catalog_flex">
-                            <div class="checkbox" style="margin-left:5px;">
-                                <input type="checkbox" id="pickup"
-                                       class="scal_chek custom-checkbox" style="margin-top: 20px;">
-                                <label for="pickup" class="lab_desc address_info_zag">Самовывоз</label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" id="courier"
-                                       class="scal_chek custom-checkbox" style="margin-top: 20px;">
-                                <label for="courier" class="lab_desc address_info_zag">Курьером</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Карточка товара в корзине -->
-            <div id="basket_items_place" style="display: none; overflow: auto; height: 70vh; padding-bottom: 120px;">
-                <div class="basket_item" id="basket_item" style="display: none;">
-                    <div class="catalog_flex" style="justify-content: normal; margin-top: 80px; width: 954px;">
-                        <div class="small_product_card" style="margin-right:15px; margin-left: 30px;">
-                            <a class="small_product_place">
-                                <img src="../static/img/small_img_main.png" class="small_product_img">
-                            </a>
-                        </div>
-                        <div class="basket_info_for_order">
-                            <div class="bucket_na_zakaz">
-                                Букет "Индиго"
-                            </div>
-                            <div class="catalog_flex_catalog" style="align-items: center">
-                                <div class="disc_price_bucket" style="margin-right: 15px;">
-                                    2 600 Р
-                                </div>
-                                <div class="price">
-                                    5400 Р
-                                </div>
-                            </div>
-                            <div class="add_to_basket_place" style="max-width:93%;">
-
-                                <div class="fa fa-minus minus_counter"></div>
-                                <div class="counter_place">
-                                    <input type="number" class="product_counter_inp" value="1">
-                                    <span style="font-weight: 600;">ШТ</span>
-                                </div>
-                                <div class="fa fa-plus plus_counter"></div>
-                            </div>
-                            <div class="fa fa-times"></div>
+                        <div class="checkbox">
+                            <input type="checkbox" id="courier"
+                                   class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                            <label for="courier" class="lab_desc address_info_zag">Курьером</label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    <div class="basket_place" >
+
+        <!-- Карточка товара в корзине -->
+        <div id="basket_items_place" style="display: none; overflow: auto; height: 70vh; padding-bottom: 120px;">
+            <div class="basket_item" id="basket_item" style="display: none;">
+                <div class="catalog_flex" style="justify-content: normal; margin-top: 80px; width: 954px;">
+                    <div class="small_product_card" style="margin-right:15px; margin-left: 30px;">
+                        <a class="small_product_place">
+                            <img src="../static/img/small_img_main.png" class="small_product_img">
+                        </a>
+                    </div>
+                    <div class="basket_info_for_order">
+                        <div class="bucket_na_zakaz">
+                            Букет "Индиго"
+                        </div>
+                        <div class="catalog_flex_catalog" style="align-items: center">
+                            <div class="disc_price_bucket" style="margin-right: 15px;">
+                                2 600 Р
+                            </div>
+                            <div class="price">
+                                5400 Р
+                            </div>
+                        </div>
+                        <div class="add_to_basket_place" style="max-width:93%;">
+
+                            <div class="fa fa-minus minus_counter"></div>
+                            <div class="counter_place">
+                                <input type="number" class="product_counter_inp" value="1">
+                                <span style="font-weight: 600;">ШТ</span>
+                            </div>
+                            <div class="fa fa-plus plus_counter"></div>
+                        </div>
+                        <div class="fa fa-times"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="basket_place">
         <!-- Закрыть корзину -->
 
         <!-- В корзине пусто -->
@@ -393,26 +395,29 @@
                 </li>
             </ul>
             <div class="footer_list">
-                <a href="tel:+7 (930) 424-00-30" style="margin:60px 0 20px 0;color:#ffffff;font-size: 32px;display: block;font-weight: bold;">+7 (930) 424-00-30</a>
+                <a href="tel:+7 (930) 424-00-30"
+                   style="margin:60px 0 20px 0;color:#ffffff;font-size: 32px;display: block;font-weight: bold;">+7 (930)
+                    424-00-30</a>
                 <div>
                     <div class="right_nav_place">
                         <div class="right_nav_item">
-                            <a href="https://www.instagram.com/flowers_vesyoliy_oduvan/?hl" target="_blank"> <span class="fab fa-instagram"
-                                                              style="color:#FFFFFF"></span></a>
+                            <a href="https://www.instagram.com/flowers_vesyoliy_oduvan/?hl" target="_blank"> <span
+                                    class="fab fa-instagram"
+                                    style="color:#FFFFFF"></span></a>
                         </div>
                     </div>
                     <div class="right_nav_place">
                         <div class="right_nav_item">
                             <a href="https://vk.com/vesyoliyoduvan" target="_blank"> <span class="fab fa-vk"
-                                                              style="color:#FFFFFF"></span></a>
+                                                                                           style="color:#FFFFFF"></span></a>
                         </div>
                     </div>
-{#                    <div class="right_nav_place">#}
-{#                        <div class="right_nav_item">#}
-{#                            <a href="" target="_blank"> <span class="fab fa-facebook-f"#}
-{#                                                              style="color:#FFFFFF"></span></a>#}
-{#                        </div>#}
-{#                    </div>#}
+                    {#                    <div class="right_nav_place">#}
+                    {#                        <div class="right_nav_item">#}
+                    {#                            <a href="" target="_blank"> <span class="fab fa-facebook-f"#}
+                    {#                                                              style="color:#FFFFFF"></span></a>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
                 </div>
 
             </div>
@@ -568,7 +573,7 @@
 
 
     // Получает список избранного
-      getLikeds();
+    getLikeds();
 
     function getLikeds() {
         let data = [];
@@ -737,10 +742,7 @@
     }
 
 
-
-
-
-        /* Отрисовка товара */
+    /* Отрисовка товара */
     function createProduct(product) {
         let box = document.getElementById('card_product').cloneNode(true);
         box.id = '';
@@ -1195,7 +1197,6 @@
             }
         })
     }
-
 
 
     function removeItemAll(arr, value) {

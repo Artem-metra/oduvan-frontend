@@ -179,7 +179,7 @@
                     и упаковке
                 </div>
                 <input type="text" class="popup_input individual_order_inp" placeholder="Введите свое имя"
-                       style="width: 70%; height: 80px"/>
+                       style="width: 70%; height: 80px" id="individual_name" />
                 <input type="tel" class="popup_input individual_order_inp" id="phone_number_order"
                        placeholder="Номер телефона"
                        style="width: 70%; height: 80px"/>
@@ -202,7 +202,9 @@
         category_id = 0,
         first_load = true;
 
-
+    document.getElementById('individual_name').addEventListener('keyup', function () {
+         this.value = this.value.replace(/[0-9.]/g, "")
+    });
     function Preloader(status) {
         if (status === 1) {
             document.getElementById('preloader').style.display = 'block';
