@@ -715,7 +715,7 @@
                         for (let i = 0; i < user_btn.length; i++) {
                             let img = document.createElement('img');
                             img.className = 'avatar_user';
-                            img.src = 'https://b-ws.ru/api/image/get?uuid=' + data['avatar'];
+                            img.src = '/storage/' + data['avatar'];
                             user_btn[i].innerHTML = '';
                             user_btn[i].append(img);
                         }
@@ -765,7 +765,7 @@
 
         let add_to_basket = box.getElementsByClassName('add_to_basket_card')[0];
         input.value = Number(product['q_count']);
-        img.src = 'https://b-ws.ru/api/image/get?uuid=' + product['photos'][0];
+        img.src = '/storage/' + product['photos'][0];
         img.alt = product['name'];
         name.innerText = product['name'];
         // Если продукт имеет скидку
@@ -1089,7 +1089,7 @@
         let input = box.getElementsByClassName('product_counter_inp')[0];
         let minus_counter = box.getElementsByClassName('minus_counter')[0];
         let plus_counter = box.getElementsByClassName('plus_counter')[0];
-        img.src = 'https://b-ws.ru/api/image/get?uuid=' + product['photos'][0];
+        img.src = '/storage/' + product['photos'][0];
         img.alt = product['name'];
         name.innerText = product['name'];
         input.value = Number(product['q_count']);
@@ -1217,7 +1217,7 @@
         let links = document.getElementsByClassName('nav-link');
         if (location.pathname === '/') return;
         for (let i = 0; i < links.length; i++) {
-            if (links[i].href.includes(location.pathname)) {
+            if (links[i].href && links[i].href.includes(location.pathname)) {
                 links[i].classList.add('_active');
             }
         }

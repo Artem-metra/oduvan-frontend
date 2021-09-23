@@ -265,7 +265,7 @@
         description_product.innerText = msg['product']['description'];
         name_bucket.innerText = msg['product']['name'];
         name = msg['product']['name'];
-        main_photo.src = 'https://b-ws.ru/api/image/get?uuid=' + msg['product']['photos'][0];
+        main_photo.src = '/storage/' + msg['product']['photos'][0];
         main_photo.alt = msg['product']['name'];
 
         if (msg['product']['photos'].length && first_load) {
@@ -278,12 +278,12 @@
                     images.classList.add('_active_photo');
                 }
                 let img = images.getElementsByClassName('small_product_img')[0];
-                img.src = 'https://b-ws.ru/api/image/get?uuid=' + msg['product']['photos'][i];
+                img.src = '/storage/' + msg['product']['photos'][i];
                 images.style.display = 'block';
                 images.onclick = function () {
                     document.getElementsByClassName('_active_photo')[0].classList.remove('_active_photo');
                     images.classList.add('_active_photo');
-                    main_photo.src = 'https://b-ws.ru/api/image/get?uuid=' + msg['product']['photos'][i];
+                    main_photo.src = '/storage/' + msg['product']['photos'][i];
                 }
                 all_pictures_product_place.append(images);
                 if(msg['product']['photos'].length === 3){

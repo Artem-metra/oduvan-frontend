@@ -101,7 +101,7 @@
     function drawArticle(article) {
         title.innerText = article.title;
         let article_data = document.getElementsByClassName('article_data');
-        article_data[0].style.backgroundImage = `url(${'https://b-ws.ru/api/image/get?uuid=' + article.image})`;
+        article_data[0].style.backgroundImage = `url(${'/storage/' + article.image})`;
         article_data[1].innerText = article.title;
         article_data[2].innerHTML = article.text;
         active_page.href = '/article?id=' + article.id;
@@ -174,7 +174,7 @@
         let href = box.getElementsByClassName('article_href')[0];
         let preview = box.getElementsByClassName('description_explanations')[0];
         title.innerText = article.title;
-        img.src = 'https://b-ws.ru/api/image/get?uuid=' + article.image;
+        img.src = '/storage/' + article.image;
         img.alt = article.title;
         href.href = '/article?id=' + article.id;
         preview.innerHTML = article.text;

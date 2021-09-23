@@ -552,7 +552,7 @@
                     let title = box.getElementsByClassName('blog_item_text_zag')[0];
                     let text = box.getElementsByClassName('blog_item_text_preview')[0];
                     let link = box.getElementsByClassName('blog_item_text_read')[0];
-                    img.src = 'https://b-ws.ru/api/image/get?uuid=' + articles[i]['image'];
+                    img.src = '/storage/' + articles[i]['image'];
                     title.innerHTML = articles[i]['title'];
                     text.innerHTML = articles[i]['text'];
                     link.href = 'article?id=' + articles[i]['id'];
@@ -566,7 +566,7 @@
                     let title_two = box_two.getElementsByClassName('blog_item_text_zag')[0];
                     let text_two = box_two.getElementsByClassName('blog_item_text_preview')[0];
                     let link_two = box_two.getElementsByClassName('blog_item_text_read')[0];
-                    img_two.src = 'https://b-ws.ru/api/image/get?uuid=' + articles[i]['image'];
+                    img_two.src = '/storage/' + articles[i]['image'];
                     title_two.innerHTML = articles[i]['title'];
                     text_two.innerHTML = articles[i]['text'];
                     link_two.href = 'article?id=' + articles[i]['id'];
@@ -602,7 +602,7 @@
             let href = box.getElementsByClassName('go_to_cat')[0];
             let main_cat_img = box.getElementsByClassName('main_cat_img')[0];
             main_cat_img.alt = categories[i]['name'];
-            main_cat_img.src = 'https://b-ws.ru/api/image/get?uuid=' + categories[i]['image'];
+            main_cat_img.src = '/storage/' + categories[i]['image'];
             if (categories[i]['parent_id'] !== 0) name_cat.innerText = categories[i]['parent_name'];
             else {
                 name_buckets.style.marginTop = '55px';

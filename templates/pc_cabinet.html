@@ -289,7 +289,7 @@
         your_surname.value = user['surname'];
         your_mobile.value = '+7' + user['phone'];
         your_email_address.value = user['email'];
-        avatar_img.src = 'https://b-ws.ru/api/image/get?uuid=' + user['avatar'];
+        avatar_img.src = '/storage/' + user['avatar'];
         day_datepicker.value = user['birthday'].split(' ')[0];
         let inputs = document.getElementsByClassName('new_data');
         for (let i = 0; i < inputs.length; i++) {
