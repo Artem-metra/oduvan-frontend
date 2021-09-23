@@ -1,9 +1,10 @@
 import json
+import os
 
 import requests
 from flask import Response
 
-address = 'http://45.12.19.118:84'
+address = os.getenv('BACKEND_URL')
 
 
 def is_mobile(user_agent):
