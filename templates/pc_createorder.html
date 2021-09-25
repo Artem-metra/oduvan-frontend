@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Оформление заказа</title>
     <meta name="title" content="Цветы на любой вкус с быстрой и качественной доставкой. Купи прямо сейчас">
-    <meta name="description" content="Цветы и цветочная продукция всегда свежие и по отличной цене. Быстрая и качественная доставка по всему Воронежу.">
+    <meta name="description"
+          content="Цветы и цветочная продукция всегда свежие и по отличной цене. Быстрая и качественная доставка по всему Воронежу.">
     {% include 'pc_headers.html' %}
 </head>
 <body id="body">
@@ -32,10 +33,10 @@
                 <div class="name_buckets">
                     Отправитель
                 </div>
-                <input class="popup_input" placeholder="Ваше имя" id="name_user" />
-                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__" id="phone_user" readonly />
-                <input class="popup_input" type="email" placeholder="Электронная почта" id="email_user" />
-                <input class="popup_input" type="text" placeholder="Адрес куда доставить" id="address_user" />
+                <input class="popup_input" placeholder="Ваше имя" id="name_user"/>
+                <input class="popup_input" type="tel" placeholder="+7 (___) ___-__-__" id="phone_user"/>
+                <input class="popup_input" type="email" placeholder="Электронная почта" id="email_user"/>
+                <input class="popup_input" type="text" placeholder="Адрес куда доставить" id="address_user"/>
                 <!-- Выбрать адреса из уже имеющихся -->
                 <div id="addresses_place">
                     <div class="add_address add_address_order" id="address_item"
@@ -58,7 +59,8 @@
                                     г.Воронеж, ул.Урыского, 2В
                                 </div>
                             </div>
-                            <div class="catalog_flex info" style="margin-top:15px; position: absolute; bottom: 0; width: 97%; border-bottom: 0">
+                            <div class="catalog_flex info"
+                                 style="margin-top:15px; position: absolute; bottom: 0; width: 97%; border-bottom: 0">
                                 <div class="all_catalog_href choose_address">
                                     Выбрать
                                 </div>
@@ -67,35 +69,41 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="checkbox" id="get_other_people_place" style="margin-left:5px;">
-                    <input type="checkbox" id="get_other_people"
-                           class="scal_chek custom-checkbox" style="margin-top: 20px;">
-                    <label for="get_other_people" class="lab_desc sub_zag">Отправить другому человеку</label>
+                <div class="catalog_flex">
+                    <div class="checkbox" id="get_other_people_place" style="margin-left:5px;">
+                        <input type="checkbox" id="get_other_people"
+                               class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                        <label for="get_other_people" class="lab_desc sub_zag">Отправить другому человеку</label>
+                    </div>
+                    <div class="checkbox" style="margin-left:5px;">
+                        <input type="checkbox" id="anonim"
+                               class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                        <label for="anonim" class="lab_desc sub_zag">Отправить анонимно</label>
+                    </div>
                 </div>
                 <div id="recipient">
                     <div class="name_buckets">
                         Получатель
                     </div>
-                    <input class="popup_input input_sender" placeholder="Имя получателя" id="name_sender">
+                    <input class="popup_input input_sender" placeholder="Имя получателя" id="name_sender" />
                     <input class="popup_input input_sender" type="tel" placeholder="+7 (___) ___-__-__"
-                           id="phone_sender">
+                           id="phone_sender" />
                 </div>
                 <div class="name_buckets">
                     Дополнительно
                 </div>
-                <input class="popup_input additionally_input" id="comment_order" placeholder="Комментарии к заказу">
-                <input class="popup_input additionally_input" id="text_order" placeholder="Текст для открытки">
+                <input class="popup_input additionally_input" id="comment_order" placeholder="Комментарии к заказу" />
+                <input class="popup_input additionally_input" id="text_order" placeholder="Текст для открытки" />
 
                 <div class="catalog_flex">
                     <div class="checkbox" style="margin-left:5px;">
                         <input type="checkbox" id="add_carrying"
-                               class="scal_chek custom-checkbox" value="0" style="margin-top: 20px;">
+                               class="scal_chek custom-checkbox" value="0" style="margin-top: 20px;" />
                         <label for="add_carrying" class="lab_desc sub_zag">Добавить переноску</label>
                     </div>
                     <div class="checkbox" style="margin-left:5px;">
                         <input type="checkbox" id="add_aquapack"
-                               class="scal_chek custom-checkbox" value="0" style="margin-top: 20px;">
+                               class="scal_chek custom-checkbox" value="0" style="margin-top: 20px;" />
                         <label for="add_aquapack" class="lab_desc sub_zag">Добавить аквапак</label>
                     </div>
                 </div>
@@ -105,12 +113,12 @@
                 <div class="catalog_flex">
                     <div class="checkbox" style="margin-left:5px;">
                         <input type="checkbox" id="money_payment"
-                               class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                               class="scal_chek custom-checkbox" style="margin-top: 20px;" />
                         <label for="money_payment" class="lab_desc sub_zag">Наличные</label>
                     </div>
                     <div class="checkbox" style="margin-left:5px;">
                         <input type="checkbox" id="card_payment"
-                               class="scal_chek custom-checkbox" style="margin-top: 20px;">
+                               class="scal_chek custom-checkbox" style="margin-top: 20px;" />
                         <label for="card_payment" class="lab_desc sub_zag">Картой</label>
                     </div>
                 </div>
@@ -157,7 +165,8 @@
                             <div class="catalog_flex" style="position: relative;">
                                 <div class="date_input" id="date_input_two" style=" background: #F8F7E9">
                                     <div style="display: flex; align-items: center; justify-content: center;">
-                                        <label style="padding-left: 15px;" for="inp_choose_time">Наш график работы с 8:00 до 20:00</label>
+                                        <label style="padding-left: 15px;" for="inp_choose_time">Наш график работы с
+                                            8:00 до 20:00</label>
                                         <input type="time" class="popup_input" id="inp_choose_time">
                                     </div>
 
@@ -269,7 +278,8 @@
                     <div style="width:100%;">
                         <div class="system_item">
                             <div class="small_product_place">
-                                <img src="../static/img/mastercard.png" alt="мастеркард" class="small_product_img" style="width: 57px; height: 38px;">
+                                <img src="../static/img/mastercard.png" alt="мастеркард" class="small_product_img"
+                                     style="width: 57px; height: 38px;">
                             </div>
                         </div>
                         <div class="system_item">
@@ -302,19 +312,18 @@
     let shop_id = 0,
         address = '',
         additionally = ['', '', 0, 0],
-        purchase_type = 0, time_value = '',
+        purchase_type = 0,
+        time_value = '',
         my_full_time,
         time_for_limit,
         promo_code_id = 0,
-        payment_type = 0
-    ;
+        payment_type = 0;
 
     // Создание динамического времени и даты
     let timeElapsed = Date.now();
     let today = new Date(timeElapsed);
     let day_now = today.toLocaleDateString().split('.').reverse().join('-');
-    {#addres_info_date.innerText = day_now.split('-').reverse().join('.');#}
-
+    // addres_info_date.innerText = day_now.split('-').reverse().join('.');
 
 
     let todayy = new Date;
@@ -325,7 +334,7 @@
     } else {
         my_full_time = my_hours + ':' + my_min;
     }
-    {#addres_info_time.innerText = my_full_time;#}
+    // addres_info_time.innerText = my_full_time;
 
     const options = {
         year: 'numeric',
@@ -347,23 +356,14 @@
     }
 
 
-
-
-    if(my_min < 10){
+    if (my_min < 10) {
         time_for_limit = (my_hours + 2) + ':' + 0 + my_min;
-    }else {
+    } else {
         time_for_limit = (my_hours + 2) + ':' + my_min;
     }
 
     inp_choose_time.min = my_full_time;
     inp_choose_time.max = time_for_limit;
-
-    {#inp_choose_time.onchange = function () {#}
-    {#   #}
-    {##}
-    {##}
-
-
 
 
     inp_choose_data.onchange = function () {
@@ -373,18 +373,18 @@
         // ПРОВЕРКА НА СОВПАДЕНИЕ ДАТЫ
         console.log('1', data_value);
         console.log('2', day_now);
-        inp_choose_time.onchange = function (){
+        inp_choose_time.onchange = function () {
             if (data_value === day_now) {
                 console.log('Почему');
                 time_value = inp_choose_time.value;
                 addres_info_time.innerText = time_value;
                 console.log(time_value)
-                if(time_value <= inp_choose_time.max && time_value >= inp_choose_time.min){
-                     notification('Заказ будет готов не раньше чем через 2 часа, выберете другое время', 1);
+                if (time_value <= inp_choose_time.max && time_value >= inp_choose_time.min) {
+                    notification('Заказ будет готов не раньше чем через 2 часа, выберете другое время', 1);
                 }
-                 if( time_value < inp_choose_time.min){
-                     notification('Мы не доставляем букеты в прошлое)', 1);
-                 }
+                if (time_value < inp_choose_time.min) {
+                    notification('Мы не доставляем букеты в прошлое)', 1);
+                }
             }
             inp_time.classList.remove('_active');
         }
@@ -401,6 +401,7 @@
 
 
     drawUserInfo();
+
     function drawUserInfo() {
         name_user.value = user['name'] + ' ' + user['surname'];
         phone_user.value = '+7' + user['phone'];
@@ -502,7 +503,7 @@
         })
     }
 
-
+    let address_data = '';
     $('#address_user').suggestions({
         token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
         type: "ADDRESS",
@@ -516,7 +517,8 @@
             if (Number(suggestion['data']['fias_level']) < 8) {
                 return notification('Укажите точный адрес', 1);
             }
-            // address_data = suggestion['value'];
+            console.log(suggestion);
+            address_data = suggestion['value'];
         },
         restrict_value: true
     })
@@ -660,7 +662,7 @@
                     notification('Заполните обязательные поля', 1);
                 }
             }
-            if(document.getElementsByClassName('error').length) return notification('Заполните обязательные поля!', 1);
+            if (document.getElementsByClassName('error').length) return notification('Заполните обязательные поля!', 1);
         }
 
         if (!money_payment.checked && !card_payment.checked) {

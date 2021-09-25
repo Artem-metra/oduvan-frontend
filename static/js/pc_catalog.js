@@ -1,13 +1,14 @@
-let category_id = 0;
-let name_sub_category = '';
-let cost_end = 150000;
-let cost_start = 0;
-let flowers = [];
-let packaging = [];
-let discount_type = 0;
-let paginations = 0;
-let first_loaded = false;
-let first_loaded_cat = false;
+let category_id = 0,
+    name_sub_category = '',
+    cost_end = 150000,
+    cost_start = 0,
+    flowers = [],
+    packaging = [],
+    discount_type = 0,
+    paginations = 0,
+    first_loaded = false,
+    first_loaded_cat = false;
+
 function Preloader(status) {
     if (status === 1) {
         document.getElementById('preloader').style.display = 'block';
@@ -105,7 +106,7 @@ function getCategories() {
         data: data,
         type: 'GET',
         success: function (msg) {
-            if(!first_loaded_cat) drawTopCategories(msg['message']['top_categories']);
+            if (!first_loaded_cat) drawTopCategories(msg['message']['top_categories']);
             drawCategories(msg['message']['categories']);
             first_loaded_cat = true;
         }
@@ -115,14 +116,14 @@ function getCategories() {
 function drawTopCategories(msg) {
     for (let i = 0; i < msg.length; i++) {
         meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg[i]['name']);
-            let div = document.createElement('div');
-            let item = document.createElement('a');
-            item.href = 'catalog?category_id=' + msg[i]['id'];
-            msg[i]['id'] === id ? item.className = 'catalog_zag_cat _active_cat' : item.className = 'catalog_zag_cat';
-            item.innerText = msg[i]['name'];
-            div.style.padding = '10px 0';
-            div.appendChild(item);
-            place_top_cats.append(div);
+        let div = document.createElement('div');
+        let item = document.createElement('a');
+        item.href = 'catalog?category_id=' + msg[i]['id'];
+        msg[i]['id'] === id ? item.className = 'catalog_zag_cat _active_cat' : item.className = 'catalog_zag_cat';
+        item.innerText = msg[i]['name'];
+        div.style.padding = '10px 0';
+        div.appendChild(item);
+        place_top_cats.append(div);
     }
 }
 
@@ -130,6 +131,18 @@ function drawTopCategories(msg) {
 function drawCategories(msg) {
     $('.remove_subcat').remove();
     let breadcoast = BreadCoast(id);
+
+    // Активная сортировка
+    let inputs = document.getElementsByClassName('sorted_po');
+    for (let i = 0; i < inputs.length; i++) {
+        if (i + 1 !== sorted_type) {
+            inputs[i].style.display = 'block';
+        } else {
+            inputs[i].style.display = 'none';
+        }
+        if (sorted_type === i + 1) active_sorted.innerText = inputs[i].getAttribute('placeholder');
+    }
+
     for (let i = 0; i < msg.length; i++) {
         meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg[i]['name']);
         if (msg[i]['q_product_count'] !== 0) {
