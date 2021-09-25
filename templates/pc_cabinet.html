@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Личный кабинет</title>
     <meta name="title" content="У нас вы можете купить цветы на любой вкус. Всегда свежие цветы и быстрая доставка">
-    <meta name="description" content="У нас вы найдете хороший выбор цветов и другой цветочной продукции по выгодной цене с быстрой и качетсвенной доставкой по Воронежу. Каждому покупателю подарок!">
+    <meta name="description"
+          content="У нас вы найдете хороший выбор цветов и другой цветочной продукции по выгодной цене с быстрой и качетсвенной доставкой по Воронежу. Каждому покупателю подарок!">
     <link rel="stylesheet" href="../static/libs/datepicker/css/datepicker.min.css">
 
     {% include 'pc_headers.html' %}
@@ -16,7 +17,6 @@
         <div class="place_breadcoast">
             <a href="/">Главная</a> / <a href="/cabinet" class="active_page">Личный кабинет</a>
         </div>
-
 
 
         <h1 class="catalog_zag" style="text-align: center">Личный кабинет</h1>
@@ -119,7 +119,7 @@
                                 </div>
                                 <input class="popup_input name_address" style="height: 35px;width: 70%;">
                             </div>
-                             <div class="catalog_flex info">
+                            <div class="catalog_flex info">
                                 <div class="address_info_zag" style="margin-right: 13px">
                                     Адрес:
                                 </div>
@@ -128,7 +128,8 @@
                                            style="height: 35px;width: 100%;">
                                 </div>
                             </div>
-                            <div class="catalog_flex info" style="margin-top:15px;border-bottom: 0; position: absolute; bottom: 0; width: 95%">
+                            <div class="catalog_flex info"
+                                 style="margin-top:15px;border-bottom: 0; position: absolute; bottom: 0; width: 95%">
                                 <div class="all_catalog_href"
                                      style="float: none;width: 100%;height: 50px;background: #FFFFFF;color:#293048">
                                     Сохранить
@@ -149,11 +150,12 @@
                                 <div class="address_info_zag" style="margin-right: 13px">
                                     Адрес:
                                 </div>
-                                <div class="address_info_zag address_address_user" >
+                                <div class="address_info_zag address_address_user">
                                     г.Воронеж, ул.Урыского, 2В
                                 </div>
                             </div>
-                            <div class="catalog_flex info" style="border-bottom: 0;margin-top:10px; position: absolute; bottom: 0; width: 95%">
+                            <div class="catalog_flex info"
+                                 style="border-bottom: 0;margin-top:10px; position: absolute; bottom: 0; width: 95%">
                                 <div class="all_catalog_href btn_change_address"
                                      style="background: #FFFFFF; color:#293048;height:70px;margin-right:10px;">
                                     Изменить
@@ -225,7 +227,8 @@
                         <div class="catalog_flex" style="align-items: normal;justify-content: normal">
                             <div class="small_product_card" style="margin-right:15px;">
                                 <a class="small_product_place">
-                                    <img src="../static/img/slider_img.png" class="small_product_img" alt="История заказов">
+                                    <img src="../static/img/slider_img.png" class="small_product_img"
+                                         alt="История заказов">
                                 </a>
                             </div>
                             <div>
@@ -248,14 +251,6 @@
 {% include 'pc_utilites.html' %}
 <script>
 
-
-
-
-
-
-    /* Получение пользователя */
-
-    DrawInfoUser();
 
     mapingItem();
 
@@ -283,6 +278,8 @@
         }
     }
 
+
+    DrawInfoUser();
 
     function DrawInfoUser() {
         your_name.value = user['name'];
@@ -312,7 +309,7 @@
                         inputs_ad[i].classList.remove('error');
                     }
                 }
-                box.id = '';
+                box.removeAttribute('id');
                 box.classList.add('delete_address');
                 let data_address = box.getElementsByClassName('data_address')[0];
                 let name_address_user = box.getElementsByClassName('name_address_user')[0];
@@ -331,7 +328,9 @@
                     address.value = user['addresses'][i]['address'];
                     name_address.value = user['addresses'][i]['name'];
                     let address_data = '';
+
                     $(address).suggestions({
+
                         token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
                         type: "ADDRESS",
                         constraints: {
@@ -342,25 +341,23 @@
                         /* Вызывается, когда пользователь выбирает одну из подсказок */
                         onSelect: function (suggestion) {
                             if (Number(suggestion['data']['fias_level']) < 8) {
-                                notification('Укажите точный адрес', 1);
-                                return;
+                                return notification('Укажите точный адрес', 1);
                             }
                             address_data = suggestion['value'];
                         },
                         restrict_value: true
                     });
+
                     btn_save.onclick = function () {
                         if (address.value === '' || name_address.value === '') {
                             let inputs = box.getElementsByClassName('popup_input');
                             for (let i = 0; i < inputs.length; i++) {
                                 inputs[i].classList.add('error');
                             }
-                            notification('Заполните все обязательные поля', 1);
-                            return;
+                            return notification('Заполните все обязательные поля', 1);
                         }
                         if (address.value === user['addresses'][i]['address'] && name_address.value === user['addresses'][i]['name']) {
-                            notification('Вы ничего не поменяли', 1);
-                            return;
+                            return notification('Вы ничего не поменяли', 1);
                         }
                         changeAddress(name_address.value, address_data, user['addresses'][i]['id'])
                     }
@@ -373,7 +370,6 @@
                 address_place.append(box);
             }
         }
-
         // Вывод адресов или, если ещё нет адресов, то вывод блоков с возможностью добавлять адреса
         for (let i = 0; i < 3 - user['addresses'].length; i++) {
             let box = address_item.cloneNode(true);
@@ -383,7 +379,7 @@
                     inputs_ad[i].classList.remove('error');
                 }
             }
-            box.id = '';
+            box.removeAttribute('id');
             box.classList.add('delete_address');
             let icon = box.getElementsByClassName('right_nav_place')[0];
             let btn_add = box.getElementsByClassName('blog_item_text_read')[0];
@@ -397,26 +393,23 @@
             btn_add.onclick = function () {
                 completed_address.style.display = 'block';
             }
-            let address_data = '';
-
+            let new_address_data = '';
             $(address).suggestions({
                 token: "d7c6a83bc23ad5b151e8e6d4c6e6d6ffc5e17051",
                 type: "ADDRESS",
                 constraints: {
                     locations: {
-                        kladr_id: "3600000100000"
+                        kladr_id: "3600000100000",
                     }
                 },
                 /* Вызывается, когда пользователь выбирает одну из подсказок */
                 onSelect: function (suggestion) {
-                    console.log('Дашло 2');
                     if (Number(suggestion['data']['fias_level']) < 8) {
-                        notification('Укажите точный адрес', 1);
-                        return;
+                        return notification('Укажите точный адрес', 1);
                     }
-                    address_data = suggestion['value'];
+                    new_address_data = suggestion['value'];
                 },
-                restrict_value: true
+                restrict_value: true,
             });
 
             btn_save.onclick = function () {
@@ -425,11 +418,9 @@
                     for (let i = 0; i < inputs.length; i++) {
                         inputs[i].classList.add('error');
                     }
-                    notification('Заполните обязательные поля', 1);
-                    return;
+                    return notification('Заполните обязательные поля', 1);
                 }
-                addAddress(name_address.value, address_data);
-
+                addAddress(name_address.value, new_address_data);
             }
             box.style.display = 'inline-block';
             address_place.append(box);
@@ -470,7 +461,7 @@
                     console.log(msg);
                     let uuid = msg['message']['avatar'];
                     console.log(uuid);
-                    avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + uuid;
+                    avatar_img.src = '/storage/' + uuid;
                     GetUser();
                 }
             });

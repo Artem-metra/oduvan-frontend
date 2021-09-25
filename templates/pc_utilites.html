@@ -68,7 +68,8 @@
         <div class="info_popup">
             Свежие букеты уже ждут вас
         </div>
-        <input class="popup_input authorization_input phone_number" type="tel" placeholder="+7 (__) __-__-_" id="phone_user_auth">
+        <input class="popup_input authorization_input phone_number" type="tel" placeholder="+7 (__) __-__-_"
+               id="phone_user_auth">
         <input class="popup_input authorization_input" type="number" placeholder="Введите пароль"
                id="password_user_auth"
                style="display: none;">
@@ -128,7 +129,7 @@
                     <!--<span class="fa fa-chevron-down"></span>-->
                 </div>
                 <div style="position: relative">
-                    <div class="catalog_flex"  id="choose_delivery">
+                    <div class="catalog_flex" id="choose_delivery">
                         <div class="address_info_zag">
                             Выберите способ доставки
                         </div>
@@ -698,12 +699,11 @@
     /* Отрисовка товара */
     function createProduct(product) {
         let box = document.getElementById('card_product').cloneNode(true);
-        box.id = '';
+        box.removeAttribute('id');
         box.className = 'slider_item_card delete_card';
         let img = box.getElementsByClassName('slider_img')[0];
         let name = box.getElementsByClassName('slider_name_bucket')[0];
         let price = box.getElementsByClassName('price')[0];
-
         let place_for_favor = box.getElementsByClassName('right_nav_item')[0];
         let href = box.getElementsByClassName('slider_item_card_img_place')[0];
         let discount_text = box.getElementsByClassName('discount_text')[0];
@@ -716,6 +716,9 @@
         let input = box.getElementsByClassName('product_counter_inp')[0];
         let minus_counter = box.getElementsByClassName('minus_counter')[0];
         let add_to_basket = box.getElementsByClassName('add_to_basket_card')[0];
+        box.getElementsByClassName('product_counter_inp')[0].addEventListener('keyup', function () {
+            this.value = this.value.replace(/[^0-9.]/g, "")
+        });
         input.value = Number(product['q_count']);
         img.src = '/storage/' + product['photos'][0];
         img.alt = product['name'];
@@ -750,9 +753,7 @@
                 place_for_favor.innerHTML = '<span class="fas fa-heart _active"></span>';
                 AddLikeds(product['id']);
             }
-
         }
-
         // Если продукт в корзине
         if (product['q_count'] > 0) {
             box.classList.add('in_basket');
@@ -1019,7 +1020,6 @@
     function drawBasket(products) {
         for (let i = 0; i < products.length; i++) {
             let box = createProductBasket(products[i]);
-
             box.classList.add('delete_basket');
             box.style.display = 'block';
             basket_items_place.style.display = 'block';
@@ -1033,7 +1033,7 @@
     // Функция создания блоков в корзине
     function createProductBasket(product) {
         let box = document.getElementById('basket_item').cloneNode(true);
-        box.id = '';
+        box.removeAttribute('id');
         let href = box.getElementsByClassName('small_product_place')[0];
         let img = box.getElementsByClassName('small_product_img')[0];
         let name = box.getElementsByClassName('bucket_na_zakaz')[0];
@@ -1046,6 +1046,9 @@
         img.src = '/storage/' + product['photos'][0];
         img.alt = product['name'];
         name.innerText = product['name'];
+        box.getElementsByClassName('product_counter_inp')[0].addEventListener('keyup', function () {
+            this.value = this.value.replace(/[^0-9.]/g, "")
+        });
         input.value = Number(product['q_count']);
         // Счётчик
         input.onchange = function () {

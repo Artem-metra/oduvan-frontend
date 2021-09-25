@@ -767,7 +767,6 @@
 
     function sendComment() {
         let textar = document.getElementsByClassName('comment_textarea')[0];
-
         if (textar.value === '') {
             textar.classList.add('empty_comment');
             return notification('Заполните обязательные поля!', 1);
@@ -781,8 +780,7 @@
             data: data,
             success: function (msg) {
                 console.log(msg);
-
-                {#if(msg.status === 'ok') return notification('Спасибо за ваш комментарий!', 2);#}
+                if(msg.status === 'ok') return notification('Спасибо за ваш комментарий!', 2);
             }
         })
     }

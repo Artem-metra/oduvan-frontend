@@ -129,9 +129,6 @@
 
     }
 
-
-
-
     loadFavorites()
 
     /* Правильная подгрузка продуктов */
@@ -141,12 +138,13 @@
             url: '/api/user/list_likes',
             type: "GET",
             success: function (msg) {
+                console.log(msg);
                 if (msg['status'] === 'error') {
                     basket_place.style.display = 'block';
                     catalog.style.display = 'none';
                     empty_basket_createorder.style.display = 'block';
                     Preloader(0);
-                } else if (msg['message']['products'].length === 0) {
+                } else if (!msg['message']['products'].length) {
                     basket_place.style.display = 'block';
                     empty_basket_createorder.style.display = 'block';
                     catalog.style.display = 'none';

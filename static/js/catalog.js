@@ -9,7 +9,6 @@ let paginations = 0;
 let first_loaded = false;
 
 
-
 function Preloader(status) {
     if (status === 1) {
         document.getElementById('preloader').style.display = 'block';
@@ -22,12 +21,10 @@ function Preloader(status) {
 }
 
 function EmptyProducts() {
-        message_for_empty.innerText = 'Товаров не найдено';
-        Preloader(1);
-        document.getElementById('lds-roller').style.display = 'none';
+    message_for_empty.innerText = 'Товаров не найдено';
+    Preloader(1);
+    document.getElementById('lds-roller').style.display = 'none';
 }
-
-
 
 
 getCategories();
@@ -49,23 +46,34 @@ function getCategories() {
         }
     });
 }
+
 function drawTopCategories(msg) {
 
     for (let i = 0; i < msg.length; i++) {
         meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg[i]['name']);
-            let div = document.createElement('div');
-            let item = document.createElement('a');
-            item.href = 'catalog?category_id=' + msg[i]['id'];
-            msg[i]['id'] === id ? item.className = 'catalog_zag _active_cat' : item.className = 'catalog_zag';
-            item.innerText = msg[i]['name'];
-            div.appendChild(item);
-            place_top_cats.append(div);
+        let div = document.createElement('div');
+        let item = document.createElement('a');
+        item.href = 'catalog?category_id=' + msg[i]['id'];
+        msg[i]['id'] === id ? item.className = 'catalog_zag _active_cat' : item.className = 'catalog_zag';
+        item.innerText = msg[i]['name'];
+        div.appendChild(item);
+        place_top_cats.append(div);
     }
 }
 
 
 function drawCategories(msg) {
     let breadcoast = BreadCoast(id);
+    // Активная сортировка
+    let inputs = document.getElementsByClassName('sorted_po');
+    for (let i = 0; i < inputs.length; i++) {
+        if (i + 1 !== sorted_type) {
+            inputs[i].style.display = 'block';
+        } else {
+            inputs[i].style.display = 'none';
+        }
+        if (sorted_type === i + 1) active_sorted.innerText = inputs[i].getAttribute('placeholder');
+    }
     for (let i = 0; i < msg.length; i++) {
         if (msg[i]['q_product_count'] !== 0) {
             let category = catalog_category_card.cloneNode(true);
@@ -203,7 +211,7 @@ function loadFlowers() {
             // drawFlowers(msg['message']);
             // Хлебные крошки
             let breadcoast = BreadCoast(id);
-            if(sub_category === 0)  place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
+            if (sub_category === 0) place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
             else place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="delete_cat">${breadcoast[0]}</a>`
                 + '<span class="delete_slash" style="font-size: 35px"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${sub_category}" class="active_page delete_subcat">${name_sub_category}</a>`;
 
@@ -214,7 +222,7 @@ function loadFlowers() {
 let check_flowers = false;
 
 function drawFlowers(flower) {
-    if(check_flowers) return;
+    if (check_flowers) return;
     for (let i = 0; i < flower.length; i++) {
         meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + flower[i]['name']);
         let fl = choose_flower.cloneNode(true);
@@ -243,7 +251,7 @@ function drawFlowers(flower) {
 }
 
 
-if(id === 1) loadPackages();
+if (id === 1) loadPackages();
 
 function loadPackages() {
     $.ajax({
@@ -282,8 +290,6 @@ function drawPackages(packages) {
 }
 
 
-
-
 startsorting.onclick = function () {
     startSorting();
 }
@@ -306,7 +312,6 @@ function startSorting() {
     cost_end = Number(price_max.value);
     loadProducts();
 }
-
 
 
 function drawProducts(msg) {
@@ -400,12 +405,9 @@ function maxPrice() {
 }
 
 
-
-
-
 appear_about_pressing.style.display = 'none';
 sorted_select_items_list.style.display = 'none';
-filter_place.onclick = function (){
+filter_place.onclick = function () {
     let inputs = document.getElementsByClassName('sorted_po');
     for (let i = 0; i < inputs.length; i++) {
         if (i + 1 !== sorted_type) {
@@ -421,17 +423,17 @@ filter_place.onclick = function (){
         }
     }
     let display = appear_about_pressing.style.display;
-    if(display === 'none'){
+    if (display === 'none') {
         appear_about_pressing.style.display = 'block';
         my_class_img.style.transform = 'rotate(180deg)';
         my_class_img.style.transition = 'transform .3s';
-    }else {
+    } else {
         appear_about_pressing.style.display = 'none';
         my_class_img.style.transform = 'rotate(0deg)';
         my_class_img.style.transition = 'transform .3s';
     }
 
-    if(sorted_select_items_list.style.display === 'none'){
+    if (sorted_select_items_list.style.display === 'none') {
         sorted_select_items_list.style.display = 'block';
         // sorted_select_items.style.top = '35px';
         // sorted_select_items.style.right = '10px';
@@ -439,7 +441,7 @@ filter_place.onclick = function (){
         // my_privat_mar.style.marginTop = '-180px';
         // height_increase.style.width = '50%';
 
-    }else {
+    } else {
         sorted_select_items_list.style.display = 'none';
         // height_increase.style.height = '0';
         // height_increase.style.height = '180px';
