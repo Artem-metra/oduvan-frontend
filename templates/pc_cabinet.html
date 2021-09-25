@@ -470,7 +470,7 @@
                     console.log(msg);
                     let uuid = msg['message']['avatar'];
                     console.log(uuid);
-                    avatar_img.src = 'http://b-ws.ru:1001/get?uuid=' + uuid;
+                    avatar_img.src = '/storage/' + uuid;
                     GetUser();
                 }
             });
