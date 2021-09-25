@@ -98,7 +98,8 @@
             Свежие букеты уже ждут вас
         </div>
         <div style="display: flex; justify-content: center; height: 100px;">
-            <input class="popup_input authorization_input phone_number" type="tel" style="width: 90%" placeholder="+7 (__) __-__-_"
+            <input class="popup_input authorization_input phone_number" type="tel" style="width: 90%"
+                   placeholder="+7 (__) __-__-_"
                    id="phone_user_auth">
         </div>
         <div style="display: flex; justify-content: center">
@@ -745,7 +746,7 @@
     /* Отрисовка товара */
     function createProduct(product) {
         let box = document.getElementById('card_product').cloneNode(true);
-        box.id = '';
+        box.removeAttribute('id');
         box.className = 'slider_item_card delete_card';
         let img = box.getElementsByClassName('slider_img')[0];
         let name = box.getElementsByClassName('slider_name_bucket')[0];
@@ -762,9 +763,11 @@
         let plus_counter = box.getElementsByClassName('plus_counter')[0];
         let input = box.getElementsByClassName('product_counter_inp')[0];
         let minus_counter = box.getElementsByClassName('minus_counter')[0];
-
         let add_to_basket = box.getElementsByClassName('add_to_basket_card')[0];
         input.value = Number(product['q_count']);
+        box.getElementsByClassName('product_counter_inp')[0].addEventListener('keyup', function () {
+            this.value = this.value.replace(/[^0-9.]/g, "")
+        });
         img.src = '/storage/' + product['photos'][0];
         img.alt = product['name'];
         name.innerText = product['name'];
@@ -1079,7 +1082,7 @@
     // Функция создания блоков в корзине
     function createProductBasket(product) {
         let box = document.getElementById('basket_item').cloneNode(true);
-        box.id = '';
+        box.removeAttribute('id');
         let href = box.getElementsByClassName('small_product_place')[0];
         let img = box.getElementsByClassName('small_product_img')[0];
         let name = box.getElementsByClassName('bucket_na_zakaz')[0];
@@ -1092,6 +1095,9 @@
         img.src = '/storage/' + product['photos'][0];
         img.alt = product['name'];
         name.innerText = product['name'];
+        box.getElementsByClassName('product_counter_inp')[0].addEventListener('keyup', function () {
+            this.value = this.value.replace(/[^0-9.]/g, "")
+        });
         input.value = Number(product['q_count']);
         // Счётчик
         input.onchange = function () {
