@@ -772,14 +772,14 @@
             return notification('Заполните обязательные поля!', 1);
         }
         let data = {
-            'hz_kak': textar.value
+            'text': textar.value
         }
         $.ajax({
-            url: '',
+            url: '/api/comment/create',
             type: "GET",
             data: data,
             success: function (msg) {
-                console.log(msg);
+                textar.value = '';
                 if(msg.status === 'ok') return notification('Спасибо за ваш комментарий!', 2);
             }
         })
