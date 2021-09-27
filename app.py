@@ -12,6 +12,7 @@ from maps.MapDelivery import delivery_app
 from maps.MapFlower import flower_app
 from maps.MapOrder import order_app
 from maps.MapPackage import package_app
+from maps.MapComments import comment_app
 from maps.MapPayment import payment_app
 from maps.MapPosition import position_app
 from maps.MapProduct import product_app
@@ -25,6 +26,7 @@ app.secret_key = 'testing secret key'
 
 app.register_blueprint(promo_code_app)
 app.register_blueprint(category_app)
+app.register_blueprint(comment_app)
 app.register_blueprint(product_app)
 app.register_blueprint(basket_app)
 app.register_blueprint(deal_app)
