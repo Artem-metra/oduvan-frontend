@@ -48,7 +48,6 @@ function getCategories() {
 }
 
 function drawTopCategories(msg) {
-
     for (let i = 0; i < msg.length; i++) {
         meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg[i]['name']);
         let div = document.createElement('div');
@@ -63,6 +62,7 @@ function drawTopCategories(msg) {
 
 
 function drawCategories(msg) {
+    $('.remove_subcat').remove();
     let breadcoast = BreadCoast(id);
     // Активная сортировка
     let inputs = document.getElementsByClassName('sorted_po');
@@ -70,18 +70,23 @@ function drawCategories(msg) {
         if (i + 1 !== sorted_type) {
             inputs[i].style.display = 'block';
         } else {
-            inputs[i].style.display = 'none';
+            inputs[i].classList.add('_active_btn');
         }
-        if (sorted_type === i + 1) active_sorted.innerText = inputs[i].getAttribute('placeholder');
     }
+    if (sub_category === 0) place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
     for (let i = 0; i < msg.length; i++) {
         if (msg[i]['q_product_count'] !== 0) {
             let category = catalog_category_card.cloneNode(true);
             category.removeAttribute('id');
+            category.classList.add('remove_subcat');
             let cat_name = category.getElementsByClassName('catalog_category_item')[0];
             cat_name.innerText = msg[i]['name'];
+
             if (sub_category === msg[i]['id']) {
                 name_sub_category = msg[i]['name'];
+                place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="delete_cat">${breadcoast[0]}</a>`
+                + '<span class="delete_slash" style="font-size: 35px"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${sub_category}" class="active_page delete_subcat">${name_sub_category}</a>`;
+                console.log(name_sub_category);
                 cat_name.classList.add('_active');
                 vse.classList.remove('_active');
             }
@@ -102,7 +107,7 @@ function drawCategories(msg) {
                 loadProducts();
             }
             category.onclick = function () {
-                if (sub_category === msg[i]['id']) return
+                if (sub_category === msg[i]['id']) return;
                 sub_category = msg[i]['id'];
                 document.getElementsByClassName('active_page')[0].classList.remove('active_page');
                 // document.getElementsByClassName('active_page')[0].classList.add('active_page');
@@ -186,38 +191,6 @@ function loadProducts() {
     }
 }
 
-
-// let packages = document.getElementsByClassName('packages_inp');
-// for (let i = 0; i < packages.length; i++) {
-//     packages[i].onchange = function () {
-//
-//         if (packages[i].checked) {
-//             packaging.push(Number(packages[i].value));
-//         } else {
-//             packaging = removeItemAll(packaging, Number(packages[i].value));
-//         }
-//         console.log(packaging);
-//     }
-// }
-
-loadFlowers();
-
-function loadFlowers() {
-    filter_place.style.display = 'block';
-    $.ajax({
-        url: '/api/flowers/get',
-        type: 'GET',
-        success: function (msg) {
-            // drawFlowers(msg['message']);
-            // Хлебные крошки
-            let breadcoast = BreadCoast(id);
-            if (sub_category === 0) place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
-            else place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="delete_cat">${breadcoast[0]}</a>`
-                + '<span class="delete_slash" style="font-size: 35px"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${sub_category}" class="active_page delete_subcat">${name_sub_category}</a>`;
-
-        }
-    })
-}
 
 let check_flowers = false;
 
@@ -405,21 +378,15 @@ function maxPrice() {
 }
 
 
-appear_about_pressing.style.display = 'none';
-sorted_select_items_list.style.display = 'none';
 filter_place.onclick = function () {
     let inputs = document.getElementsByClassName('sorted_po');
     for (let i = 0; i < inputs.length; i++) {
-        if (i + 1 !== sorted_type) {
-            inputs[i].style.display = 'block';
-        } else {
-            inputs[i].style.display = 'none';
-        }
+
         inputs[i].onclick = function () {
+            document.getElementsByClassName('_active_btn')[0].classList.remove('_active_btn')
             sorted_type = i + 1;
+            inputs[i].classList.add('_active_btn');
             sorted_select_items_list.className = '';
-            chevron_list.classList.remove('_active');
-            active_sorted.innerText = inputs[i].getAttribute('placeholder');
         }
     }
     let display = appear_about_pressing.style.display;
@@ -435,17 +402,8 @@ filter_place.onclick = function () {
 
     if (sorted_select_items_list.style.display === 'none') {
         sorted_select_items_list.style.display = 'block';
-        // sorted_select_items.style.top = '35px';
-        // sorted_select_items.style.right = '10px';
-        // height_increase.style.height = '180px';
-        // my_privat_mar.style.marginTop = '-180px';
-        // height_increase.style.width = '50%';
 
     } else {
         sorted_select_items_list.style.display = 'none';
-        // height_increase.style.height = '0';
-        // height_increase.style.height = '180px';
-        // my_privat_mar.style.marginTop = '-180px';
-        // height_increase.style.width = '50%';
     }
 }

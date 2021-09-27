@@ -35,98 +35,21 @@
             <div class="filters_place" id="filter_place" style="margin-bottom: 25px; display: none">
                 Фильтры и сортировка<span class="fa fa-chevron-down my_class_img" id="my_class_img"></span>
             </div>
-            <!--            <div class="sorted_place" style="display: inherit">-->
-            <!--                Сортировка:#}-->
-            <!--                <div class="pressing_on_arrow_name" id="pressing_on_arrow_name" style="margin-left: 15px">-->
-            <!--                    <span class="active_sort">Название</span><span class="fa fa-chevron-down" id="my_class_cher"></span>#}</div>#}-->
-            <!--            </div>-->
         </div>
 
-        <div id="sorted_select_items_list">
+        <div id="sorted_select_items_list" style="display: none;">
             <div class="sorted_select_items">
-                <input class="sorted_select_item sorted_po" placeholder="По названию" readonly>
-                <input class="sorted_select_item sorted_po" placeholder="По возрастанию цены" readonly>
-                <input class="sorted_select_item sorted_po" placeholder="По убыванию цены" readonly>
-                <input class="sorted_select_item sorted_po" placeholder="По размеру скидки" readonly>
-                <input class="sorted_select_item sorted_po" placeholder="Самые популярные" readonly>
+                <input class="sorted_select_item sorted_po _active_btn" placeholder="По названию" readonly />
+                <input class="sorted_select_item sorted_po" placeholder="По возрастанию цены" readonly />
+                <input class="sorted_select_item sorted_po" placeholder="По убыванию цены" readonly />
+                <input class="sorted_select_item sorted_po" placeholder="По размеру скидки" readonly />
+                <input class="sorted_select_item sorted_po" placeholder="Самые популярные" readonly />
             </div>
         </div>
 
 
-        <!--        <div class="sorted_text" style="display: block" id="sorted_text">-->
-        <!--            <div id="sorted_place">-->
-        <!--                <div class="catalog_flex" style="padding: 0;">-->
-        <!--                    <div class="sorted_select_item nohover" style="color: #293048;border-bottom: 0;width: 45%;height: 100%;">-->
-        <!--                        Сортировка:-->
-        <!--                    </div>-->
-        <!--                    <div class="catalog_flex" style="padding:0">-->
-        <!--                        <div class="sorted_text_select" id="active_sorted">-->
-        <!--                            По названию-->
-        <!--                        </div>-->
-        <!--                        <div id="chevron_for_list"><span class="fa fa-chevron-down" id="chevron_list"></span>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
 
-
-        <!-- Место для вывода карточек -->
-        <!--        <div id="item_card_place" style="padding:35px 0; display: block;">-->
-        <!--            &lt;!&ndash; Одна карточка &ndash;&gt;-->
-        <!--            <div class="card_item">-->
-        <!--                <div class="add_to_favorites">-->
-        <!--                    <div class="right_nav_place">-->
-        <!--                        <div class="right_nav_item">-->
-        <!--                            <span class="far fa-heart"></span>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--                <div class="discount_place">-->
-        <!--                    <div class="percent_place">-->
-        <!--                        <span class="fa fa-percent"></span>-->
-        <!--                    </div>-->
-        <!--                    <div class="discount_text">-->
-        <!--                        20% скидка-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--                <div class="card_img_place">-->
-        <!--                    <img src="../static/img/mobile_catalog.png">-->
-        <!--                </div>-->
-        <!--                <div class="card_text">-->
-        <!--                    <div class="catalog_flex_catalog" style="align-items: center;justify-content: space-between">-->
-        <!--                        <div>-->
-        <!--                            <div class="name_bucket">Букет "Индиго"</div>-->
-        <!--                            <div class="price_bucket have_disc">-->
-        <!--                                5400 Р-->
-        <!--                            </div>-->
-        <!--                            <div class="disc_price_bucket">-->
-        <!--                                2 600 Р-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                        <div class="add_to_basket_card">-->
-        <!--                            <span class="fas fa-shopping-bag"></span>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--                <div class="added_product" style="display: none">-->
-        <!--                    <div>-->
-        <!--                        <span class="fa fa-minus"></span>-->
-        <!--                    </div>-->
-        <!--                    <div>-->
-        <!--                        В корзине: 1-->
-        <!--                    </div>-->
-        <!--                    <div>-->
-        <!--                        <span class="fa fa-plus"></span>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--                <div class="in_basket">-->
-
-        <!--                </div>-->
-        <!--            </div>-->
-
-
-        <div class="appear_about_pressing" id="appear_about_pressing">
+        <div class="appear_about_pressing" id="appear_about_pressing" style="display:none">
             <div class="appear_about_pressing_left">
                 <div class="sorted_zag" id="my_privat_mar" style="font-size: 50px; margin-bottom: 20px;">
                     Цена
@@ -145,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="range" id="price_controller" min="0" max="100000"
+                <input type="range" id="price_controller" min="" max=""
                        style="width: 73%; margin-top: 25px;margin-bottom: 25px">
                 <div id="flowers_place">
                     <div class="choose_flower" id="choose_flower" style="display: none; font-size: 40px">

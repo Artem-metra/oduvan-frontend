@@ -26,13 +26,12 @@ function EmptyProducts() {
     document.getElementById('lds-roller').style.display = 'none';
 }
 
-
+getCategories();
 loadProducts();
 
 /* Правильная подгрузка продуктов */
 function loadProducts() {
     Preloader(1);
-    getCategories();
     $('.delete_card').remove();
     let data = {
         'category_id': id,
@@ -94,7 +93,8 @@ function loadProducts() {
 
 // Получим категории
 function getCategories() {
-    if (!first_loaded) {
+    console.log(first_loaded_cat)
+    if(first_loaded_cat === false){
         minPrice();
         maxPrice();
     }
@@ -131,7 +131,6 @@ function drawTopCategories(msg) {
 function drawCategories(msg) {
     $('.remove_subcat').remove();
     let breadcoast = BreadCoast(id);
-
     // Активная сортировка
     let inputs = document.getElementsByClassName('sorted_po');
     for (let i = 0; i < inputs.length; i++) {
@@ -142,7 +141,7 @@ function drawCategories(msg) {
         }
         if (sorted_type === i + 1) active_sorted.innerText = inputs[i].getAttribute('placeholder');
     }
-
+    if (sub_category === 0) place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
     for (let i = 0; i < msg.length; i++) {
         meta_keywords.setAttribute('content', meta_keywords.getAttribute('content') + ',' + msg[i]['name']);
         if (msg[i]['q_product_count'] !== 0) {
@@ -154,6 +153,8 @@ function drawCategories(msg) {
 
             if (sub_category === msg[i]['id']) {
                 name_sub_category = msg[i]['name'];
+                place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="delete_cat">${breadcoast[0]}</a>`
+                + '<span class="delete_slash"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${sub_category}" class="active_page delete_subcat">${name_sub_category}</a>`;
                 cat_name.classList.add('_active');
                 vse.classList.remove('_active');
             }
@@ -223,24 +224,7 @@ function outdoingListCatalog() {
 
 }
 
-loadFlowers();
 
-function loadFlowers() {
-    flowers_zag.style.display = 'block';
-    $.ajax({
-        url: '/api/flowers/get',
-        type: 'GET',
-        success: function (msg) {
-            // drawFlowers(msg['message']);
-            // Хлебные крошки
-            let breadcoast = BreadCoast(id);
-            if (sub_category === 0) place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="active_page delete_cat">${breadcoast[0]}</a>`;
-            else place_bread.innerHTML += ' / ' + `<a href="/catalog?category_id=${id}" class="delete_cat">${breadcoast[0]}</a>`
-                + '<span class="delete_slash"> / </span>' + `<a href="/catalog?category_id=${id}&sub_category=${sub_category}" class="active_page delete_subcat">${name_sub_category}</a>`;
-
-        }
-    })
-}
 
 let check_flowers = false;
 
@@ -370,7 +354,7 @@ function drawProducts(msg) {
 function minPrice() {
     let start_cost = 0;
     let data = {
-        'sub_category': sub_category,
+        'sub_category': 0,
         'category_id': id,
     }
     $.ajax({
@@ -411,7 +395,7 @@ function minPrice() {
 function maxPrice() {
     let endcost = 0;
     let data = {
-        'sub_category': sub_category,
+        'sub_category': 0,
         'category_id': id,
     }
     $.ajax({
@@ -422,7 +406,7 @@ function maxPrice() {
         success: function (msg) {
             endcost = msg['message']['max_cost'];
             price_max.value = endcost;
-            price_controller.setAttribute('max', Number(msg['message']['max_cost']));
+            price_controller.setAttribute('max', Number(endcost));
             price_controller.value = endcost;
             /* Проверки при изменении цены */
             price_max.onchange = function () {

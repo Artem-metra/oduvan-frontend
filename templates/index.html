@@ -244,7 +244,7 @@
             <div class="individual_order_info_text_info">
                 <div class="bucket_na_zakaz" style="margin-top: 20px; margin-bottom: 20px;">Обратная связь</div>
                 <h3 class="individual_zakaz">Расскажите о качестве услуг</h3>
-                <textarea class="comment_textarea"
+                <textarea class="comment_textarea" id="textar"
                           placeholder="Всё ли вам понравилось? Есть ли замечания к магазину?"></textarea>
                 <div style="display: flex;margin: 0 auto;justify-content: center">
                     <div class="all_catalog_href" id="send_comment"
@@ -358,7 +358,6 @@
                         inputs[i].classList.remove('error');
                     }
                 }
-                let textar = document.getElementsByClassName('empty_comment')[0];
                 textar.oninput = function () {
                     textar.classList.remove('empty_comment');
                 }
@@ -561,7 +560,6 @@
 
 
     function sendComment() {
-        let textar = document.getElementsByClassName('comment_textarea')[0];
         if (textar.value === '') {
             textar.classList.add('empty_comment');
             return notification('Заполните обязательные поля!', 1);
