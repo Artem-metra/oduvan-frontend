@@ -15,5 +15,5 @@ def api_comments_get():
 
 
 @comment_app.route('/api/comments/remove')
-def api_comments_get():
+def api_comments_remove():
      return utils.complete_request(request, request.path)
