@@ -12,7 +12,7 @@
 
 <!-- Первый блок на главной -->
 <div class="main_background">
-    <img src="../static/img/main_mobile_bg.png" class="main_background_img" alt="Главная картинка">
+    <img src="/static/img/main_mobile_bg.png" class="main_background_img" alt="Главная картинка">
     <div class="main_background_text">
         <h1 class="main_zag">
             ДОСТАВКА <br> БУКЕТОВ
@@ -372,7 +372,9 @@
             <div class="blog_item_main" style="margin-right: 0; width: auto;">
                 <div class="blog_item"  style="width: 800px; min-height: 650px">
                     <div class="blog_item_info">
-                        <img style="width: 100%; max-height: 850px;" src="${article.image}" alt="${article.title}">
+                        <div class="blog-image-overlay">
+                            <img src="/storage/${article.image}" alt="${article.title}">
+                        </div>
                             <div class="blog_item_text">
                                 <div class="blog_item_text_zag">
                                     ${article.title}

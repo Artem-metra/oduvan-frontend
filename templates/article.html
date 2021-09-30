@@ -76,7 +76,9 @@
             <div class="blog_item_main" style="margin-right: 0; width: auto;">
                 <div class="blog_item"  style="width: 800px;">
                     <div class="blog_item_info">
-                        <img style="width: 100%; max-height: 850px" src="${'/storage/' + article.image}" alt="${article.title}">
+                        <div class="blog-image-overlay">
+                            <img style="width: 100%; max-height: 850px" src="${'/storage/' + article.image}" alt="${article.title}">
+                        </div>
                             <div class="blog_item_text">
                                 <div class="blog_item_text_zag">
                                     ${article.title}
