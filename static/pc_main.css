@@ -1317,6 +1317,7 @@ position: absolute;
 .blog_item_info img {
     height: 100%;
     width: 45%;
+    object-fit: cover;
 }
 
 #blog_one .blog_item_text {
