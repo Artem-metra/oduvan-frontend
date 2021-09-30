@@ -586,7 +586,6 @@
     loadMainCategory();
 
     function loadMainCategory() {
-
         $.ajax({
             url: '/api/categories/get_for_main',
             type: "GET",
@@ -644,7 +643,6 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
-
             success: function (msg) {
                 createSlider(msg['message']['products'], 'swiper_place');
             }
