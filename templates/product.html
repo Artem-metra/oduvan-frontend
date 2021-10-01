@@ -168,7 +168,7 @@
 <div class="individual_order" style="height: 1800px">
     <div class="individual_order_info" style="height: 1700px;">
         <div class="individual_order_info_text_img">
-            <img src="../static/img/individual_img.png" style="height: 700px;" alt="Индивидуальный заказ букетов">
+            <img src="/static/img/individual_img.png" style="height: 700px; object-fit: cover;" alt="Индивидуальный заказ букетов">
         </div>
         <div class="individual_order_info_text" style="display: block">
             <div class="individual_order_info_text_info" style="padding: 80px 0">
@@ -364,11 +364,10 @@
 
         // Выводим детали товара
         for (let i = 0; i < msg['flowers'].length; i++) {
-            if (i > 0) {
-                flowers_product.innerText += ', ' + msg['flowers'][i]['name'];
-            } else {
-                flowers_product.innerText += ' ' + msg['flowers'][i]['name'];
+            if (!msg['flowers'][i]) {
+                continue;
             }
+            flowers_product.innerText += ', ' + msg['flowers'][i]['name'];
         }
 
         if (msg['packages'].length < 1) {
